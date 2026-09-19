@@ -69,9 +69,9 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .section-title{max-width:1400px;margin:30px auto 15px;padding:0 15px;font-size:22px;font-weight:800;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
 .section-title small{font-size:13px;color:var(--text2);font-weight:500}
 .products{max-width:1400px;margin:0 auto;padding:0 15px 50px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:15px}
-.product-card{background:var(--card);border-radius:12px;overflow:hidden;transition:.2s;display:flex;flex-direction:column;color:var(--text)}
+.product-card{background:var(--card);border-radius:12px;overflow:hidden;transition:.2s;display:flex;flex-direction:column;color:var(--text);background-size:cover;background-position:center}
 .product-card:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,.15)}
-.product-image{width:100%;height:180px;background:var(--accent-l);display:flex;align-items:center;justify-content:center;font-size:70px;position:relative;cursor:pointer;overflow:hidden}
+.product-image{width:100%;height:180px;background:var(--accent-l);display:flex;align-items:center;justify-content:center;font-size:70px;position:relative;cursor:pointer;overflow:hidden;background-size:cover;background-position:center}
 .favorite{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.9);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;z-index:3;border:none}
 .delete-product{position:absolute;top:8px;right:44px;background:rgba(255,255,255,.9);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;z-index:3;border:none}
 .delete-product:hover{background:var(--danger);color:#fff}
@@ -130,7 +130,7 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .emoji-option.selected{border-color:var(--accent);background:var(--accent-l)}
 .product-modal-content{max-width:900px}
 .product-detail{display:grid;grid-template-columns:1fr 1fr;gap:25px}
-.product-detail-image{background:var(--accent-l);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:150px;min-height:280px;position:relative;overflow:hidden}
+.product-detail-image{background:var(--accent-l);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:150px;min-height:280px;position:relative;overflow:hidden;background-size:cover;background-position:center}
 .product-detail-image .rarity{top:12px;left:12px;bottom:auto}
 .product-detail-info h2{font-size:20px;margin-bottom:10px;word-break:break-word;color:var(--text)}
 .seller-card{background:var(--soft);border-radius:10px;padding:11px 13px;margin-bottom:13px;display:flex;align-items:center;gap:10px;cursor:pointer}
@@ -182,6 +182,8 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .chat-input-row button{background:var(--accent);color:#fff;border:none;padding:0 16px;border-radius:10px;font-size:15px;cursor:pointer;font-weight:700}
 .action-btn{width:100%;padding:12px;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;border:none;margin-top:8px}
 .action-btn.give{background:var(--success);color:#fff}
+.action-btn.take{background:var(--danger);color:#fff}
+.action-btn.ready{background:#3b7bff;color:#fff}
 .tabs{display:flex;gap:5px;margin-bottom:15px;border-bottom:2px solid var(--border);overflow-x:auto}
 .tab{padding:10px 15px;background:none;border:none;border-bottom:3px solid transparent;color:var(--text2);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;margin-bottom:-2px}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
@@ -202,6 +204,10 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .order-btn{flex:1;min-width:120px;padding:9px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none}
 .order-btn.receive{background:var(--success);color:#fff}
 .order-btn.refund{background:var(--card);color:var(--danger);border:2px solid var(--danger)}
+.nick-effect-glow{text-shadow:0 0 8px currentColor,0 0 16px currentColor}
+.nick-effect-gradient{background:var(--namaz);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nick-effect-rainbow{background:linear-gradient(90deg,#ff0000,#ff8800,#ffee00,#00ff00,#00ffff,#0088ff,#8800ff,#ff00ff);background-size:400% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:rainbowMove 3s linear infinite}
+@keyframes rainbowMove{0%{background-position:0% 50%}100%{background-position:400% 50%}}
 .notification{position:fixed;bottom:20px;right:20px;left:20px;max-width:340px;margin-left:auto;background:var(--success);color:#fff;padding:13px 20px;border-radius:10px;font-weight:700;box-shadow:0 5px 20px rgba(0,0,0,.2);transform:translateY(120px);opacity:0;transition:.3s;z-index:1000;font-size:13px;text-align:center}
 .notification.show{transform:translateY(0);opacity:1}
 footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;text-align:center;font-size:12px}
@@ -264,7 +270,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     <div class="namaz-inner">
         <div>
             <h2>Подписка NAMAZ</h2>
-            <p>Эксклюзивная тема, VIP-аватарки, бейдж!</p>
+            <p>Темы, кастомный фон, цвет и эффект ника!</p>
             <div class="namaz-price">$4.99 <small>/ день</small></div>
         </div>
         <button class="namaz-buy-btn" onclick="openNamaz()">Подключить</button>
@@ -466,9 +472,11 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                 <p style="text-align:center;color:var(--text3);margin-bottom:15px;font-size:14px">Разблокируйте эксклюзивные возможности!</p>
                 <ul style="list-style:none;margin:15px 0">
                     <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Тема NAMAZ</b></li>
-                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>VIP-аватарки</b></li>
-                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Бейдж NAMAZ</b></li>
-                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Золотая рамка</b></li>
+                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Кастомный фон профиля</b></li>
+                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Кастомный фон карточек товара</b></li>
+                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Цвет ника</b></li>
+                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Эффект ника</b></li>
+                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>VIP-аватарки и бейдж</b></li>
                 </ul>
                 <div style="text-align:center;padding:18px;background:var(--soft);border-radius:12px;margin:15px 0">
                     <div style="font-size:36px;font-weight:900;background:var(--namaz);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$4.99</div>
@@ -491,7 +499,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
 <div class="notification" id="notification"></div>
 
 <script>
-// ============ SUPABASE ============
 var sb = null;
 try {
     sb = window.supabase.createClient(
@@ -503,7 +510,6 @@ try {
 var ADMIN_KEY = '55915591';
 var TICKET_TTL_HOURS = 24;
 
-// ============ СОСТОЯНИЕ ============
 var products = [], reviews = {}, cart = {}, favorites = [];
 var currentCategory = 'all', currentRarity = 'all', sortAsc = null, currentSearch = '';
 var currentUser = null, currentProfile = null, currentTheme = 'light';
@@ -566,7 +572,11 @@ async function saveProfileToDB(profile){
         namaz_until: profile.namazUntil || null,
         balance: parseFloat(profile.balance || 0),
         orders: profile.orders || [],
-        is_support: !!profile.isSupport
+        is_support: !!profile.isSupport,
+        profile_bg: profile.profile_bg || '',
+        card_bg: profile.card_bg || '',
+        nick_color: profile.nick_color || '',
+        nick_effect: profile.nick_effect || ''
     };
     var r = await sb.from('profiles').upsert(data, {onConflict: 'name'});
     if(r.error){ console.warn(r.error); return false; }
@@ -587,7 +597,11 @@ async function getCachedProfile(name){
             namazUntil: p.namaz_until,
             balance: parseFloat(p.balance || 0),
             orders: p.orders || [],
-            isSupport: !!p.is_support
+            isSupport: !!p.is_support,
+            profile_bg: p.profile_bg || '',
+            card_bg: p.card_bg || '',
+            nick_color: p.nick_color || '',
+            nick_effect: p.nick_effect || ''
         };
         profileCache[name] = prof;
         return prof;
@@ -615,6 +629,27 @@ function rl(r){ return {common:'Обычный',rare:'Редкий',epic:'Эпи
 function todayStr(){ var d=new Date(); return d.getDate()+'.'+(d.getMonth()+1)+'.'+d.getFullYear(); }
 function isMyProduct(p){ return currentUser && p.seller_name===currentUser; }
 function timeFromTs(ts){ var d=new Date(ts); return (d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes(); }
+
+// Класс и стиль для ника
+function nickStyle(prof){
+    if(!prof) return '';
+    var style = '';
+    if(prof.nick_color) style += 'color:' + prof.nick_color + ';';
+    return style;
+}
+function nickClass(prof){
+    if(!prof || !prof.nick_effect) return '';
+    if(prof.nick_effect === 'glow') return 'nick-effect-glow';
+    if(prof.nick_effect === 'gradient') return 'nick-effect-gradient';
+    if(prof.nick_effect === 'rainbow') return 'nick-effect-rainbow';
+    return '';
+}
+function nickHtml(name, prof){
+    var cls = nickClass(prof);
+    var st = nickStyle(prof);
+    if(!cls && !st) return esc(name);
+    return '<span class="'+cls+'" style="'+st+'">'+esc(name)+'</span>';
+}
 
 // ============ КЛЮЧИ ТИКЕТОВ ============
 function supportTicketKey(userName){ return 'support:' + userName; }
@@ -650,16 +685,13 @@ async function doLogin(){
     }
     currentUser = p.name;
     currentProfile = {
-        name: p.name,
-        pass: p.pass,
-        avatar: p.avatar || '👤',
-        color: p.color || '#cb11ab',
-        bio: p.bio || '',
-        namaz: !!p.namaz,
-        namazUntil: p.namaz_until,
-        balance: parseFloat(p.balance || 0),
-        orders: p.orders || [],
-        isSupport: !!p.is_support
+        name: p.name, pass: p.pass,
+        avatar: p.avatar || '👤', color: p.color || '#cb11ab',
+        bio: p.bio || '', namaz: !!p.namaz, namazUntil: p.namaz_until,
+        balance: parseFloat(p.balance || 0), orders: p.orders || [],
+        isSupport: !!p.is_support,
+        profile_bg: p.profile_bg || '', card_bg: p.card_bg || '',
+        nick_color: p.nick_color || '', nick_effect: p.nick_effect || ''
     };
     isSupport = !!p.is_support;
     userOrders = currentProfile.orders || [];
@@ -686,7 +718,8 @@ async function doRegister(){
     if(existing){ err.textContent='❌ Имя занято'; err.style.color='var(--danger)'; err.classList.add('show'); return; }
     var newProfile = {
         name: name, pass: pass, avatar: '👤', color: '#cb11ab', bio: '',
-        namaz: false, namazUntil: null, balance: 0, orders: [], isSupport: false
+        namaz: false, namazUntil: null, balance: 0, orders: [], isSupport: false,
+        profile_bg: '', card_bg: '', nick_color: '', nick_effect: ''
     };
     var ok = await saveProfileToDB(newProfile);
     if(!ok){ err.textContent='❌ Ошибка сохранения'; err.style.color='var(--danger)'; err.classList.add('show'); return; }
@@ -699,7 +732,12 @@ async function doRegister(){
 }
 
 function updateUserUI(){
-    document.getElementById('user-label').textContent=currentProfile?currentProfile.name:'Войти';
+    var label = document.getElementById('user-label');
+    if(currentProfile){
+        label.innerHTML = nickHtml(currentProfile.name, currentProfile);
+    } else {
+        label.textContent = 'Войти';
+    }
     var b=document.getElementById('namaz-badge-header');
     if(currentProfile && currentProfile.namaz) b.style.display='block'; else b.style.display='none';
 }
@@ -729,7 +767,7 @@ function renderProducts(){
         if(pRevs.length>0){ var s=0; for(var j=0;j<pRevs.length;j++) s+=pRevs[j].rating; avg=(s/pRevs.length).toFixed(1); }
         var rating= pRevs.length>0 ? '<span class="rating-stars">★</span> '+avg+' · '+pRevs.length+' отзывов' : '<span class="no-rating">Нет отзывов</span>';
         var sn=p.seller_name||'Продавец';
-        var delBtn = mine ? '<button class="delete-product" onclick="event.stopPropagation();delProduct('+p.id+',event)">🗑️</button>' : '';
+        var delBtn = (mine || isSupport) ? '<button class="delete-product" onclick="event.stopPropagation();delProduct('+p.id+',event)">🗑️</button>' : '';
         var myBadge = mine ? '<div class="my-badge">ВАШ ТОВАР</div>' : '';
         var buyBtn = mine
             ? '<button class="btn-buy own" disabled>Ваш товар</button>'
@@ -737,8 +775,12 @@ function renderProducts(){
         var cartBtn = mine
             ? '<button class="btn-cart-icon own" disabled>🚫</button>'
             : '<button class="btn-cart-icon '+(inCart?'added':'')+'" onclick="addToCart('+p.id+')">'+(inCart?'✓':'🛒')+'</button>';
-        html+='<div class="product-card">'+
-            '<div class="product-image" onclick="openProduct('+p.id+')">'+
+        // Фон карточки продавца (NAMАZ)
+        var cardStyle = '';
+        (function(){})();
+        // Установим позже через async
+        html+='<div class="product-card" data-seller="'+esc(sn)+'">'+
+            '<div class="product-image" onclick="openProduct('+p.id+')" data-seller-img="'+esc(sn)+'">'+
                 '<button class="favorite" onclick="event.stopPropagation();toggleFav('+p.id+')">'+(isFav?'❤️':'🤍')+'</button>'+
                 delBtn+
                 '<div class="rarity '+p.rarity+'">'+rl(p.rarity)+'</div>'+
@@ -748,7 +790,7 @@ function renderProducts(){
                 myBadge+
                 '<span class="price-new">'+price(p.price)+'</span>'+
                 '<div class="product-name" onclick="openProduct('+p.id+')">'+esc(p.name)+'</div>'+
-                '<div class="seller-line" onclick="openSeller(\''+esc(sn)+'\')">👤 '+esc(sn)+'</div>'+
+                '<div class="seller-line" onclick="openSeller(\''+esc(sn)+'\')">👤 <span data-seller-nick="'+esc(sn)+'">'+esc(sn)+'</span></div>'+
                 '<div class="product-rating">'+rating+'</div>'+
                 '<div class="product-actions">'+buyBtn+cartBtn+'</div>'+
             '</div>'+
@@ -756,6 +798,32 @@ function renderProducts(){
     }
     grid.innerHTML=html;
     document.getElementById('products-count').textContent=filtered.length+' товаров';
+    // Асинхронно подгрузим фоны и ники всех продавцов
+    var uniqueSellers = {};
+    for(var k=0;k<filtered.length;k++) uniqueSellers[filtered[k].seller_name] = true;
+    Object.keys(uniqueSellers).forEach(function(sname){
+        getCachedProfile(sname).then(function(prof){
+            if(!prof) return;
+            var cards = document.querySelectorAll('.product-card[data-seller="'+sname+'"]');
+            for(var c=0;c<cards.length;c++){
+                if(prof.card_bg && prof.namaz){
+                    cards[c].style.background = prof.card_bg;
+                    cards[c].style.backgroundSize = 'cover';
+                }
+            }
+            var imgs = document.querySelectorAll('.product-image[data-seller-img="'+sname+'"]');
+            for(var im=0;im<imgs.length;im++){
+                if(prof.card_bg && prof.namaz){
+                    imgs[im].style.background = prof.card_bg;
+                    imgs[im].style.backgroundSize = 'cover';
+                }
+            }
+            var nicks = document.querySelectorAll('[data-seller-nick="'+sname+'"]');
+            for(var n=0;n<nicks.length;n++){
+                nicks[n].outerHTML = '<span data-seller-nick="'+sname+'">'+nickHtml(sname, prof)+'</span>';
+            }
+        });
+    });
 }
 
 // ============ ФИЛЬТРЫ ============
@@ -869,17 +937,32 @@ async function placeOrder(paymentType){
         var p=products.find(function(x){return x.id===+k;});
         if(p){ total+=parseFloat(p.price)*cart[k]; items.push({name:p.name, qty:cart[k], price:p.price, emoji:p.emoji, seller:p.seller_name}); }
     }
+
+    // Проверка минуса
+    var myBal = parseFloat(currentProfile.balance || 0);
+    if(paymentType === 'now' && myBal < total){
+        notify('❌ Недостаточно средств. Пополните кошелёк.');
+        return;
+    }
+    // Если уже в минусе — нельзя покупать
+    if(myBal < 0){
+        notify('🚫 Вы в минусе! Пополните баланс, чтобы продолжить покупки.');
+        return;
+    }
+
     var orderNum=Math.floor(Math.random()*900000)+100000;
 
     if(paymentType==='now'){
-        var bal=parseFloat(currentProfile.balance||0);
-        if(bal<total){ notify('❌ Недостаточно средств'); return; }
-        currentProfile.balance=bal-total;
+        currentProfile.balance = myBal - total;
     }
 
     var order={ id:orderNum, items:items, total:total, payment:paymentType,
         status: paymentType==='now' ? 'paid' : 'pending',
-        date:todayStr(), time:time() };
+        date:todayStr(), time:time(),
+        seller_done: false,    // продавец нажал "Готово"
+        buyer_done: false,     // покупатель нажал "Готово" (при оплате сейчас) или "Оплатить" (при получении)
+        money_sent: false
+    };
     userOrders.unshift(order);
     currentProfile.orders = userOrders;
 
@@ -887,7 +970,6 @@ async function placeOrder(paymentType){
     await persistProfile();
     closeModal('checkout-modal');
 
-    // Список уникальных продавцов
     var sellers = {};
     for(var i=0;i<items.length;i++){
         var s=items[i].seller;
@@ -897,7 +979,7 @@ async function placeOrder(paymentType){
     }
     var sellerNames = Object.keys(sellers);
 
-    // Отправляем заказ каждому продавцу
+    // Отправляем заказ продавцам
     if(sb){
         for(var sname in sellers){
             var lines = '🛒 Новый заказ #'+orderNum+'\n\n';
@@ -905,7 +987,7 @@ async function placeOrder(paymentType){
                 var it=sellers[sname][j];
                 lines += it.emoji+' '+it.name+' × '+it.qty+' — '+price(it.price*it.qty)+'\n';
             }
-            lines += '\nСумма: '+price(total)+'\nОплата: '+(paymentType==='now'?'оплачено':'при получении');
+            lines += '\nСумма: '+price(total)+'\nОплата: '+(paymentType==='now'?'оплачена сразу':'при получении')+'\n\n[ORDER:'+orderNum+']';
             try{
                 await sb.from('messages').insert([{
                     ticket_user: sellerTicketKey(sname, currentProfile.name),
@@ -913,6 +995,7 @@ async function placeOrder(paymentType){
                     text: lines,
                     from_support: false,
                     ticket_type: 'order',
+                    amount: null,
                     read_by_support: false,
                     read_by_user: true
                 }]);
@@ -921,19 +1004,12 @@ async function placeOrder(paymentType){
     }
 
     if(paymentType==='now') notify('✅ Заказ #'+orderNum+' оплачен!');
-    else notify('📦 Заказ #'+orderNum+' оформлен');
+    else notify('📦 Заказ #'+orderNum+' оформлен (оплата при получении)');
 
-    // Открываем чат с продавцом (если один продавец)
     if(sellerNames.length === 1){
         var sellerName = sellerNames[0];
-        setTimeout(function(){
-            openChatWithSeller(sellerName);
-        }, 400);
-    } else if(sellerNames.length > 1){
-        // Несколько продавцов — открываем список сообщений
-        setTimeout(function(){ openMessages(); }, 400);
+        setTimeout(function(){ openChatWithSeller(sellerName); }, 400);
     } else {
-        // Нет продавцов (теоретически не бывает)
         setTimeout(function(){ openMessages(); }, 400);
     }
 }
@@ -943,6 +1019,11 @@ function buyNow(id){
     var p=products.find(function(x){return x.id===id;});
     if(!p) return;
     if(isMyProduct(p)){ notify('🚫 Нельзя купить свой товар'); return; }
+    // Проверка минуса
+    if(parseFloat(currentProfile.balance || 0) < 0){
+        notify('🚫 Вы в минусе! Пополните баланс, чтобы покупать.');
+        return;
+    }
     cart[id]=(cart[id]||0)+1;
     closeModal('product-modal');
     openCheckout();
@@ -958,16 +1039,32 @@ function renderOrders(){
         if(o.status==='pending'){ statusText='Ждёт получения'; statusClass='pending'; }
         else if(o.status==='received'){ statusText='Получен'; statusClass='received'; }
         else if(o.status==='refunded'){ statusText='Возврат'; statusClass='refunded'; }
+        else if(o.status==='completed'){ statusText='Завершён'; statusClass='received'; }
 
         var itemsHtml='';
         for(var j=0;j<o.items.length;j++){ var it=o.items[j]; itemsHtml+=it.emoji+' '+esc(it.name)+' × '+it.qty+'<br>'; }
 
         var actions='';
-        if(o.status==='pending'){
-            actions='<button class="order-btn receive" onclick="receiveOrder('+o.id+')">✅ Получил</button>'+
-                    '<button class="order-btn refund" onclick="refundOrder('+o.id+')">↩️ Возврат</button>';
-        } else if(o.status==='paid'){
-            actions='<button class="order-btn refund" onclick="refundOrder('+o.id+')">↩️ Возврат</button>';
+        // Показываем кнопки только если заказ не завершён и не возвращён
+        if(o.status!=='refunded' && o.status!=='completed'){
+            // Покупатель видит:
+            //  - Оплатить (если оплата при получении и он ещё не нажал)
+            //  - Готово (если оплата сейчас и он ещё не нажал)
+            //  - Возврат
+            if(o.payment==='later' && !o.buyer_done){
+                actions += '<button class="order-btn receive" onclick="buyerPay('+o.id+')">💳 Оплатить</button>';
+            }
+            if(o.payment==='now' && !o.buyer_done){
+                actions += '<button class="order-btn receive" onclick="buyerReady('+o.id+')">✅ Готово</button>';
+            }
+            if(o.status==='pending'){
+                actions += '<button class="order-btn refund" onclick="refundOrder('+o.id+')">↩️ Возврат</button>';
+            }
+        }
+        // Показываем статус взаимных кнопок
+        var mutual = '';
+        if(o.seller_done || o.buyer_done){
+            mutual = '<div style="font-size:11px;color:var(--text2);margin-top:6px">Продавец: '+(o.seller_done?'✅':'⏳')+' • Покупатель: '+(o.buyer_done?'✅':'⏳')+'</div>';
         }
 
         h+='<div class="order-card">'+
@@ -975,33 +1072,195 @@ function renderOrders(){
             '<div class="order-items">'+itemsHtml+'</div>'+
             '<div class="order-total">Итого: '+price(o.total)+'</div>'+
             '<div style="font-size:11px;color:var(--text2);margin-bottom:9px">'+(o.payment==='now'?'Оплата сейчас':'При получении')+' • '+o.date+' '+o.time+'</div>'+
-            '<div class="order-actions">'+actions+'</div>'+
+            mutual+
+            '<div class="order-actions" style="margin-top:9px">'+actions+'</div>'+
         '</div>';
     }
     return h;
 }
-async function receiveOrder(id){
-    var o=userOrders.find(function(x){return x.id===id;});
+
+// Покупатель нажал "Готово" (при оплате сейчас)
+async function buyerReady(orderId){
+    var o = userOrders.find(function(x){return x.id===orderId;});
     if(!o) return;
-    if(!confirm('Подтвердить получение заказа #'+id+'?')) return;
-    if(o.payment==='later'){
-        var bal=parseFloat(currentProfile.balance||0);
-        if(bal<o.total){ notify('❌ Недостаточно средств'); return; }
-        currentProfile.balance=bal-o.total;
-        notify('✅ Оплачено: '+price(o.total));
-    }
-    o.status='received';
+    if(o.buyer_done) return;
+    o.buyer_done = true;
     currentProfile.orders = userOrders;
     await persistProfile();
-    notify('✅ Заказ #'+id+' получен!');
+    // Сообщаем продавцу
+    var sellerNames = {};
+    for(var i=0;i<o.items.length;i++) sellerNames[o.items[i].seller] = true;
+    for(var sname in sellerNames){
+        await sb.from('messages').insert([{
+            ticket_user: sellerTicketKey(sname, currentProfile.name),
+            author: currentProfile.name,
+            text: '✅ Покупатель подтвердил готовность по заказу #'+o.id,
+            from_support: false,
+            ticket_type: 'order_ready',
+            amount: null,
+            read_by_support: false,
+            read_by_user: true
+        }]);
+    }
+    await tryCompleteOrder(o);
+    notify('✅ Отмечено!');
     openProfileTab('orders');
 }
+
+// Покупатель нажал "Оплатить" (при оплате при получении)
+async function buyerPay(orderId){
+    var o = userOrders.find(function(x){return x.id===orderId;});
+    if(!o) return;
+    if(o.buyer_done) return;
+    var myBal = parseFloat(currentProfile.balance || 0);
+    if(myBal < o.total){ notify('❌ Недостаточно средств'); return; }
+    if(myBal < 0){ notify('🚫 Вы в минусе'); return; }
+    currentProfile.balance = myBal - o.total;
+    o.buyer_done = true;
+    o.status = 'paid';
+    currentProfile.orders = userOrders;
+    await persistProfile();
+    // Сообщаем продавцу
+    var sellerNames = {};
+    for(var i=0;i<o.items.length;i++) sellerNames[o.items[i].seller] = true;
+    for(var sname in sellerNames){
+        await sb.from('messages').insert([{
+            ticket_user: sellerTicketKey(sname, currentProfile.name),
+            author: currentProfile.name,
+            text: '💳 Покупатель оплатил заказ #'+o.id,
+            from_support: false,
+            ticket_type: 'order_paid',
+            amount: null,
+            read_by_support: false,
+            read_by_user: true
+        }]);
+    }
+    await tryCompleteOrder(o);
+    notify('✅ Оплачено!');
+    openProfileTab('orders');
+}
+
+// Продавец нажал "Готово"
+async function sellerReady(orderId, buyerName){
+    var buyerProf = await getProfileFromDB(buyerName);
+    if(!buyerProf){ notify('❌ Профиль покупателя не найден'); return; }
+    var buyerOrders = buyerProf.orders || [];
+    var o = buyerOrders.find(function(x){ return x.id === orderId; });
+    if(!o){ notify('❌ Заказ не найден'); return; }
+    if(o.seller_done) return;
+    o.seller_done = true;
+    // Обновляем в БД
+    var r = await sb.from('profiles').update({orders: buyerOrders}).eq('name', buyerName);
+    if(r.error){ notify('❌ '+r.error.message); return; }
+    invalidateProfileCache(buyerName);
+
+    // Пишем покупателю в чат с продавцом
+    await sb.from('messages').insert([{
+        ticket_user: sellerTicketKey(currentUser, buyerName),
+        author: currentProfile.name,
+        text: '✅ Продавец подтвердил готовность по заказу #'+orderId,
+        from_support: true,  // "from_support" в контексте чата продавца = "от продавца"
+        ticket_type: 'order_ready',
+        read_by_support: true,
+        read_by_user: false
+    }]);
+    notify('✅ Отмечено! Ожидание покупателя...');
+    // Пробуем завершить
+    await tryCompleteOrder(o, buyerName);
+}
+
+// Проверяем — можно ли завершить заказ (оба нажали)
+async function tryCompleteOrder(order, buyerName){
+    // Определяем покупателя
+    if(!buyerName){
+        buyerName = currentUser; // если вызывается со стороны покупателя
+    }
+    // Свежие данные
+    var buyerProf = await getProfileFromDB(buyerName);
+    if(!buyerProf) return;
+    var buyerOrders = buyerProf.orders || [];
+    var o = buyerOrders.find(function(x){ return x.id === order.id; });
+    if(!o) return;
+
+    // Проверяем, что оба нажали
+    if(!o.seller_done || !o.buyer_done){
+        // Оба не нажали — просто сохраняем
+        if(order !== o){
+            order.seller_done = o.seller_done;
+            order.buyer_done = o.buyer_done;
+        }
+        return;
+    }
+
+    if(o.money_sent) return;
+
+    // Начисляем деньги продавцам
+    var sellers = {};
+    for(var i=0;i<o.items.length;i++){
+        var sname = o.items[i].seller;
+        if(!sellers[sname]) sellers[sname] = 0;
+        sellers[sname] += parseFloat(o.items[i].price) * o.items[i].qty;
+    }
+    for(var sname in sellers){
+        var sp = await getProfileFromDB(sname);
+        if(sp){
+            var newBal = parseFloat(sp.balance || 0) + sellers[sname];
+            await sb.from('profiles').update({balance: newBal}).eq('name', sname);
+            invalidateProfileCache(sname);
+        }
+        // Сообщение о завершении
+        await sb.from('messages').insert([{
+            ticket_user: sellerTicketKey(sname, buyerName),
+            author: 'Система',
+            text: '🎉 Заказ #'+o.id+' завершён! Начислено '+price(sellers[sname])+' на баланс.',
+            from_support: true,
+            ticket_type: 'order_complete',
+            read_by_support: true,
+            read_by_user: false
+        }]);
+    }
+
+    // Помечаем как выполненный
+    o.money_sent = true;
+    o.status = 'completed';
+    await sb.from('profiles').update({orders: buyerOrders}).eq('name', buyerName);
+    invalidateProfileCache(buyerName);
+
+    // Удаляем сообщения чата с этим заказом (у продавца и покупателя)
+    for(var sname2 in sellers){
+        await sb.from('messages').delete().eq('ticket_user', sellerTicketKey(sname2, buyerName));
+    }
+
+    // Сообщаем покупателю
+    await sb.from('messages').insert([{
+        ticket_user: supportTicketKey(buyerName),
+        author: 'Система',
+        text: '🎉 Заказ #'+o.id+' завершён!',
+        from_support: true,
+        ticket_type: 'chat',
+        read_by_support: true,
+        read_by_user: false
+    }]);
+
+    notify('🎉 Заказ завершён!');
+}
+
+async function receiveOrder(id){ /* устаревшая — оставлена для совместимости, не используется */ }
+
 async function refundOrder(id){
     var o=userOrders.find(function(x){return x.id===id;});
     if(!o) return;
     if(o.status==='refunded'){ notify('Уже возвращён'); return; }
+    if(o.status==='completed'){ notify('Заказ завершён'); return; }
     if(!confirm('Оформить возврат заказа #'+id+'?')) return;
-    if(o.status!=='pending'){
+    if(o.status!=='pending' && o.status!=='paid'){
+        // ничего
+    }
+    // Возвращаем деньги покупателю (если он уже платил)
+    if(o.buyer_done && o.payment !== 'later'){
+        currentProfile.balance=(parseFloat(currentProfile.balance||0))+parseFloat(o.total);
+    } else if(o.payment === 'now'){
+        // Оплата была сразу, значит деньги уже списаны
         currentProfile.balance=(parseFloat(currentProfile.balance||0))+parseFloat(o.total);
     }
     o.status='refunded';
@@ -1018,7 +1277,9 @@ function openWallet(){
 }
 function renderWallet(){
     var bal=parseFloat(currentProfile.balance||0);
+    var warn = bal < 0 ? '<div style="background:var(--danger);color:#fff;padding:10px;border-radius:8px;margin-bottom:12px;font-size:13px">⚠️ Вы в минусе! Погасите долг, чтобы снова покупать.</div>' : '';
     document.getElementById('wallet-body').innerHTML=
+        warn +
         '<div class="balance-card">'+
             '<div><div style="font-size:12px;opacity:.85;margin-bottom:5px">ZOV Кошелёк</div><div class="balance-value">'+price(bal)+'</div></div>'+
             '<button class="balance-btn" onclick="showTopupForm()">➕ Пополнить</button>'+
@@ -1067,7 +1328,7 @@ function openProduct(id){
             '</div><textarea id="rev-text" placeholder="Отзыв..."></textarea><button onclick="submitReview()">📨 Отправить</button></div>'
         : '<div class="review-form" style="text-align:center"><p style="margin-bottom:10px;color:var(--text3);font-size:13px">🔒 Войдите, чтобы оставить отзыв</p><button onclick="closeModal(\'product-modal\');openModal(\'login-modal\')">Войти</button></div>';
     var sn=p.seller_name||'Продавец';
-    document.getElementById('pm-title').textContent=p.emoji+' '+p.name;
+    document.getElementById('pm-title').innerHTML=p.emoji+' '+nickHtml(p.name, currentProfile);
     var buyBtns = mine
         ? '<button class="btn-buy-big own" disabled>Ваш товар</button>'
         : '<button class="btn-buy-big" onclick="buyNow('+p.id+')">💳 Купить</button>';
@@ -1077,14 +1338,14 @@ function openProduct(id){
     var chatSellerBtn = (mine || !currentUser) ? '' : '<button class="btn-secondary" style="width:100%;margin-top:10px" onclick="closeModal(\'product-modal\');openChatWithSeller(\''+esc(sn)+'\')">💬 Написать продавцу</button>';
     document.getElementById('pm-body').innerHTML=
         '<div class="product-detail">'+
-            '<div class="product-detail-image"><div class="rarity '+p.rarity+'">'+rl(p.rarity)+'</div>'+p.emoji+'</div>'+
+            '<div class="product-detail-image" id="pm-image"><div class="rarity '+p.rarity+'">'+rl(p.rarity)+'</div>'+p.emoji+'</div>'+
             '<div class="product-detail-info">'+
                 '<h2>'+esc(p.name)+'</h2>'+
                 (mine?'<div class="my-badge" style="margin-bottom:10px">ВАШ ТОВАР</div>':'')+
                 '<div class="seller-label">Продавец:</div>'+
                 '<div class="seller-card" onclick="openSeller(\''+esc(sn)+'\')">'+
                     '<div class="seller-avatar" id="pm-seller-av" style="background:#cb11ab">👤</div>'+
-                    '<div class="seller-info"><div class="seller-name">'+esc(sn)+'</div><div class="seller-bio">Нажмите для профиля</div></div>'+
+                    '<div class="seller-info"><div class="seller-name" id="pm-seller-nick">'+esc(sn)+'</div><div class="seller-bio">Нажмите для профиля</div></div>'+
                 '</div>'+
                 '<div class="product-detail-rating">'+rating+'</div>'+
                 '<div class="product-detail-price"><span class="new">'+price(p.price)+'</span></div>'+
@@ -1101,6 +1362,13 @@ function openProduct(id){
         if(pr){
             var el=document.getElementById('pm-seller-av');
             if(el){ el.textContent=pr.avatar; el.style.background=pr.color; }
+            var nk=document.getElementById('pm-seller-nick');
+            if(nk) nk.innerHTML = nickHtml(sn, pr);
+            // Фон карточки товара
+            if(pr.card_bg && pr.namaz){
+                var im=document.getElementById('pm-image');
+                if(im){ im.style.background = pr.card_bg; im.style.backgroundSize='cover'; }
+            }
         }
     });
 }
@@ -1138,9 +1406,10 @@ async function openSeller(name){
     if(!name){ document.getElementById('seller-body').innerHTML='<div style="text-align:center;padding:30px;color:var(--text2)">Информация недоступна</div>'; openModal('seller-modal'); return; }
     var prof = await getCachedProfile(name) || { avatar:'👤', color:'#cb11ab', bio:'', name:name };
     var sp=products.filter(function(x){return x.seller_name===name;});
-    var h='<div style="text-align:center;padding:15px 0;border-bottom:2px solid var(--border);margin-bottom:15px">'+
+    var profBgStyle = (prof.profile_bg && prof.namaz) ? 'background:'+prof.profile_bg+';background-size:cover;background-position:center;' : '';
+    var h='<div style="text-align:center;padding:25px 15px;border-radius:14px;border-bottom:2px solid var(--border);margin-bottom:15px;'+profBgStyle+'">'+
         '<div style="width:80px;height:80px;border-radius:50%;background:'+prof.color+';display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 10px;color:#fff">'+prof.avatar+'</div>'+
-        '<div style="font-size:20px;font-weight:800;margin-bottom:5px;color:var(--text)">'+esc(name)+'</div>'+
+        '<div style="font-size:20px;font-weight:800;margin-bottom:5px;color:var(--text)">'+nickHtml(name, prof)+'</div>'+
         (prof.bio?'<div style="font-size:13px;color:var(--text3);margin-top:6px;font-style:italic">'+esc(prof.bio)+'</div>':'')+
         '</div>';
     if(name !== currentUser) h+='<button class="btn-primary" style="margin-bottom:12px" onclick="closeModal(\'seller-modal\');openChatWithSeller(\''+esc(name)+'\')">💬 Написать продавцу</button>';
@@ -1187,7 +1456,7 @@ async function delProduct(id,ev){
     if(ev) ev.stopPropagation();
     var p=products.find(function(x){return x.id===id;});
     if(!p) return;
-    if(p.seller_name && p.seller_name!==currentUser && !isSupport){ notify('⚠️ Только автор'); return; }
+    if(p.seller_name && p.seller_name!==currentUser && !isSupport){ notify('⚠️ Только автор или поддержка'); return; }
     if(!confirm('🗑️ Удалить "'+p.name+'"?')) return;
     if(!sb) return;
     var r=await sb.from('products').delete().eq('id',id);
@@ -1200,6 +1469,28 @@ async function delProduct(id,ev){
 var avatarOptions=['👤','⛏️','💎','⚔️','🛡️','🐉','🦊','🐺','🧙','🐷','💀','🎮'];
 var namazAvatars=['👑','🐉','🦄','🌟','🔥','💠'];
 var colorOptions=['#cb11ab','#481173','#4ba32e','#3b7bff','#ff3b3b','#ffb800','#ff6b00','#00c8ff','#ffffff','#000000'];
+var namazProfileBgOptions=[
+    {v:'linear-gradient(135deg,#ffd700,#ff6b00)',n:'Золото'},
+    {v:'linear-gradient(135deg,#ff00ff,#6600cc)',n:'Магия'},
+    {v:'linear-gradient(135deg,#00ff88,#006633)',n:'Изумруд'},
+    {v:'linear-gradient(135deg,#3b7bff,#001a66)',n:'Океан'},
+    {v:'linear-gradient(135deg,#ff3366,#660022)',n:'Кровь'},
+    {v:'linear-gradient(135deg,#ffd700,#ff00ff,#6600cc)',n:'NAMAZ'},
+    {v:'radial-gradient(circle at 30% 30%, #ff00ff, #000033)',n:'Космос'},
+    {v:'',n:'Без фона'}
+];
+var namazCardBgOptions=[
+    {v:'linear-gradient(135deg,#ffd700,#ff6b00)',n:'Золото'},
+    {v:'linear-gradient(135deg,#ff00ff,#6600cc)',n:'Магия'},
+    {v:'linear-gradient(135deg,#00ff88,#006633)',n:'Изумруд'},
+    {v:'linear-gradient(135deg,#3b7bff,#001a66)',n:'Океан'},
+    {v:'linear-gradient(135deg,#ff3366,#660022)',n:'Кровь'},
+    {v:'linear-gradient(135deg,#ffd700,#ff00ff,#6600cc)',n:'NAMAZ'},
+    {v:'radial-gradient(circle at 30% 30%, #ff00ff, #000033)',n:'Космос'},
+    {v:'',n:'Без фона'}
+];
+var nickColors=['','#ffffff','#000000','#ff3b3b','#4ba32e','#3b7bff','#a13bff','#ffb800','#ff6b00','#ff00ff','#00ff88'];
+var nickEffects=[{v:'',n:'Нет'},{v:'glow',n:'Свечение'},{v:'gradient',n:'Градиент'},{v:'rainbow',n:'Радуга'}];
 
 function openProfileTab(tab, btn){
     if(!currentUser){ openModal('login-modal'); return; }
@@ -1233,13 +1524,76 @@ function renderProfileMain(){
         var cc=colorOptions[j];
         colHtml+='<div class="color-option '+(p.color===cc?'selected':'')+'" style="background:'+cc+';width:36px;height:36px;border-radius:50%;border:3px solid '+(p.color===cc?'#fff':'var(--border)')+';cursor:pointer;'+(p.color===cc?'box-shadow:0 0 0 3px var(--accent)':'')+'" onclick="setColor(\''+cc+'\')"></div>';
     }
-    return '<div class="profile-header" style="text-align:center;padding:10px 0 18px;border-bottom:2px solid var(--border);margin-bottom:18px">'+
+
+    // NAMAZ кастомизация
+    var namazSection = '';
+    if(hasNamaz){
+        var pbHtml='';
+        for(var k=0;k<namazProfileBgOptions.length;k++){
+            var opt=namazProfileBgOptions[k];
+            var sel = p.profile_bg === opt.v;
+            pbHtml+='<div onclick="setProfileBg(\''+opt.v+'\')" style="cursor:pointer;padding:6px;border-radius:10px;border:3px solid '+(sel?'var(--accent)':'var(--border)')+';text-align:center"><div style="width:100%;height:40px;border-radius:8px;background:'+(opt.v||'var(--soft)')+'"></div><div style="font-size:10px;margin-top:4px;color:var(--text)">'+opt.n+'</div></div>';
+        }
+        var cbHtml='';
+        for(var k2=0;k2<namazCardBgOptions.length;k2++){
+            var opt2=namazCardBgOptions[k2];
+            var sel2 = p.card_bg === opt2.v;
+            cbHtml+='<div onclick="setCardBg(\''+opt2.v+'\')" style="cursor:pointer;padding:6px;border-radius:10px;border:3px solid '+(sel2?'var(--accent)':'var(--border)')+';text-align:center"><div style="width:100%;height:40px;border-radius:8px;background:'+(opt2.v||'var(--soft)')+'"></div><div style="font-size:10px;margin-top:4px;color:var(--text)">'+opt2.n+'</div></div>';
+        }
+        var ncHtml='';
+        for(var k3=0;k3<nickColors.length;k3++){
+            var ncolor=nickColors[k3];
+            var nsel = p.nick_color === ncolor;
+            ncHtml+='<div onclick="setNickColor(\''+ncolor+'\')" style="cursor:pointer;width:36px;height:36px;border-radius:50%;border:3px solid '+(nsel?'var(--accent)':'var(--border)')+';background:'+(ncolor||'var(--soft)')+';color:'+(ncolor==='#000000'||ncolor===''?'#888':'#fff')+';display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900">'+(ncolor?'':'×')+'</div>';
+        }
+        var neHtml='';
+        for(var k4=0;k4<nickEffects.length;k4++){
+            var ne=nickEffects[k4];
+            var nsel2 = p.nick_effect === ne.v;
+            neHtml+='<button onclick="setNickEffect(\''+ne.v+'\')" style="padding:8px 14px;border-radius:8px;border:2px solid '+(nsel2?'var(--accent)':'var(--border)')+';background:'+(nsel2?'var(--accent-l)':'var(--input)')+';color:var(--text);font-size:12px;font-weight:700;cursor:pointer">'+ne.n+'</button>';
+        }
+        namazSection =
+            '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:12px;border:2px dashed var(--accent)">'+
+                '<h3 style="font-size:15px;margin-bottom:10px;color:var(--text)">👑 NAMAZ: Фон профиля</h3>'+
+                '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px">'+pbHtml+'</div>'+
+            '</div>'+
+            '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:12px;border:2px dashed var(--accent)">'+
+                '<h3 style="font-size:15px;margin-bottom:10px;color:var(--text)">👑 NAMAZ: Фон карточек товара</h3>'+
+                '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px">'+cbHtml+'</div>'+
+            '</div>'+
+            '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:12px;border:2px dashed var(--accent)">'+
+                '<h3 style="font-size:15px;margin-bottom:10px;color:var(--text)">👑 NAMAZ: Цвет ника</h3>'+
+                '<div style="display:flex;gap:8px;flex-wrap:wrap">'+ncHtml+'</div>'+
+                '<div style="margin-top:12px;font-size:13px;color:var(--text2)">Превью: '+nickHtml(p.name, p)+'</div>'+
+            '</div>'+
+            '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:12px;border:2px dashed var(--accent)">'+
+                '<h3 style="font-size:15px;margin-bottom:10px;color:var(--text)">👑 NAMAZ: Эффект ника</h3>'+
+                '<div style="display:flex;gap:8px;flex-wrap:wrap">'+neHtml+'</div>'+
+                '<div style="margin-top:12px;font-size:13px;color:var(--text2)">Превью: '+nickHtml(p.name, p)+'</div>'+
+            '</div>';
+    } else {
+        namazSection =
+            '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:12px;border:2px dashed var(--border)">'+
+                '<h3 style="font-size:15px;margin-bottom:10px;color:var(--text2)">👑 NAMAZ разблокирует:</h3>'+
+                '<ul style="list-style:none;font-size:13px;color:var(--text2);line-height:1.8">'+
+                    '<li>🎨 Кастомный фон профиля</li>'+
+                    '<li>🖼️ Кастомный фон карточек товара</li>'+
+                    '<li>🌈 Цвет ника</li>'+
+                    '<li>✨ Эффект ника (свечение, градиент, радуга)</li>'+
+                '</ul>'+
+            '</div>';
+    }
+
+    var profileBgStyle = (hasNamaz && p.profile_bg) ? 'background:'+p.profile_bg+';background-size:cover;background-position:center;' : '';
+
+    return '<div class="profile-header" style="text-align:center;padding:20px 10px;border-bottom:2px solid var(--border);margin-bottom:18px;border-radius:14px;'+profileBgStyle+'">'+
             '<div class="profile-avatar '+(hasNamaz?'namaz':'')+'" style="width:90px;height:90px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:44px;margin:0 auto 12px;background:'+p.color+';color:#fff;border:4px solid '+(hasNamaz?'#ffd700':'var(--accent)')+'">'+p.avatar+'</div>'+
-            '<div class="profile-name" style="font-size:20px;font-weight:800;margin-bottom:5px;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--text);flex-wrap:wrap">'+esc(p.name)+(hasNamaz?' <span style="display:inline-flex;align-items:center;gap:3px;background:var(--namaz);color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:900">NAMAZ</span>':'')+'</div>'+
+            '<div class="profile-name" style="font-size:20px;font-weight:800;margin-bottom:5px;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--text);flex-wrap:wrap">'+nickHtml(p.name, p)+(hasNamaz?' <span style="display:inline-flex;align-items:center;gap:3px;background:var(--namaz);color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:900">NAMAZ</span>':'')+'</div>'+
             '<div style="font-size:12px;color:var(--text2)">Баланс: <b style="color:var(--accent)">'+price(p.balance||0)+'</b></div>'+
         '</div>'+
+        namazSection+
         '<div style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">🎭 Аватар</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:7px;margin-top:6px">'+avHtml+'</div></div>'+
-        '<div style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">🎨 Цвет</h3><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">'+colHtml+'</div></div>'+
+        '<div style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">🎨 Цвет профиля</h3><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">'+colHtml+'</div></div>'+
         '<div style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">📝 О себе</h3>'+
             '<div class="form-group"><textarea id="prof-bio" placeholder="Расскажите о себе..." maxlength="100" onchange="saveBio(this.value)">'+esc(p.bio||'')+'</textarea></div>'+
         '</div>'+
@@ -1278,9 +1632,13 @@ function renderAccount(){
         '<button class="btn-primary btn-danger" style="margin-top:9px" onclick="logout()">🚪 Выйти</button>';
 }
 
-async function setAvatar(av){ currentProfile.avatar=av; await persistProfile(); openProfileTab('main'); }
+async function setAvatar(av){ currentProfile.avatar=av; await persistProfile(); updateUserUI(); openProfileTab('main'); }
 async function setColor(c){ currentProfile.color=c; await persistProfile(); openProfileTab('main'); }
 async function saveBio(t){ currentProfile.bio=t.trim(); await persistProfile(); notify('✅ Сохранено'); }
+async function setProfileBg(v){ currentProfile.profile_bg=v; await persistProfile(); openProfileTab('main'); }
+async function setCardBg(v){ currentProfile.card_bg=v; await persistProfile(); renderProducts(); openProfileTab('main'); }
+async function setNickColor(v){ currentProfile.nick_color=v; await persistProfile(); updateUserUI(); openProfileTab('main'); }
+async function setNickEffect(v){ currentProfile.nick_effect=v; await persistProfile(); updateUserUI(); openProfileTab('main'); }
 function namazLock(){ notify('👑 Только с NAMAZ'); openNamaz(); }
 
 async function saveAccount(){
@@ -1365,9 +1723,10 @@ async function subscribeNamaz(){
 async function cancelNamaz(){
     if(!confirm('Отменить NAMAZ?')) return;
     currentProfile.namaz=false; currentProfile.namazUntil=null;
+    currentProfile.profile_bg=''; currentProfile.card_bg=''; currentProfile.nick_color=''; currentProfile.nick_effect='';
     await persistProfile();
     if(currentTheme==='namaz') setTheme('light');
-    updateUserUI(); checkNamazTheme();
+    updateUserUI(); checkNamazTheme(); renderProducts();
     notify('Отменено');
     closeModal('namaz-modal');
 }
@@ -1397,7 +1756,6 @@ function openMessages(){
         currentTicketId = null;
         refreshMessages().then(function(){ renderAllTickets(); });
     } else {
-        // Показываем список своих чатов: поддержка + все продавцы, с которыми есть переписка
         document.getElementById('chat-title').textContent = '💬 Мои чаты';
         document.getElementById('chat-tickets-view').style.display = 'block';
         document.getElementById('chat-conv-view').style.display = 'none';
@@ -1407,13 +1765,11 @@ function openMessages(){
     openModal('chat-modal');
 }
 
-// Список чатов для обычного игрока
 function renderMyChats(){
     var b = document.getElementById('tickets-body');
     var groups = {};
     for(var i=0;i<dbMessages.length;i++){
         var m = dbMessages[i];
-        // Показываем только чаты, где участник — текущий юзер
         var parsed = parseTicketKey(m.ticket_user);
         var belongs = false;
         if(parsed.type === 'support' && parsed.target === currentUser) belongs = true;
@@ -1423,7 +1779,6 @@ function renderMyChats(){
         groups[m.ticket_user].last = m;
         if(m.ticket_type === 'order') groups[m.ticket_user].type = 'order';
     }
-    // Всегда добавляем чат с поддержкой
     var supportKey = supportTicketKey(currentUser);
     if(!groups[supportKey]){
         groups[supportKey] = {key: supportKey, last: {text: 'Написать в поддержку', created_at: new Date().toISOString()}, count: 0, type: 'chat', virtual: true};
@@ -1547,24 +1902,62 @@ function renderConversation(){
         var authorHtml = (!isMine ? '<div class="chat-msg-author">'+esc(m.author)+'</div>' : '');
         h += '<div class="chat-msg '+(isMine?'me':'them')+'">'+authorHtml+esc(m.text)+'<div class="chat-msg-time">'+ts+'</div></div>';
     }
+
+    // Кнопки для продавца (заказ)
+    if(parsed.type === 'seller' && currentUser === parsed.seller){
+        var orderMsgs = msgs.filter(function(m){ return m.ticket_type==='order' && !m.from_support; });
+        var lastOrder = orderMsgs[orderMsgs.length-1];
+        if(lastOrder){
+            var match = lastOrder.text.match(/\[ORDER:(\d+)\]/);
+            if(match){
+                var oid = parseInt(match[1]);
+                // Ищем заказ у покупателя
+                (async function(){
+                    var buyerProf = await getProfileFromDB(parsed.buyer);
+                    if(!buyerProf) return;
+                    var buyerOrders = buyerProf.orders || [];
+                    var ord = buyerOrders.find(function(x){ return x.id === oid; });
+                    if(!ord || ord.status==='completed' || ord.status==='refunded') return;
+                    if(ord.seller_done){
+                        h += '<div style="padding:12px;background:var(--card);border-radius:10px;border:2px dashed var(--accent);margin-top:10px;text-align:center;font-size:13px;color:var(--text2)">✅ Вы уже подтвердили. Ожидание покупателя...</div>';
+                        document.getElementById('chat-messages').innerHTML = h;
+                        document.getElementById('chat-messages').scrollTop = 99999;
+                        return;
+                    }
+                    h += '<div style="padding:15px;background:var(--card);border-radius:10px;border:2px dashed #3b7bff;margin-top:10px">'+
+                        '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">🛒 Заказ #'+oid+' от '+esc(parsed.buyer)+'</div>'+
+                        '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">'+(ord.payment==='now'?'Оплачен сразу':'Оплата при получении')+'</div>'+
+                        '<button class="action-btn ready" onclick="sellerReady('+oid+',\''+esc(parsed.buyer)+'\')">✅ Готово</button>'+
+                        '</div>';
+                    document.getElementById('chat-messages').innerHTML = h;
+                    document.getElementById('chat-messages').scrollTop = 99999;
+                })();
+            }
+        }
+    }
+
+    // Кнопки для поддержки (пополнение)
     if(parsed.type === 'support' && isSupport){
         var topupMsgs = msgs.filter(function(m){ return m.ticket_type==='topup' && !m.from_support; });
         var lastTopup = topupMsgs[topupMsgs.length-1];
         if(lastTopup && lastTopup.amount){
-            var alreadyGiven = msgs.some(function(m){ return m.from_support && m.text.indexOf('✅')!==-1 && m.text.indexOf(String(lastTopup.amount))!==-1; });
+            var alreadyGiven = msgs.some(function(m){ return m.from_support && (m.text.indexOf('✅ Зачислено')!==-1 || m.text.indexOf('✅ Выдано')!==-1) && m.text.indexOf(String(lastTopup.amount))!==-1; });
             if(!alreadyGiven){
                 h += '<div style="padding:15px;background:var(--card);border-radius:10px;border:2px dashed var(--success);margin-top:10px">'+
                     '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 '+esc(parsed.target)+' хочет '+lastTopup.amount+' изумрудов</div>'+
                     '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Игрок передал изумруды? Нажми:</div>'+
                     '<button class="action-btn give" onclick="giveBalance(\''+esc(parsed.target)+'\','+lastTopup.amount+')">✅ Выдать '+lastTopup.amount+'</button>'+
+                    '<button class="action-btn take" onclick="takeBalance(\''+esc(parsed.target)+'\','+lastTopup.amount+')">💸 Забрать '+lastTopup.amount+'</button>'+
                     '</div>';
             }
         }
     }
+
     c.innerHTML = h;
     c.scrollTop = c.scrollHeight;
 }
 
+// Поддержка: зачислить баланс
 async function giveBalance(userName, amount){
     if(!isSupport) return;
     if(!confirm('Выдать '+amount+' изумрудов игроку '+userName+'?')) return;
@@ -1574,18 +1967,31 @@ async function giveBalance(userName, amount){
     var r = await sb.from('profiles').update({balance: newBal}).eq('name', userName);
     if(r.error){ notify('❌ '+r.error.message); return; }
     invalidateProfileCache(userName);
-    await sb.from('messages').insert([{
-        ticket_user: supportTicketKey(userName),
-        author: 'Поддержка',
-        text: '✅ Выдано '+amount+' изумрудов. Баланс пополнен!',
-        from_support: true,
-        ticket_type: 'chat',
-        read_by_support: true,
-        read_by_user: false
-    }]);
+    // Удаляем тикет (все сообщения этого игрока в поддержку)
+    await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
     notify('✅ Выдано '+amount+' изумрудов');
     await refreshMessages();
-    renderConversation();
+    // Возвращаемся к списку тикетов
+    currentTicketId = null;
+    openMessages();
+    checkUnread();
+}
+
+// Поддержка: забрать баланс (списать)
+async function takeBalance(userName, amount){
+    if(!isSupport) return;
+    if(!confirm('Списать '+amount+' изумрудов с баланса '+userName+'?')) return;
+    var prof = await getProfileFromDB(userName);
+    if(!prof){ notify('❌ Профиль не найден'); return; }
+    var newBal = parseFloat(prof.balance || 0) - amount;
+    var r = await sb.from('profiles').update({balance: newBal}).eq('name', userName);
+    if(r.error){ notify('❌ '+r.error.message); return; }
+    invalidateProfileCache(userName);
+    await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
+    notify('✅ Списано '+amount+' изумрудов');
+    await refreshMessages();
+    currentTicketId = null;
+    openMessages();
     checkUnread();
 }
 
@@ -1682,6 +2088,15 @@ function startChatRefresh(){
     }, 3000);
 }
 
+async function cleanupOldMessages(){
+    if(!sb) return;
+    var cutoff = new Date(Date.now() - TICKET_TTL_HOURS*60*60*1000).toISOString();
+    try{
+        var r = await sb.from('messages').delete().lt('created_at', cutoff);
+        if(r.error) console.warn('cleanup:', r.error.message);
+    }catch(e){ console.warn(e); }
+}
+
 // ============ СТАРТ ============
 async function boot(){
     loadLocal();
@@ -1696,7 +2111,9 @@ async function boot(){
                 avatar: p.avatar || '👤', color: p.color || '#cb11ab',
                 bio: p.bio || '', namaz: !!p.namaz, namazUntil: p.namaz_until,
                 balance: parseFloat(p.balance || 0), orders: p.orders || [],
-                isSupport: !!p.is_support
+                isSupport: !!p.is_support,
+                profile_bg: p.profile_bg || '', card_bg: p.card_bg || '',
+                nick_color: p.nick_color || '', nick_effect: p.nick_effect || ''
             };
             isSupport = !!p.is_support;
             userOrders = currentProfile.orders || [];
@@ -1714,15 +2131,6 @@ async function boot(){
     await refreshMessages();
     checkUnread();
     startChatRefresh();
-}
-
-async function cleanupOldMessages(){
-    if(!sb) return;
-    var cutoff = new Date(Date.now() - TICKET_TTL_HOURS*60*60*1000).toISOString();
-    try{
-        var r = await sb.from('messages').delete().lt('created_at', cutoff);
-        if(r.error) console.warn('cleanup:', r.error.message);
-    }catch(e){ console.warn(e); }
 }
 
 boot();
