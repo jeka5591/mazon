@@ -271,7 +271,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
         <div>
             <h2>Подписка NAMAZ</h2>
             <p>Темы, кастомный фон, цвет и эффект ника!</p>
-            <div class="namaz-price">$4.99 <small>/ день</small></div>
+            <div class="namaz-price">¥2.99 <small>/ день</small></div>
         </div>
         <button class="namaz-buy-btn" onclick="openNamaz()">Подключить</button>
     </div>
@@ -339,7 +339,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
         <div class="modal-body">
             <div class="form-group"><label>Название *</label><input type="text" id="ap-name" placeholder="Алмазный меч"></div>
             <div class="form-group"><label>Описание</label><textarea id="ap-desc"></textarea></div>
-            <div class="form-group"><label>Цена ($) *</label><input type="number" id="ap-price" placeholder="9.99" min="0" step="0.01" inputmode="decimal"></div>
+            <div class="form-group"><label>Цена (¥) *</label><input type="number" id="ap-price" placeholder="9.99" min="0" step="0.01" inputmode="decimal"></div>
             <div class="form-row">
                 <div class="form-group"><label>Категория</label><select id="ap-category">
                     <option value="blocks">🧱 Блоки</option><option value="tools">⛏️ Инструменты</option>
@@ -428,9 +428,9 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
         <div class="modal-body" id="cart-items"></div>
         <div id="cart-footer" style="padding:18px 20px;background:var(--soft);border-top:1px solid var(--border);display:none">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:16px;color:var(--text)">
-                <span>Итого:</span><span style="font-size:22px;font-weight:800;color:var(--accent)" id="cart-total">$0.00</span>
+                <span>Итого:</span><span style="font-size:22px;font-weight:800;color:var(--accent)" id="cart-total">¥0.00</span>
             </div>
-            <div style="font-size:12px;color:var(--text3);margin-bottom:10px;text-align:center">Баланс: <b id="cart-balance">$0.00</b></div>
+            <div style="font-size:12px;color:var(--text3);margin-bottom:10px;text-align:center">Баланс: <b id="cart-balance">¥0.00</b></div>
             <button class="btn-primary" onclick="openCheckout()">Оформить заказ</button>
         </div>
     </div>
@@ -441,8 +441,8 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
         <div class="modal-header"><h2>💳 Оформление</h2><button class="close-btn" onclick="closeModal('checkout-modal')">×</button></div>
         <div class="modal-body">
             <div style="background:var(--soft);padding:14px;border-radius:10px;margin-bottom:15px">
-                <div style="display:flex;justify-content:space-between;margin-bottom:7px;font-size:13px;color:var(--text)"><span>Сумма:</span><b id="checkout-total">$0.00</b></div>
-                <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text)"><span>Баланс:</span><b id="checkout-balance">$0.00</b></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:7px;font-size:13px;color:var(--text)"><span>Сумма:</span><b id="checkout-total">¥0.00</b></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text)"><span>Баланс:</span><b id="checkout-balance">¥0.00</b></div>
             </div>
             <h3 style="font-size:14px;margin-bottom:11px;color:var(--text)">Способ оплаты:</h3>
             <button class="btn-primary btn-success" style="margin-bottom:9px" onclick="placeOrder('now')">💳 Оплатить сейчас</button>
@@ -453,9 +453,18 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
 
 <div class="modal" id="chat-modal">
     <div class="modal-content" style="max-width:750px">
-        <div class="modal-header"><h2 id="chat-title">💬 Сообщения</h2><button class="close-btn" onclick="closeModal('chat-modal')">×</button></div>
+        <div class="modal-header">
+            <h2 id="chat-title">💬 Сообщения</h2>
+            <div style="display:flex;gap:8px;align-items:center">
+                <button id="chat-clear-btn" onclick="clearCurrentChat()" style="background:rgba(255,255,255,.2);border:none;color:#fff;padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;display:none">🗑️ Очистить</button>
+                <button class="close-btn" onclick="closeModal('chat-modal')">×</button>
+            </div>
+        </div>
         <div id="chat-tickets-view" style="display:none">
             <div class="modal-body" id="tickets-body"></div>
+            <div style="padding:12px 20px;border-top:2px solid var(--border);background:var(--card);display:flex;justify-content:flex-end">
+                <button onclick="clearAllChats()" style="background:var(--danger);color:#fff;border:none;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">🗑️ Очистить все чаты</button>
+            </div>
         </div>
         <div id="chat-conv-view">
             <div class="chat-container">
@@ -484,7 +493,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                     <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>VIP-аватарки и бейдж</b></li>
                 </ul>
                 <div style="text-align:center;padding:18px;background:var(--soft);border-radius:12px;margin:15px 0">
-                    <div style="font-size:36px;font-weight:900;background:var(--namaz);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$4.99</div>
+                    <div style="font-size:36px;font-weight:900;background:var(--namaz);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">¥2.99</div>
                     <div style="font-size:13px;color:var(--text2)">в день • с баланса</div>
                 </div>
                 <button class="btn-primary" style="background:var(--namaz);box-shadow:0 5px 20px rgba(255,0,255,.4)" onclick="subscribeNamaz()">Подключить NAMAZ</button>
@@ -514,6 +523,7 @@ try {
 
 var ADMIN_KEY = '55915591';
 var TICKET_TTL_HOURS = 24;
+var NAMAZ_PRICE = 2.99;
 
 var products = [], reviews = {}, cart = {}, favorites = [];
 var currentCategory = 'all', currentRarity = 'all', sortAsc = null, currentSearch = '';
@@ -625,7 +635,7 @@ async function persistProfile(){
 }
 
 // ============ УТИЛИТЫ ============
-function price(p){ return '$'+(parseFloat(p)||0).toFixed(2); }
+function price(p){ return '¥'+(parseFloat(p)||0).toFixed(2); }
 function openModal(id){ document.getElementById(id).classList.add('show'); }
 function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 function notify(t){ var n=document.getElementById('notification'); n.textContent=t; n.classList.add('show'); clearTimeout(n._t); n._t=setTimeout(function(){n.classList.remove('show');},2500); }
@@ -1025,14 +1035,10 @@ function renderOrders(){
 
         var actions='';
         if(o.status!=='refunded' && o.status!=='completed'){
-            if(!o.buyer_done){
-                if(o.payment==='later'){
-                    actions += '<button class="order-btn receive" onclick="buyerPay('+o.id+')">💳 Оплатить</button>';
-                } else {
-                    actions += '<button class="order-btn receive" onclick="buyerReady('+o.id+')">✅ Готово</button>';
-                }
-            } else {
+            if(o.buyer_done){
                 actions += '<div style="flex:1;text-align:center;padding:9px;font-size:12px;color:var(--text2)">✅ Вы отметили. Ожидание продавца...</div>';
+            } else {
+                actions += '<div style="flex:1;text-align:center;padding:9px;font-size:12px;color:var(--text2)">💬 Подтвердите в чате с продавцом</div>';
             }
             if(o.status==='pending'){
                 actions += '<button class="order-btn refund" onclick="refundOrder('+o.id+')">↩️ Возврат</button>';
@@ -1077,7 +1083,7 @@ async function buyerReady(orderId){
     }
     await tryCompleteOrder(o, currentUser);
     notify('✅ Отмечено!');
-    openProfileTab('orders');
+    if(currentTicketId){ await refreshMessages(); renderConversation(); }
 }
 
 async function buyerPay(orderId){
@@ -1107,7 +1113,7 @@ async function buyerPay(orderId){
     }
     await tryCompleteOrder(o, currentUser);
     notify('✅ Оплачено!');
-    openProfileTab('orders');
+    if(currentTicketId){ await refreshMessages(); renderConversation(); }
 }
 
 async function sellerReady(orderId, buyerName){
@@ -1132,6 +1138,7 @@ async function sellerReady(orderId, buyerName){
     }]);
     notify('✅ Отмечено!');
     await tryCompleteOrder(o, buyerName);
+    if(currentTicketId){ await refreshMessages(); renderConversation(); }
 }
 
 async function tryCompleteOrder(order, buyerName){
@@ -1180,6 +1187,9 @@ async function tryCompleteOrder(order, buyerName){
     }]);
 
     notify('🎉 Заказ завершён!');
+
+    currentTicketId = null;
+    closeModal('chat-modal');
 }
 
 async function refundOrder(id){
@@ -1198,7 +1208,7 @@ async function refundOrder(id){
     openProfileTab('orders');
 }
 
-// ============ ПРОДАЖИ (для продавца) ============
+// ============ ПРОДАЖИ ============
 async function renderSales(){
     var allProfiles = [];
     try{
@@ -1237,10 +1247,10 @@ async function renderSales(){
         }
         var actions = '';
         if(o.status !== 'completed' && o.status !== 'refunded'){
-            if(!o.seller_done){
-                actions = '<button class="order-btn receive" onclick="sellerReady('+o.id+',\''+esc(s.buyer)+'\');setTimeout(function(){openProfileTab(\'sales\');},800)">✅ Готово</button>';
-            } else {
+            if(o.seller_done){
                 actions = '<div style="flex:1;text-align:center;padding:9px;font-size:12px;color:var(--text2)">⏳ Ожидание покупателя</div>';
+            } else {
+                actions = '<div style="flex:1;text-align:center;padding:9px;font-size:12px;color:var(--text2)">💬 Подтвердите в чате с покупателем</div>';
             }
         }
         h += '<div class="order-card">'+
@@ -1600,7 +1610,7 @@ function renderProfileMain(){
         '<div style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">Подписка</h3>'+
             (hasNamaz
                 ? '<div style="padding:11px;background:var(--soft);border-radius:10px;font-size:13px;color:var(--text)">Активна до <b>'+esc(p.namazUntil||'—')+'</b></div><button class="btn-secondary" style="width:100%;margin-top:9px" onclick="closeModal(\'profile-modal\');openNamaz()">Управлять</button>'
-                : '<button class="btn-primary" style="background:var(--namaz);color:#fff" onclick="closeModal(\'profile-modal\');openNamaz()">Оформить NAMAZ — $4.99/день</button>'
+                : '<button class="btn-primary" style="background:var(--namaz);color:#fff" onclick="closeModal(\'profile-modal\');openNamaz()">Оформить NAMAZ — ¥2.99/день</button>'
             )+
         '</div>';
 }
@@ -1710,8 +1720,8 @@ function openNamaz(){
 async function subscribeNamaz(){
     if(!currentUser){ closeModal('namaz-modal'); openModal('login-modal'); return; }
     var bal=parseFloat(currentProfile.balance||0);
-    if(bal<4.99){ notify('❌ Нужно $4.99'); return; }
-    currentProfile.balance=bal-4.99;
+    if(bal<NAMAZ_PRICE){ notify('❌ Нужно ¥'+NAMAZ_PRICE.toFixed(2)); return; }
+    currentProfile.balance=bal-NAMAZ_PRICE;
     var u=new Date(); u.setDate(u.getDate()+1);
     currentProfile.namaz=true;
     currentProfile.namazUntil=u.getDate()+'.'+(u.getMonth()+1)+'.'+u.getFullYear();
@@ -1747,8 +1757,48 @@ async function refreshMessages(){
     dbMessages = r.data || [];
 }
 
+async function clearCurrentChat(){
+    if(!currentTicketId){ notify('⚠️ Открой чат'); return; }
+    if(!confirm('🗑️ Очистить все сообщения этого чата?')) return;
+    var r = await sb.from('messages').delete().eq('ticket_user', currentTicketId);
+    if(r.error){ notify('❌ '+r.error.message); return; }
+    notify('🗑️ Чат очищен');
+    await refreshMessages();
+    renderConversation();
+}
+
+async function clearAllChats(){
+    if(!currentUser){ notify('⚠️ Войдите'); return; }
+    if(!confirm('🗑️ Очистить ВСЕ чаты? Действие нельзя отменить!')) return;
+    if(isSupport){
+        var r = await sb.from('messages').delete().neq('id', 0);
+        if(r.error){ notify('❌ '+r.error.message); return; }
+    } else {
+        var keys = {};
+        keys[supportTicketKey(currentUser)] = true;
+        for(var i=0;i<dbMessages.length;i++){
+            var m = dbMessages[i];
+            var parsed = parseTicketKey(m.ticket_user);
+            if(parsed.type === 'seller'){
+                if(parsed.seller === currentUser) keys[m.ticket_user] = true;
+                else if(parsed.buyer === currentUser) keys[m.ticket_user] = true;
+            }
+        }
+        var arr = Object.keys(keys);
+        for(var k=0;k<arr.length;k++){
+            await sb.from('messages').delete().eq('ticket_user', arr[k]);
+        }
+    }
+    notify('🗑️ Все чаты очищены');
+    await refreshMessages();
+    checkUnread();
+    currentTicketId = null;
+    openMessages();
+}
+
 function openMessages(){
     if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
+    document.getElementById('chat-clear-btn').style.display = 'none';
     if(isSupport){
         document.getElementById('chat-title').textContent = '🛡️ Все тикеты';
         document.getElementById('chat-tickets-view').style.display = 'block';
@@ -1816,6 +1866,7 @@ function openChat(ticketKey, title){
     document.getElementById('chat-title').textContent = title || '💬';
     document.getElementById('chat-tickets-view').style.display = 'none';
     document.getElementById('chat-conv-view').style.display = 'block';
+    document.getElementById('chat-clear-btn').style.display = 'block';
     refreshMessages().then(function(){ renderConversation(); });
     openModal('chat-modal');
 }
@@ -1928,6 +1979,36 @@ function renderConversation(){
                 })();
             }
         }
+    }
+
+    // Кнопки для покупателя в чате с продавцом
+    if(parsed.type === 'seller' && parsed.buyer === currentUser){
+        (async function(){
+            var orderMsgs = msgs.filter(function(m){ return m.ticket_type==='order' && !m.from_support; });
+            var lastOrder = orderMsgs[orderMsgs.length-1];
+            if(!lastOrder) return;
+            var match = lastOrder.text.match(/\[ORDER:(\d+)\]/);
+            if(!match) return;
+            var oid = parseInt(match[1]);
+            var myProf = await getProfileFromDB(currentUser);
+            if(!myProf) return;
+            var myOrders = myProf.orders || [];
+            var ord = myOrders.find(function(x){ return x.id === oid; });
+            if(!ord || ord.status === 'completed' || ord.status === 'refunded') return;
+            if(ord.buyer_done) return;
+            var extra = '';
+            extra += '<div style="padding:15px;background:var(--card);border-radius:10px;border:2px dashed #ffb800;margin-top:10px">';
+            extra += '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">🛒 Ваш заказ #'+oid+'</div>';
+            extra += '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Сумма: '+price(ord.total)+' • '+(ord.payment==='now'?'оплата сразу':'оплата при получении')+'</div>';
+            if(ord.payment === 'now'){
+                extra += '<button class="action-btn ready" onclick="buyerReady('+oid+')">✅ Готово</button>';
+            } else {
+                extra += '<button class="action-btn ready" onclick="buyerPay('+oid+')">💳 Оплатить</button>';
+            }
+            extra += '</div>';
+            c.innerHTML = h + extra;
+            c.scrollTop = 99999;
+        })();
     }
 
     // Кнопки для поддержки
