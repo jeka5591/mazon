@@ -3,244 +3,260 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAZON — Магазин Minecraft</title>
+<title>MAZON — 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-
-:root {
-    --bg: #f5f5f5; --card-bg: #ffffff; --text: #333333; --text-dim: #888888;
-    --text-soft: #666666; --border: #e0e0e0; --header-start: #cb11ab; --header-end: #481173;
-    --accent: #cb11ab; --accent-hover: #a30d8a; --accent-light: #ffe5f5;
-    --success: #4ba32e; --success-hover: #3d8a24; --danger: #ff3b3b;
-    --banner-start: #3d7d2b; --banner-end: #1a3d0f; --gold: #7cff5c;
-    --footer-bg: #2a0a26; --footer-text: #ffffff; --input-bg: #ffffff;
-    --shadow: rgba(0,0,0,0.1);
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+:root{
+  --bg:#f5f5f5;--card:#fff;--text:#333;--text2:#888;--text3:#666;
+  --border:#e0e0e0;--input:#fff;--soft:#f5f5f5;
+  --h1:#cb11ab;--h2:#481173;--accent:#cb11ab;--accent-h:#a30d8a;--accent-l:#ffe5f5;
+  --success:#4ba32e;--success-h:#3d8a24;--danger:#ff3b3b;--gold:#7cff5c;
+  --namaz:linear-gradient(135deg,#ffd700,#ff6b00,#ff00ff);
 }
-body.theme-dark {
-    --bg: #121212; --card-bg: #1e1e1e; --text: #e8e8e8; --text-dim: #999999;
-    --text-soft: #b0b0b0; --border: #333333; --header-start: #6b0a5c; --header-end: #1e0630;
-    --accent: #e91e9c; --accent-hover: #ff3cae; --accent-light: #3a0a2c;
-    --success: #4ba32e; --success-hover: #5fc23d; --danger: #ff5555;
-    --banner-start: #2b5720; --banner-end: #0a1a06; --gold: #7cff5c;
-    --footer-bg: #0a0a0a; --footer-text: #ffffff; --input-bg: #2a2a2a;
-    --shadow: rgba(0,0,0,0.5);
+body.theme-dark{
+  --bg:#0f0f0f;--card:#1c1c1c;--text:#e8e8e8;--text2:#9a9a9a;--text3:#b0b0b0;
+  --border:#2e2e2e;--input:#252525;--soft:#161616;
+  --h1:#6b0a5c;--h2:#1e0630;--accent:#e91e9c;--accent-h:#ff3cae;--accent-l:#3a0a2c;
 }
-body.theme-minecraft {
-    --bg: #c6b28a; --card-bg: #e8dcc0; --text: #3b2a17; --text-dim: #7a6544;
-    --text-soft: #5c4a2f; --border: #8b7355; --header-start: #4a7c2e; --header-end: #2a4a17;
-    --accent: #6b4226; --accent-hover: #8b5a2b; --accent-light: #d4c5a0;
-    --success: #4a7c2e; --success-hover: #5f9a3a; --danger: #a02c1f;
-    --banner-start: #4a7c2e; --banner-end: #2a4a17; --gold: #ffd700;
-    --footer-bg: #3b2a17; --footer-text: #e8dcc0; --input-bg: #f5eed8;
-    --shadow: rgba(59,42,23,0.3);
+body.theme-minecraft{
+  --bg:#c6b28a;--card:#e8dcc0;--text:#3b2a17;--text2:#7a6544;--text3:#5c4a2f;
+  --border:#8b7355;--input:#f5eed8;--soft:#d8c9a3;
+  --h1:#4a7c2e;--h2:#2a4a17;--accent:#6b4226;--accent-h:#8b5a2b;--accent-l:#d4c5a0;
 }
-
-body { background: var(--bg); color: var(--text); transition: 0.3s; min-height: 100vh; }
-
-header { background: linear-gradient(90deg, var(--header-start), var(--header-end)); padding: 15px; position: sticky; top: 0; z-index: 100; }
-.header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
-.logo { font-size: 28px; font-weight: 900; letter-spacing: 2px; cursor: pointer; display: flex; align-items: center; padding: 4px 12px; background: #fff; border-radius: 8px; line-height: 1.1; }
-.logo .ma { color: #ffffff; text-shadow: 0 0 2px #000, 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000; }
-.logo .zon { color: #000000; }
-.search-bar { flex: 1; display: flex; background: #fff; border-radius: 8px; overflow: hidden; max-width: 700px; }
-.search-bar input { flex: 1; padding: 12px 16px; border: none; outline: none; font-size: 15px; }
-.search-bar button { background: var(--accent); color: #fff; border: none; padding: 0 25px; cursor: pointer; font-size: 18px; }
-.search-bar button:hover { background: var(--accent-hover); }
-.header-icons { display: flex; gap: 20px; color: #fff; margin-left: auto; }
-.header-icon { display: flex; flex-direction: column; align-items: center; cursor: pointer; font-size: 12px; gap: 3px; padding: 5px; position: relative; }
-.header-icon:hover { opacity: 0.85; }
-.header-icon .icon { font-size: 22px; }
-.cart-badge { position: absolute; top: -3px; right: -5px; background: #ffd700; color: #481173; font-size: 11px; font-weight: 800; border-radius: 10px; padding: 2px 6px; display: none; }
-.cart-badge.show { display: block; }
-
-nav { background: var(--card-bg); border-bottom: 1px solid var(--border); position: sticky; top: 70px; z-index: 99; }
-.nav-inner { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; gap: 25px; overflow-x: auto; }
-.nav-inner a { padding: 15px 0; color: var(--text); text-decoration: none; font-size: 14px; white-space: nowrap; border-bottom: 2px solid transparent; cursor: pointer; }
-.nav-inner a:hover, .nav-inner a.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-.banner { max-width: 1400px; margin: 20px auto; padding: 0 20px; }
-.banner-inner { background: linear-gradient(135deg, var(--banner-start), var(--banner-end)); border-radius: 16px; padding: 50px 60px; color: #fff; position: relative; overflow: hidden; }
-.banner-inner::after { content: '⛏️'; position: absolute; right: 60px; top: 50%; transform: translateY(-50%); font-size: 150px; opacity: 0.2; }
-.banner h1 { font-size: 40px; margin-bottom: 12px; }
-.banner p { font-size: 18px; margin-bottom: 25px; }
-.banner-btn { background: var(--gold); color: #1a3d0f; border: none; padding: 14px 35px; border-radius: 8px; font-size: 16px; font-weight: 800; cursor: pointer; transition: 0.2s; }
-.banner-btn:hover { filter: brightness(1.1); transform: scale(1.03); }
-
-.filters { max-width: 1400px; margin: 30px auto 0; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-.filter-btn { background: var(--card-bg); border: 2px solid var(--border); color: var(--text); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 600; transition: 0.2s; }
-.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-.filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-.filter-btn.add-product-btn { background: var(--success); color: #fff; border-color: var(--success); margin-left: auto; }
-.filter-btn.add-product-btn:hover { filter: brightness(1.15); color: #fff; }
-
-.section-title { max-width: 1400px; margin: 40px auto 20px; padding: 0 20px; font-size: 26px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
-.section-title small { font-size: 14px; color: var(--text-dim); font-weight: 500; }
-
-.products { max-width: 1400px; margin: 0 auto; padding: 0 20px 60px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-.product-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; transition: 0.2s; display: flex; flex-direction: column; }
-.product-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px var(--shadow); }
-.product-image { width: 100%; height: 220px; background: linear-gradient(135deg, var(--accent-light), var(--accent-light)); display: flex; align-items: center; justify-content: center; font-size: 90px; position: relative; cursor: pointer; overflow: hidden; }
-.favorite { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.9); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; z-index: 3; }
-.favorite:hover { transform: scale(1.15); }
-.favorite.active { background: var(--accent-light); }
-.rarity { position: absolute; bottom: 10px; left: 10px; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; z-index: 3; max-width: calc(100% - 20px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
-.rarity.common { background: #b0b0b0; color: #fff; }
-.rarity.rare { background: #3b7bff; color: #fff; }
-.rarity.epic { background: #a13bff; color: #fff; }
-.rarity.legendary { background: linear-gradient(90deg, #ffb800, #ff6b00); color: #fff; }
-.delete-product { position: absolute; top: 10px; right: 50px; background: rgba(255,255,255,0.9); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; z-index: 3; border: none; }
-.delete-product:hover { background: var(--danger); color: #fff; }
-.product-info { padding: 12px; display: flex; flex-direction: column; flex: 1; }
-.product-price { margin-bottom: 6px; }
-.price-new { font-size: 22px; font-weight: 800; color: var(--accent); }
-.product-name { font-size: 14px; line-height: 1.4; margin-bottom: 8px; min-height: 39px; cursor: pointer; color: var(--text); }
-.product-name:hover { color: var(--accent); }
-.product-rating { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--text-soft); margin-bottom: 10px; }
-.rating-stars { color: #ffb300; }
-.no-rating { color: var(--text-dim); font-size: 13px; }
-.product-actions { display: flex; gap: 6px; margin-top: auto; }
-.btn-buy { flex: 1; background: var(--success); color: #fff; border: none; padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.15s; }
-.btn-buy:hover { background: var(--success-hover); }
-.btn-cart-icon { width: 42px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; flex-shrink: 0; }
-.btn-cart-icon:hover { background: var(--accent-hover); }
-.btn-cart-icon.added { background: var(--success); }
-
-.empty-state { grid-column: 1 / -1; text-align: center; padding: 80px 20px; }
-.empty-state .emoji { font-size: 100px; margin-bottom: 20px; opacity: 0.7; }
-.empty-state h2 { font-size: 26px; margin-bottom: 12px; }
-.empty-state p { color: var(--text-soft); margin-bottom: 25px; font-size: 16px; }
-.empty-state button { background: var(--accent); color: #fff; border: none; padding: 14px 30px; border-radius: 10px; font-size: 16px; font-weight: 800; cursor: pointer; }
-
-.loading { grid-column: 1/-1; text-align: center; padding: 60px; color: var(--text-dim); font-size: 18px; }
-
-.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.65); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
-.modal.show { display: flex; animation: fadeIn 0.2s; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.modal-content { background: var(--card-bg); color: var(--text); border-radius: 16px; max-width: 500px; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; animation: slideUp 0.3s; }
-.modal-header { padding: 20px 25px; background: linear-gradient(90deg, var(--header-start), var(--header-end)); color: #fff; display: flex; justify-content: space-between; align-items: center; }
-.modal-header h2 { font-size: 22px; }
-.close-btn { background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; line-height: 1; padding: 0 5px; }
-.modal-body { padding: 25px; overflow-y: auto; }
-
-.form-group { margin-bottom: 18px; }
-.form-group label { display: block; font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text); border-radius: 8px; font-size: 15px; outline: none; font-family: inherit; }
-.form-group textarea { resize: vertical; min-height: 80px; }
-.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-.btn-primary { width: 100%; background: var(--accent); color: #fff; border: none; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: 800; cursor: pointer; }
-.btn-primary:hover { background: var(--accent-hover); }
-.btn-primary:active { transform: scale(0.98); }
-.form-error { color: var(--danger); font-size: 13px; margin-top: 5px; display: none; }
-.form-error.show { display: block; }
-.form-footer { text-align: center; margin-top: 15px; font-size: 14px; color: var(--text-soft); }
-.form-footer a { color: var(--accent); cursor: pointer; font-weight: 600; text-decoration: none; }
-
-.emoji-picker { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-.emoji-option { width: 42px; height: 42px; border-radius: 8px; border: 2px solid var(--border); background: var(--input-bg); font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.emoji-option:hover { border-color: var(--accent); transform: scale(1.1); }
-.emoji-option.selected { border-color: var(--accent); background: var(--accent-light); }
-
-.product-modal-content { max-width: 900px; }
-.product-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-.product-detail-image { background: linear-gradient(135deg, var(--accent-light), var(--accent-light)); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 180px; min-height: 320px; position: relative; overflow: hidden; }
-.product-detail-image .rarity { position: absolute; top: 15px; left: 15px; font-size: 11px; padding: 5px 12px; max-width: calc(100% - 30px); bottom: auto; z-index: 3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.product-detail-info h2 { font-size: 24px; margin-bottom: 12px; word-break: break-word; }
-.product-detail-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; font-size: 14px; color: var(--text-soft); }
-.product-detail-rating .stars { color: #ffb300; font-size: 18px; }
-.product-detail-price { margin-bottom: 20px; }
-.product-detail-price .new { font-size: 36px; font-weight: 900; color: var(--accent); }
-.product-detail-desc { font-size: 15px; color: var(--text-soft); line-height: 1.6; margin-bottom: 20px; word-break: break-word; }
-.product-specs { background: var(--bg); border-radius: 10px; padding: 15px; margin-bottom: 20px; }
-.product-specs h3 { font-size: 15px; margin-bottom: 10px; }
-.product-specs ul { list-style: none; }
-.product-specs li { font-size: 14px; padding: 6px 0; color: var(--text-soft); display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); }
-.product-specs li:last-child { border-bottom: none; }
-.product-specs li strong { color: var(--text); }
-.detail-actions { display: flex; gap: 10px; }
-.btn-buy-big { flex: 1; background: var(--success); color: #fff; border: none; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: 800; cursor: pointer; }
-.btn-buy-big:hover { background: var(--success-hover); }
-.btn-secondary { background: var(--card-bg); color: var(--accent); border: 2px solid var(--accent); padding: 14px 20px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; }
-.btn-secondary:hover { background: var(--accent-light); }
-.btn-secondary.active { background: var(--accent-light); }
-
-.reviews-section { margin-top: 25px; padding-top: 20px; border-top: 2px solid var(--border); }
-.reviews-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-.reviews-header h3 { font-size: 18px; }
-.reviews-count { font-size: 13px; color: var(--text-dim); }
-.review-form { background: var(--bg); border-radius: 10px; padding: 15px; margin-bottom: 20px; }
-.review-form h4 { font-size: 14px; margin-bottom: 12px; }
-.rating-input { display: flex; gap: 5px; margin-bottom: 12px; }
-.star-btn { background: none; border: none; font-size: 28px; cursor: pointer; color: #ddd; padding: 0; line-height: 1; }
-.star-btn.active, .star-btn:hover { color: #ffb300; }
-.review-form textarea { width: 100%; padding: 10px 12px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text); border-radius: 8px; font-size: 14px; outline: none; font-family: inherit; margin-bottom: 10px; min-height: 60px; }
-.review-form textarea:focus { border-color: var(--accent); }
-.review-form button { width: 100%; background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
-.review-form button:hover { background: var(--accent-hover); }
-.reviews-list { display: flex; flex-direction: column; gap: 12px; max-height: 300px; overflow-y: auto; padding-right: 5px; }
-.review-item { background: var(--bg); border-radius: 10px; padding: 12px 15px; }
-.review-item-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
-.review-author { font-size: 14px; font-weight: 700; }
-.review-date { font-size: 12px; color: var(--text-dim); }
-.review-stars { color: #ffb300; font-size: 14px; margin-bottom: 6px; }
-.review-text { font-size: 14px; color: var(--text-soft); line-height: 1.5; word-break: break-word; }
-.no-reviews { text-align: center; padding: 20px; color: var(--text-dim); font-size: 14px; }
-
-.fav-list { display: flex; flex-direction: column; gap: 12px; }
-.fav-item { display: flex; gap: 15px; padding: 12px; background: var(--bg); border-radius: 10px; align-items: center; cursor: pointer; }
-.fav-item:hover { background: var(--accent-light); }
-.fav-item-img { width: 60px; height: 60px; background: var(--accent-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 30px; flex-shrink: 0; }
-.fav-item-info { flex: 1; min-width: 0; }
-.fav-item-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; word-break: break-word; }
-.fav-item-price { font-size: 15px; color: var(--accent); font-weight: 800; }
-.fav-item-remove { background: none; border: none; font-size: 20px; cursor: pointer; padding: 5px; }
-.fav-empty { text-align: center; padding: 40px 20px; color: var(--text-dim); }
-.fav-empty .emoji { font-size: 60px; margin-bottom: 15px; }
-
-.settings-section { margin-bottom: 25px; }
-.settings-section h3 { font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
-.theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
-.theme-option { border: 3px solid var(--border); border-radius: 12px; padding: 15px 10px; cursor: pointer; text-align: center; background: var(--input-bg); }
-.theme-option:hover { transform: translateY(-3px); box-shadow: 0 5px 15px var(--shadow); }
-.theme-option.active { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
-.theme-preview { width: 100%; height: 60px; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; font-size: 26px; }
-.theme-preview.light { background: linear-gradient(90deg, #cb11ab, #481173); }
-.theme-preview.dark { background: linear-gradient(90deg, #6b0a5c, #1e0630); }
-.theme-preview.minecraft { background: linear-gradient(90deg, #4a7c2e, #2a4a17); }
-.theme-option .name { font-size: 13px; font-weight: 700; }
-
-.chat-container { display: flex; flex-direction: column; height: 500px; }
-.chat-messages { flex: 1; overflow-y: auto; padding: 20px 25px; background: var(--bg); display: flex; flex-direction: column; gap: 12px; }
-.chat-msg { max-width: 75%; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.5; word-wrap: break-word; }
-.chat-msg.me { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 3px; }
-.chat-msg.them { align-self: flex-start; background: var(--card-bg); color: var(--text); border: 1px solid var(--border); border-bottom-left-radius: 3px; }
-.chat-msg-author { font-size: 11px; font-weight: 800; opacity: 0.7; margin-bottom: 4px; }
-.chat-msg-time { font-size: 10px; opacity: 0.6; margin-top: 4px; text-align: right; }
-.chat-input-row { display: flex; gap: 10px; padding: 15px 25px; background: var(--card-bg); border-top: 2px solid var(--border); }
-.chat-input-row input { flex: 1; padding: 12px 14px; border: 2px solid var(--border); background: var(--input-bg); color: var(--text); border-radius: 10px; font-size: 14px; outline: none; }
-.chat-input-row input:focus { border-color: var(--accent); }
-.chat-input-row button { background: var(--accent); color: #fff; border: none; padding: 0 20px; border-radius: 10px; font-size: 16px; cursor: pointer; font-weight: 700; }
-
-footer { background: var(--footer-bg); color: var(--footer-text); padding: 40px 0 20px; margin-top: 40px; }
-.footer-inner { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
-.footer-col h3 { font-size: 16px; margin-bottom: 15px; color: var(--gold); }
-.footer-col a { display: block; color: #ccc; text-decoration: none; font-size: 14px; margin-bottom: 8px; cursor: pointer; }
-.footer-col a:hover { color: #fff; }
-.footer-bottom { max-width: 1400px; margin: 30px auto 0; padding: 20px 20px 0; border-top: 1px solid var(--header-end); text-align: center; font-size: 13px; color: var(--text-dim); }
-
-.notification { position: fixed; bottom: 30px; right: 30px; background: var(--success); color: #fff; padding: 15px 25px; border-radius: 10px; font-weight: 700; box-shadow: 0 5px 20px rgba(0,0,0,0.2); transform: translateY(100px); opacity: 0; transition: 0.3s; z-index: 1000; max-width: 350px; }
-.notification.show { transform: translateY(0); opacity: 1; }
-
-@media (max-width: 768px) {
-    .search-bar { display: none; }
-    .product-detail { grid-template-columns: 1fr; gap: 20px; }
-    .product-detail-image { min-height: 200px; font-size: 120px; }
-    .banner h1 { font-size: 26px; }
-    .banner-inner { padding: 30px 25px; }
-    .form-row { grid-template-columns: 1fr; }
+body.theme-namaz{
+  --bg:#0a0015;--card:#1a0a2e;--text:#fff;--text2:#b088ff;--text3:#d0b0ff;
+  --border:#4a1a7a;--input:#2a1040;--soft:#150525;
+  --h1:#ffd700;--h2:#ff00ff;--accent:#ff00ff;--accent-h:#ff44ff;--accent-l:#3a0a5c;
 }
+body{background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+header{background:linear-gradient(90deg,var(--h1),var(--h2));padding:15px;position:sticky;top:0;z-index:100}
+.header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:20px}
+.logo{font-size:28px;font-weight:900;letter-spacing:2px;cursor:pointer;display:flex;padding:4px 12px;background:#fff;border-radius:8px}
+.logo .ma{color:#fff;text-shadow:0 0 2px #000,1px 1px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000}
+.logo .zon{color:#000}
+.search-bar{flex:1;display:flex;background:#fff;border-radius:8px;overflow:hidden;max-width:700px}
+.search-bar input{flex:1;padding:12px 16px;border:none;outline:none;font-size:15px;background:#fff;color:#333}
+.search-bar button{background:var(--accent);color:#fff;border:none;padding:0 25px;cursor:pointer;font-size:18px}
+.header-icons{display:flex;gap:20px;color:#fff;margin-left:auto}
+.header-icon{display:flex;flex-direction:column;align-items:center;cursor:pointer;font-size:12px;gap:3px;padding:5px;position:relative}
+.header-icon .icon{font-size:22px}
+.cart-badge{position:absolute;top:-3px;right:-5px;background:#ffd700;color:#481173;font-size:11px;font-weight:800;border-radius:10px;padding:2px 6px;display:none}
+.cart-badge.show{display:block}
+.namaz-badge{position:absolute;top:-3px;right:-5px;background:var(--namaz);color:#fff;font-size:9px;font-weight:900;border-radius:8px;padding:2px 5px;letter-spacing:.5px}
+
+nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 20px;overflow-x:auto;transition:.3s}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;gap:25px}
+.nav-inner a{padding:15px 0;color:var(--text);text-decoration:none;font-size:14px;white-space:nowrap;border-bottom:2px solid transparent;cursor:pointer}
+.nav-inner a:hover,.nav-inner a.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+.banner{max-width:1400px;margin:20px auto;padding:0 20px}
+.banner-inner{background:linear-gradient(135deg,#3d7d2b,#1a3d0f);border-radius:16px;padding:50px 60px;color:#fff;position:relative;overflow:hidden}
+.banner-inner::after{content:'⛏️';position:absolute;right:60px;top:50%;transform:translateY(-50%);font-size:150px;opacity:.2}
+.banner h1{font-size:40px;margin-bottom:12px}
+.banner p{font-size:18px;margin-bottom:25px}
+.banner-btn{background:#7cff5c;color:#1a3d0f;border:none;padding:14px 35px;border-radius:8px;font-size:16px;font-weight:800;cursor:pointer}
+.banner-btn:hover{filter:brightness(1.1)}
+
+.namaz-banner{max-width:1400px;margin:20px auto;padding:0 20px}
+.namaz-inner{background:var(--namaz);background-size:300% 300%;animation:namazShift 6s ease infinite;border-radius:16px;padding:30px 40px;color:#fff;display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden;box-shadow:0 0 30px rgba(255,0,255,.4)}
+@keyframes namazShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.namaz-inner h2{font-size:26px;margin-bottom:8px;text-shadow:2px 2px 0 rgba(0,0,0,.5)}
+.namaz-inner p{font-size:15px;opacity:.95;margin-bottom:15px}
+.namaz-price{font-size:32px;font-weight:900;text-shadow:2px 2px 0 rgba(0,0,0,.5)}
+.namaz-price small{font-size:16px}
+.namaz-buy-btn{background:#fff;color:#ff00ff;border:none;padding:14px 30px;border-radius:10px;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.3)}
+.namaz-buy-btn:hover{transform:scale(1.05)}
+
+.filters{max-width:1400px;margin:30px auto 0;padding:0 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.filter-btn{background:var(--card);border:2px solid var(--border);color:var(--text);padding:8px 18px;border-radius:20px;cursor:pointer;font-size:14px;font-weight:600;transition:.2s}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.filter-btn.add-product-btn{background:var(--success);color:#fff;border-color:var(--success);margin-left:auto}
+.filter-btn.add-product-btn:hover{filter:brightness(1.15);color:#fff}
+
+.section-title{max-width:1400px;margin:40px auto 20px;padding:0 20px;font-size:26px;font-weight:800;display:flex;justify-content:space-between;align-items:center}
+.section-title small{font-size:14px;color:var(--text2);font-weight:500}
+
+.products{max-width:1400px;margin:0 auto;padding:0 20px 60px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.product-card{background:var(--card);border-radius:12px;overflow:hidden;transition:.2s;display:flex;flex-direction:column;color:var(--text)}
+.product-card:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,.15)}
+.product-image{width:100%;height:220px;background:var(--accent-l);display:flex;align-items:center;justify-content:center;font-size:90px;position:relative;cursor:pointer;overflow:hidden}
+.favorite{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.9);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;z-index:3;border:none}
+.delete-product{position:absolute;top:10px;right:50px;background:rgba(255,255,255,.9);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;z-index:3;border:none}
+.delete-product:hover{background:var(--danger);color:#fff}
+.rarity{position:absolute;bottom:10px;left:10px;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:800;text-transform:uppercase;z-index:3;max-width:calc(100% - 20px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rarity.common{background:#b0b0b0;color:#fff}
+.rarity.rare{background:#3b7bff;color:#fff}
+.rarity.epic{background:#a13bff;color:#fff}
+.rarity.legendary{background:linear-gradient(90deg,#ffb800,#ff6b00);color:#fff}
+.product-info{padding:12px;display:flex;flex-direction:column;flex:1}
+.price-new{font-size:22px;font-weight:800;color:var(--accent);margin-bottom:6px;display:block}
+.product-name{font-size:14px;line-height:1.4;margin-bottom:6px;min-height:39px;cursor:pointer;color:var(--text)}
+.product-name:hover{color:var(--accent)}
+.seller-line{font-size:12px;color:var(--text2);margin-bottom:8px;cursor:pointer}
+.seller-line:hover{color:var(--accent)}
+.product-rating{font-size:13px;color:var(--text3);margin-bottom:10px}
+.rating-stars{color:#ffb300}
+.no-rating{color:var(--text2);font-size:13px}
+.product-actions{display:flex;gap:6px;margin-top:auto}
+.btn-buy{flex:1;background:var(--success);color:#fff;border:none;padding:10px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+.btn-buy:hover{background:var(--success-h)}
+.btn-cart-icon{width:42px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer}
+.btn-cart-icon:hover{background:var(--accent-h)}
+.btn-cart-icon.added{background:var(--success)}
+
+.empty-state{grid-column:1/-1;text-align:center;padding:80px 20px}
+.empty-state .emoji{font-size:100px;margin-bottom:20px;opacity:.7}
+.empty-state h2{font-size:26px;margin-bottom:12px}
+.empty-state p{color:var(--text3);margin-bottom:25px;font-size:16px}
+.empty-state button{background:var(--accent);color:#fff;border:none;padding:14px 30px;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer}
+.loading{grid-column:1/-1;text-align:center;padding:60px;color:var(--text2);font-size:18px}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
+.modal.show{display:flex}
+.modal-content{background:var(--card);color:var(--text);border-radius:16px;max-width:500px;width:100%;max-height:90vh;overflow:hidden;display:flex;flex-direction:column}
+.modal-header{padding:20px 25px;background:linear-gradient(90deg,var(--h1),var(--h2));color:#fff;display:flex;justify-content:space-between;align-items:center}
+.modal-header h2{font-size:22px}
+.close-btn{background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1;padding:0 5px}
+.modal-body{padding:25px;overflow-y:auto;background:var(--card)}
+
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:14px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 14px;border:2px solid var(--border);background:var(--input);color:var(--text);border-radius:8px;font-size:15px;outline:none;font-family:inherit}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.btn-primary{width:100%;background:var(--accent);color:#fff;border:none;padding:14px;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer}
+.btn-primary:hover{background:var(--accent-h)}
+.btn-success{background:var(--success)}
+.btn-success:hover{background:var(--success-h)}
+.btn-danger{background:var(--danger)}
+.form-error{color:var(--danger);font-size:13px;margin-top:5px;display:none}
+.form-error.show{display:block}
+.form-footer{text-align:center;margin-top:15px;font-size:14px;color:var(--text3)}
+.form-footer a{color:var(--accent);cursor:pointer;font-weight:600;text-decoration:none}
+
+.emoji-picker{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.emoji-option{width:42px;height:42px;border-radius:8px;border:2px solid var(--border);background:var(--input);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.emoji-option:hover{border-color:var(--accent)}
+.emoji-option.selected{border-color:var(--accent);background:var(--accent-l)}
+
+.product-modal-content{max-width:900px}
+.product-detail{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.product-detail-image{background:var(--accent-l);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:180px;min-height:320px;position:relative;overflow:hidden}
+.product-detail-image .rarity{top:15px;left:15px;bottom:auto}
+.product-detail-info h2{font-size:24px;margin-bottom:12px;word-break:break-word;color:var(--text)}
+.seller-card{background:var(--soft);border-radius:10px;padding:12px 15px;margin-bottom:15px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.15s}
+.seller-card:hover{background:var(--accent-l)}
+.seller-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;color:#fff}
+.seller-info{flex:1}
+.seller-name{font-size:14px;font-weight:700;margin-bottom:2px;color:var(--text)}
+.seller-bio{font-size:12px;color:var(--text2)}
+.seller-label{font-size:11px;color:var(--text2);text-transform:uppercase;margin-bottom:4px}
+.product-detail-rating{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:14px;color:var(--text3)}
+.product-detail-rating .stars{color:#ffb300;font-size:18px}
+.product-detail-price{margin-bottom:20px}
+.product-detail-price .new{font-size:36px;font-weight:900;color:var(--accent)}
+.product-detail-desc{font-size:15px;color:var(--text3);line-height:1.6;margin-bottom:20px;word-break:break-word}
+.detail-actions{display:flex;gap:10px}
+.btn-buy-big{flex:1;background:var(--success);color:#fff;border:none;padding:14px;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer}
+.btn-buy-big:hover{background:var(--success-h)}
+.btn-secondary{background:var(--card);color:var(--accent);border:2px solid var(--accent);padding:14px 20px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer}
+.btn-secondary:hover{background:var(--accent-l)}
+
+.reviews-section{margin-top:25px;padding-top:20px;border-top:2px solid var(--border)}
+.reviews-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+.reviews-header h3{font-size:18px;color:var(--text)}
+.reviews-count{font-size:13px;color:var(--text2)}
+.review-form{background:var(--soft);border-radius:10px;padding:15px;margin-bottom:20px}
+.review-form h4{font-size:14px;margin-bottom:12px;color:var(--text)}
+.rating-input{display:flex;gap:5px;margin-bottom:12px}
+.star-btn{background:none;border:none;font-size:28px;cursor:pointer;color:#ddd;padding:0;line-height:1}
+.star-btn.active{color:#ffb300}
+.review-form textarea{width:100%;padding:10px;border:2px solid var(--border);background:var(--input);color:var(--text);border-radius:8px;font-size:14px;outline:none;font-family:inherit;margin-bottom:10px;min-height:60px}
+.review-form textarea:focus{border-color:var(--accent)}
+.review-form button{width:100%;background:var(--accent);color:#fff;border:none;padding:12px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+.reviews-list{display:flex;flex-direction:column;gap:12px;max-height:300px;overflow-y:auto}
+.review-item{background:var(--soft);border-radius:10px;padding:12px 15px}
+.review-item-header{display:flex;justify-content:space-between;margin-bottom:6px}
+.review-author{font-size:14px;font-weight:700;color:var(--text)}
+.review-date{font-size:12px;color:var(--text2)}
+.review-stars{color:#ffb300;font-size:14px;margin-bottom:6px}
+.review-text{font-size:14px;color:var(--text3);line-height:1.5;word-break:break-word}
+.no-reviews{text-align:center;padding:20px;color:var(--text2);font-size:14px}
+
+.chat-container{display:flex;flex-direction:column;height:500px}
+.chat-messages{flex:1;overflow-y:auto;padding:20px 25px;background:var(--soft);display:flex;flex-direction:column;gap:12px}
+.chat-msg{max-width:75%;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1.5;word-wrap:break-word}
+.chat-msg.me{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:3px}
+.chat-msg.them{align-self:flex-start;background:var(--card);color:var(--text);border:1px solid var(--border);border-bottom-left-radius:3px}
+.chat-msg-author{font-size:11px;font-weight:800;opacity:.7;margin-bottom:4px}
+.chat-msg-time{font-size:10px;opacity:.6;margin-top:4px;text-align:right}
+.chat-input-row{display:flex;gap:10px;padding:15px 25px;background:var(--card);border-top:2px solid var(--border)}
+.chat-input-row input{flex:1;padding:12px 14px;border:2px solid var(--border);background:var(--input);color:var(--text);border-radius:10px;font-size:14px;outline:none}
+.chat-input-row input:focus{border-color:var(--accent)}
+.chat-input-row button{background:var(--accent);color:#fff;border:none;padding:0 20px;border-radius:10px;font-size:16px;cursor:pointer;font-weight:700}
+
+.settings-section{margin-bottom:25px}
+.settings-section h3{font-size:16px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);color:var(--text)}
+.theme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
+.theme-option{border:3px solid var(--border);border-radius:12px;padding:15px 10px;cursor:pointer;text-align:center;background:var(--input);position:relative}
+.theme-option.active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-l)}
+.theme-option.locked{opacity:.5;cursor:not-allowed}
+.theme-option.locked::after{content:'NAMAZ';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.6);color:#ffd700;font-size:10px;font-weight:900;border-radius:8px;letter-spacing:1px}
+.theme-preview{width:100%;height:60px;border-radius:8px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.theme-preview.light{background:linear-gradient(90deg,#cb11ab,#481173)}
+.theme-preview.dark{background:linear-gradient(90deg,#6b0a5c,#1e0630)}
+.theme-preview.minecraft{background:linear-gradient(90deg,#4a7c2e,#2a4a17)}
+.theme-preview.namaz{background:linear-gradient(135deg,#ffd700,#ff00ff,#6600cc)}
+.theme-option .name{font-size:13px;font-weight:700;color:var(--text)}
+
+.profile-header{text-align:center;padding:10px 0 20px;border-bottom:2px solid var(--border);margin-bottom:20px}
+.profile-avatar{width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:50px;margin:0 auto 15px;border:4px solid var(--accent);color:#fff}
+.profile-avatar.namaz{border:4px solid transparent;background-clip:padding-box;box-shadow:0 0 0 4px #ffd700,0 0 20px rgba(255,0,255,.5)}
+.profile-name{font-size:22px;font-weight:800;margin-bottom:5px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--text)}
+.namaz-user-badge{display:inline-flex;align-items:center;gap:4px;background:var(--namaz);color:#fff;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:900;letter-spacing:.5px}
+.avatar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(55px,1fr));gap:8px;margin-top:8px}
+.avatar-option{width:55px;height:55px;border-radius:50%;border:3px solid var(--border);background:var(--input);font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative}
+.avatar-option.selected{border-color:var(--accent);background:var(--accent-l)}
+.avatar-option.namaz-only.locked{opacity:.4;cursor:not-allowed}
+.avatar-option.namaz-only.locked::after{content:'🔒';position:absolute;font-size:18px}
+.color-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.color-option{width:40px;height:40px;border-radius:50%;border:3px solid var(--border);cursor:pointer;transition:.15s}
+.color-option.selected{border-color:#fff;box-shadow:0 0 0 3px var(--accent)}
+
+/* БАЛАНС / ZOV КОШЕЛЁК */
+.balance-card{background:linear-gradient(135deg,#3d7d2b,#1a3d0f);border-radius:16px;padding:25px 30px;color:#fff;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+.balance-info{flex:1}
+.balance-label{font-size:13px;opacity:.85;margin-bottom:6px}
+.balance-value{font-size:36px;font-weight:900}
+.balance-btn{background:#7cff5c;color:#1a3d0f;border:none;padding:12px 25px;border-radius:10px;font-size:15px;font-weight:900;cursor:pointer}
+.balance-btn:hover{filter:brightness(1.1)}
+.payment-info{background:var(--soft);border-radius:10px;padding:15px;margin-bottom:15px}
+.payment-info h4{font-size:14px;margin-bottom:10px;color:var(--text)}
+.payment-info ol{margin-left:20px;font-size:14px;color:var(--text3);line-height:1.8}
+.payment-info b{color:var(--accent)}
+
+/* ЗАКАЗЫ */
+.order-card{background:var(--soft);border-radius:12px;padding:15px;margin-bottom:12px}
+.order-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.order-num{font-weight:800;font-size:15px;color:var(--text)}
+.order-status{font-size:11px;padding:3px 10px;border-radius:6px;font-weight:800;text-transform:uppercase}
+.order-status.paid{background:var(--success);color:#fff}
+.order-status.pending{background:#ffb800;color:#333}
+.order-status.received{background:#3b7bff;color:#fff}
+.order-status.refunded{background:var(--danger);color:#fff}
+.order-items{font-size:13px;color:var(--text3);margin-bottom:12px;line-height:1.6}
+.order-total{font-size:15px;font-weight:800;color:var(--accent);margin-bottom:12px}
+.order-actions{display:flex;gap:8px;flex-wrap:wrap}
+.order-btn{flex:1;min-width:140px;padding:10px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none}
+.order-btn.receive{background:var(--success);color:#fff}
+.order-btn.refund{background:var(--card);color:var(--danger);border:2px solid var(--danger)}
+
+.notification{position:fixed;bottom:30px;right:30px;background:var(--success);color:#fff;padding:15px 25px;border-radius:10px;font-weight:700;box-shadow:0 5px 20px rgba(0,0,0,.2);transform:translateY(100px);opacity:0;transition:.3s;z-index:1000;max-width:350px}
+.notification.show{transform:translateY(0);opacity:1}
+footer{background:var(--h2);color:#ccc;padding:40px 20px 20px;margin-top:40px;text-align:center;font-size:13px}
 </style>
 </head>
 <body>
@@ -253,9 +269,16 @@ footer { background: var(--footer-bg); color: var(--footer-text); padding: 40px 
             <button onclick="performSearch()">🔍</button>
         </div>
         <div class="header-icons">
-            <div class="header-icon" onclick="openSettingsModal()"><span class="icon">⚙️</span><span>Настройки</span></div>
-            <div class="header-icon" onclick="openProfileModal()"><span class="icon">👤</span><span id="user-label">Войти</span></div>
-            <div class="header-icon" onclick="openFavoritesModal()"><span class="icon">❤️</span><span>Избранное (<span id="fav-count">0</span>)</span></div>
+            <div class="header-icon" onclick="openWallet()"><span class="icon">💰</span><span>Кошелёк</span></div>
+            <div class="header-icon" onclick="openOrders()"><span class="icon">📦</span><span>Заказы</span></div>
+            <div class="header-icon" onclick="openModal('settings-modal')"><span class="icon">⚙️</span><span>Настройки</span></div>
+            <div class="header-icon" onclick="openProfile()">
+                <span class="icon">👤</span>
+                <span id="user-label">Войти</span>
+                <span class="namaz-badge" id="namaz-badge-header" style="display:none;">NAMAZ</span>
+            </div>
+            <div class="header-icon" onclick="openFavorites()"><span class="icon">❤️</span><span>Избранное (<span id="fav-count">0</span>)</span></div>
+            <div class="header-icon" onclick="openChatModal()"><span class="icon">💬</span><span>Чат</span></div>
             <div class="header-icon" onclick="toggleCart()"><span class="icon">🛒</span><span>Корзина</span><span class="cart-badge" id="cart-badge">0</span></div>
         </div>
     </div>
@@ -277,9 +300,20 @@ footer { background: var(--footer-bg); color: var(--footer-text); padding: 40px 
 
 <div class="banner">
     <div class="banner-inner">
-        <h1>⛏️ MAZON × Minecraft</h1>
-        <p>Общий магазин — все игроки видят ваши товары!</p>
-        <button class="banner-btn" onclick="openAddProductModal()">➕ Добавить товар</button>
+        <h1>⛏️ MAZON</h1>
+        <p>2026 — Общий магазин, все игроки видят ваши товары!</p>
+        <button class="banner-btn" onclick="openAddProduct()">➕ Добавить товар</button>
+    </div>
+</div>
+
+<div class="namaz-banner">
+    <div class="namaz-inner">
+        <div>
+            <h2>Подписка NAMAZ</h2>
+            <p>Эксклюзивная тема, VIP-аватарки, бейдж и больше возможностей!</p>
+            <div class="namaz-price">$4.99 <small>/ месяц</small></div>
+        </div>
+        <button class="namaz-buy-btn" onclick="openNamaz()">✨ Подключить</button>
     </div>
 </div>
 
@@ -290,29 +324,37 @@ footer { background: var(--footer-bg); color: var(--footer-text); padding: 40px 
     <button class="filter-btn" onclick="filterRarity('epic', this)">🟣 Эпические</button>
     <button class="filter-btn" onclick="filterRarity('legendary', this)">🟡 Легендарные</button>
     <button class="filter-btn" onclick="sortByPrice(this)">💰 По цене</button>
-    <button class="filter-btn add-product-btn" onclick="openAddProductModal()">➕ Добавить товар</button>
+    <button class="filter-btn add-product-btn" onclick="openAddProduct()">➕ Добавить товар</button>
 </div>
 
-<h2 class="section-title" id="products-section">
+<h2 class="section-title">
     <span id="section-name">Все товары</span>
     <small id="products-count"></small>
 </h2>
 <div class="products" id="products">
-    <div class="loading">⏳ Загрузка товаров...</div>
+    <div class="loading">⏳ Загрузка...</div>
 </div>
 
 <!-- НАСТРОЙКИ -->
 <div class="modal" id="settings-modal">
-    <div class="modal-content">
-        <div class="modal-header"><h2>⚙️ Настройки</h2><button class="close-btn" onclick="closeSettingsModal()">×</button></div>
+    <div class="modal-content" style="max-width:600px">
+        <div class="modal-header"><h2>⚙️ Настройки</h2><button class="close-btn" onclick="closeModal('settings-modal')">×</button></div>
         <div class="modal-body">
             <div class="settings-section">
                 <h3>🎨 Тема</h3>
                 <div class="theme-grid">
-                    <div class="theme-option" data-theme="light" onclick="setTheme('light')"><div class="theme-preview light">🌸</div><div class="name">Светлая</div></div>
-                    <div class="theme-option" data-theme="dark" onclick="setTheme('dark')"><div class="theme-preview dark">🌙</div><div class="name">Тёмная</div></div>
-                    <div class="theme-option" data-theme="minecraft" onclick="setTheme('minecraft')"><div class="theme-preview minecraft">🟩</div><div class="name">Minecraft</div></div>
+                    <div class="theme-option" data-t="light" onclick="setTheme('light', this)"><div class="theme-preview light">🌸</div><div class="name">Светлая</div></div>
+                    <div class="theme-option" data-t="dark" onclick="setTheme('dark', this)"><div class="theme-preview dark">🌙</div><div class="name">Тёмная</div></div>
+                    <div class="theme-option" data-t="minecraft" onclick="setTheme('minecraft', this)"><div class="theme-preview minecraft">🟩</div><div class="name">Земля</div></div>
+                    <div class="theme-option namaz-locked" data-t="namaz" id="namaz-theme-option"><div class="theme-preview namaz">✨</div><div class="name">NAMAZ</div></div>
                 </div>
+            </div>
+            <div class="settings-section">
+                <h3>🔑 Активация</h3>
+                <div class="form-group">
+                    <input type="password" id="activation-code" placeholder="Введите код">
+                </div>
+                <button class="btn-primary" onclick="applyCode()">Применить</button>
             </div>
         </div>
     </div>
@@ -320,12 +362,12 @@ footer { background: var(--footer-bg); color: var(--footer-text); padding: 40px 
 
 <!-- ДОБАВИТЬ ТОВАР -->
 <div class="modal" id="add-product-modal">
-    <div class="modal-content" style="max-width: 580px;">
-        <div class="modal-header"><h2>➕ Добавить товар</h2><button class="close-btn" onclick="closeAddProductModal()">×</button></div>
+    <div class="modal-content">
+        <div class="modal-header"><h2>➕ Добавить товар</h2><button class="close-btn" onclick="closeModal('add-product-modal')">×</button></div>
         <div class="modal-body">
             <div class="form-group"><label>Название *</label><input type="text" id="ap-name" placeholder="Алмазный меч"></div>
-            <div class="form-group"><label>Описание</label><textarea id="ap-desc" placeholder="Описание..."></textarea></div>
-            <div class="form-group"><label>Цена (₽) *</label><input type="number" id="ap-price" placeholder="999" min="0" step="1"></div>
+            <div class="form-group"><label>Описание</label><textarea id="ap-desc"></textarea></div>
+            <div class="form-group"><label>Цена ($) *</label><input type="number" id="ap-price" placeholder="9.99" min="0" step="0.01"></div>
             <div class="form-row">
                 <div class="form-group"><label>Категория</label><select id="ap-category">
                     <option value="blocks">🧱 Блоки</option><option value="tools">⛏️ Инструменты</option>
@@ -340,27 +382,22 @@ footer { background: var(--footer-bg); color: var(--footer-text); padding: 40px 
             </div>
             <div class="form-group">
                 <label>Иконка *</label>
-                <input type="text" id="ap-emoji" placeholder="💎" maxlength="4" style="font-size: 22px; text-align: center;">
+                <input type="text" id="ap-emoji" value="💎" maxlength="4" style="font-size:22px;text-align:center">
                 <div class="emoji-picker">
-                    <div class="emoji-option" onclick="selectEmoji('💎', this)">💎</div>
-                    <div class="emoji-option" onclick="selectEmoji('⚔️', this)">⚔️</div>
-                    <div class="emoji-option" onclick="selectEmoji('⛏️', this)">⛏️</div>
-                    <div class="emoji-option" onclick="selectEmoji('🛡️', this)">🛡️</div>
-                    <div class="emoji-option" onclick="selectEmoji('🏹', this)">🏹</div>
-                    <div class="emoji-option" onclick="selectEmoji('🧪', this)">🧪</div>
-                    <div class="emoji-option" onclick="selectEmoji('🐷', this)">🐷</div>
-                    <div class="emoji-option" onclick="selectEmoji('🍎', this)">🍎</div>
-                    <div class="emoji-option" onclick="selectEmoji('🔴', this)">🔴</div>
-                    <div class="emoji-option" onclick="selectEmoji('🟫', this)">🟫</div>
-                    <div class="emoji-option" onclick="selectEmoji('💠', this)">💠</div>
-                    <div class="emoji-option" onclick="selectEmoji('🐉', this)">🐉</div>
-                    <div class="emoji-option" onclick="selectEmoji('🔥', this)">🔥</div>
-                    <div class="emoji-option" onclick="selectEmoji('✨', this)">✨</div>
-                    <div class="emoji-option" onclick="selectEmoji('🎁', this)">🎁</div>
+                    <div class="emoji-option selected" onclick="pickEmoji('💎', this)">💎</div>
+                    <div class="emoji-option" onclick="pickEmoji('⚔️', this)">⚔️</div>
+                    <div class="emoji-option" onclick="pickEmoji('⛏️', this)">⛏️</div>
+                    <div class="emoji-option" onclick="pickEmoji('🛡️', this)">🛡️</div>
+                    <div class="emoji-option" onclick="pickEmoji('🏹', this)">🏹</div>
+                    <div class="emoji-option" onclick="pickEmoji('🧪', this)">🧪</div>
+                    <div class="emoji-option" onclick="pickEmoji('🐷', this)">🐷</div>
+                    <div class="emoji-option" onclick="pickEmoji('🍎', this)">🍎</div>
+                    <div class="emoji-option" onclick="pickEmoji('🐉', this)">🐉</div>
+                    <div class="emoji-option" onclick="pickEmoji('🔥', this)">🔥</div>
                 </div>
             </div>
             <div class="form-error" id="ap-error">❌ Заполните название и цену</div>
-            <button class="btn-primary" onclick="saveProduct()">💾 Сохранить товар</button>
+            <button class="btn-primary" onclick="saveProduct()">💾 Сохранить</button>
         </div>
     </div>
 </div>
@@ -368,48 +405,71 @@ footer { background: var(--footer-bg); color: var(--footer-text); padding: 40px 
 <!-- ВХОД / РЕГИСТРАЦИЯ -->
 <div class="modal" id="login-modal">
     <div class="modal-content">
-        <div class="modal-header"><h2 id="auth-title">👤 Вход в MAZON</h2><button class="close-btn" onclick="closeLoginModal()">×</button></div>
+        <div class="modal-header"><h2 id="auth-title">👤 Вход</h2><button class="close-btn" onclick="closeModal('login-modal')">×</button></div>
         <div class="modal-body">
             <div id="login-view">
-                <div class="form-group"><label>Email</label><input type="email" id="login-email" placeholder="steve@mazon.ru"></div>
-                <div class="form-group"><label>Пароль</label><input type="password" id="login-pass" placeholder="••••••••"></div>
-                <div class="form-error" id="login-error">❌ Неверный email или пароль</div>
+                <div class="form-group"><label>Имя</label><input type="text" id="login-name"></div>
+                <div class="form-group"><label>Пароль</label><input type="password" id="login-pass"></div>
+                <div class="form-error" id="login-error">❌ Неверное имя или пароль</div>
                 <button class="btn-primary" onclick="doLogin()">Войти</button>
-                <div class="form-footer">Нет аккаунта? <a onclick="switchAuthView('register')">Зарегистрироваться</a></div>
-                <div class="form-footer" style="font-size:12px;margin-top:10px;">Демо: <b>steve@mazon.ru</b> / <b>123456</b></div>
+                <div class="form-footer">Нет аккаунта? <a onclick="showRegister()">Зарегистрироваться</a></div>
             </div>
-            <div id="register-view" style="display:none;">
+            <div id="register-view" style="display:none">
                 <div class="form-group"><label>Имя *</label><input type="text" id="reg-name" placeholder="Steve"></div>
-                <div class="form-group"><label>Email *</label><input type="email" id="reg-email" placeholder="steve@mazon.ru"></div>
                 <div class="form-group"><label>Пароль * (от 4 символов)</label><input type="password" id="reg-pass"></div>
                 <div class="form-group"><label>Повтор пароля *</label><input type="password" id="reg-pass2"></div>
                 <div class="form-error" id="register-error">❌ Ошибка</div>
                 <button class="btn-primary" onclick="doRegister()">📝 Создать аккаунт</button>
-                <div class="form-footer">Уже есть? <a onclick="switchAuthView('login')">Войти</a></div>
-            </div>
-            <div id="login-success-view" style="display:none;text-align:center;padding:20px 0;">
-                <div style="font-size:80px;margin-bottom:15px;">⛏️</div>
-                <h2 style="margin-bottom:10px;">Добро пожаловать!</h2>
-                <p style="color:var(--text-soft);margin-bottom:20px;">Вы вошли как <b id="logged-email"></b></p>
-                <button class="btn-primary" onclick="closeLoginModal()">Продолжить</button>
-                <button class="btn-secondary" style="width:100%;margin-top:10px;" onclick="logout()">Выйти</button>
+                <div class="form-footer">Уже есть? <a onclick="showLogin()">Войти</a></div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- ПРОФИЛЬ -->
+<div class="modal" id="profile-modal">
+    <div class="modal-content" style="max-width:560px">
+        <div class="modal-header"><h2>👤 Профиль</h2><button class="close-btn" onclick="closeModal('profile-modal')">×</button></div>
+        <div class="modal-body" id="profile-body"></div>
+    </div>
+</div>
+
+<!-- КОШЕЛЁК -->
+<div class="modal" id="wallet-modal">
+    <div class="modal-content">
+        <div class="modal-header"><h2>💰 ZOV Кошелёк</h2><button class="close-btn" onclick="closeModal('wallet-modal')">×</button></div>
+        <div class="modal-body" id="wallet-body"></div>
+    </div>
+</div>
+
+<!-- ЗАКАЗЫ -->
+<div class="modal" id="orders-modal">
+    <div class="modal-content" style="max-width:600px">
+        <div class="modal-header"><h2>📦 Мои заказы</h2><button class="close-btn" onclick="closeModal('orders-modal')">×</button></div>
+        <div class="modal-body" id="orders-body"></div>
     </div>
 </div>
 
 <!-- ТОВАР -->
 <div class="modal" id="product-modal">
     <div class="modal-content product-modal-content">
-        <div class="modal-header"><h2 id="pm-title">Товар</h2><button class="close-btn" onclick="closeProductModal()">×</button></div>
+        <div class="modal-header"><h2 id="pm-title">Товар</h2><button class="close-btn" onclick="closeModal('product-modal')">×</button></div>
         <div class="modal-body" id="pm-body"></div>
+    </div>
+</div>
+
+<!-- ПРОДАВЕЦ -->
+<div class="modal" id="seller-modal">
+    <div class="modal-content">
+        <div class="modal-header"><h2>👤 Продавец</h2><button class="close-btn" onclick="closeModal('seller-modal')">×</button></div>
+        <div class="modal-body" id="seller-body"></div>
     </div>
 </div>
 
 <!-- ИЗБРАННОЕ -->
 <div class="modal" id="favorites-modal">
     <div class="modal-content">
-        <div class="modal-header"><h2>❤️ Избранное</h2><button class="close-btn" onclick="closeFavoritesModal()">×</button></div>
+        <div class="modal-header"><h2>❤️ Избранное</h2><button class="close-btn" onclick="closeModal('favorites-modal')">×</button></div>
         <div class="modal-body" id="favorites-body"></div>
     </div>
 </div>
@@ -417,782 +477,1039 @@ footer { background: var(--footer-bg); color: var(--footer-text); padding: 40px 
 <!-- КОРЗИНА -->
 <div class="modal" id="cart-modal">
     <div class="modal-content">
-        <div class="modal-header"><h2>🛒 Корзина</h2><button class="close-btn" onclick="toggleCart()">×</button></div>
+        <div class="modal-header"><h2>🛒 Корзина</h2><button class="close-btn" onclick="closeModal('cart-modal')">×</button></div>
         <div class="modal-body" id="cart-items"></div>
-        <div id="cart-footer" style="padding:20px 25px;background:var(--bg);border-top:1px solid var(--border);display:none;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;font-size:18px;">
-                <span>Итого:</span><span style="font-size:24px;font-weight:800;color:var(--accent);" id="cart-total">0 ₽</span>
+        <div id="cart-footer" style="padding:20px 25px;background:var(--soft);border-top:1px solid var(--border);display:none">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;font-size:18px;color:var(--text)">
+                <span>Итого:</span><span style="font-size:24px;font-weight:800;color:var(--accent)" id="cart-total">$0.00</span>
             </div>
-            <button class="btn-primary" onclick="checkout()">Оформить заказ</button>
+            <div style="font-size:13px;color:var(--text3);margin-bottom:10px;text-align:center">Баланс: <b id="cart-balance">$0.00</b></div>
+            <button class="btn-primary" onclick="openCheckout()">Оформить заказ</button>
+        </div>
+    </div>
+</div>
+
+<!-- ОФОРМЛЕНИЕ ЗАКАЗА -->
+<div class="modal" id="checkout-modal">
+    <div class="modal-content">
+        <div class="modal-header"><h2>💳 Оформление заказа</h2><button class="close-btn" onclick="closeModal('checkout-modal')">×</button></div>
+        <div class="modal-body">
+            <div style="background:var(--soft);padding:15px;border-radius:10px;margin-bottom:15px">
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px;color:var(--text)"><span>Сумма заказа:</span><b id="checkout-total">$0.00</b></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:var(--text)"><span>Ваш баланс:</span><b id="checkout-balance">$0.00</b></div>
+            </div>
+            <h3 style="font-size:15px;margin-bottom:12px;color:var(--text)">Выберите способ оплаты:</h3>
+            <button class="btn-primary btn-success" style="margin-bottom:10px" onclick="placeOrder('now')">💳 Оплатить сейчас</button>
+            <button class="btn-primary" style="background:#ffb800;color:#333" onclick="placeOrder('later')">📦 Оплатить при получении</button>
         </div>
     </div>
 </div>
 
 <!-- ЧАТ -->
 <div class="modal" id="chat-modal">
-    <div class="modal-content" style="max-width: 700px;">
-        <div class="modal-header"><h2>💬 Чат с продавцом</h2><button class="close-btn" onclick="closeChatModal()">×</button></div>
-        <div class="chat-container">
-            <div class="chat-messages" id="chat-messages"></div>
-            <div class="chat-input-row">
-                <input type="text" id="chat-input" placeholder="Написать сообщение..." onkeypress="if(event.key==='Enter') sendChatMessage()">
-                <button onclick="sendChatMessage()">📤</button>
+    <div class="modal-content" style="max-width:700px">
+        <div class="modal-header"><h2 id="chat-title">💬 Чат</h2><button class="close-btn" onclick="closeModal('chat-modal')">×</button></div>
+        <div id="chat-tickets-view" style="display:none">
+            <div class="modal-body" id="tickets-body"></div>
+        </div>
+        <div id="chat-conv-view">
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages"></div>
+                <div class="chat-input-row">
+                    <input type="text" id="chat-input" placeholder="Сообщение..." onkeypress="if(event.key==='Enter')sendChat()">
+                    <button onclick="sendChat()">📤</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<footer>
-    <div class="footer-inner">
-        <div class="footer-col"><h3>MAZON</h3><a>О компании</a><a>Контакты</a></div>
-        <div class="footer-col"><h3>Покупателям</h3><a>Доставка</a><a>Оплата</a></div>
-        <div class="footer-col"><h3>Помощь</h3><a onclick="openChatModal()">Чат</a><a>FAQ</a></div>
+<!-- NAMAZ -->
+<div class="modal" id="namaz-modal">
+    <div class="modal-content" style="max-width:600px">
+        <div class="modal-header" style="background:var(--namaz)"><h2>Подписка NAMAZ</h2><button class="close-btn" onclick="closeModal('namaz-modal')">×</button></div>
+        <div class="modal-body">
+            <div id="namaz-buy-view">
+                <p style="text-align:center;color:var(--text3);margin-bottom:15px">Разблокируйте эксклюзивные возможности!</p>
+                <ul style="list-style:none;margin:20px 0">
+                    <li style="padding:10px 0;font-size:14px;display:flex;gap:10px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:18px">✓</span> <b>Тема NAMAZ</b> — фиолетово-золотое оформление</li>
+                    <li style="padding:10px 0;font-size:14px;display:flex;gap:10px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:18px">✓</span> <b>VIP-аватарки</b></li>
+                    <li style="padding:10px 0;font-size:14px;display:flex;gap:10px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:18px">✓</span> <b>Бейдж NAMAZ</b> в профиле</li>
+                    <li style="padding:10px 0;font-size:14px;display:flex;gap:10px;color:var(--text)"><span style="color:var(--success);font-size:18px">✓</span> <b>Золотая рамка</b> аватара</li>
+                </ul>
+                <div style="text-align:center;padding:20px;background:var(--soft);border-radius:12px;margin:20px 0">
+                    <div style="font-size:42px;font-weight:900;background:var(--namaz);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$4.99</div>
+                    <div style="font-size:14px;color:var(--text2)">в месяц • отмена в любой момент</div>
+                </div>
+                <button class="btn-primary" style="background:var(--namaz);box-shadow:0 5px 20px rgba(255,0,255,.4)" onclick="subscribeNamaz()">Подключить NAMAZ</button>
+            </div>
+            <div id="namaz-active-view" style="display:none;text-align:center;padding:20px 0">
+                <div style="font-size:80px;margin-bottom:15px">👑</div>
+                <h2 style="margin-bottom:10px;background:var(--namaz);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">NAMAZ активен!</h2>
+                <p style="color:var(--text3);margin-bottom:20px">Действует до <b id="namaz-until"></b></p>
+                <button class="btn-primary" onclick="closeModal('namaz-modal')">Отлично!</button>
+                <button class="btn-secondary" style="width:100%;margin-top:10px" onclick="cancelNamaz()">Отменить</button>
+            </div>
+        </div>
     </div>
-    <div class="footer-bottom">© 2025 MAZON × Minecraft</div>
-</footer>
+</div>
 
+<footer>© 2026 MAZON</footer>
 <div class="notification" id="notification"></div>
 
 <script>
 // ============ SUPABASE ============
-const SUPABASE_URL = 'https://ksvwuqitycpsyyyelvqt.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_73ZHZSKVUHD3vh0-hnzabA_YO-f29k7';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+var sb = null;
+try {
+    sb = window.supabase.createClient(
+        'https://ksvwuqitycpsyyyelvqt.supabase.co',
+        'sb_publishable_73ZHZSKVUHD3vh0-hnzabA_YO-f29k7'
+    );
+} catch(e){ console.error(e); }
+
+// Секретный код — НИКОМУ не говори
+var ADMIN_KEY = '55915591';
 
 // ============ СОСТОЯНИЕ ============
-var products = [];
-var reviews = {};
-var cart = {};
-var favorites = [];
-var currentCategory = 'all';
-var currentRarity = 'all';
-var sortAscending = null;
-var currentSearch = '';
-var currentUser = null;
-var currentProfile = null;
-var currentTheme = 'light';
-var currentProductId = null;
-var reviewRating = 0;
-var chatMessages = {};
+var products = [], reviews = {}, cart = {}, favorites = [];
+var currentCategory = 'all', currentRarity = 'all', sortAsc = null, currentSearch = '';
+var currentUser = null, currentProfile = null, currentTheme = 'light';
+var currentProductId = null, reviewRating = 0;
+var isSupport = false, chatMessages = [], tickets = [];
+var userOrders = [];
 
-// ============ LOCALSTORAGE ============
-function saveLocal() {
-    try {
-        localStorage.setItem('mazon_favorites', JSON.stringify(favorites));
-        localStorage.setItem('mazon_theme', currentTheme);
-        localStorage.setItem('mazon_chat', JSON.stringify(chatMessages));
-        localStorage.setItem('mazon_current_user', currentUser || '');
-        if (currentProfile) localStorage.setItem('mazon_profile_' + currentUser, JSON.stringify(currentProfile));
-    } catch(e) {}
+// ============ ХРАНИЛИЩЕ ============
+function saveLocal(){
+    try{
+        localStorage.setItem('mz_fav', JSON.stringify(favorites));
+        localStorage.setItem('mz_theme', currentTheme);
+        localStorage.setItem('mz_user', currentUser || '');
+        if(currentProfile) localStorage.setItem('mz_prof_'+currentUser, JSON.stringify(currentProfile));
+        localStorage.setItem('mz_supp_'+(currentUser||''), isSupport?'1':'0');
+        localStorage.setItem('mz_chat_'+(currentUser||''), JSON.stringify(chatMessages));
+        localStorage.setItem('mz_tickets', JSON.stringify(tickets));
+        localStorage.setItem('mz_orders_'+(currentUser||''), JSON.stringify(userOrders));
+    }catch(e){}
 }
-
-function loadLocal() {
-    try {
-        var f = localStorage.getItem('mazon_favorites');
-        if (f) favorites = JSON.parse(f);
-        var t = localStorage.getItem('mazon_theme');
-        if (t) currentTheme = t;
-        var ch = localStorage.getItem('mazon_chat');
-        if (ch) chatMessages = JSON.parse(ch);
-        var cu = localStorage.getItem('mazon_current_user');
-        if (cu) {
-            currentUser = cu;
-            var pr = localStorage.getItem('mazon_profile_' + cu);
-            if (pr) currentProfile = JSON.parse(pr);
+function loadLocal(){
+    try{
+        var f=localStorage.getItem('mz_fav'); if(f) favorites=JSON.parse(f);
+        var t=localStorage.getItem('mz_theme'); if(t) currentTheme=t;
+        var u=localStorage.getItem('mz_user');
+        if(u){
+            currentUser=u;
+            var p=localStorage.getItem('mz_prof_'+u); if(p) currentProfile=JSON.parse(p);
+            if(localStorage.getItem('mz_supp_'+u)==='1') isSupport=true;
+            var c=localStorage.getItem('mz_chat_'+u); if(c) chatMessages=JSON.parse(c);
+            var o=localStorage.getItem('mz_orders_'+u); if(o) userOrders=JSON.parse(o);
         }
-    } catch(e) {}
+        var tk=localStorage.getItem('mz_tickets'); if(tk) tickets=JSON.parse(tk);
+    }catch(e){}
 }
 
-// ============ SUPABASE ЗАГРУЗКА ============
-async function loadProducts() {
-    var grid = document.getElementById('products');
-    grid.innerHTML = '<div class="loading">⏳ Загрузка товаров...</div>';
+// ============ SUPABASE ============
+async function loadProducts(){
+    var grid=document.getElementById('products');
+    if(!sb){ grid.innerHTML='<div class="loading">❌ Нет подключения</div>'; return; }
+    grid.innerHTML='<div class="loading">⏳ Загрузка...</div>';
+    try{
+        var r=await sb.from('products').select('*').order('id',{ascending:false});
+        if(r.error){ grid.innerHTML='<div class="loading">❌ '+r.error.message+'</div>'; return; }
+        products=r.data||[];
+        var rv=await sb.from('reviews').select('*');
+        reviews={};
+        if(rv.data){ for(var i=0;i<rv.data.length;i++){ var x=rv.data[i]; if(!reviews[x.product_id]) reviews[x.product_id]=[]; reviews[x.product_id].push(x); } }
+        renderProducts();
+    }catch(e){ grid.innerHTML='<div class="loading">❌ '+e.message+'</div>'; }
+}
 
-    var result = await supabase.from('products').select('*').order('id', {ascending: false});
-    if (result.error) {
-        console.error(result.error);
-        grid.innerHTML = '<div class="loading">❌ Ошибка загрузки: ' + result.error.message + '</div>';
-        return;
-    }
-    products = result.data || [];
+// ============ УТИЛИТЫ ============
+function price(p){ return '$'+(parseFloat(p)||0).toFixed(2); }
+function openModal(id){ document.getElementById(id).classList.add('show'); }
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+function notify(t){ var n=document.getElementById('notification'); n.textContent=t; n.classList.add('show'); clearTimeout(n._t); n._t=setTimeout(function(){n.classList.remove('show');},2500); }
+function esc(s){ return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+function time(){ var d=new Date(); return (d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes(); }
+function rl(r){ return {common:'Обычный',rare:'Редкий',epic:'Эпический',legendary:'Легендарный'}[r]||''; }
+function todayStr(){ var d=new Date(); return d.getDate()+'.'+(d.getMonth()+1)+'.'+d.getFullYear(); }
 
-    var r = await supabase.from('reviews').select('*');
-    reviews = {};
-    if (r.data) {
-        for (var i = 0; i < r.data.length; i++) {
-            var rv = r.data[i];
-            if (!reviews[rv.product_id]) reviews[rv.product_id] = [];
-            reviews[rv.product_id].push(rv);
+// ============ ПРОФИЛЬ (localStorage) ============
+function getProfileKey(name){ return 'mz_prof_' + name; }
+function getProfile(name){
+    try{ var p=localStorage.getItem(getProfileKey(name)); if(p) return JSON.parse(p); }catch(e){}
+    return null;
+}
+function saveProfileToStorage(profile){
+    try{ localStorage.setItem(getProfileKey(profile.name), JSON.stringify(profile)); }catch(e){}
+}
+function findAccountByName(name){
+    for(var i=0;i<localStorage.length;i++){
+        var k=localStorage.key(i);
+        if(k && k.indexOf('mz_acc_')===0){
+            try{
+                var a=JSON.parse(localStorage.getItem(k));
+                if(a.name && a.name.toLowerCase()===name.toLowerCase()) return a;
+            }catch(e){}
         }
     }
-
-    renderProducts();
+    return null;
 }
+function getAccKey(name){ return 'mz_acc_' + name; }
 
-async function saveProductToDB(product) {
-    var result = await supabase.from('products').insert([product]).select();
-    if (result.error) {
-        showNotification('❌ Ошибка: ' + result.error.message);
-        return false;
+// ============ ОТРИСОВКА ТОВАРОВ ============
+function renderProducts(){
+    var grid=document.getElementById('products');
+    if(products.length===0){
+        grid.innerHTML='<div class="empty-state"><div class="emoji">📦</div><h2>Товаров пока нет</h2><p>Добавьте первый товар!</p><button onclick="openAddProduct()">➕ Добавить товар</button></div>';
+        document.getElementById('products-count').textContent='0 товаров'; return;
     }
-    return true;
-}
-
-async function deleteProductFromDB(id) {
-    var result = await supabase.from('products').delete().eq('id', id);
-    if (result.error) {
-        showNotification('❌ Ошибка: ' + result.error.message);
-        return false;
-    }
-    return true;
-}
-
-async function saveReviewToDB(productId, author, rating, text) {
-    var result = await supabase.from('reviews').insert([{
-        product_id: productId,
-        author: author,
-        rating: rating,
-        text: text
-    }]);
-    if (result.error) {
-        showNotification('❌ Ошибка: ' + result.error.message);
-        return false;
-    }
-    return true;
-}
-
-// ============ ТЕМА ============
-function setTheme(theme) {
-    currentTheme = theme;
-    document.body.classList.remove('theme-dark', 'theme-minecraft');
-    if (theme === 'dark') document.body.classList.add('theme-dark');
-    if (theme === 'minecraft') document.body.classList.add('theme-minecraft');
-    var opts = document.querySelectorAll('.theme-option');
-    for (var i = 0; i < opts.length; i++) opts[i].classList.toggle('active', opts[i].getAttribute('data-theme') === theme);
-    saveLocal();
-    showNotification('🎨 Тема изменена');
-}
-
-function openSettingsModal() {
-    var opts = document.querySelectorAll('.theme-option');
-    for (var i = 0; i < opts.length; i++) opts[i].classList.toggle('active', opts[i].getAttribute('data-theme') === currentTheme);
-    document.getElementById('settings-modal').classList.add('show');
-}
-function closeSettingsModal() { document.getElementById('settings-modal').classList.remove('show'); }
-
-// ============ ДОБАВИТЬ ТОВАР ============
-var selectedEmoji = '💎';
-
-function openAddProductModal() {
-    if (!currentUser) {
-        showNotification('⚠️ Войдите, чтобы добавить товар');
-        openLoginModal();
-        return;
-    }
-    document.getElementById('ap-name').value = '';
-    document.getElementById('ap-desc').value = '';
-    document.getElementById('ap-price').value = '';
-    document.getElementById('ap-emoji').value = '💎';
-    document.getElementById('ap-category').value = 'blocks';
-    document.getElementById('ap-rarity').value = 'common';
-    document.getElementById('ap-error').classList.remove('show');
-    selectedEmoji = '💎';
-    document.getElementById('add-product-modal').classList.add('show');
-    setTimeout(function() { document.getElementById('ap-name').focus(); }, 100);
-}
-function closeAddProductModal() { document.getElementById('add-product-modal').classList.remove('show'); }
-
-function selectEmoji(emoji, el) {
-    selectedEmoji = emoji;
-    document.getElementById('ap-emoji').value = emoji;
-    var opts = document.querySelectorAll('.emoji-option');
-    for (var i = 0; i < opts.length; i++) opts[i].classList.remove('selected');
-    el.classList.add('selected');
-}
-
-async function saveProduct() {
-    var name = document.getElementById('ap-name').value.trim();
-    var desc = document.getElementById('ap-desc').value.trim();
-    var price = parseFloat(document.getElementById('ap-price').value);
-    var category = document.getElementById('ap-category').value;
-    var rarity = document.getElementById('ap-rarity').value;
-    var emoji = document.getElementById('ap-emoji').value.trim() || '💎';
-
-    if (!name || isNaN(price) || price < 0) {
-        document.getElementById('ap-error').classList.add('show');
-        return;
-    }
-
-    var ok = await saveProductToDB({
-        name: name,
-        description: desc || 'Описание не указано.',
-        price: price,
-        category: category,
-        rarity: rarity,
-        emoji: emoji,
-        bg: null
+    var filtered=products.filter(function(p){
+        return (currentCategory==='all'||p.category===currentCategory) &&
+               (currentRarity==='all'||p.rarity===currentRarity) &&
+               (!currentSearch||p.name.toLowerCase().indexOf(currentSearch)!==-1);
     });
-
-    if (ok) {
-        closeAddProductModal();
-        showNotification('✅ Товар добавлен!');
-        await loadProducts();
-    }
-}
-
-async function deleteProduct(id, ev) {
-    if (ev) ev.stopPropagation();
-    var p = products.find(function(x) { return x.id === id; });
-    if (!p) return;
-    if (!confirm('🗑️ Удалить "' + p.name + '"?')) return;
-    var ok = await deleteProductFromDB(id);
-    if (ok) {
-        showNotification('🗑️ Товар удалён');
-        await loadProducts();
-    }
-}
-
-// ============ АВТОРИЗАЦИЯ (локальная, для простоты) ============
-function openLoginModal() {
-    document.getElementById('login-modal').classList.add('show');
-    document.getElementById('login-error').classList.remove('show');
-    if (currentUser) {
-        document.getElementById('login-view').style.display = 'none';
-        document.getElementById('register-view').style.display = 'none';
-        document.getElementById('login-success-view').style.display = 'block';
-        document.getElementById('logged-email').textContent = currentUser;
-        document.getElementById('auth-title').textContent = '👤 Профиль';
-    } else {
-        switchAuthView('login');
-    }
-}
-function closeLoginModal() { document.getElementById('login-modal').classList.remove('show'); }
-
-function switchAuthView(view) {
-    document.getElementById('login-view').style.display = view === 'login' ? 'block' : 'none';
-    document.getElementById('register-view').style.display = view === 'register' ? 'block' : 'none';
-    document.getElementById('login-success-view').style.display = 'none';
-    document.getElementById('auth-title').textContent = view === 'login' ? '👤 Вход' : '📝 Регистрация';
-}
-
-function doLogin() {
-    var email = document.getElementById('login-email').value.trim().toLowerCase();
-    var pass = document.getElementById('login-pass').value;
-    var err = document.getElementById('login-error');
-    var stored = localStorage.getItem('mazon_account_' + email);
-    if (!stored) { err.classList.add('show'); return; }
-    var acc = JSON.parse(stored);
-    if (acc.pass !== pass) { err.classList.add('show'); return; }
-    currentUser = email;
-    currentProfile = acc.profile || { name: acc.name || email.split('@')[0] };
-    err.classList.remove('show');
-    updateUserUI();
-    saveLocal();
-    document.getElementById('login-view').style.display = 'none';
-    document.getElementById('login-success-view').style.display = 'block';
-    document.getElementById('logged-email').textContent = email;
-    document.getElementById('auth-title').textContent = '👤 Профиль';
-    showNotification('✅ Добро пожаловать!');
-}
-
-function doRegister() {
-    var name = document.getElementById('reg-name').value.trim();
-    var email = document.getElementById('reg-email').value.trim().toLowerCase();
-    var pass = document.getElementById('reg-pass').value;
-    var pass2 = document.getElementById('reg-pass2').value;
-    var err = document.getElementById('register-error');
-    if (!name || !email || !pass) { err.textContent = '❌ Заполните все поля'; err.classList.add('show'); return; }
-    if (email.indexOf('@') === -1) { err.textContent = '❌ Неверный email'; err.classList.add('show'); return; }
-    if (pass.length < 4) { err.textContent = '❌ Пароль от 4 символов'; err.classList.add('show'); return; }
-    if (pass !== pass2) { err.textContent = '❌ Пароли не совпадают'; err.classList.add('show'); return; }
-    if (localStorage.getItem('mazon_account_' + email)) { err.textContent = '❌ Email занят'; err.classList.add('show'); return; }
-    localStorage.setItem('mazon_account_' + email, JSON.stringify({ name: name, pass: pass, profile: { name: name, avatar: '👤', color: '#cb11ab', bio: '' } }));
-    currentUser = email;
-    currentProfile = { name: name, avatar: '👤', color: '#cb11ab', bio: '' };
-    saveLocal();
-    err.classList.remove('show');
-    updateUserUI();
-    document.getElementById('register-view').style.display = 'none';
-    document.getElementById('login-success-view').style.display = 'block';
-    document.getElementById('logged-email').textContent = email;
-    document.getElementById('auth-title').textContent = '👤 Профиль';
-    showNotification('✅ Аккаунт создан!');
-}
-
-function logout() {
-    currentUser = null;
-    currentProfile = null;
-    document.getElementById('user-label').textContent = 'Войти';
-    saveLocal();
-    closeLoginModal();
-    showNotification('👋 Вы вышли');
-}
-
-function updateUserUI() {
-    document.getElementById('user-label').textContent = currentProfile ? currentProfile.name : 'Войти';
-}
-
-function openProfileModal() {
-    if (!currentUser) { openLoginModal(); return; }
-    openLoginModal();
-}
-
-// ============ ВСПОМОГАТЕЛЬНЫЕ ============
-function getRarityLabel(r) {
-    var labels = {common:'Обычный', rare:'Редкий', epic:'Эпический', legendary:'Легендарный'};
-    return labels[r] || '';
-}
-
-function showNotification(text) {
-    var n = document.getElementById('notification');
-    n.textContent = text;
-    n.classList.add('show');
-    clearTimeout(n._t);
-    n._t = setTimeout(function() { n.classList.remove('show'); }, 2500);
-}
-
-function escapeHtml(s) {
-    return String(s || '').replace(/[&<>"']/g, function(c) {
-        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-    });
-}
-
-function getTime() {
-    var d = new Date();
-    return (d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes();
-}
-
-// ============ ОТРИСОВКА ============
-function renderProducts() {
-    var grid = document.getElementById('products');
-
-    if (products.length === 0) {
-        grid.innerHTML = '<div class="empty-state"><div class="emoji">📦</div><h2>Товаров пока нет</h2><p>Добавьте первый товар Minecraft!</p><button onclick="openAddProductModal()">➕ Добавить товар</button></div>';
-        document.getElementById('products-count').textContent = '0 товаров';
-        return;
-    }
-
-    var filtered = products.filter(function(p) {
-        var catMatch = currentCategory === 'all' || p.category === currentCategory;
-        var rarMatch = currentRarity === 'all' || p.rarity === currentRarity;
-        var searchMatch = !currentSearch || p.name.toLowerCase().indexOf(currentSearch) !== -1;
-        return catMatch && rarMatch && searchMatch;
-    });
-
-    if (sortAscending !== null) {
-        filtered = filtered.slice().sort(function(a, b) {
-            return sortAscending ? a.price - b.price : b.price - a.price;
-        });
-    }
-
-    if (filtered.length === 0) {
-        grid.innerHTML = '<div class="loading">😢 Ничего не найдено</div>';
-        document.getElementById('products-count').textContent = '0 товаров';
-        return;
-    }
-
-    var html = '';
-    for (var i = 0; i < filtered.length; i++) {
-        var p = filtered[i];
-        var isFav = favorites.indexOf(p.id) !== -1;
-        var inCart = cart[p.id];
-        var pReviews = reviews[p.id] || [];
-        var avgRating = 0;
-        if (pReviews.length > 0) {
-            var sum = 0;
-            for (var j = 0; j < pReviews.length; j++) sum += pReviews[j].rating;
-            avgRating = (sum / pReviews.length).toFixed(1);
-        }
-
-        var ratingHtml = pReviews.length > 0
-            ? '<span class="rating-stars">★</span> ' + avgRating + ' · ' + pReviews.length + ' отзывов'
-            : '<span class="no-rating">Нет отзывов</span>';
-
-        html += '<div class="product-card">' +
-            '<div class="product-image" onclick="openProductModal(' + p.id + ')">' +
-                '<div class="favorite ' + (isFav ? 'active' : '') + '" onclick="event.stopPropagation();toggleFavorite(' + p.id + ')">' + (isFav ? '❤️' : '🤍') + '</div>' +
-                '<button class="delete-product" onclick="deleteProduct(' + p.id + ', event)" title="Удалить">🗑️</button>' +
-                '<div class="rarity ' + p.rarity + '">' + getRarityLabel(p.rarity) + '</div>' +
-                p.emoji +
-            '</div>' +
-            '<div class="product-info">' +
-                '<div class="product-price"><span class="price-new">' + parseFloat(p.price).toLocaleString('ru-RU') + ' ₽</span></div>' +
-                '<div class="product-name" onclick="openProductModal(' + p.id + ')">' + escapeHtml(p.name) + '</div>' +
-                '<div class="product-rating">' + ratingHtml + '</div>' +
-                '<div class="product-actions">' +
-                    '<button class="btn-buy" onclick="buyNow(' + p.id + ')">💳 Купить</button>' +
-                    '<button class="btn-cart-icon ' + (inCart ? 'added' : '') + '" onclick="addToCart(' + p.id + ')">' + (inCart ? '✓' : '🛒') + '</button>' +
-                '</div>' +
-            '</div>' +
+    if(sortAsc!==null) filtered=filtered.slice().sort(function(a,b){ return sortAsc?a.price-b.price:b.price-a.price; });
+    if(filtered.length===0){ grid.innerHTML='<div class="loading">😢 Ничего не найдено</div>'; document.getElementById('products-count').textContent='0 товаров'; return; }
+    var html='';
+    for(var i=0;i<filtered.length;i++){
+        var p=filtered[i];
+        var isFav=favorites.indexOf(p.id)!==-1;
+        var inCart=cart[p.id];
+        var pRevs=reviews[p.id]||[];
+        var avg=0;
+        if(pRevs.length>0){ var s=0; for(var j=0;j<pRevs.length;j++) s+=pRevs[j].rating; avg=(s/pRevs.length).toFixed(1); }
+        var rating= pRevs.length>0 ? '<span class="rating-stars">★</span> '+avg+' · '+pRevs.length+' отзывов' : '<span class="no-rating">Нет отзывов</span>';
+        var sn=p.seller_name||'Продавец';
+        html+='<div class="product-card">'+
+            '<div class="product-image" onclick="openProduct('+p.id+')">'+
+                '<button class="favorite" onclick="event.stopPropagation();toggleFav('+p.id+')">'+(isFav?'❤️':'🤍')+'</button>'+
+                '<button class="delete-product" onclick="delProduct('+p.id+',event)">🗑️</button>'+
+                '<div class="rarity '+p.rarity+'">'+rl(p.rarity)+'</div>'+
+                p.emoji+
+            '</div>'+
+            '<div class="product-info">'+
+                '<span class="price-new">'+price(p.price)+'</span>'+
+                '<div class="product-name" onclick="openProduct('+p.id+')">'+esc(p.name)+'</div>'+
+                '<div class="seller-line" onclick="openSeller(\''+esc(p.seller_email||'')+'\',\''+esc(sn)+'\')">👤 '+esc(sn)+'</div>'+
+                '<div class="product-rating">'+rating+'</div>'+
+                '<div class="product-actions">'+
+                    '<button class="btn-buy" onclick="buyNow('+p.id+')">💳 Купить</button>'+
+                    '<button class="btn-cart-icon '+(inCart?'added':'')+'" onclick="addToCart('+p.id+')">'+(inCart?'✓':'🛒')+'</button>'+
+                '</div>'+
+            '</div>'+
         '</div>';
     }
-    grid.innerHTML = html;
-    document.getElementById('products-count').textContent = filtered.length + ' товаров';
+    grid.innerHTML=html;
+    document.getElementById('products-count').textContent=filtered.length+' товаров';
 }
 
 // ============ ФИЛЬТРЫ ============
-function filterCategory(cat, el) {
-    currentCategory = cat;
-    currentSearch = '';
-    var links = document.querySelectorAll('.nav-inner a');
-    for (var i = 0; i < links.length; i++) links[i].classList.remove('active');
+function filterCategory(c,el){
+    currentCategory=c; currentSearch='';
+    var links=document.querySelectorAll('.nav-inner a');
+    for(var i=0;i<links.length;i++) links[i].classList.remove('active');
     el.classList.add('active');
-    var names = {all:'Все товары', blocks:'Блоки', tools:'Инструменты', weapons:'Оружие', armor:'Броня', mobs:'Мобы', food:'Еда', potions:'Зелья', misc:'Прочее'};
-    document.getElementById('section-name').textContent = names[cat] || 'Товары';
+    var n={all:'Все товары',blocks:'Блоки',tools:'Инструменты',weapons:'Оружие',armor:'Броня',mobs:'Мобы',food:'Еда',potions:'Зелья',misc:'Прочее'};
+    document.getElementById('section-name').textContent=n[c]||'Товары';
     renderProducts();
 }
-
-function filterRarity(rar, el) {
-    currentRarity = rar;
-    var btns = document.querySelectorAll('.filter-btn');
-    for (var i = 0; i < btns.length; i++) {
-        if (btns[i].textContent.indexOf('По цене') === -1 && !btns[i].classList.contains('add-product-btn')) btns[i].classList.remove('active');
-    }
+function filterRarity(r,el){
+    currentRarity=r;
+    var b=document.querySelectorAll('.filter-btn');
+    for(var i=0;i<b.length;i++){ if(b[i].textContent.indexOf('По цене')===-1 && !b[i].classList.contains('add-product-btn')) b[i].classList.remove('active'); }
     el.classList.add('active');
     renderProducts();
 }
-
-function sortByPrice(el) {
-    if (sortAscending === null) sortAscending = true;
-    else if (sortAscending === true) sortAscending = false;
-    else sortAscending = null;
-    if (sortAscending === null) { el.textContent = '💰 По цене'; el.classList.remove('active'); }
-    else { el.textContent = sortAscending ? '💰 По цене ↑' : '💰 По цене ↓'; el.classList.add('active'); }
+function sortByPrice(el){
+    if(sortAsc===null) sortAsc=true; else if(sortAsc===true) sortAsc=false; else sortAsc=null;
+    if(sortAsc===null){ el.textContent='💰 По цене'; el.classList.remove('active'); }
+    else{ el.textContent=sortAsc?'💰 По цене ↑':'💰 По цене ↓'; el.classList.add('active'); }
     renderProducts();
 }
-
-function resetFilters() {
-    currentCategory = 'all'; currentRarity = 'all'; sortAscending = null; currentSearch = '';
-    var links = document.querySelectorAll('.nav-inner a');
-    for (var i = 0; i < links.length; i++) links[i].classList.toggle('active', i === 0);
-    document.getElementById('section-name').textContent = 'Все товары';
+function resetFilters(){
+    currentCategory='all'; currentRarity='all'; sortAsc=null; currentSearch='';
+    var links=document.querySelectorAll('.nav-inner a');
+    for(var i=0;i<links.length;i++) links[i].classList.toggle('active',i===0);
+    document.getElementById('section-name').textContent='Все товары';
     renderProducts();
 }
-
-function toggleFavorite(id) {
-    var idx = favorites.indexOf(id);
-    if (idx === -1) { favorites.push(id); showNotification('❤️ В избранном'); }
-    else { favorites.splice(idx, 1); showNotification('💔 Удалено'); }
-    document.getElementById('fav-count').textContent = favorites.length;
-    saveLocal();
+function performSearch(){
+    var q=document.getElementById('searchInput').value.trim().toLowerCase();
+    currentSearch=q; currentCategory='all'; currentRarity='all';
+    document.getElementById('section-name').textContent=q?'Поиск: "'+q+'"':'Все товары';
     renderProducts();
 }
+document.getElementById('searchInput').addEventListener('keypress',function(e){ if(e.key==='Enter') performSearch(); });
 
-function openFavoritesModal() {
-    var body = document.getElementById('favorites-body');
-    if (favorites.length === 0) {
-        body.innerHTML = '<div class="fav-empty"><div class="emoji">💔</div><div>Избранное пусто</div></div>';
-    } else {
-        var html = '<div class="fav-list">';
-        for (var i = 0; i < favorites.length; i++) {
-            var p = products.find(function(x) { return x.id === favorites[i]; });
-            if (!p) continue;
-            html += '<div class="fav-item" onclick="closeFavoritesModal();openProductModal(' + p.id + ')">' +
-                '<div class="fav-item-img">' + p.emoji + '</div>' +
-                '<div class="fav-item-info"><div class="fav-item-name">' + escapeHtml(p.name) + '</div>' +
-                '<div class="fav-item-price">' + parseFloat(p.price).toLocaleString('ru-RU') + ' ₽</div></div>' +
-                '<button class="fav-item-remove" onclick="event.stopPropagation();removeFromFavorites(' + p.id + ')">🗑️</button></div>';
+// ============ ИЗБРАННОЕ ============
+function toggleFav(id){
+    var i=favorites.indexOf(id);
+    if(i===-1){ favorites.push(id); notify('❤️ В избранном'); } else { favorites.splice(i,1); notify('💔 Удалено'); }
+    document.getElementById('fav-count').textContent=favorites.length;
+    saveLocal(); renderProducts();
+}
+function openFavorites(){
+    var b=document.getElementById('favorites-body');
+    if(favorites.length===0){ b.innerHTML='<div style="text-align:center;padding:40px;color:var(--text2)"><div style="font-size:60px;margin-bottom:15px">💔</div>Избранное пусто</div>'; }
+    else{
+        var h='';
+        for(var i=0;i<favorites.length;i++){
+            var p=products.find(function(x){return x.id===favorites[i];});
+            if(!p) continue;
+            h+='<div class="seller-card" onclick="closeModal(\'favorites-modal\');openProduct('+p.id+')">'+
+                '<div class="seller-avatar" style="background:var(--accent-l);color:var(--text)">'+p.emoji+'</div>'+
+                '<div class="seller-info"><div class="seller-name">'+esc(p.name)+'</div><div class="seller-bio" style="color:var(--accent);font-weight:700">'+price(p.price)+'</div></div>'+
+                '<button class="delete-product" style="position:static;background:none" onclick="event.stopPropagation();toggleFav('+p.id+');openFavorites()">🗑️</button></div>';
         }
-        html += '</div>';
-        body.innerHTML = html;
+        b.innerHTML=h;
     }
-    document.getElementById('favorites-modal').classList.add('show');
-}
-function closeFavoritesModal() { document.getElementById('favorites-modal').classList.remove('show'); }
-function removeFromFavorites(id) {
-    favorites = favorites.filter(function(x) { return x !== id; });
-    document.getElementById('fav-count').textContent = favorites.length;
-    saveLocal();
-    renderProducts();
-    openFavoritesModal();
+    openModal('favorites-modal');
 }
 
 // ============ КОРЗИНА ============
-function addToCart(id) {
-    cart[id] = (cart[id] || 0) + 1;
-    var p = products.find(function(x) { return x.id === id; });
-    showNotification('✓ "' + p.name + '" в корзине');
-    updateCartUI();
-    renderProducts();
+function addToCart(id){
+    cart[id]=(cart[id]||0)+1;
+    var p=products.find(function(x){return x.id===id;});
+    notify('✓ '+p.name);
+    updateCart(); renderProducts();
 }
-
-function updateCartUI() {
-    var total = 0;
-    for (var k in cart) total += cart[k];
-    var badge = document.getElementById('cart-badge');
-    badge.textContent = total;
-    if (total > 0) badge.classList.add('show');
-    else badge.classList.remove('show');
+function updateCart(){
+    var t=0; for(var k in cart) t+=cart[k];
+    var b=document.getElementById('cart-badge');
+    b.textContent=t; if(t>0) b.classList.add('show'); else b.classList.remove('show');
     renderCart();
 }
-
-function renderCart() {
-    var container = document.getElementById('cart-items');
-    var footer = document.getElementById('cart-footer');
-    var keys = Object.keys(cart);
-    if (keys.length === 0) {
-        container.innerHTML = '<div style="text-align:center;padding:50px 20px;color:var(--text-dim);"><div style="font-size:60px;margin-bottom:15px;">🛒</div><div>Корзина пуста</div></div>';
-        footer.style.display = 'none';
-        return;
+function renderCart(){
+    var c=document.getElementById('cart-items');
+    var f=document.getElementById('cart-footer');
+    var keys=Object.keys(cart);
+    if(keys.length===0){
+        c.innerHTML='<div style="text-align:center;padding:50px;color:var(--text2)"><div style="font-size:60px;margin-bottom:15px">🛒</div>Корзина пуста</div>';
+        f.style.display='none'; return;
     }
-    var totalSum = 0;
-    var html = '';
-    for (var i = 0; i < keys.length; i++) {
-        var id = +keys[i];
-        var qty = cart[id];
-        var p = products.find(function(x) { return x.id === id; });
-        if (!p) continue;
-        totalSum += parseFloat(p.price) * qty;
-        html += '<div style="display:flex;gap:15px;padding:15px 0;border-bottom:1px solid var(--border);align-items:center;">' +
-            '<div style="width:70px;height:70px;background:var(--accent-light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0;">' + p.emoji + '</div>' +
-            '<div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;margin-bottom:5px;">' + escapeHtml(p.name) + '</div>' +
-            '<div style="font-size:15px;color:var(--accent);font-weight:800;">' + (parseFloat(p.price) * qty).toLocaleString('ru-RU') + ' ₽</div></div>' +
-            '<div style="display:flex;align-items:center;gap:8px;">' +
-                '<button onclick="changeQty(' + id + ', -1)" style="width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--card-bg);color:var(--text);cursor:pointer;font-weight:700;">−</button>' +
-                '<span style="min-width:25px;text-align:center;font-weight:700;">' + qty + '</span>' +
-                '<button onclick="changeQty(' + id + ', 1)" style="width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--card-bg);color:var(--text);cursor:pointer;font-weight:700;">+</button>' +
-                '<button onclick="removeFromCart(' + id + ')" style="background:none;border:none;cursor:pointer;font-size:18px;">🗑️</button>' +
+    var total=0, h='';
+    for(var i=0;i<keys.length;i++){
+        var id=+keys[i]; var qty=cart[id];
+        var p=products.find(function(x){return x.id===id;});
+        if(!p) continue;
+        total+=parseFloat(p.price)*qty;
+        h+='<div style="display:flex;gap:15px;padding:15px 0;border-bottom:1px solid var(--border);align-items:center">'+
+            '<div style="width:60px;height:60px;background:var(--accent-l);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0">'+p.emoji+'</div>'+
+            '<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:600;margin-bottom:5px;color:var(--text)">'+esc(p.name)+'</div>'+
+            '<div style="font-size:15px;color:var(--accent);font-weight:800">'+price(parseFloat(p.price)*qty)+'</div></div>'+
+            '<div style="display:flex;align-items:center;gap:8px">'+
+                '<button onclick="changeQty('+id+',-1)" style="width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-weight:700">−</button>'+
+                '<span style="min-width:25px;text-align:center;font-weight:700;color:var(--text)">'+qty+'</span>'+
+                '<button onclick="changeQty('+id+',1)" style="width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-weight:700">+</button>'+
+                '<button onclick="delCart('+id+')" style="background:none;border:none;cursor:pointer;font-size:18px">🗑️</button>'+
             '</div></div>';
     }
-    container.innerHTML = html;
-    document.getElementById('cart-total').textContent = totalSum.toLocaleString('ru-RU') + ' ₽';
-    footer.style.display = 'block';
+    c.innerHTML=h;
+    document.getElementById('cart-total').textContent=price(total);
+    document.getElementById('cart-balance').textContent=price(currentProfile&&currentProfile.balance||0);
+    f.style.display='block';
+}
+function changeQty(id,d){ cart[id]=(cart[id]||0)+d; if(cart[id]<=0) delete cart[id]; updateCart(); renderProducts(); }
+function delCart(id){ delete cart[id]; notify('🗑️ Удалено'); updateCart(); renderProducts(); }
+function toggleCart(){ openModal('cart-modal'); renderCart(); }
+
+// ============ ОФОРМЛЕНИЕ ЗАКАЗА ============
+function openCheckout(){
+    if(!currentUser){ closeModal('cart-modal'); openModal('login-modal'); notify('⚠️ Войдите'); return; }
+    var total=0;
+    for(var k in cart){ var p=products.find(function(x){return x.id===+k;}); if(p) total+=parseFloat(p.price)*cart[k]; }
+    document.getElementById('checkout-total').textContent=price(total);
+    document.getElementById('checkout-balance').textContent=price(currentProfile.balance||0);
+    closeModal('cart-modal');
+    openModal('checkout-modal');
 }
 
-function changeQty(id, delta) {
-    cart[id] = (cart[id] || 0) + delta;
-    if (cart[id] <= 0) delete cart[id];
-    updateCartUI();
-    renderProducts();
-}
-
-function removeFromCart(id) {
-    delete cart[id];
-    showNotification('🗑️ Удалено');
-    updateCartUI();
-    renderProducts();
-}
-
-function toggleCart() {
-    document.getElementById('cart-modal').classList.toggle('show');
-    renderCart();
-}
-
-function checkout() {
-    if (!currentUser) {
-        document.getElementById('cart-modal').classList.remove('show');
-        openLoginModal();
-        showNotification('⚠️ Войдите');
-        return;
+function placeOrder(paymentType){
+    if(!currentUser) return;
+    var total=0, items=[];
+    for(var k in cart){
+        var p=products.find(function(x){return x.id===+k;});
+        if(p){ total+=parseFloat(p.price)*cart[k]; items.push({name:p.name, qty:cart[k], price:p.price, emoji:p.emoji}); }
     }
-    var totalItems = 0, totalSum = 0;
-    for (var k in cart) {
-        totalItems += cart[k];
-        var p = products.find(function(x) { return x.id === +k; });
-        if (p) totalSum += parseFloat(p.price) * cart[k];
+    var orderNum=Math.floor(Math.random()*900000)+100000;
+
+    if(paymentType==='now'){
+        var bal=parseFloat(currentProfile.balance||0);
+        if(bal<total){ notify('❌ Недостаточно средств! Пополните кошелёк.'); return; }
+        currentProfile.balance=bal-total;
     }
-    var orderNum = Math.floor(Math.random() * 900000) + 100000;
-    document.getElementById('cart-modal').classList.remove('show');
-    cart = {};
-    updateCartUI();
-    renderProducts();
-    openChatModal();
-    if (!chatMessages[currentUser]) chatMessages[currentUser] = [];
-    chatMessages[currentUser].push({
-        from: 'support', author: 'Продавец',
-        text: '🎉 Заказ #' + orderNum + ' оформлен! Товаров: ' + totalItems + ', на ' + totalSum.toLocaleString('ru-RU') + ' ₽.',
-        time: getTime()
-    });
+
+    var order={
+        id:orderNum,
+        items:items,
+        total:total,
+        payment:paymentType,
+        status: paymentType==='now' ? 'paid' : 'pending',
+        date:todayStr(),
+        time:time()
+    };
+    userOrders.unshift(order);
+
+    cart={}; updateCart(); renderProducts();
+    saveProfileToStorage(currentProfile);
     saveLocal();
-    renderChat();
-    showNotification('✅ Заказ #' + orderNum + ' оформлен!');
+
+    closeModal('checkout-modal');
+
+    var msg='🎉 Заказ #'+orderNum+' оформлен!\n\n';
+    msg+='Сумма: '+price(total)+'\n';
+    msg+='Оплата: '+(paymentType==='now'?'сейчас':'при получении')+'\n\n';
+    if(paymentType==='now'){
+        msg+='✅ Средства списаны с баланса.\nОстаток: '+price(currentProfile.balance);
+        notify('✅ Заказ #'+orderNum+' оплачен!');
+    } else {
+        msg+='📦 Оплатите при получении.';
+        notify('📦 Заказ #'+orderNum+' оформлен (оплата при получении)');
+    }
+    addChat(msg,'me');
+    setTimeout(function(){ openChatModal(); },400);
+}
+
+function buyNow(id){
+    if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
+    var p=products.find(function(x){return x.id===id;});
+    if(!p) return;
+    cart[id]=(cart[id]||0)+1;
+    closeModal('product-modal');
+    openCheckout();
+}
+
+// ============ ЗАКАЗЫ ============
+function openOrders(){
+    if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
+    renderOrders();
+    openModal('orders-modal');
+}
+function renderOrders(){
+    var b=document.getElementById('orders-body');
+    if(userOrders.length===0){ b.innerHTML='<div style="text-align:center;padding:40px;color:var(--text2)"><div style="font-size:60px;margin-bottom:15px">📦</div>У вас пока нет заказов</div>'; return; }
+    var h='';
+    for(var i=0;i<userOrders.length;i++){
+        var o=userOrders[i];
+        var statusText='Оплачен', statusClass='paid';
+        if(o.status==='pending'){ statusText='Ждёт получения'; statusClass='pending'; }
+        else if(o.status==='received'){ statusText='Получен'; statusClass='received'; }
+        else if(o.status==='refunded'){ statusText='Возврат'; statusClass='refunded'; }
+
+        var itemsHtml='';
+        for(var j=0;j<o.items.length;j++){
+            var it=o.items[j];
+            itemsHtml+=it.emoji+' '+esc(it.name)+' × '+it.qty+'<br>';
+        }
+
+        var actions='';
+        if(o.status==='pending'){
+            actions='<button class="order-btn receive" onclick="receiveOrder('+o.id+')">✅ Получил заказ</button>'+
+                    '<button class="order-btn refund" onclick="refundOrder('+o.id+')">↩️ Возврат</button>';
+        } else if(o.status==='paid'){
+            actions='<button class="order-btn refund" onclick="refundOrder('+o.id+')">↩️ Возврат</button>';
+        }
+
+        h+='<div class="order-card">'+
+            '<div class="order-header"><span class="order-num">Заказ #'+o.id+'</span><span class="order-status '+statusClass+'">'+statusText+'</span></div>'+
+            '<div class="order-items">'+itemsHtml+'</div>'+
+            '<div class="order-total">Итого: '+price(o.total)+'</div>'+
+            '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Оплата: '+(o.payment==='now'?'сейчас':'при получении')+' • '+o.date+' '+o.time+'</div>'+
+            '<div class="order-actions">'+actions+'</div>'+
+        '</div>';
+    }
+    b.innerHTML=h;
+}
+function receiveOrder(id){
+    var o=userOrders.find(function(x){return x.id===id;});
+    if(!o) return;
+    if(!confirm('Подтвердить получение заказа #'+id+'?')) return;
+    if(o.payment==='later'){
+        var bal=parseFloat(currentProfile.balance||0);
+        if(bal<o.total){ notify('❌ Недостаточно средств! Пополните кошелёк.'); return; }
+        currentProfile.balance=bal-o.total;
+        saveProfileToStorage(currentProfile);
+        notify('✅ Оплачено с баланса: '+price(o.total));
+    }
+    o.status='received';
+    saveLocal();
+    notify('✅ Заказ #'+id+' получен!');
+    renderOrders();
+}
+function refundOrder(id){
+    var o=userOrders.find(function(x){return x.id===id;});
+    if(!o) return;
+    if(o.status==='refunded'){ notify('Уже возвращён'); return; }
+    if(!confirm('Оформить возврат заказа #'+id+'?')) return;
+    if(o.status!=='pending'){ // возврат денег
+        currentProfile.balance=(parseFloat(currentProfile.balance||0))+parseFloat(o.total);
+        saveProfileToStorage(currentProfile);
+    }
+    o.status='refunded';
+    saveLocal();
+    notify('↩️ Возврат оформлен: '+price(o.total));
+    addChat('↩️ Возврат по заказу #'+id+' на '+price(o.total)+' оформлен.','me');
+    renderOrders();
+}
+
+// ============ КОШЕЛЁК ============
+function openWallet(){
+    if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
+    renderWallet();
+    openModal('wallet-modal');
+}
+function renderWallet(){
+    var bal=parseFloat(currentProfile.balance||0);
+    document.getElementById('wallet-body').innerHTML=
+        '<div class="balance-card">'+
+            '<div class="balance-info">'+
+                '<div class="balance-label">ZOV Кошелёк</div>'+
+                '<div class="balance-value">'+price(bal)+'</div>'+
+            '</div>'+
+            '<button class="balance-btn" onclick="showTopupForm()">➕ Пополнить</button>'+
+        '</div>'+
+        '<div id="topup-form"></div>';
+}
+function showTopupForm(){
+    document.getElementById('topup-form').innerHTML=
+        '<div class="form-group"><label>Сумма пополнения ($)</label><input type="number" id="topup-amount" placeholder="10.00" min="0.01" step="0.01"></div>'+
+        '<button class="btn-primary btn-success" onclick="requestTopup()">📨 Запросить пополнение</button>';
+}
+function requestTopup(){
+    var amount=parseFloat(document.getElementById('topup-amount').value);
+    if(!amount || amount<=0){ notify('⚠️ Введите сумму'); return; }
+    if(!sb){ notify('❌ Нет соединения'); return; }
+
+    // Создаём тикет поддержке
+    var t=tickets.find(function(x){return x.userEmail===currentUser && x.type==='topup';});
+    if(!t){
+        t={ id:Date.now(), userEmail:currentUser, userName:currentProfile.name, type:'topup', amount:amount, messages:[], updatedAt:Date.now() };
+        tickets.push(t);
+    }
+    var msg='💰 ЗАПРОС НА ПОПОЛНЕНИЕ\n\nИгрок: '+currentProfile.name+'\nСумма: '+price(amount)+'\n\n⚠️ Игрок должен передать изумруды администратору для зачисления на баланс.';
+    t.messages.push({from:'me', author:currentProfile.name, text:msg, time:time()});
+    t.updatedAt=Date.now();
+    t.amount=amount;
+    saveLocal();
+
+    notify('📨 Запрос на '+price(amount)+' отправлен поддержке');
+    closeModal('wallet-modal');
+
+    setTimeout(function(){
+        addChat('💰 Запрос на пополнение '+price(amount)+' отправлен. Передайте изумруды администратору для зачисления.','me');
+        openChatModal();
+    },400);
+}
+
+// ============ ТОВАР ============
+function openProduct(id){
+    var p=products.find(function(x){return x.id===id;});
+    if(!p) return;
+    currentProductId=id; reviewRating=0;
+    var isFav=favorites.indexOf(p.id)!==-1;
+    var pRevs=reviews[p.id]||[];
+    var avg=0;
+    if(pRevs.length>0){ var s=0; for(var j=0;j<pRevs.length;j++) s+=pRevs[j].rating; avg=(s/pRevs.length).toFixed(1); }
+    var rating= pRevs.length>0 ? '<span class="stars">★</span> <b>'+avg+'</b> · '+pRevs.length+' отзывов' : '<span style="color:var(--text2)">Нет отзывов</span>';
+    var form= currentUser
+        ? '<div class="review-form"><h4>✍️ Оставить отзыв</h4><div class="rating-input">'+
+            '<button class="star-btn" onclick="setStar(1)">★</button><button class="star-btn" onclick="setStar(2)">★</button><button class="star-btn" onclick="setStar(3)">★</button><button class="star-btn" onclick="setStar(4)">★</button><button class="star-btn" onclick="setStar(5)">★</button>'+
+            '</div><textarea id="rev-text" placeholder="Отзыв..."></textarea><button onclick="submitReview()">📨 Отправить</button></div>'
+        : '<div class="review-form" style="text-align:center"><p style="margin-bottom:12px;color:var(--text3)">🔒 Войдите, чтобы оставить отзыв</p><button onclick="closeModal(\'product-modal\');openModal(\'login-modal\')">Войти</button></div>';
+    var sn=p.seller_name||'Продавец', se=p.seller_email||'';
+    var av='👤', col='#cb11ab', bio='';
+    if(se){
+        var pr=getProfile(se);
+        if(pr){ av=pr.avatar||'👤'; col=pr.color||'#cb11ab'; bio=pr.bio||''; }
+    }
+    document.getElementById('pm-title').textContent=p.emoji+' '+p.name;
+    document.getElementById('pm-body').innerHTML=
+        '<div class="product-detail">'+
+            '<div class="product-detail-image"><div class="rarity '+p.rarity+'">'+rl(p.rarity)+'</div>'+p.emoji+'</div>'+
+            '<div class="product-detail-info">'+
+                '<h2>'+esc(p.name)+'</h2>'+
+                '<div class="seller-label">Продавец:</div>'+
+                '<div class="seller-card" onclick="openSeller(\''+esc(se)+'\',\''+esc(sn)+'\')">'+
+                    '<div class="seller-avatar" style="background:'+col+'">'+av+'</div>'+
+                    '<div class="seller-info"><div class="seller-name">'+esc(sn)+'</div><div class="seller-bio">Нажмите для просмотра</div></div>'+
+                '</div>'+
+                '<div class="product-detail-rating">'+rating+'</div>'+
+                '<div class="product-detail-price"><span class="new">'+price(p.price)+'</span></div>'+
+                '<div class="product-detail-desc">'+esc(p.description||'')+'</div>'+
+                '<div class="detail-actions">'+
+                    '<button class="btn-buy-big" onclick="buyNow('+p.id+')">💳 Купить</button>'+
+                    '<button class="btn-secondary" onclick="favFromModal('+p.id+',this)">'+(isFav?'❤️':'🤍')+'</button>'+
+                '</div>'+
+                '<button class="btn-primary" style="margin-top:10px" onclick="addCartModal('+p.id+')">🛒 В корзину</button>'+
+            '</div>'+
+        '</div>'+
+        '<div class="reviews-section"><div class="reviews-header"><h3>💬 Отзывы</h3><span class="reviews-count">'+pRevs.length+' шт.</span></div>'+
+        form+'<div class="reviews-list">'+renderReviews(p.id)+'</div></div>';
+    openModal('product-modal');
+}
+function renderReviews(pid){
+    var list=reviews[pid]||[];
+    if(list.length===0) return '<div class="no-reviews">Пока нет отзывов 💬</div>';
+    var h='';
+    for(var i=list.length-1;i>=0;i--){
+        var r=list[i], stars='';
+        for(var j=1;j<=5;j++) stars+= j<=r.rating?'★':'☆';
+        var d=new Date(r.created_at), ds=d.getDate()+'.'+(d.getMonth()+1)+'.'+d.getFullYear();
+        h+='<div class="review-item"><div class="review-item-header"><span class="review-author">'+esc(r.author)+'</span><span class="review-date">'+ds+'</span></div>'+
+            '<div class="review-stars">'+stars+'</div><div class="review-text">'+esc(r.text)+'</div></div>';
+    }
+    return h;
+}
+function setStar(n){ reviewRating=n; var s=document.querySelectorAll('.star-btn'); for(var i=0;i<s.length;i++) s[i].classList.toggle('active',i<n); }
+async function submitReview(){
+    if(!currentUser){ notify('⚠️ Войдите'); return; }
+    var text=document.getElementById('rev-text').value.trim();
+    if(reviewRating===0){ notify('⚠️ Оценка'); return; }
+    if(!text){ notify('⚠️ Текст'); return; }
+    if(!sb){ notify('❌ Нет соединения'); return; }
+    var r=await sb.from('reviews').insert([{ product_id:currentProductId, author:currentProfile.name, rating:reviewRating, text:text }]);
+    if(r.error){ notify('❌ '+r.error.message); return; }
+    notify('✅ Отзыв добавлен!');
+    await loadProducts();
+    openProduct(currentProductId);
+}
+function addCartModal(id){ addToCart(id); openProduct(id); }
+function favFromModal(id,btn){ toggleFav(id); btn.textContent=favorites.indexOf(id)!==-1?'❤️':'🤍'; }
+
+// ============ ПРОДАВЕЦ ============
+function openSeller(name){
+    if(!name){ document.getElementById('seller-body').innerHTML='<div style="text-align:center;padding:30px;color:var(--text2)">Информация недоступна</div>'; openModal('seller-modal'); return; }
+    var prof=getProfile(name) || { avatar:'👤', color:'#cb11ab', bio:'', name:name };
+    var sp=products.filter(function(x){return x.seller_name===name;});
+    var h='<div style="text-align:center;padding:20px 0;border-bottom:2px solid var(--border);margin-bottom:20px">'+
+        '<div style="width:90px;height:90px;border-radius:50%;background:'+prof.color+';display:flex;align-items:center;justify-content:center;font-size:44px;margin:0 auto 12px;color:#fff">'+prof.avatar+'</div>'+
+        '<div style="font-size:22px;font-weight:800;margin-bottom:5px;color:var(--text)">'+esc(name)+'</div>'+
+        (prof.bio?'<div style="font-size:14px;color:var(--text3);margin-top:8px;font-style:italic">'+esc(prof.bio)+'</div>':'')+
+        '</div>';
+    if(sp.length>0){
+        h+='<h3 style="margin-bottom:12px;font-size:16px;color:var(--text)">📦 Товары ('+sp.length+')</h3>';
+        for(var i=0;i<sp.length;i++){
+            var x=sp[i];
+            h+='<div class="seller-card" onclick="closeModal(\'seller-modal\');openProduct('+x.id+')">'+
+                '<div class="seller-avatar" style="background:var(--accent-l);color:var(--text)">'+x.emoji+'</div>'+
+                '<div class="seller-info"><div class="seller-name">'+esc(x.name)+'</div><div class="seller-bio" style="color:var(--accent);font-weight:700">'+price(x.price)+'</div></div></div>';
+        }
+    } else { h+='<div style="text-align:center;padding:20px;color:var(--text2)">Нет товаров</div>'; }
+    document.getElementById('seller-body').innerHTML=h;
+    openModal('seller-modal');
+}
+
+// ============ ДОБАВЛЕНИЕ ТОВАРА ============
+function openAddProduct(){
+    if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
+    document.getElementById('ap-name').value='';
+    document.getElementById('ap-desc').value='';
+    document.getElementById('ap-price').value='';
+    document.getElementById('ap-emoji').value='💎';
+    document.getElementById('ap-error').classList.remove('show');
+    openModal('add-product-modal');
+    setTimeout(function(){document.getElementById('ap-name').focus();},100);
+}
+function pickEmoji(e,el){ document.getElementById('ap-emoji').value=e; var o=document.querySelectorAll('.emoji-option'); for(var i=0;i<o.length;i++) o[i].classList.remove('selected'); el.classList.add('selected'); }
+async function saveProduct(){
+    var name=document.getElementById('ap-name').value.trim();
+    var desc=document.getElementById('ap-desc').value.trim();
+    var pv=parseFloat(document.getElementById('ap-price').value);
+    var cat=document.getElementById('ap-category').value;
+    var rar=document.getElementById('ap-rarity').value;
+    var em=document.getElementById('ap-emoji').value.trim()||'💎';
+    if(!name||isNaN(pv)||pv<0){ document.getElementById('ap-error').classList.add('show'); return; }
+    if(!sb){ notify('❌ Нет соединения'); return; }
+    var r=await sb.from('products').insert([{ name:name, description:desc||'Описание не указано.', price:pv, category:cat, rarity:rar, emoji:em, seller_email:currentProfile.name, seller_name:currentProfile.name }]);
+    if(r.error){ notify('❌ '+r.error.message); return; }
+    closeModal('add-product-modal'); notify('✅ Товар добавлен!');
+    await loadProducts();
+}
+async function delProduct(id,ev){
+    if(ev) ev.stopPropagation();
+    var p=products.find(function(x){return x.id===id;});
+    if(!p) return;
+    if(p.seller_name && p.seller_name!==currentProfile.name && !isSupport){ notify('⚠️ Только автор'); return; }
+    if(!confirm('🗑️ Удалить "'+p.name+'"?')) return;
+    if(!sb) return;
+    var r=await sb.from('products').delete().eq('id',id);
+    if(r.error){ notify('❌ '+r.error.message); return; }
+    notify('🗑️ Удалено');
+    await loadProducts();
+}
+
+// ============ АВТОРИЗАЦИЯ (по имени) ============
+function showRegister(){ document.getElementById('login-view').style.display='none'; document.getElementById('register-view').style.display='block'; document.getElementById('auth-title').textContent='📝 Регистрация'; }
+function showLogin(){ document.getElementById('login-view').style.display='block'; document.getElementById('register-view').style.display='none'; document.getElementById('auth-title').textContent='👤 Вход'; }
+
+function doLogin(){
+    var name=document.getElementById('login-name').value.trim();
+    var pass=document.getElementById('login-pass').value;
+    var err=document.getElementById('login-error');
+    if(!name||!pass){ err.textContent='❌ Заполните поля'; err.classList.add('show'); return; }
+
+    var acc=findAccountByName(name);
+    if(!acc || acc.pass!==pass){ err.textContent='❌ Неверное имя или пароль'; err.classList.add('show'); return; }
+
+    currentUser=acc.name;
+    currentProfile=getProfile(acc.name) || acc.profile || { name:acc.name, avatar:'👤', color:'#cb11ab', bio:'', namaz:false, namazUntil:null, balance:0 };
+    if(!currentProfile.balance) currentProfile.balance=0;
+
+    isSupport=localStorage.getItem('mz_supp_'+currentUser)==='1';
+    var c=localStorage.getItem('mz_chat_'+currentUser); chatMessages=c?JSON.parse(c):[];
+    var o=localStorage.getItem('mz_orders_'+currentUser); userOrders=o?JSON.parse(o):[];
+
+    err.classList.remove('show');
+    updateUserUI(); saveLocal(); closeModal('login-modal');
+    notify('✅ Добро пожаловать, '+currentProfile.name+'!');
+    checkNamazTheme();
+}
+
+function doRegister(){
+    var name=document.getElementById('reg-name').value.trim();
+    var pass=document.getElementById('reg-pass').value;
+    var pass2=document.getElementById('reg-pass2').value;
+    var err=document.getElementById('register-error');
+    if(!name||!pass){ err.textContent='❌ Заполните все поля'; err.classList.add('show'); return; }
+    if(name.length<2){ err.textContent='❌ Имя от 2 символов'; err.classList.add('show'); return; }
+    if(pass.length<4){ err.textContent='❌ Пароль от 4 символов'; err.classList.add('show'); return; }
+    if(pass!==pass2){ err.textContent='❌ Пароли не совпадают'; err.classList.add('show'); return; }
+    if(findAccountByName(name)){ err.textContent='❌ Имя уже занято'; err.classList.add('show'); return; }
+
+    var profile={ name:name, avatar:'👤', color:'#cb11ab', bio:'', namaz:false, namazUntil:null, balance:0 };
+    localStorage.setItem(getAccKey(name), JSON.stringify({ name:name, pass:pass, profile:profile }));
+    saveProfileToStorage(profile);
+
+    currentUser=name;
+    currentProfile=profile;
+    isSupport=false; chatMessages=[]; userOrders=[];
+    saveLocal(); err.classList.remove('show'); updateUserUI(); closeModal('login-modal');
+    notify('✅ Аккаунт создан!');
+}
+
+function updateUserUI(){
+    document.getElementById('user-label').textContent=currentProfile?currentProfile.name:'Войти';
+    var b=document.getElementById('namaz-badge-header');
+    if(currentProfile && currentProfile.namaz) b.style.display='block'; else b.style.display='none';
+}
+
+// ============ ПРОФИЛЬ ============
+var avatarOptions=['👤','⛏️','💎','⚔️','🛡️','🐉','🦊','🐺','🧙','🐷','💀','🎮'];
+var namazAvatars=['👑','🐉','🦄','🌟','🔥','💠'];
+var colorOptions=['#cb11ab','#481173','#4ba32e','#3b7bff','#ff3b3b','#ffb800','#ff6b00','#00c8ff','#ffffff','#000000'];
+
+function openProfile(){
+    if(!currentUser){ openModal('login-modal'); return; }
+    renderProfile();
+    openModal('profile-modal');
+}
+function renderProfile(){
+    var p=currentProfile;
+    var hasNamaz=p.namaz;
+    var avHtml='';
+    var allAv=hasNamaz?avatarOptions.concat(namazAvatars):avatarOptions;
+    for(var i=0;i<allAv.length;i++){
+        var av=allAv[i];
+        var isNamazOnly=namazAvatars.indexOf(av)!==-1;
+        var sel=p.avatar===av;
+        var lock=isNamazOnly && !hasNamaz;
+        avHtml+='<div class="avatar-option '+(sel?'selected':'')+(lock?' namaz-only locked':'')+'" onclick="'+(lock?'namazLock()':'setAvatar(\''+av+'\')')+'">'+av+'</div>';
+    }
+    var colHtml='';
+    for(var j=0;j<colorOptions.length;j++){
+        var c=colorOptions[j];
+        colHtml+='<div class="color-option '+(p.color===c?'selected':'')+'" style="background:'+c+'" onclick="setColor(\''+c+'\')"></div>';
+    }
+    document.getElementById('profile-body').innerHTML=
+        '<div class="profile-header">'+
+            '<div class="profile-avatar '+(hasNamaz?'namaz':'')+'" style="background:'+p.color+'">'+p.avatar+'</div>'+
+            '<div class="profile-name">'+esc(p.name)+(hasNamaz?' <span class="namaz-user-badge">NAMAZ</span>':'')+'</div>'+
+            '<div style="font-size:13px;color:var(--text2)">Баланс: <b style="color:var(--accent)">'+price(p.balance||0)+'</b></div>'+
+        '</div>'+
+        '<div class="settings-section"><h3>🎭 Аватар</h3><div class="avatar-grid">'+avHtml+'</div></div>'+
+        '<div class="settings-section"><h3>🎨 Цвет профиля</h3><div class="color-grid">'+colHtml+'</div></div>'+
+        '<div class="settings-section"><h3>📝 О себе</h3>'+
+            '<div class="form-group"><textarea id="prof-bio" placeholder="Расскажите о себе..." maxlength="100" onchange="saveBio(this.value)">'+esc(p.bio||'')+'</textarea></div>'+
+        '</div>'+
+        '<div class="settings-section"><h3>Подписка</h3>'+
+            (hasNamaz
+                ? '<div style="padding:12px;background:var(--soft);border-radius:10px;font-size:14px;color:var(--text)">Активна до <b>'+esc(p.namazUntil||'—')+'</b></div><button class="btn-secondary" style="width:100%;margin-top:10px" onclick="closeModal(\'profile-modal\');openNamaz()">Управлять</button>'
+                : '<button class="btn-primary" style="background:var(--namaz);color:#fff" onclick="closeModal(\'profile-modal\');openNamaz()">Оформить NAMAZ — $4.99/мес</button>'
+            )+
+        '</div>'+
+        '<div class="settings-section"><h3>⚙️ Аккаунт</h3>'+
+            '<div class="form-group"><label>Новое имя</label><input type="text" id="prof-new-name" value="'+esc(p.name)+'"></div>'+
+            '<div class="form-row">'+
+                '<div class="form-group"><label>Новый пароль</label><input type="password" id="prof-new-pass"></div>'+
+                '<div class="form-group"><label>Повтор</label><input type="password" id="prof-new-pass2"></div>'+
+            '</div>'+
+            '<div class="form-error" id="prof-error">❌ Ошибка</div>'+
+            '<button class="btn-primary" onclick="saveAccount()">💾 Сохранить изменения</button>'+
+            '<button class="btn-primary btn-danger" style="margin-top:10px" onclick="logout()">🚪 Выйти</button>'+
+        '</div>';
+}
+function setAvatar(av){ currentProfile.avatar=av; saveProfileToStorage(currentProfile); saveLocal(); renderProfile(); }
+function setColor(c){ currentProfile.color=c; saveProfileToStorage(currentProfile); saveLocal(); renderProfile(); }
+function saveBio(t){ currentProfile.bio=t.trim(); saveProfileToStorage(currentProfile); saveLocal(); notify('✅ Сохранено'); }
+function namazLock(){ notify('👑 Только с NAMAZ'); openNamaz(); }
+
+function saveAccount(){
+    var newName=document.getElementById('prof-new-name').value.trim();
+    var p1=document.getElementById('prof-new-pass').value;
+    var p2=document.getElementById('prof-new-pass2').value;
+    var err=document.getElementById('prof-error');
+    if(!newName || newName.length<2){ err.textContent='❌ Имя от 2 символов'; err.classList.add('show'); return; }
+    if(p1 && p1.length<4){ err.textContent='❌ Пароль от 4 символов'; err.classList.add('show'); return; }
+    if(p1 && p1!==p2){ err.textContent='❌ Пароли не совпадают'; err.classList.add('show'); return; }
+    if(newName.toLowerCase()!==currentUser.toLowerCase() && findAccountByName(newName)){ err.textContent='❌ Имя занято'; err.classList.add('show'); return; }
+
+    var oldAcc=findAccountByName(currentUser);
+    var oldPass=oldAcc ? oldAcc.pass : '';
+    var newPass=p1 || oldPass;
+
+    // Удаляем старые ключи
+    localStorage.removeItem(getAccKey(currentUser));
+    localStorage.removeItem(getProfileKey(currentUser));
+
+    // Обновляем имя в товарах
+    for(var i=0;i<products.length;i++){
+        if(products[i].seller_name===currentUser){
+            products[i].seller_name=newName;
+            products[i].seller_email=newName;
+        }
+    }
+
+    currentUser=newName;
+    currentProfile.name=newName;
+    localStorage.setItem(getAccKey(currentUser), JSON.stringify({ name:newName, pass:newPass, profile:currentProfile }));
+    saveProfileToStorage(currentProfile);
+    saveLocal(); updateUserUI(); err.classList.remove('show');
+    notify('✅ Сохранено!');
+    closeModal('profile-modal');
+}
+
+function logout(){
+    currentUser=null; currentProfile=null; isSupport=false;
+    document.getElementById('user-label').textContent='Войти';
+    document.getElementById('namaz-badge-header').style.display='none';
+    saveLocal(); closeModal('profile-modal');
+    notify('👋 Вы вышли');
+}
+
+// ============ АКТИВАЦИЯ ============
+function applyCode(){
+    if(!currentUser){ closeModal('settings-modal'); openModal('login-modal'); notify('⚠️ Войдите'); return; }
+    var code=document.getElementById('activation-code').value.trim();
+    if(code===ADMIN_KEY){
+        isSupport=true; saveLocal();
+        notify('✅ Активировано!');
+        document.getElementById('activation-code').value='';
+        closeModal('settings-modal');
+        openChatModal();
+    } else { notify('❌ Неверный код'); }
+}
+
+// ============ NAMAZ ============
+function openNamaz(){
+    var bv=document.getElementById('namaz-buy-view');
+    var av=document.getElementById('namaz-active-view');
+    if(!currentUser){ closeModal('namaz-modal'); openModal('login-modal'); notify('⚠️ Войдите'); return; }
+    if(currentProfile && currentProfile.namaz){
+        bv.style.display='none'; av.style.display='block';
+        document.getElementById('namaz-until').textContent=currentProfile.namazUntil||'—';
+    } else { bv.style.display='block'; av.style.display='none'; }
+    openModal('namaz-modal');
+}
+function subscribeNamaz(){
+    if(!currentUser){ closeModal('namaz-modal'); openModal('login-modal'); return; }
+    var u=new Date(); u.setMonth(u.getMonth()+1);
+    currentProfile.namaz=true;
+    currentProfile.namazUntil=u.getDate()+'.'+(u.getMonth()+1)+'.'+u.getFullYear();
+    saveProfileToStorage(currentProfile);
+    saveLocal(); updateUserUI(); checkNamazTheme();
+    notify('NAMAZ активирован!');
+    openNamaz();
+}
+function cancelNamaz(){
+    if(!confirm('Отменить NAMAZ?')) return;
+    currentProfile.namaz=false; currentProfile.namazUntil=null;
+    saveProfileToStorage(currentProfile);
+    if(currentTheme==='namaz') setTheme('light');
+    saveLocal(); updateUserUI(); checkNamazTheme();
+    notify('Подписка отменена');
+    closeModal('namaz-modal');
+}
+function checkNamazTheme(){
+    var opt=document.getElementById('namaz-theme-option');
+    if(!opt) return;
+    var has=currentProfile && currentProfile.namaz;
+    opt.classList.toggle('namaz-locked',!has);
+    if(!has){ opt.onclick=function(){ notify('👑 NAMAZ'); openNamaz(); }; }
+    else { opt.onclick=function(){ setTheme('namaz', opt); }; }
 }
 
 // ============ ЧАТ ============
-function openChatModal() {
-    if (!currentUser) { openLoginModal(); return; }
-    document.getElementById('chat-modal').classList.add('show');
-    renderChat();
-}
-function closeChatModal() { document.getElementById('chat-modal').classList.remove('show'); }
-
-function renderChat() {
-    var container = document.getElementById('chat-messages');
-    var msgs = chatMessages[currentUser] || [];
-    if (msgs.length === 0) {
-        msgs.push({ from: 'them', author: 'Продавец', text: '👋 Здравствуйте! Чем помочь?', time: getTime() });
+function addChat(text,from){
+    if(!currentUser) return;
+    var msg={ from:from||(isSupport?'support':'me'), author:isSupport?'Поддержка':currentProfile.name, text:text, time:time() };
+    chatMessages.push(msg);
+    if(!isSupport){
+        var t=tickets.find(function(x){return x.userEmail===currentUser && !x.type;});
+        if(!t){ t={ id:Date.now(), userEmail:currentUser, userName:currentProfile.name, messages:[], updatedAt:Date.now() }; tickets.push(t); }
+        if(t.messages!==chatMessages) t.messages.push(msg);
+        t.updatedAt=Date.now();
     }
-    var html = '';
-    for (var i = 0; i < msgs.length; i++) {
-        var m = msgs[i];
-        html += '<div class="chat-msg ' + (m.from === 'me' ? 'me' : 'them') + '">' +
-            (m.from !== 'me' ? '<div class="chat-msg-author">' + escapeHtml(m.author) + '</div>' : '') +
-            escapeHtml(m.text) + '<div class="chat-msg-time">' + (m.time || '') + '</div></div>';
-    }
-    container.innerHTML = html;
-    container.scrollTop = container.scrollHeight;
-}
-
-function sendChatMessage() {
-    var input = document.getElementById('chat-input');
-    var text = input.value.trim();
-    if (!text) return;
-    if (!chatMessages[currentUser]) chatMessages[currentUser] = [];
-    chatMessages[currentUser].push({ from: 'me', author: currentProfile ? currentProfile.name : 'Вы', text: text, time: getTime() });
-    input.value = '';
-    renderChat();
     saveLocal();
-    setTimeout(function() {
-        var replies = ['Спасибо за сообщение! 🎮','Понял вас!','Товар в наличии ✅','Скоро отвечу подробнее!','Обращайтесь! ⛏️'];
-        chatMessages[currentUser].push({ from: 'them', author: 'Продавец', text: replies[Math.floor(Math.random() * replies.length)], time: getTime() });
-        if (document.getElementById('chat-modal').classList.contains('show')) renderChat();
-        saveLocal();
-    }, 1200);
 }
-
-// ============ КАРТОЧКА ТОВАРА ============
-function openProductModal(id) {
-    var p = products.find(function(x) { return x.id === id; });
-    if (!p) return;
-    currentProductId = id;
-    reviewRating = 0;
-    var isFav = favorites.indexOf(p.id) !== -1;
-    var pReviews = reviews[p.id] || [];
-    var avgRating = 0;
-    if (pReviews.length > 0) {
-        var sum = 0;
-        for (var j = 0; j < pReviews.length; j++) sum += pReviews[j].rating;
-        avgRating = (sum / pReviews.length).toFixed(1);
-    }
-    var ratingHtml = pReviews.length > 0
-        ? '<span class="stars">★</span> <b>' + avgRating + '</b> · ' + pReviews.length + ' отзывов'
-        : '<span style="color:var(--text-dim);">Нет отзывов</span>';
-
-    var reviewFormHtml = currentUser
-        ? '<div class="review-form"><h4>✍️ Оставить отзыв</h4><div class="rating-input">' +
-            '<button class="star-btn" onclick="selectReviewStar(1)">★</button><button class="star-btn" onclick="selectReviewStar(2)">★</button><button class="star-btn" onclick="selectReviewStar(3)">★</button><button class="star-btn" onclick="selectReviewStar(4)">★</button><button class="star-btn" onclick="selectReviewStar(5)">★</button>' +
-            '</div><textarea id="review-text" placeholder="Ваш отзыв..."></textarea><button onclick="submitReview()">📨 Отправить</button></div>'
-        : '<div class="review-form" style="text-align:center;"><p style="margin-bottom:12px;">🔒 Войдите, чтобы оставить отзыв</p><button onclick="closeProductModal();openLoginModal()">Войти</button></div>';
-
-    document.getElementById('pm-title').textContent = p.emoji + ' ' + p.name;
-    document.getElementById('pm-body').innerHTML =
-        '<div class="product-detail">' +
-            '<div class="product-detail-image"><div class="rarity ' + p.rarity + '">' + getRarityLabel(p.rarity) + '</div>' + p.emoji + '</div>' +
-            '<div class="product-detail-info">' +
-                '<h2>' + escapeHtml(p.name) + '</h2>' +
-                '<div class="product-detail-rating">' + ratingHtml + '</div>' +
-                '<div class="product-detail-price"><span class="new">' + parseFloat(p.price).toLocaleString('ru-RU') + ' ₽</span></div>' +
-                '<div class="product-detail-desc">' + escapeHtml(p.description || '') + '</div>' +
-                '<div class="detail-actions">' +
-                    '<button class="btn-buy-big" onclick="buyNow(' + p.id + ')">💳 Купить</button>' +
-                    '<button class="btn-secondary ' + (isFav ? 'active' : '') + '" onclick="toggleFavoriteFromModal(' + p.id + ', this)">' + (isFav ? '❤️' : '🤍') + '</button>' +
-                '</div>' +
-                '<button class="btn-primary" style="margin-top:10px;" onclick="addToCartFromModal(' + p.id + ')">🛒 В корзину</button>' +
-            '</div>' +
-        '</div>' +
-        '<div class="reviews-section"><div class="reviews-header"><h3>💬 Отзывы</h3><span class="reviews-count">' + pReviews.length + ' шт.</span></div>' +
-        reviewFormHtml + '<div class="reviews-list">' + renderReviews(p.id) + '</div></div>';
-    document.getElementById('product-modal').classList.add('show');
-}
-
-function closeProductModal() {
-    document.getElementById('product-modal').classList.remove('show');
-    currentProductId = null;
-    reviewRating = 0;
-}
-
-function renderReviews(productId) {
-    var list = reviews[productId] || [];
-    if (list.length === 0) return '<div class="no-reviews">Пока нет отзывов 💬</div>';
-    var html = '';
-    for (var i = list.length - 1; i >= 0; i--) {
-        var r = list[i];
-        var stars = '';
-        for (var j = 1; j <= 5; j++) stars += j <= r.rating ? '★' : '☆';
-        var d = new Date(r.created_at);
-        var dateStr = d.getDate() + '.' + (d.getMonth() + 1) + '.' + d.getFullYear();
-        html += '<div class="review-item"><div class="review-item-header"><span class="review-author">' + escapeHtml(r.author) + '</span><span class="review-date">' + dateStr + '</span></div>' +
-            '<div class="review-stars">' + stars + '</div><div class="review-text">' + escapeHtml(r.text) + '</div></div>';
-    }
-    return html;
-}
-
-function selectReviewStar(n) {
-    reviewRating = n;
-    var stars = document.querySelectorAll('.star-btn');
-    for (var i = 0; i < stars.length; i++) stars[i].classList.toggle('active', i < n);
-}
-
-async function submitReview() {
-    if (!currentUser) { showNotification('⚠️ Войдите'); return; }
-    var text = document.getElementById('review-text').value.trim();
-    if (reviewRating === 0) { showNotification('⚠️ Поставьте оценку'); return; }
-    if (!text) { showNotification('⚠️ Напишите текст'); return; }
-    var ok = await saveReviewToDB(currentProductId, currentProfile ? currentProfile.name : currentUser.split('@')[0], reviewRating, text);
-    if (ok) {
-        showNotification('✅ Отзыв добавлен!');
-        await loadProducts();
-        openProductModal(currentProductId);
-    }
-}
-
-function addToCartFromModal(id) { addToCart(id); openProductModal(id); }
-function toggleFavoriteFromModal(id, btn) {
-    toggleFavorite(id);
-    btn.textContent = favorites.indexOf(id) !== -1 ? '❤️' : '🤍';
-    btn.classList.toggle('active', favorites.indexOf(id) !== -1);
-}
-
-// ============ ПОКУПКА ============
-function buyNow(id) {
-    if (!currentUser) { showNotification('⚠️ Войдите'); openLoginModal(); return; }
-    var p = products.find(function(x) { return x.id === id; });
-    if (!p) return;
-    if (!confirm('💳 Купить "' + p.name + '" за ' + parseFloat(p.price).toLocaleString('ru-RU') + ' ₽?')) return;
-    var orderNum = Math.floor(Math.random() * 900000) + 100000;
-    showNotification('✅ Заказ #' + orderNum + ' оформлен!');
-    closeProductModal();
-    setTimeout(function() {
-        openChatModal();
-        if (!chatMessages[currentUser]) chatMessages[currentUser] = [];
-        chatMessages[currentUser].push({ from: 'them', author: 'Продавец', text: '🎉 Спасибо за заказ #' + orderNum + '! Товар: ' + p.name, time: getTime() });
-        saveLocal();
+function openChatModal(){
+    if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
+    if(isSupport){
+        document.getElementById('chat-title').textContent='🛡️ Тикеты';
+        document.getElementById('chat-tickets-view').style.display='block';
+        document.getElementById('chat-conv-view').style.display='none';
+        renderTickets();
+    } else {
+        document.getElementById('chat-title').textContent='💬 Поддержка';
+        document.getElementById('chat-tickets-view').style.display='none';
+        document.getElementById('chat-conv-view').style.display='block';
         renderChat();
-    }, 500);
-}
-
-// ============ ПОИСК ============
-function performSearch() {
-    var q = document.getElementById('searchInput').value.trim().toLowerCase();
-    if (!q) { currentSearch = ''; renderProducts(); return; }
-    currentSearch = q;
-    currentCategory = 'all';
-    currentRarity = 'all';
-    document.getElementById('section-name').textContent = 'Поиск: "' + q + '"';
-    renderProducts();
-}
-document.getElementById('searchInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') performSearch(); });
-
-// ============ ЗАКРЫТИЕ МОДАЛОК ============
-['login','product','settings','add-product','favorites','chat'].forEach(function(name) {
-    var el = document.getElementById(name + '-modal');
-    if (el) el.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
-});
-document.getElementById('cart-modal').addEventListener('click', function(e) { if (e.target === this) toggleCart(); });
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        document.querySelectorAll('.modal.show').forEach(function(m) { m.classList.remove('show'); });
     }
+    openModal('chat-modal');
+}
+function renderTickets(){
+    var b=document.getElementById('tickets-body');
+    if(tickets.length===0){ b.innerHTML='<div style="text-align:center;padding:40px;color:var(--text2)">📭 Нет обращений</div>'; return; }
+    var sorted=tickets.slice().sort(function(a,b){return b.updatedAt-a.updatedAt;});
+    var h='';
+    for(var i=0;i<sorted.length;i++){
+        var t=sorted[i];
+        var last=t.messages[t.messages.length-1];
+        var isTopup=t.type==='topup';
+        var title=(isTopup?'💰 ':'👤 ')+esc(t.userName);
+        if(isTopup && t.amount) title+=' — '+price(t.amount);
+        h+='<div class="seller-card" onclick="openTicket('+t.id+')">'+
+            '<div class="seller-avatar" style="background:'+(isTopup?'var(--success)':'var(--accent)')+'">'+(isTopup?'💰':'👤')+'</div>'+
+            '<div class="seller-info"><div class="seller-name">'+title+'</div><div class="seller-bio">'+esc(last?last.text.slice(0,40):'Нет сообщений')+'</div></div></div>';
+    }
+    b.innerHTML=h;
+}
+function openTicket(id){
+    var t=tickets.find(function(x){return x.id===id;});
+    if(!t) return;
+    document.getElementById('chat-title').textContent=(t.type==='topup'?'💰 ':'💬 ')+t.userName;
+    document.getElementById('chat-tickets-view').style.display='none';
+    document.getElementById('chat-conv-view').style.display='block';
+    chatMessages=t.messages;
+    currentTicketId=id;
+    renderChat();
+}
+var currentTicketId=null;
+function renderChat(){
+    var c=document.getElementById('chat-messages');
+    if(chatMessages.length===0){ c.innerHTML='<div style="text-align:center;color:var(--text2);padding:20px">💬 Напишите первое сообщение</div>'; return; }
+    var h='';
+    for(var i=0;i<chatMessages.length;i++){
+        var m=chatMessages[i];
+        var isMe = m.from==='me' || (isSupport && m.from==='support');
+        h+='<div class="chat-msg '+(isMe?'me':'them')+'">'+
+            (!isMe?'<div class="chat-msg-author">'+esc(m.author)+'</div>':'')+
+            esc(m.text)+'<div class="chat-msg-time">'+(m.time||'')+'</div></div>';
+    }
+    c.innerHTML=h; c.scrollTop=c.scrollHeight;
+}
+function sendChat(){
+    if(!currentUser){ closeModal('chat-modal'); openModal('login-modal'); return; }
+    var inp=document.getElementById('chat-input');
+    var text=inp.value.trim();
+    if(!text) return;
+
+    if(isSupport && currentTicketId){
+        var t=tickets.find(function(x){return x.id===currentTicketId;});
+        if(t){
+            // Если это тикет пополнения и поддержка пишет /topup 50
+            var m=text.match(/^\/topup\s+([\d.]+)/i);
+            if(m && t.type==='topup'){
+                var amount=parseFloat(m[1]);
+                var userProf=getProfile(t.userName);
+                if(userProf){
+                    userProf.balance=(parseFloat(userProf.balance||0))+amount;
+                    saveProfileToStorage(userProf);
+                }
+                var msg={ from:'support', author:'Поддержка', text:'✅ Зачислено '+price(amount)+' на баланс '+t.userName, time:time() };
+                t.messages.push(msg);
+                t.updatedAt=Date.now();
+                saveLocal();
+                inp.value='';
+                renderChat();
+                notify('✅ Начислено '+price(amount));
+                return;
+            }
+            t.messages.push({ from:'support', author:'Поддержка', text:text, time:time() });
+            t.updatedAt=Date.now();
+            inp.value='';
+            saveLocal(); renderChat(); renderTickets();
+            return;
+        }
+    }
+
+    var msg={ from:isSupport?'support':'me', author:isSupport?'Поддержка':currentProfile.name, text:text, time:time() };
+    chatMessages.push(msg);
+    if(!isSupport){
+        var t2=tickets.find(function(x){return x.userEmail===currentUser && !x.type;});
+        if(!t2){ t2={ id:Date.now(), userEmail:currentUser, userName:currentProfile.name, messages:[], updatedAt:Date.now() }; tickets.push(t2); }
+        if(t2.messages!==chatMessages) t2.messages.push(msg);
+        t2.updatedAt=Date.now();
+    }
+    inp.value='';
+    saveLocal(); renderChat();
+    if(!isSupport){
+        setTimeout(function(){
+            var reply={ from:'support', author:'Поддержка', text:'Спасибо за сообщение! Мы свяжемся с вами. 🛡️', time:time() };
+            chatMessages.push(reply);
+            var tt=tickets.find(function(x){return x.userEmail===currentUser && !x.type;});
+            if(tt){ tt.messages.push(reply); tt.updatedAt=Date.now(); }
+            saveLocal();
+            if(document.getElementById('chat-modal').classList.contains('show')) renderChat();
+        },1500);
+    }
+}
+
+// ============ ТЕМА ============
+function setTheme(theme,el){
+    if(theme==='namaz' && (!currentProfile || !currentProfile.namaz)){
+        notify('👑 Только с NAMAZ');
+        openNamaz();
+        return;
+    }
+    currentTheme=theme;
+    document.body.className = theme==='light' ? '' : 'theme-'+theme;
+    var ops=document.querySelectorAll('.theme-option');
+    for(var i=0;i<ops.length;i++) ops[i].classList.remove('active');
+    if(el) el.classList.add('active');
+    else { var f=document.querySelector('.theme-option[data-t="'+theme+'"]'); if(f) f.classList.add('active'); }
+    saveLocal();
+    notify('🎨 Тема изменена');
+}
+
+// ============ МОДАЛКИ ============
+var modals=document.querySelectorAll('.modal');
+for(var i=0;i<modals.length;i++){
+    modals[i].addEventListener('click',function(e){ if(e.target===this) this.classList.remove('show'); });
+}
+document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){ var m=document.querySelectorAll('.modal.show'); for(var i=0;i<m.length;i++) m[i].classList.remove('show'); }
 });
-document.getElementById('login-pass').addEventListener('keypress', function(e) { if (e.key === 'Enter') doLogin(); });
+document.getElementById('login-pass').addEventListener('keypress',function(e){ if(e.key==='Enter') doLogin(); });
 
 // ============ СТАРТ ============
 loadLocal();
-if (currentTheme) setTheme(currentTheme);
-updateUserUI();
-document.getElementById('fav-count').textContent = favorites.length;
+if(currentTheme && currentTheme!=='light') document.body.className='theme-'+currentTheme;
+var to=document.querySelector('.theme-option[data-t="'+currentTheme+'"]');
+if(to) to.classList.add('active');
+updateUserUI(); checkNamazTheme();
+document.getElementById('fav-count').textContent=favorites.length;
 loadProducts();
-updateCartUI();
+updateCart();
 </script>
 
 </body>
