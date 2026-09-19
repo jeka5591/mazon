@@ -302,6 +302,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
             <div class="tabs" id="profile-tabs">
                 <button class="tab active" onclick="openProfileTab('main', this)">👤 Профиль</button>
                 <button class="tab" onclick="openProfileTab('orders', this)">📦 Заказы</button>
+                <button class="tab" onclick="openProfileTab('sales', this)">💼 Продажи</button>
                 <button class="tab" onclick="openProfileTab('myProducts', this)">🏪 Мои товары</button>
                 <button class="tab" onclick="openProfileTab('account', this)">⚙️ Аккаунт</button>
             </div>
@@ -366,6 +367,10 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                     <div class="emoji-option" onclick="pickEmoji('🐉', this)">🐉</div>
                     <div class="emoji-option" onclick="pickEmoji('🔥', this)">🔥</div>
                 </div>
+            </div>
+            <div class="form-group" id="ap-bg-group" style="display:none">
+                <label>🎨 Фон карточки (NAMАZ)</label>
+                <div id="ap-bg-picker" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px"></div>
             </div>
             <div class="form-error" id="ap-error">❌ Заполните название и цену</div>
             <button class="btn-primary" onclick="saveProduct()">💾 Сохранить</button>
@@ -518,6 +523,7 @@ var isSupport = false, userOrders = [];
 var currentTicketId = null;
 var dbMessages = [];
 var chatRefreshTimer = null;
+var selectedProductBg = '';
 
 // ============ ХРАНИЛИЩЕ ============
 function saveLocal(){
@@ -630,7 +636,6 @@ function todayStr(){ var d=new Date(); return d.getDate()+'.'+(d.getMonth()+1)+'
 function isMyProduct(p){ return currentUser && p.seller_name===currentUser; }
 function timeFromTs(ts){ var d=new Date(ts); return (d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes(); }
 
-// Класс и стиль для ника
 function nickStyle(prof){
     if(!prof) return '';
     var style = '';
@@ -775,12 +780,9 @@ function renderProducts(){
         var cartBtn = mine
             ? '<button class="btn-cart-icon own" disabled>🚫</button>'
             : '<button class="btn-cart-icon '+(inCart?'added':'')+'" onclick="addToCart('+p.id+')">'+(inCart?'✓':'🛒')+'</button>';
-        // Фон карточки продавца (NAMАZ)
-        var cardStyle = '';
-        (function(){})();
-        // Установим позже через async
-        html+='<div class="product-card" data-seller="'+esc(sn)+'">'+
-            '<div class="product-image" onclick="openProduct('+p.id+')" data-seller-img="'+esc(sn)+'">'+
+        var bgStyle = p.bg ? 'background:'+p.bg+';background-size:cover;background-position:center;' : '';
+        html+='<div class="product-card">'+
+            '<div class="product-image" onclick="openProduct('+p.id+')" style="'+bgStyle+'">'+
                 '<button class="favorite" onclick="event.stopPropagation();toggleFav('+p.id+')">'+(isFav?'❤️':'🤍')+'</button>'+
                 delBtn+
                 '<div class="rarity '+p.rarity+'">'+rl(p.rarity)+'</div>'+
@@ -798,26 +800,11 @@ function renderProducts(){
     }
     grid.innerHTML=html;
     document.getElementById('products-count').textContent=filtered.length+' товаров';
-    // Асинхронно подгрузим фоны и ники всех продавцов
     var uniqueSellers = {};
     for(var k=0;k<filtered.length;k++) uniqueSellers[filtered[k].seller_name] = true;
     Object.keys(uniqueSellers).forEach(function(sname){
         getCachedProfile(sname).then(function(prof){
             if(!prof) return;
-            var cards = document.querySelectorAll('.product-card[data-seller="'+sname+'"]');
-            for(var c=0;c<cards.length;c++){
-                if(prof.card_bg && prof.namaz){
-                    cards[c].style.background = prof.card_bg;
-                    cards[c].style.backgroundSize = 'cover';
-                }
-            }
-            var imgs = document.querySelectorAll('.product-image[data-seller-img="'+sname+'"]');
-            for(var im=0;im<imgs.length;im++){
-                if(prof.card_bg && prof.namaz){
-                    imgs[im].style.background = prof.card_bg;
-                    imgs[im].style.backgroundSize = 'cover';
-                }
-            }
             var nicks = document.querySelectorAll('[data-seller-nick="'+sname+'"]');
             for(var n=0;n<nicks.length;n++){
                 nicks[n].outerHTML = '<span data-seller-nick="'+sname+'">'+nickHtml(sname, prof)+'</span>';
@@ -937,16 +924,13 @@ async function placeOrder(paymentType){
         var p=products.find(function(x){return x.id===+k;});
         if(p){ total+=parseFloat(p.price)*cart[k]; items.push({name:p.name, qty:cart[k], price:p.price, emoji:p.emoji, seller:p.seller_name}); }
     }
-
-    // Проверка минуса
     var myBal = parseFloat(currentProfile.balance || 0);
-    if(paymentType === 'now' && myBal < total){
-        notify('❌ Недостаточно средств. Пополните кошелёк.');
+    if(myBal < 0){
+        notify('🚫 Вы в минусе! Пополните баланс.');
         return;
     }
-    // Если уже в минусе — нельзя покупать
-    if(myBal < 0){
-        notify('🚫 Вы в минусе! Пополните баланс, чтобы продолжить покупки.');
+    if(paymentType === 'now' && myBal < total){
+        notify('❌ Недостаточно средств.');
         return;
     }
 
@@ -959,9 +943,7 @@ async function placeOrder(paymentType){
     var order={ id:orderNum, items:items, total:total, payment:paymentType,
         status: paymentType==='now' ? 'paid' : 'pending',
         date:todayStr(), time:time(),
-        seller_done: false,    // продавец нажал "Готово"
-        buyer_done: false,     // покупатель нажал "Готово" (при оплате сейчас) или "Оплатить" (при получении)
-        money_sent: false
+        seller_done: false, buyer_done: false, money_sent: false
     };
     userOrders.unshift(order);
     currentProfile.orders = userOrders;
@@ -979,7 +961,6 @@ async function placeOrder(paymentType){
     }
     var sellerNames = Object.keys(sellers);
 
-    // Отправляем заказ продавцам
     if(sb){
         for(var sname in sellers){
             var lines = '🛒 Новый заказ #'+orderNum+'\n\n';
@@ -1004,11 +985,10 @@ async function placeOrder(paymentType){
     }
 
     if(paymentType==='now') notify('✅ Заказ #'+orderNum+' оплачен!');
-    else notify('📦 Заказ #'+orderNum+' оформлен (оплата при получении)');
+    else notify('📦 Заказ #'+orderNum+' оформлен');
 
     if(sellerNames.length === 1){
-        var sellerName = sellerNames[0];
-        setTimeout(function(){ openChatWithSeller(sellerName); }, 400);
+        setTimeout(function(){ openChatWithSeller(sellerNames[0]); }, 400);
     } else {
         setTimeout(function(){ openMessages(); }, 400);
     }
@@ -1019,9 +999,8 @@ function buyNow(id){
     var p=products.find(function(x){return x.id===id;});
     if(!p) return;
     if(isMyProduct(p)){ notify('🚫 Нельзя купить свой товар'); return; }
-    // Проверка минуса
     if(parseFloat(currentProfile.balance || 0) < 0){
-        notify('🚫 Вы в минусе! Пополните баланс, чтобы покупать.');
+        notify('🚫 Вы в минусе! Пополните баланс.');
         return;
     }
     cart[id]=(cart[id]||0)+1;
@@ -1045,23 +1024,20 @@ function renderOrders(){
         for(var j=0;j<o.items.length;j++){ var it=o.items[j]; itemsHtml+=it.emoji+' '+esc(it.name)+' × '+it.qty+'<br>'; }
 
         var actions='';
-        // Показываем кнопки только если заказ не завершён и не возвращён
         if(o.status!=='refunded' && o.status!=='completed'){
-            // Покупатель видит:
-            //  - Оплатить (если оплата при получении и он ещё не нажал)
-            //  - Готово (если оплата сейчас и он ещё не нажал)
-            //  - Возврат
-            if(o.payment==='later' && !o.buyer_done){
-                actions += '<button class="order-btn receive" onclick="buyerPay('+o.id+')">💳 Оплатить</button>';
-            }
-            if(o.payment==='now' && !o.buyer_done){
-                actions += '<button class="order-btn receive" onclick="buyerReady('+o.id+')">✅ Готово</button>';
+            if(!o.buyer_done){
+                if(o.payment==='later'){
+                    actions += '<button class="order-btn receive" onclick="buyerPay('+o.id+')">💳 Оплатить</button>';
+                } else {
+                    actions += '<button class="order-btn receive" onclick="buyerReady('+o.id+')">✅ Готово</button>';
+                }
+            } else {
+                actions += '<div style="flex:1;text-align:center;padding:9px;font-size:12px;color:var(--text2)">✅ Вы отметили. Ожидание продавца...</div>';
             }
             if(o.status==='pending'){
                 actions += '<button class="order-btn refund" onclick="refundOrder('+o.id+')">↩️ Возврат</button>';
             }
         }
-        // Показываем статус взаимных кнопок
         var mutual = '';
         if(o.seller_done || o.buyer_done){
             mutual = '<div style="font-size:11px;color:var(--text2);margin-top:6px">Продавец: '+(o.seller_done?'✅':'⏳')+' • Покупатель: '+(o.buyer_done?'✅':'⏳')+'</div>';
@@ -1079,7 +1055,6 @@ function renderOrders(){
     return h;
 }
 
-// Покупатель нажал "Готово" (при оплате сейчас)
 async function buyerReady(orderId){
     var o = userOrders.find(function(x){return x.id===orderId;});
     if(!o) return;
@@ -1087,7 +1062,6 @@ async function buyerReady(orderId){
     o.buyer_done = true;
     currentProfile.orders = userOrders;
     await persistProfile();
-    // Сообщаем продавцу
     var sellerNames = {};
     for(var i=0;i<o.items.length;i++) sellerNames[o.items[i].seller] = true;
     for(var sname in sellerNames){
@@ -1097,17 +1071,15 @@ async function buyerReady(orderId){
             text: '✅ Покупатель подтвердил готовность по заказу #'+o.id,
             from_support: false,
             ticket_type: 'order_ready',
-            amount: null,
             read_by_support: false,
             read_by_user: true
         }]);
     }
-    await tryCompleteOrder(o);
+    await tryCompleteOrder(o, currentUser);
     notify('✅ Отмечено!');
     openProfileTab('orders');
 }
 
-// Покупатель нажал "Оплатить" (при оплате при получении)
 async function buyerPay(orderId){
     var o = userOrders.find(function(x){return x.id===orderId;});
     if(!o) return;
@@ -1120,7 +1092,6 @@ async function buyerPay(orderId){
     o.status = 'paid';
     currentProfile.orders = userOrders;
     await persistProfile();
-    // Сообщаем продавцу
     var sellerNames = {};
     for(var i=0;i<o.items.length;i++) sellerNames[o.items[i].seller] = true;
     for(var sname in sellerNames){
@@ -1130,17 +1101,15 @@ async function buyerPay(orderId){
             text: '💳 Покупатель оплатил заказ #'+o.id,
             from_support: false,
             ticket_type: 'order_paid',
-            amount: null,
             read_by_support: false,
             read_by_user: true
         }]);
     }
-    await tryCompleteOrder(o);
+    await tryCompleteOrder(o, currentUser);
     notify('✅ Оплачено!');
     openProfileTab('orders');
 }
 
-// Продавец нажал "Готово"
 async function sellerReady(orderId, buyerName){
     var buyerProf = await getProfileFromDB(buyerName);
     if(!buyerProf){ notify('❌ Профиль покупателя не найден'); return; }
@@ -1149,52 +1118,33 @@ async function sellerReady(orderId, buyerName){
     if(!o){ notify('❌ Заказ не найден'); return; }
     if(o.seller_done) return;
     o.seller_done = true;
-    // Обновляем в БД
     var r = await sb.from('profiles').update({orders: buyerOrders}).eq('name', buyerName);
     if(r.error){ notify('❌ '+r.error.message); return; }
     invalidateProfileCache(buyerName);
-
-    // Пишем покупателю в чат с продавцом
     await sb.from('messages').insert([{
         ticket_user: sellerTicketKey(currentUser, buyerName),
         author: currentProfile.name,
         text: '✅ Продавец подтвердил готовность по заказу #'+orderId,
-        from_support: true,  // "from_support" в контексте чата продавца = "от продавца"
+        from_support: true,
         ticket_type: 'order_ready',
         read_by_support: true,
         read_by_user: false
     }]);
-    notify('✅ Отмечено! Ожидание покупателя...');
-    // Пробуем завершить
+    notify('✅ Отмечено!');
     await tryCompleteOrder(o, buyerName);
 }
 
-// Проверяем — можно ли завершить заказ (оба нажали)
 async function tryCompleteOrder(order, buyerName){
-    // Определяем покупателя
-    if(!buyerName){
-        buyerName = currentUser; // если вызывается со стороны покупателя
-    }
-    // Свежие данные
+    if(!buyerName) buyerName = currentUser;
     var buyerProf = await getProfileFromDB(buyerName);
     if(!buyerProf) return;
     var buyerOrders = buyerProf.orders || [];
     var o = buyerOrders.find(function(x){ return x.id === order.id; });
     if(!o) return;
 
-    // Проверяем, что оба нажали
-    if(!o.seller_done || !o.buyer_done){
-        // Оба не нажали — просто сохраняем
-        if(order !== o){
-            order.seller_done = o.seller_done;
-            order.buyer_done = o.buyer_done;
-        }
-        return;
-    }
-
+    if(!o.seller_done || !o.buyer_done) return;
     if(o.money_sent) return;
 
-    // Начисляем деньги продавцам
     var sellers = {};
     for(var i=0;i<o.items.length;i++){
         var sname = o.items[i].seller;
@@ -1208,30 +1158,17 @@ async function tryCompleteOrder(order, buyerName){
             await sb.from('profiles').update({balance: newBal}).eq('name', sname);
             invalidateProfileCache(sname);
         }
-        // Сообщение о завершении
-        await sb.from('messages').insert([{
-            ticket_user: sellerTicketKey(sname, buyerName),
-            author: 'Система',
-            text: '🎉 Заказ #'+o.id+' завершён! Начислено '+price(sellers[sname])+' на баланс.',
-            from_support: true,
-            ticket_type: 'order_complete',
-            read_by_support: true,
-            read_by_user: false
-        }]);
     }
 
-    // Помечаем как выполненный
     o.money_sent = true;
     o.status = 'completed';
     await sb.from('profiles').update({orders: buyerOrders}).eq('name', buyerName);
     invalidateProfileCache(buyerName);
 
-    // Удаляем сообщения чата с этим заказом (у продавца и покупателя)
     for(var sname2 in sellers){
         await sb.from('messages').delete().eq('ticket_user', sellerTicketKey(sname2, buyerName));
     }
 
-    // Сообщаем покупателю
     await sb.from('messages').insert([{
         ticket_user: supportTicketKey(buyerName),
         author: 'Система',
@@ -1245,22 +1182,13 @@ async function tryCompleteOrder(order, buyerName){
     notify('🎉 Заказ завершён!');
 }
 
-async function receiveOrder(id){ /* устаревшая — оставлена для совместимости, не используется */ }
-
 async function refundOrder(id){
     var o=userOrders.find(function(x){return x.id===id;});
     if(!o) return;
     if(o.status==='refunded'){ notify('Уже возвращён'); return; }
     if(o.status==='completed'){ notify('Заказ завершён'); return; }
     if(!confirm('Оформить возврат заказа #'+id+'?')) return;
-    if(o.status!=='pending' && o.status!=='paid'){
-        // ничего
-    }
-    // Возвращаем деньги покупателю (если он уже платил)
-    if(o.buyer_done && o.payment !== 'later'){
-        currentProfile.balance=(parseFloat(currentProfile.balance||0))+parseFloat(o.total);
-    } else if(o.payment === 'now'){
-        // Оплата была сразу, значит деньги уже списаны
+    if(o.buyer_done || o.payment === 'now'){
         currentProfile.balance=(parseFloat(currentProfile.balance||0))+parseFloat(o.total);
     }
     o.status='refunded';
@@ -1268,6 +1196,62 @@ async function refundOrder(id){
     await persistProfile();
     notify('↩️ Возврат: '+price(o.total));
     openProfileTab('orders');
+}
+
+// ============ ПРОДАЖИ (для продавца) ============
+async function renderSales(){
+    var allProfiles = [];
+    try{
+        var r = await sb.from('profiles').select('name,orders');
+        if(!r.error) allProfiles = r.data || [];
+    }catch(e){}
+    var mySales = [];
+    for(var i=0;i<allProfiles.length;i++){
+        var prof = allProfiles[i];
+        if(prof.name === currentUser) continue;
+        var orders = prof.orders || [];
+        for(var j=0;j<orders.length;j++){
+            var o = orders[j];
+            var hasMine = false;
+            for(var k=0;k<o.items.length;k++){
+                if(o.items[k].seller === currentUser){ hasMine = true; break; }
+            }
+            if(hasMine) mySales.push({buyer: prof.name, order: o});
+        }
+    }
+    if(mySales.length === 0) return '<div style="text-align:center;padding:35px;color:var(--text2)"><div style="font-size:55px;margin-bottom:12px">💼</div>У вас пока нет продаж</div>';
+    var h = '';
+    for(var m=0;m<mySales.length;m++){
+        var s = mySales[m];
+        var o = s.order;
+        var statusText='Оплачен', statusClass='paid';
+        if(o.status==='pending'){ statusText='Ждёт получения'; statusClass='pending'; }
+        else if(o.status==='completed'){ statusText='Завершён'; statusClass='received'; }
+        else if(o.status==='refunded'){ statusText='Возврат'; statusClass='refunded'; }
+        var itemsHtml='';
+        var mySum = 0;
+        for(var n=0;n<o.items.length;n++){
+            var it=o.items[n];
+            itemsHtml+=it.emoji+' '+esc(it.name)+' × '+it.qty+'<br>';
+            if(it.seller === currentUser) mySum += parseFloat(it.price) * it.qty;
+        }
+        var actions = '';
+        if(o.status !== 'completed' && o.status !== 'refunded'){
+            if(!o.seller_done){
+                actions = '<button class="order-btn receive" onclick="sellerReady('+o.id+',\''+esc(s.buyer)+'\');setTimeout(function(){openProfileTab(\'sales\');},800)">✅ Готово</button>';
+            } else {
+                actions = '<div style="flex:1;text-align:center;padding:9px;font-size:12px;color:var(--text2)">⏳ Ожидание покупателя</div>';
+            }
+        }
+        h += '<div class="order-card">'+
+            '<div class="order-header"><span class="order-num">Заказ #'+o.id+' от '+esc(s.buyer)+'</span><span class="order-status '+statusClass+'">'+statusText+'</span></div>'+
+            '<div class="order-items">'+itemsHtml+'</div>'+
+            '<div class="order-total">Вам: '+price(mySum)+'</div>'+
+            '<div style="font-size:11px;color:var(--text2);margin-bottom:9px">'+(o.payment==='now'?'Оплата сразу':'При получении')+' • Продавец: '+(o.seller_done?'✅':'⏳')+' • Покупатель: '+(o.buyer_done?'✅':'⏳')+'</div>'+
+            '<div class="order-actions">'+actions+'</div>'+
+        '</div>';
+    }
+    return h;
 }
 
 // ============ КОШЕЛЁК ============
@@ -1306,7 +1290,7 @@ async function requestTopup(){
         read_by_user: true
     }]);
     if(r.error){ notify('❌ '+r.error.message); return; }
-    notify('📨 Запрос на '+amount+' изумрудов отправлен');
+    notify('📨 Запрос отправлен');
     closeModal('wallet-modal');
     setTimeout(function(){ openMessages(); }, 400);
 }
@@ -1328,7 +1312,7 @@ function openProduct(id){
             '</div><textarea id="rev-text" placeholder="Отзыв..."></textarea><button onclick="submitReview()">📨 Отправить</button></div>'
         : '<div class="review-form" style="text-align:center"><p style="margin-bottom:10px;color:var(--text3);font-size:13px">🔒 Войдите, чтобы оставить отзыв</p><button onclick="closeModal(\'product-modal\');openModal(\'login-modal\')">Войти</button></div>';
     var sn=p.seller_name||'Продавец';
-    document.getElementById('pm-title').innerHTML=p.emoji+' '+nickHtml(p.name, currentProfile);
+    document.getElementById('pm-title').innerHTML=p.emoji+' '+esc(p.name);
     var buyBtns = mine
         ? '<button class="btn-buy-big own" disabled>Ваш товар</button>'
         : '<button class="btn-buy-big" onclick="buyNow('+p.id+')">💳 Купить</button>';
@@ -1336,9 +1320,10 @@ function openProduct(id){
         ? '<button class="btn-primary own" disabled style="margin-top:10px;background:var(--text2);cursor:not-allowed">🚫 Ваш товар</button>'
         : '<button class="btn-primary" style="margin-top:10px" onclick="addCartModal('+p.id+')">🛒 В корзину</button>';
     var chatSellerBtn = (mine || !currentUser) ? '' : '<button class="btn-secondary" style="width:100%;margin-top:10px" onclick="closeModal(\'product-modal\');openChatWithSeller(\''+esc(sn)+'\')">💬 Написать продавцу</button>';
+    var bgStyle = p.bg ? 'background:'+p.bg+';background-size:cover;background-position:center;' : '';
     document.getElementById('pm-body').innerHTML=
         '<div class="product-detail">'+
-            '<div class="product-detail-image" id="pm-image"><div class="rarity '+p.rarity+'">'+rl(p.rarity)+'</div>'+p.emoji+'</div>'+
+            '<div class="product-detail-image" id="pm-image" style="'+bgStyle+'"><div class="rarity '+p.rarity+'">'+rl(p.rarity)+'</div>'+p.emoji+'</div>'+
             '<div class="product-detail-info">'+
                 '<h2>'+esc(p.name)+'</h2>'+
                 (mine?'<div class="my-badge" style="margin-bottom:10px">ВАШ ТОВАР</div>':'')+
@@ -1364,11 +1349,6 @@ function openProduct(id){
             if(el){ el.textContent=pr.avatar; el.style.background=pr.color; }
             var nk=document.getElementById('pm-seller-nick');
             if(nk) nk.innerHTML = nickHtml(sn, pr);
-            // Фон карточки товара
-            if(pr.card_bg && pr.namaz){
-                var im=document.getElementById('pm-image');
-                if(im){ im.style.background = pr.card_bg; im.style.backgroundSize='cover'; }
-            }
         }
     });
 }
@@ -1434,8 +1414,40 @@ function openAddProduct(){
     document.getElementById('ap-price').value='';
     document.getElementById('ap-emoji').value='💎';
     document.getElementById('ap-error').classList.remove('show');
+    selectedProductBg = '';
+    var bgGroup = document.getElementById('ap-bg-group');
+    var bgPicker = document.getElementById('ap-bg-picker');
+    if(currentProfile && currentProfile.namaz){
+        bgGroup.style.display='block';
+        var opts = [
+            {v:'', n:'Без фона'},
+            {v:'linear-gradient(135deg,#ffd700,#ff6b00)', n:'Золото'},
+            {v:'linear-gradient(135deg,#ff00ff,#6600cc)', n:'Магия'},
+            {v:'linear-gradient(135deg,#00ff88,#006633)', n:'Изумруд'},
+            {v:'linear-gradient(135deg,#3b7bff,#001a66)', n:'Океан'},
+            {v:'linear-gradient(135deg,#ff3366,#660022)', n:'Кровь'},
+            {v:'linear-gradient(135deg,#ffd700,#ff00ff,#6600cc)', n:'NAMAZ'},
+            {v:'radial-gradient(circle at 30% 30%, #ff00ff, #000033)', n:'Космос'}
+        ];
+        var html = '';
+        for(var i=0;i<opts.length;i++){
+            var o = opts[i];
+            html += '<div onclick="pickProductBg(\''+o.v+'\',this)" style="cursor:pointer;padding:5px;border-radius:10px;border:3px solid '+(selectedProductBg===o.v?'var(--accent)':'var(--border)')+';text-align:center">'+
+                '<div style="width:100%;height:40px;border-radius:8px;background:'+(o.v||'var(--soft)')+'"></div>'+
+                '<div style="font-size:10px;margin-top:4px;color:var(--text)">'+o.n+'</div></div>';
+        }
+        bgPicker.innerHTML = html;
+    } else {
+        bgGroup.style.display='none';
+    }
     openModal('add-product-modal');
     setTimeout(function(){document.getElementById('ap-name').focus();},100);
+}
+function pickProductBg(v, el){
+    selectedProductBg = v;
+    var items = document.querySelectorAll('#ap-bg-picker > div');
+    for(var i=0;i<items.length;i++) items[i].style.borderColor = 'var(--border)';
+    el.style.borderColor = 'var(--accent)';
 }
 function pickEmoji(e,el){ document.getElementById('ap-emoji').value=e; var o=document.querySelectorAll('.emoji-option'); for(var i=0;i<o.length;i++) o[i].classList.remove('selected'); el.classList.add('selected'); }
 async function saveProduct(){
@@ -1447,7 +1459,12 @@ async function saveProduct(){
     var em=document.getElementById('ap-emoji').value.trim()||'💎';
     if(!name||isNaN(pv)||pv<0){ document.getElementById('ap-error').classList.add('show'); return; }
     if(!sb){ notify('❌ Нет соединения'); return; }
-    var r=await sb.from('products').insert([{ name:name, description:desc||'Описание не указано.', price:pv, category:cat, rarity:rar, emoji:em, seller_email:currentProfile.name, seller_name:currentProfile.name }]);
+    var r=await sb.from('products').insert([{
+        name:name, description:desc||'Описание не указано.',
+        price:pv, category:cat, rarity:rar, emoji:em,
+        seller_email:currentProfile.name, seller_name:currentProfile.name,
+        bg: selectedProductBg || ''
+    }]);
     if(r.error){ notify('❌ '+r.error.message); return; }
     closeModal('add-product-modal'); notify('✅ Товар добавлен!');
     await loadProducts();
@@ -1479,16 +1496,6 @@ var namazProfileBgOptions=[
     {v:'radial-gradient(circle at 30% 30%, #ff00ff, #000033)',n:'Космос'},
     {v:'',n:'Без фона'}
 ];
-var namazCardBgOptions=[
-    {v:'linear-gradient(135deg,#ffd700,#ff6b00)',n:'Золото'},
-    {v:'linear-gradient(135deg,#ff00ff,#6600cc)',n:'Магия'},
-    {v:'linear-gradient(135deg,#00ff88,#006633)',n:'Изумруд'},
-    {v:'linear-gradient(135deg,#3b7bff,#001a66)',n:'Океан'},
-    {v:'linear-gradient(135deg,#ff3366,#660022)',n:'Кровь'},
-    {v:'linear-gradient(135deg,#ffd700,#ff00ff,#6600cc)',n:'NAMAZ'},
-    {v:'radial-gradient(circle at 30% 30%, #ff00ff, #000033)',n:'Космос'},
-    {v:'',n:'Без фона'}
-];
 var nickColors=['','#ffffff','#000000','#ff3b3b','#4ba32e','#3b7bff','#a13bff','#ffb800','#ff6b00','#ff00ff','#00ff88'];
 var nickEffects=[{v:'',n:'Нет'},{v:'glow',n:'Свечение'},{v:'gradient',n:'Градиент'},{v:'rainbow',n:'Радуга'}];
 
@@ -1497,11 +1504,12 @@ function openProfileTab(tab, btn){
     var tabs=document.querySelectorAll('#profile-tabs .tab');
     for(var i=0;i<tabs.length;i++) tabs[i].classList.remove('active');
     if(btn) btn.classList.add('active');
-    else { var idx={'main':0,'orders':1,'myProducts':2,'account':3}[tab]||0; if(tabs[idx]) tabs[idx].classList.add('active'); }
+    else { var idx={'main':0,'orders':1,'sales':2,'myProducts':3,'account':4}[tab]||0; if(tabs[idx]) tabs[idx].classList.add('active'); }
     var c=document.getElementById('profile-content');
     var t=document.getElementById('profile-title');
     if(tab==='main'){ t.textContent='👤 Профиль'; c.innerHTML=renderProfileMain(); }
     else if(tab==='orders'){ t.textContent='📦 Мои заказы'; c.innerHTML=renderOrders(); }
+    else if(tab==='sales'){ t.textContent='💼 Мои продажи'; c.innerHTML='<div class="loading">⏳ Загрузка...</div>'; renderSales().then(function(html){ c.innerHTML=html; }); }
     else if(tab==='myProducts'){ t.textContent='🏪 Мои товары'; c.innerHTML=renderMyProducts(); }
     else if(tab==='account'){ t.textContent='⚙️ Аккаунт'; c.innerHTML=renderAccount(); }
     openModal('profile-modal');
@@ -1525,7 +1533,6 @@ function renderProfileMain(){
         colHtml+='<div class="color-option '+(p.color===cc?'selected':'')+'" style="background:'+cc+';width:36px;height:36px;border-radius:50%;border:3px solid '+(p.color===cc?'#fff':'var(--border)')+';cursor:pointer;'+(p.color===cc?'box-shadow:0 0 0 3px var(--accent)':'')+'" onclick="setColor(\''+cc+'\')"></div>';
     }
 
-    // NAMAZ кастомизация
     var namazSection = '';
     if(hasNamaz){
         var pbHtml='';
@@ -1533,12 +1540,6 @@ function renderProfileMain(){
             var opt=namazProfileBgOptions[k];
             var sel = p.profile_bg === opt.v;
             pbHtml+='<div onclick="setProfileBg(\''+opt.v+'\')" style="cursor:pointer;padding:6px;border-radius:10px;border:3px solid '+(sel?'var(--accent)':'var(--border)')+';text-align:center"><div style="width:100%;height:40px;border-radius:8px;background:'+(opt.v||'var(--soft)')+'"></div><div style="font-size:10px;margin-top:4px;color:var(--text)">'+opt.n+'</div></div>';
-        }
-        var cbHtml='';
-        for(var k2=0;k2<namazCardBgOptions.length;k2++){
-            var opt2=namazCardBgOptions[k2];
-            var sel2 = p.card_bg === opt2.v;
-            cbHtml+='<div onclick="setCardBg(\''+opt2.v+'\')" style="cursor:pointer;padding:6px;border-radius:10px;border:3px solid '+(sel2?'var(--accent)':'var(--border)')+';text-align:center"><div style="width:100%;height:40px;border-radius:8px;background:'+(opt2.v||'var(--soft)')+'"></div><div style="font-size:10px;margin-top:4px;color:var(--text)">'+opt2.n+'</div></div>';
         }
         var ncHtml='';
         for(var k3=0;k3<nickColors.length;k3++){
@@ -1558,10 +1559,6 @@ function renderProfileMain(){
                 '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px">'+pbHtml+'</div>'+
             '</div>'+
             '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:12px;border:2px dashed var(--accent)">'+
-                '<h3 style="font-size:15px;margin-bottom:10px;color:var(--text)">👑 NAMAZ: Фон карточек товара</h3>'+
-                '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px">'+cbHtml+'</div>'+
-            '</div>'+
-            '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:12px;border:2px dashed var(--accent)">'+
                 '<h3 style="font-size:15px;margin-bottom:10px;color:var(--text)">👑 NAMAZ: Цвет ника</h3>'+
                 '<div style="display:flex;gap:8px;flex-wrap:wrap">'+ncHtml+'</div>'+
                 '<div style="margin-top:12px;font-size:13px;color:var(--text2)">Превью: '+nickHtml(p.name, p)+'</div>'+
@@ -1570,6 +1567,9 @@ function renderProfileMain(){
                 '<h3 style="font-size:15px;margin-bottom:10px;color:var(--text)">👑 NAMAZ: Эффект ника</h3>'+
                 '<div style="display:flex;gap:8px;flex-wrap:wrap">'+neHtml+'</div>'+
                 '<div style="margin-top:12px;font-size:13px;color:var(--text2)">Превью: '+nickHtml(p.name, p)+'</div>'+
+            '</div>'+
+            '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:12px;border:2px dashed var(--accent);text-align:center">'+
+                '<div style="font-size:13px;color:var(--text2)">🖼️ Фон карточек товара выбирается при добавлении товара</div>'+
             '</div>';
     } else {
         namazSection =
@@ -1577,7 +1577,7 @@ function renderProfileMain(){
                 '<h3 style="font-size:15px;margin-bottom:10px;color:var(--text2)">👑 NAMAZ разблокирует:</h3>'+
                 '<ul style="list-style:none;font-size:13px;color:var(--text2);line-height:1.8">'+
                     '<li>🎨 Кастомный фон профиля</li>'+
-                    '<li>🖼️ Кастомный фон карточек товара</li>'+
+                    '<li>🖼️ Каждый товар можно оформить своим фоном</li>'+
                     '<li>🌈 Цвет ника</li>'+
                     '<li>✨ Эффект ника (свечение, градиент, радуга)</li>'+
                 '</ul>'+
@@ -1636,7 +1636,6 @@ async function setAvatar(av){ currentProfile.avatar=av; await persistProfile(); 
 async function setColor(c){ currentProfile.color=c; await persistProfile(); openProfileTab('main'); }
 async function saveBio(t){ currentProfile.bio=t.trim(); await persistProfile(); notify('✅ Сохранено'); }
 async function setProfileBg(v){ currentProfile.profile_bg=v; await persistProfile(); openProfileTab('main'); }
-async function setCardBg(v){ currentProfile.card_bg=v; await persistProfile(); renderProducts(); openProfileTab('main'); }
 async function setNickColor(v){ currentProfile.nick_color=v; await persistProfile(); updateUserUI(); openProfileTab('main'); }
 async function setNickEffect(v){ currentProfile.nick_effect=v; await persistProfile(); updateUserUI(); openProfileTab('main'); }
 function namazLock(){ notify('👑 Только с NAMAZ'); openNamaz(); }
@@ -1653,9 +1652,10 @@ async function saveAccount(){
     if(changeName){
         var existing = await getProfileFromDB(newName);
         if(existing){ err.textContent='❌ Имя занято'; err.classList.add('show'); return; }
+        var oldProf = await getProfileFromDB(currentUser);
         var newProf = Object.assign({}, currentProfile);
         newProf.name = newName;
-        newProf.pass = p1 || (await getProfileFromDB(currentUser)).pass;
+        newProf.pass = p1 || (oldProf ? oldProf.pass : '');
         await saveProfileToDB(newProf);
         await sb.from('profiles').delete().eq('name', currentUser);
         await sb.from('products').update({seller_name: newName, seller_email: newName}).eq('seller_name', currentUser);
@@ -1903,7 +1903,7 @@ function renderConversation(){
         h += '<div class="chat-msg '+(isMine?'me':'them')+'">'+authorHtml+esc(m.text)+'<div class="chat-msg-time">'+ts+'</div></div>';
     }
 
-    // Кнопки для продавца (заказ)
+    // Кнопки для продавца
     if(parsed.type === 'seller' && currentUser === parsed.seller){
         var orderMsgs = msgs.filter(function(m){ return m.ticket_type==='order' && !m.from_support; });
         var lastOrder = orderMsgs[orderMsgs.length-1];
@@ -1911,19 +1911,13 @@ function renderConversation(){
             var match = lastOrder.text.match(/\[ORDER:(\d+)\]/);
             if(match){
                 var oid = parseInt(match[1]);
-                // Ищем заказ у покупателя
                 (async function(){
                     var buyerProf = await getProfileFromDB(parsed.buyer);
                     if(!buyerProf) return;
                     var buyerOrders = buyerProf.orders || [];
                     var ord = buyerOrders.find(function(x){ return x.id === oid; });
                     if(!ord || ord.status==='completed' || ord.status==='refunded') return;
-                    if(ord.seller_done){
-                        h += '<div style="padding:12px;background:var(--card);border-radius:10px;border:2px dashed var(--accent);margin-top:10px;text-align:center;font-size:13px;color:var(--text2)">✅ Вы уже подтвердили. Ожидание покупателя...</div>';
-                        document.getElementById('chat-messages').innerHTML = h;
-                        document.getElementById('chat-messages').scrollTop = 99999;
-                        return;
-                    }
+                    if(ord.seller_done) return;
                     h += '<div style="padding:15px;background:var(--card);border-radius:10px;border:2px dashed #3b7bff;margin-top:10px">'+
                         '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">🛒 Заказ #'+oid+' от '+esc(parsed.buyer)+'</div>'+
                         '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">'+(ord.payment==='now'?'Оплачен сразу':'Оплата при получении')+'</div>'+
@@ -1936,28 +1930,42 @@ function renderConversation(){
         }
     }
 
-    // Кнопки для поддержки (пополнение)
+    // Кнопки для поддержки
     if(parsed.type === 'support' && isSupport){
         var topupMsgs = msgs.filter(function(m){ return m.ticket_type==='topup' && !m.from_support; });
         var lastTopup = topupMsgs[topupMsgs.length-1];
-        if(lastTopup && lastTopup.amount){
-            var alreadyGiven = msgs.some(function(m){ return m.from_support && (m.text.indexOf('✅ Зачислено')!==-1 || m.text.indexOf('✅ Выдано')!==-1) && m.text.indexOf(String(lastTopup.amount))!==-1; });
-            if(!alreadyGiven){
-                h += '<div style="padding:15px;background:var(--card);border-radius:10px;border:2px dashed var(--success);margin-top:10px">'+
-                    '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 '+esc(parsed.target)+' хочет '+lastTopup.amount+' изумрудов</div>'+
-                    '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Игрок передал изумруды? Нажми:</div>'+
-                    '<button class="action-btn give" onclick="giveBalance(\''+esc(parsed.target)+'\','+lastTopup.amount+')">✅ Выдать '+lastTopup.amount+'</button>'+
-                    '<button class="action-btn take" onclick="takeBalance(\''+esc(parsed.target)+'\','+lastTopup.amount+')">💸 Забрать '+lastTopup.amount+'</button>'+
-                    '</div>';
-            }
+        var amount = lastTopup && lastTopup.amount ? lastTopup.amount : null;
+
+        h += '<div style="padding:15px;background:var(--card);border-radius:10px;border:2px dashed var(--success);margin-top:10px">';
+        if(amount){
+            h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 '+esc(parsed.target)+' хочет '+amount+' изумрудов</div>'+
+                 '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Игрок передал изумруды? Нажми:</div>'+
+                 '<button class="action-btn give" onclick="giveBalance(\''+esc(parsed.target)+'\','+amount+')">✅ Выдать '+amount+'</button>'+
+                 '<button class="action-btn take" onclick="takeBalance(\''+esc(parsed.target)+'\','+amount+')">💸 Забрать '+amount+'</button>';
+        } else {
+            h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 Работа с балансом '+esc(parsed.target)+'</div>'+
+                 '<div class="form-group" style="margin-bottom:8px"><input type="number" id="sup-amount" placeholder="Сумма" min="0.01" step="0.01" inputmode="decimal"></div>'+
+                 '<button class="action-btn give" onclick="supportGive(\''+esc(parsed.target)+'\')">✅ Выдать</button>'+
+                 '<button class="action-btn take" onclick="supportTake(\''+esc(parsed.target)+'\')">💸 Забрать</button>';
         }
+        h += '</div>';
     }
 
     c.innerHTML = h;
     c.scrollTop = c.scrollHeight;
 }
 
-// Поддержка: зачислить баланс
+async function supportGive(userName){
+    var amount = parseFloat((document.getElementById('sup-amount')||{}).value);
+    if(!amount || amount<=0){ notify('⚠️ Введите сумму'); return; }
+    await giveBalance(userName, amount);
+}
+async function supportTake(userName){
+    var amount = parseFloat((document.getElementById('sup-amount')||{}).value);
+    if(!amount || amount<=0){ notify('⚠️ Введите сумму'); return; }
+    await takeBalance(userName, amount);
+}
+
 async function giveBalance(userName, amount){
     if(!isSupport) return;
     if(!confirm('Выдать '+amount+' изумрудов игроку '+userName+'?')) return;
@@ -1967,17 +1975,14 @@ async function giveBalance(userName, amount){
     var r = await sb.from('profiles').update({balance: newBal}).eq('name', userName);
     if(r.error){ notify('❌ '+r.error.message); return; }
     invalidateProfileCache(userName);
-    // Удаляем тикет (все сообщения этого игрока в поддержку)
     await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
     notify('✅ Выдано '+amount+' изумрудов');
     await refreshMessages();
-    // Возвращаемся к списку тикетов
     currentTicketId = null;
     openMessages();
     checkUnread();
 }
 
-// Поддержка: забрать баланс (списать)
 async function takeBalance(userName, amount){
     if(!isSupport) return;
     if(!confirm('Списать '+amount+' изумрудов с баланса '+userName+'?')) return;
