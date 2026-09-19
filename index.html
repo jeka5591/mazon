@@ -308,7 +308,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     <div class="modal-content" style="max-width:600px">
         <div class="modal-header"><h2>⚙️ Настройки</h2><button class="close-btn" onclick="closeModal('settings-modal')">×</button></div>
         <div class="modal-body">
-            <div class="settings-section">
+            <div style="margin-bottom:20px">
                 <h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">🎨 Тема</h3>
                 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:10px">
                     <div data-t="light" onclick="setTheme('light', this)" style="border:3px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;background:var(--input)"><div style="width:100%;height:50px;border-radius:8px;margin-bottom:6px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(90deg,#cb11ab,#481173)">🌸</div><div style="font-size:11px;font-weight:700;color:var(--text)">Светлая</div></div>
@@ -317,7 +317,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                     <div class="namaz-locked" data-t="namaz" id="namaz-theme-option" style="border:3px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;background:var(--input);position:relative"><div style="width:100%;height:50px;border-radius:8px;margin-bottom:6px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#ffd700,#ff00ff,#6600cc)">✨</div><div style="font-size:11px;font-weight:700;color:var(--text)">NAMAZ</div></div>
                 </div>
             </div>
-            <div class="settings-section">
+            <div>
                 <h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">🔑 Активация</h3>
                 <div class="form-group"><input type="password" id="activation-code" placeholder="Введите код"></div>
                 <button class="btn-primary" onclick="applyCode()">Применить</button>
@@ -509,21 +509,16 @@ var currentCategory = 'all', currentRarity = 'all', sortAsc = null, currentSearc
 var currentUser = null, currentProfile = null, currentTheme = 'light';
 var currentProductId = null, reviewRating = 0;
 var isSupport = false, userOrders = [];
-var currentTicketId = null;      // ID открытого чата
-var currentTicketTitle = '';     // Название открытого чата
+var currentTicketId = null;
 var dbMessages = [];
 var chatRefreshTimer = null;
-var unreadCount = 0;
 
-// ============ ХРАНИЛИЩЕ ============
+// ============ ХРАНИЛИЩЕ (только UI-настройки) ============
 function saveLocal(){
     try{
         localStorage.setItem('mz_fav', JSON.stringify(favorites));
         localStorage.setItem('mz_theme', currentTheme);
         localStorage.setItem('mz_user', currentUser || '');
-        if(currentProfile) localStorage.setItem('mz_prof_'+currentUser, JSON.stringify(currentProfile));
-        localStorage.setItem('mz_supp_'+(currentUser||''), isSupport?'1':'0');
-        localStorage.setItem('mz_orders_'+(currentUser||''), JSON.stringify(userOrders));
     }catch(e){}
 }
 function loadLocal(){
@@ -531,12 +526,7 @@ function loadLocal(){
         var f=localStorage.getItem('mz_fav'); if(f) favorites=JSON.parse(f);
         var t=localStorage.getItem('mz_theme'); if(t) currentTheme=t;
         var u=localStorage.getItem('mz_user');
-        if(u){
-            currentUser=u;
-            var p=localStorage.getItem('mz_prof_'+u); if(p) currentProfile=JSON.parse(p);
-            if(localStorage.getItem('mz_supp_'+u)==='1') isSupport=true;
-            var o=localStorage.getItem('mz_orders_'+u); if(o) userOrders=JSON.parse(o);
-        }
+        if(u) currentUser=u;
     }catch(e){}
 }
 
@@ -556,13 +546,60 @@ async function loadProducts(){
     }catch(e){ grid.innerHTML='<div class="loading">❌ '+e.message+'</div>'; }
 }
 
-async function cleanupOldMessages(){
-    if(!sb) return;
-    var cutoff = new Date(Date.now() - TICKET_TTL_HOURS*60*60*1000).toISOString();
-    try{
-        var r = await sb.from('messages').delete().lt('created_at', cutoff);
-        if(r.error) console.warn('cleanup:', r.error.message);
-    }catch(e){ console.warn(e); }
+// ============ ПРОФИЛИ (Supabase) ============
+async function getProfileFromDB(name){
+    if(!sb) return null;
+    var r = await sb.from('profiles').select('*').eq('name', name).maybeSingle();
+    if(r.error){ console.warn(r.error); return null; }
+    return r.data;
+}
+
+async function saveProfileToDB(profile){
+    if(!sb) return false;
+    var data = {
+        name: profile.name,
+        pass: profile.pass || '',
+        avatar: profile.avatar || '👤',
+        color: profile.color || '#cb11ab',
+        bio: profile.bio || '',
+        namaz: !!profile.namaz,
+        namaz_until: profile.namazUntil || null,
+        balance: parseFloat(profile.balance || 0),
+        orders: profile.orders || [],
+        is_support: !!profile.isSupport
+    };
+    var r = await sb.from('profiles').upsert(data, {onConflict: 'name'});
+    if(r.error){ console.warn(r.error); return false; }
+    return true;
+}
+
+// Кэш профилей (чтобы не долбить базу)
+var profileCache = {};
+
+async function getCachedProfile(name){
+    if(profileCache[name]) return profileCache[name];
+    var p = await getProfileFromDB(name);
+    if(p){
+        var prof = {
+            name: p.name,
+            avatar: p.avatar || '👤',
+            color: p.color || '#cb11ab',
+            bio: p.bio || '',
+            namaz: !!p.namaz,
+            namazUntil: p.namaz_until,
+            balance: parseFloat(p.balance || 0),
+            orders: p.orders || [],
+            isSupport: !!p.is_support
+        };
+        profileCache[name] = prof;
+        return prof;
+    }
+    return null;
+}
+
+function invalidateProfileCache(name){
+    if(name) delete profileCache[name];
+    else profileCache = {};
 }
 
 // ============ УТИЛИТЫ ============
@@ -577,25 +614,7 @@ function todayStr(){ var d=new Date(); return d.getDate()+'.'+(d.getMonth()+1)+'
 function isMyProduct(p){ return currentUser && p.seller_name===currentUser; }
 function timeFromTs(ts){ var d=new Date(ts); return (d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes(); }
 
-// ============ ПРОФИЛЬ ============
-function getProfileKey(name){ return 'mz_prof_' + name; }
-function getProfile(name){ try{ var p=localStorage.getItem(getProfileKey(name)); if(p) return JSON.parse(p); }catch(e){} return null; }
-function saveProfileToStorage(profile){ try{ localStorage.setItem(getProfileKey(profile.name), JSON.stringify(profile)); }catch(e){} }
-function findAccountByName(name){
-    for(var i=0;i<localStorage.length;i++){
-        var k=localStorage.key(i);
-        if(k && k.indexOf('mz_acc_')===0){
-            try{ var a=JSON.parse(localStorage.getItem(k)); if(a.name && a.name.toLowerCase()===name.toLowerCase()) return a; }catch(e){}
-        }
-    }
-    return null;
-}
-function getAccKey(name){ return 'mz_acc_' + name; }
-
 // ============ КЛЮЧИ ТИКЕТОВ ============
-// Формат ключей:
-//  support:Steve          — чат поддержки с Steve (для поддержки)
-//  seller:Steve:Alex      — чат продавца Steve с покупателем Alex
 function supportTicketKey(userName){ return 'support:' + userName; }
 function sellerTicketKey(sellerName, buyerName){ return 'seller:' + sellerName + ':' + buyerName; }
 function parseTicketKey(key){
@@ -609,7 +628,108 @@ function parseTicketKey(key){
     return {type:'unknown', target: key};
 }
 
-// ============ ТОВАРЫ ============
+// ============ АВТОРИЗАЦИЯ ============
+function showRegister(){ document.getElementById('login-view').style.display='none'; document.getElementById('register-view').style.display='block'; document.getElementById('auth-title').textContent='📝 Регистрация'; }
+function showLogin(){ document.getElementById('login-view').style.display='block'; document.getElementById('register-view').style.display='none'; document.getElementById('auth-title').textContent='👤 Вход'; }
+
+async function doLogin(){
+    var name=document.getElementById('login-name').value.trim();
+    var pass=document.getElementById('login-pass').value;
+    var err=document.getElementById('login-error');
+    if(!name||!pass){ err.textContent='❌ Заполните поля'; err.classList.add('show'); return; }
+    if(!sb){ err.textContent='❌ Нет соединения'; err.classList.add('show'); return; }
+
+    err.textContent='⏳ Проверка...'; err.style.color='var(--text2)'; err.classList.add('show');
+
+    var p = await getProfileFromDB(name);
+    if(!p || p.pass !== pass){
+        err.textContent='❌ Неверное имя или пароль';
+        err.style.color='var(--danger)';
+        err.classList.add('show');
+        return;
+    }
+
+    currentUser = p.name;
+    currentProfile = {
+        name: p.name,
+        avatar: p.avatar || '👤',
+        color: p.color || '#cb11ab',
+        bio: p.bio || '',
+        namaz: !!p.namaz,
+        namazUntil: p.namaz_until,
+        balance: parseFloat(p.balance || 0),
+        orders: p.orders || [],
+        isSupport: !!p.is_support
+    };
+    isSupport = !!p.is_support;
+    userOrders = currentProfile.orders || [];
+
+    err.classList.remove('show');
+    updateUserUI(); saveLocal(); closeModal('login-modal');
+    notify('✅ Добро пожаловать, '+currentProfile.name+'!');
+    checkNamazTheme();
+    refreshMessages().then(function(){ checkUnread(); });
+}
+
+async function doRegister(){
+    var name=document.getElementById('reg-name').value.trim();
+    var pass=document.getElementById('reg-pass').value;
+    var pass2=document.getElementById('reg-pass2').value;
+    var err=document.getElementById('register-error');
+    if(!name||!pass){ err.textContent='❌ Заполните все поля'; err.classList.add('show'); return; }
+    if(name.length<2){ err.textContent='❌ Имя от 2 символов'; err.classList.add('show'); return; }
+    if(pass.length<4){ err.textContent='❌ Пароль от 4 символов'; err.classList.add('show'); return; }
+    if(pass!==pass2){ err.textContent='❌ Пароли не совпадают'; err.classList.add('show'); return; }
+    if(!sb){ err.textContent='❌ Нет соединения'; err.classList.add('show'); return; }
+
+    err.textContent='⏳ Проверка...'; err.style.color='var(--text2)'; err.classList.add('show');
+
+    var existing = await getProfileFromDB(name);
+    if(existing){
+        err.textContent='❌ Имя занято';
+        err.style.color='var(--danger)';
+        err.classList.add('show');
+        return;
+    }
+
+    var newProfile = {
+        name: name,
+        pass: pass,
+        avatar: '👤',
+        color: '#cb11ab',
+        bio: '',
+        namaz: false,
+        namazUntil: null,
+        balance: 0,
+        orders: [],
+        isSupport: false
+    };
+
+    var ok = await saveProfileToDB(newProfile);
+    if(!ok){ err.textContent='❌ Ошибка сохранения'; err.style.color='var(--danger)'; err.classList.add('show'); return; }
+
+    currentUser = name;
+    currentProfile = newProfile;
+    isSupport = false; userOrders = [];
+    err.classList.remove('show');
+    updateUserUI(); saveLocal(); closeModal('login-modal');
+    notify('✅ Аккаунт создан!');
+}
+
+function updateUserUI(){
+    document.getElementById('user-label').textContent=currentProfile?currentProfile.name:'Войти';
+    var b=document.getElementById('namaz-badge-header');
+    if(currentProfile && currentProfile.namaz) b.style.display='block'; else b.style.display='none';
+}
+
+// Обёртка для сохранения текущего профиля
+async function persistProfile(){
+    if(!currentProfile) return;
+    invalidateProfileCache(currentUser);
+    await saveProfileToDB(currentProfile);
+}
+
+// ============ ПРОДУКТЫ ============
 function renderProducts(){
     var grid=document.getElementById('products');
     if(products.length===0){
@@ -786,12 +906,13 @@ async function placeOrder(paymentType){
         status: paymentType==='now' ? 'paid' : 'pending',
         date:todayStr(), time:time() };
     userOrders.unshift(order);
+    currentProfile.orders = userOrders;
 
     cart={}; updateCart(); renderProducts();
-    saveProfileToStorage(currentProfile); saveLocal();
+    await persistProfile();
     closeModal('checkout-modal');
 
-    // Отправляем заказ КАЖДОМУ продавцу в чат с покупателем
+    // Заказ продавцам
     var sellers = {};
     for(var i=0;i<items.length;i++){
         var s=items[i].seller;
@@ -814,16 +935,12 @@ async function placeOrder(paymentType){
                     text: lines,
                     from_support: false,
                     ticket_type: 'order',
-                    amount: null,
                     read_by_support: false,
                     read_by_user: true
                 }]);
             }catch(e){ console.error(e); }
         }
-    }
-
-    // Также копию в чат поддержки от покупателя
-    if(sb){
+        // Копия в поддержку
         var confirmMsg = '🎉 Заказ #'+orderNum+' оформлен!\nСумма: '+price(total)+'\nОплата: '+(paymentType==='now'?'сейчас':'при получении');
         await sb.from('messages').insert([{
             ticket_user: supportTicketKey(currentUser),
@@ -884,7 +1001,7 @@ function renderOrders(){
     }
     return h;
 }
-function receiveOrder(id){
+async function receiveOrder(id){
     var o=userOrders.find(function(x){return x.id===id;});
     if(!o) return;
     if(!confirm('Подтвердить получение заказа #'+id+'?')) return;
@@ -892,23 +1009,25 @@ function receiveOrder(id){
         var bal=parseFloat(currentProfile.balance||0);
         if(bal<o.total){ notify('❌ Недостаточно средств'); return; }
         currentProfile.balance=bal-o.total;
-        saveProfileToStorage(currentProfile);
         notify('✅ Оплачено: '+price(o.total));
     }
-    o.status='received'; saveLocal();
+    o.status='received';
+    currentProfile.orders = userOrders;
+    await persistProfile();
     notify('✅ Заказ #'+id+' получен!');
     openProfileTab('orders');
 }
-function refundOrder(id){
+async function refundOrder(id){
     var o=userOrders.find(function(x){return x.id===id;});
     if(!o) return;
     if(o.status==='refunded'){ notify('Уже возвращён'); return; }
     if(!confirm('Оформить возврат заказа #'+id+'?')) return;
     if(o.status!=='pending'){
         currentProfile.balance=(parseFloat(currentProfile.balance||0))+parseFloat(o.total);
-        saveProfileToStorage(currentProfile);
     }
-    o.status='refunded'; saveLocal();
+    o.status='refunded';
+    currentProfile.orders = userOrders;
+    await persistProfile();
     notify('↩️ Возврат: '+price(o.total));
     openProfileTab('orders');
 }
@@ -971,7 +1090,7 @@ function openProduct(id){
             '</div><textarea id="rev-text" placeholder="Отзыв..."></textarea><button onclick="submitReview()">📨 Отправить</button></div>'
         : '<div class="review-form" style="text-align:center"><p style="margin-bottom:10px;color:var(--text3);font-size:13px">🔒 Войдите, чтобы оставить отзыв</p><button onclick="closeModal(\'product-modal\');openModal(\'login-modal\')">Войти</button></div>';
     var sn=p.seller_name||'Продавец';
-    var prof=getProfile(sn) || { avatar:'👤', color:'#cb11ab', bio:'' };
+    var prof={ avatar:'👤', color:'#cb11ab' };
     document.getElementById('pm-title').textContent=p.emoji+' '+p.name;
     var buyBtns = mine
         ? '<button class="btn-buy-big own" disabled>Ваш товар</button>'
@@ -988,7 +1107,7 @@ function openProduct(id){
                 (mine?'<div class="my-badge" style="margin-bottom:10px">ВАШ ТОВАР</div>':'')+
                 '<div class="seller-label">Продавец:</div>'+
                 '<div class="seller-card" onclick="openSeller(\''+esc(sn)+'\')">'+
-                    '<div class="seller-avatar" style="background:'+prof.color+'">'+prof.avatar+'</div>'+
+                    '<div class="seller-avatar" id="pm-seller-av" style="background:#cb11ab">👤</div>'+
                     '<div class="seller-info"><div class="seller-name">'+esc(sn)+'</div><div class="seller-bio">Нажмите для профиля</div></div>'+
                 '</div>'+
                 '<div class="product-detail-rating">'+rating+'</div>'+
@@ -1002,6 +1121,13 @@ function openProduct(id){
         '<div class="reviews-section"><div class="reviews-header"><h3>💬 Отзывы</h3><span class="reviews-count">'+pRevs.length+' шт.</span></div>'+
         form+'<div class="reviews-list">'+renderReviews(p.id)+'</div></div>';
     openModal('product-modal');
+    // Асинхронно подгрузим аватар продавца
+    getCachedProfile(sn).then(function(pr){
+        if(pr){
+            var el=document.getElementById('pm-seller-av');
+            if(el){ el.textContent=pr.avatar; el.style.background=pr.color; }
+        }
+    });
 }
 function renderReviews(pid){
     var list=reviews[pid]||[];
@@ -1033,9 +1159,9 @@ function addCartModal(id){ addToCart(id); openProduct(id); }
 function favFromModal(id,btn){ toggleFav(id); btn.textContent=favorites.indexOf(id)!==-1?'❤️':'🤍'; }
 
 // ============ ПРОДАВЕЦ ============
-function openSeller(name){
+async function openSeller(name){
     if(!name){ document.getElementById('seller-body').innerHTML='<div style="text-align:center;padding:30px;color:var(--text2)">Информация недоступна</div>'; openModal('seller-modal'); return; }
-    var prof=getProfile(name) || { avatar:'👤', color:'#cb11ab', bio:'', name:name };
+    var prof = await getCachedProfile(name) || { avatar:'👤', color:'#cb11ab', bio:'', name:name };
     var sp=products.filter(function(x){return x.seller_name===name;});
     var h='<div style="text-align:center;padding:15px 0;border-bottom:2px solid var(--border);margin-bottom:15px">'+
         '<div style="width:80px;height:80px;border-radius:50%;background:'+prof.color+';display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 10px;color:#fff">'+prof.avatar+'</div>'+
@@ -1093,54 +1219,6 @@ async function delProduct(id,ev){
     if(r.error){ notify('❌ '+r.error.message); return; }
     notify('🗑️ Удалено');
     await loadProducts();
-}
-
-// ============ АВТОРИЗАЦИЯ ============
-function showRegister(){ document.getElementById('login-view').style.display='none'; document.getElementById('register-view').style.display='block'; document.getElementById('auth-title').textContent='📝 Регистрация'; }
-function showLogin(){ document.getElementById('login-view').style.display='block'; document.getElementById('register-view').style.display='none'; document.getElementById('auth-title').textContent='👤 Вход'; }
-
-function doLogin(){
-    var name=document.getElementById('login-name').value.trim();
-    var pass=document.getElementById('login-pass').value;
-    var err=document.getElementById('login-error');
-    if(!name||!pass){ err.textContent='❌ Заполните поля'; err.classList.add('show'); return; }
-    var acc=findAccountByName(name);
-    if(!acc || acc.pass!==pass){ err.textContent='❌ Неверное имя или пароль'; err.classList.add('show'); return; }
-    currentUser=acc.name;
-    currentProfile=getProfile(acc.name) || acc.profile || { name:acc.name, avatar:'👤', color:'#cb11ab', bio:'', namaz:false, namazUntil:null, balance:0 };
-    if(!currentProfile.balance) currentProfile.balance=0;
-    isSupport=localStorage.getItem('mz_supp_'+currentUser)==='1';
-    var o=localStorage.getItem('mz_orders_'+currentUser); userOrders=o?JSON.parse(o):[];
-    err.classList.remove('show');
-    updateUserUI(); saveLocal(); closeModal('login-modal');
-    notify('✅ Добро пожаловать, '+currentProfile.name+'!');
-    checkNamazTheme();
-    checkUnread();
-}
-
-function doRegister(){
-    var name=document.getElementById('reg-name').value.trim();
-    var pass=document.getElementById('reg-pass').value;
-    var pass2=document.getElementById('reg-pass2').value;
-    var err=document.getElementById('register-error');
-    if(!name||!pass){ err.textContent='❌ Заполните все поля'; err.classList.add('show'); return; }
-    if(name.length<2){ err.textContent='❌ Имя от 2 символов'; err.classList.add('show'); return; }
-    if(pass.length<4){ err.textContent='❌ Пароль от 4 символов'; err.classList.add('show'); return; }
-    if(pass!==pass2){ err.textContent='❌ Пароли не совпадают'; err.classList.add('show'); return; }
-    if(findAccountByName(name)){ err.textContent='❌ Имя занято'; err.classList.add('show'); return; }
-    var profile={ name:name, avatar:'👤', color:'#cb11ab', bio:'', namaz:false, namazUntil:null, balance:0 };
-    localStorage.setItem(getAccKey(name), JSON.stringify({ name:name, pass:pass, profile:profile }));
-    saveProfileToStorage(profile);
-    currentUser=name; currentProfile=profile;
-    isSupport=false; userOrders=[];
-    saveLocal(); err.classList.remove('show'); updateUserUI(); closeModal('login-modal');
-    notify('✅ Аккаунт создан!');
-}
-
-function updateUserUI(){
-    document.getElementById('user-label').textContent=currentProfile?currentProfile.name:'Войти';
-    var b=document.getElementById('namaz-badge-header');
-    if(currentProfile && currentProfile.namaz) b.style.display='block'; else b.style.display='none';
 }
 
 // ============ ПРОФИЛЬ ============
@@ -1225,12 +1303,24 @@ function renderAccount(){
         '<button class="btn-primary btn-danger" style="margin-top:9px" onclick="logout()">🚪 Выйти</button>';
 }
 
-function setAvatar(av){ currentProfile.avatar=av; saveProfileToStorage(currentProfile); saveLocal(); openProfileTab('main'); }
-function setColor(c){ currentProfile.color=c; saveProfileToStorage(currentProfile); saveLocal(); openProfileTab('main'); }
-function saveBio(t){ currentProfile.bio=t.trim(); saveProfileToStorage(currentProfile); saveLocal(); notify('✅ Сохранено'); }
+async function setAvatar(av){
+    currentProfile.avatar=av;
+    await persistProfile();
+    openProfileTab('main');
+}
+async function setColor(c){
+    currentProfile.color=c;
+    await persistProfile();
+    openProfileTab('main');
+}
+async function saveBio(t){
+    currentProfile.bio=t.trim();
+    await persistProfile();
+    notify('✅ Сохранено');
+}
 function namazLock(){ notify('👑 Только с NAMAZ'); openNamaz(); }
 
-function saveAccount(){
+async function saveAccount(){
     var newName=document.getElementById('prof-new-name').value.trim();
     var p1=document.getElementById('prof-new-pass').value;
     var p2=document.getElementById('prof-new-pass2').value;
@@ -1238,21 +1328,32 @@ function saveAccount(){
     if(!newName || newName.length<2){ err.textContent='❌ Имя от 2 символов'; err.classList.add('show'); return; }
     if(p1 && p1.length<4){ err.textContent='❌ Пароль от 4 символов'; err.classList.add('show'); return; }
     if(p1 && p1!==p2){ err.textContent='❌ Пароли не совпадают'; err.classList.add('show'); return; }
-    if(newName.toLowerCase()!==currentUser.toLowerCase() && findAccountByName(newName)){ err.textContent='❌ Имя занято'; err.classList.add('show'); return; }
-    var oldAcc=findAccountByName(currentUser);
-    var oldPass=oldAcc ? oldAcc.pass : '';
-    var newPass=p1 || oldPass;
-    localStorage.removeItem(getAccKey(currentUser));
-    localStorage.removeItem(getProfileKey(currentUser));
-    for(var i=0;i<products.length;i++){
-        if(products[i].seller_name===currentUser){ products[i].seller_name=newName; products[i].seller_email=newName; }
+
+    var changeName = newName.toLowerCase() !== currentUser.toLowerCase();
+
+    if(changeName){
+        var existing = await getProfileFromDB(newName);
+        if(existing){ err.textContent='❌ Имя занято'; err.classList.add('show'); return; }
+        // Создаём новый профиль с новым именем
+        var newProf = Object.assign({}, currentProfile);
+        newProf.name = newName;
+        newProf.pass = p1 || (await getProfileFromDB(currentUser)).pass;
+        await saveProfileToDB(newProf);
+        // Удаляем старый
+        await sb.from('profiles').delete().eq('name', currentUser);
+        // Обновляем товары автора
+        await sb.from('products').update({seller_name: newName, seller_email: newName}).eq('seller_name', currentUser);
+        currentUser = newName;
+        currentProfile = newProf;
+    } else {
+        if(p1) currentProfile.pass = p1;
+        await persistProfile();
     }
-    currentUser=newName;
-    currentProfile.name=newName;
-    localStorage.setItem(getAccKey(currentUser), JSON.stringify({ name:newName, pass:newPass, profile:currentProfile }));
-    saveProfileToStorage(currentProfile);
+
+    invalidateProfileCache();
     saveLocal(); updateUserUI(); err.classList.remove('show');
     notify('✅ Сохранено!');
+    await loadProducts();
     openProfileTab('main');
 }
 
@@ -1260,16 +1361,19 @@ function logout(){
     currentUser=null; currentProfile=null; isSupport=false;
     document.getElementById('user-label').textContent='Войти';
     document.getElementById('namaz-badge-header').style.display='none';
+    document.getElementById('chat-badge').classList.remove('show');
     saveLocal(); closeModal('profile-modal');
     notify('👋 Вы вышли');
 }
 
-// ============ АКТИВАЦИЯ ============
-function applyCode(){
+// ============ АКТИВАЦИЯ (код поддержки) ============
+async function applyCode(){
     if(!currentUser){ closeModal('settings-modal'); openModal('login-modal'); notify('⚠️ Войдите'); return; }
     var code=document.getElementById('activation-code').value.trim();
     if(code===ADMIN_KEY){
-        isSupport=true; saveLocal();
+        isSupport=true;
+        currentProfile.isSupport=true;
+        await persistProfile();
         notify('✅ Активировано! Теперь вы поддержка.');
         document.getElementById('activation-code').value='';
         closeModal('settings-modal');
@@ -1288,7 +1392,7 @@ function openNamaz(){
     } else { bv.style.display='block'; av.style.display='none'; }
     openModal('namaz-modal');
 }
-function subscribeNamaz(){
+async function subscribeNamaz(){
     if(!currentUser){ closeModal('namaz-modal'); openModal('login-modal'); return; }
     var bal=parseFloat(currentProfile.balance||0);
     if(bal<4.99){ notify('❌ Нужно $4.99'); return; }
@@ -1296,17 +1400,17 @@ function subscribeNamaz(){
     var u=new Date(); u.setDate(u.getDate()+1);
     currentProfile.namaz=true;
     currentProfile.namazUntil=u.getDate()+'.'+(u.getMonth()+1)+'.'+u.getFullYear();
-    saveProfileToStorage(currentProfile);
-    saveLocal(); updateUserUI(); checkNamazTheme();
+    await persistProfile();
+    updateUserUI(); checkNamazTheme();
     notify('Подписка NAMAZ на 1 день');
     openNamaz();
 }
-function cancelNamaz(){
+async function cancelNamaz(){
     if(!confirm('Отменить NAMAZ?')) return;
     currentProfile.namaz=false; currentProfile.namazUntil=null;
-    saveProfileToStorage(currentProfile);
+    await persistProfile();
     if(currentTheme==='namaz') setTheme('light');
-    saveLocal(); updateUserUI(); checkNamazTheme();
+    updateUserUI(); checkNamazTheme();
     notify('Отменено');
     closeModal('namaz-modal');
 }
@@ -1327,35 +1431,29 @@ async function refreshMessages(){
     dbMessages = r.data || [];
 }
 
-// Кнопка "Сообщения" в шапке
 function openMessages(){
     if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
 
     if(isSupport){
-        // Поддержка видит СПИСОК всех тикетов
         document.getElementById('chat-title').textContent = '🛡️ Все тикеты';
         document.getElementById('chat-tickets-view').style.display = 'block';
         document.getElementById('chat-conv-view').style.display = 'none';
         currentTicketId = null;
         refreshMessages().then(function(){ renderAllTickets(); });
     } else {
-        // Игрок видит свой чат с поддержкой
         openChat(supportTicketKey(currentUser), '💬 Поддержка');
     }
     openModal('chat-modal');
 }
 
-// Открыть чат с продавцом (для покупателя)
 function openChatWithSeller(sellerName){
     if(!currentUser){ openModal('login-modal'); return; }
     if(sellerName === currentUser){ notify('Это ваш товар'); return; }
     openChat(sellerTicketKey(sellerName, currentUser), '💬 '+sellerName);
 }
 
-// Открыть любой чат по ключу
 function openChat(ticketKey, title){
     currentTicketId = ticketKey;
-    currentTicketTitle = title || '💬';
     document.getElementById('chat-title').textContent = title || '💬';
     document.getElementById('chat-tickets-view').style.display = 'none';
     document.getElementById('chat-conv-view').style.display = 'block';
@@ -1363,14 +1461,12 @@ function openChat(ticketKey, title){
     openModal('chat-modal');
 }
 
-// Список тикетов для поддержки — группировка
 function renderAllTickets(){
     var b = document.getElementById('tickets-body');
-    // Группируем по ключу ticket_user
     var groups = {};
     for(var i=0;i<dbMessages.length;i++){
         var m = dbMessages[i];
-        if(!groups[m.ticket_user]) groups[m.ticket_user] = {key: m.ticket_user, last: m, count: 0, type: m.ticket_type, amount: m.amount, ticket_user: m.ticket_user};
+        if(!groups[m.ticket_user]) groups[m.ticket_user] = {key: m.ticket_user, last: m, count: 0, type: m.ticket_type, amount: m.amount};
         groups[m.ticket_user].last = m;
         if(!m.from_support && !m.read_by_support) groups[m.ticket_user].count++;
         if(m.amount) groups[m.ticket_user].amount = m.amount;
@@ -1389,34 +1485,35 @@ function renderAllTickets(){
         var parsed = parseTicketKey(t.key);
         var title = '';
         var icon = '👤';
+        var bg = '#3b7bff';
         if(parsed.type === 'support'){
             title = '🛡️ Поддержка: ' + parsed.target;
             icon = '🛡️';
+            bg = '#3b7bff';
         } else if(parsed.type === 'seller'){
             title = '🏪 ' + parsed.seller + ' ← ' + (parsed.buyer || '?');
             icon = '🏪';
+            bg = 'var(--accent)';
         } else {
             title = t.key;
         }
         var isTopup = t.type === 'topup';
-        if(isTopup){ icon = '💰'; if(t.amount) title += ' — '+t.amount+' изумрудов'; }
+        if(isTopup){ icon = '💰'; bg = 'var(--success)'; if(t.amount) title += ' — '+t.amount+' изум.'; }
         var cntHtml = t.count>0 ? ' <span style="color:var(--danger);font-weight:900">('+t.count+')</span>' : '';
         h += '<div class="seller-card" onclick="openTicket(\''+esc(t.key)+'\')">'+
-            '<div class="seller-avatar" style="background:'+(isTopup?'var(--success)':(parsed.type==='seller'?'var(--accent)':'#3b7bff'))+'">'+icon+'</div>'+
+            '<div class="seller-avatar" style="background:'+bg+'">'+icon+'</div>'+
             '<div class="seller-info"><div class="seller-name">'+esc(title)+cntHtml+'</div>'+
             '<div class="seller-bio">'+esc(t.last.text.slice(0,50))+'</div></div></div>';
     }
     b.innerHTML = h;
 }
 
-// Открыть тикет из списка (для поддержки)
 function openTicket(ticketKey){
     var parsed = parseTicketKey(ticketKey);
     var title = '💬 ' + ticketKey;
     if(parsed.type === 'support') title = '🛡️ '+parsed.target;
     else if(parsed.type === 'seller') title = '🏪 '+parsed.seller+' ← '+parsed.buyer;
     openChat(ticketKey, title);
-    // Помечаем прочитанным
     if(sb && isSupport){
         var ids=[];
         for(var i=0;i<dbMessages.length;i++){
@@ -1425,14 +1522,12 @@ function openTicket(ticketKey){
         }
         if(ids.length>0){
             sb.from('messages').update({read_by_support:true}).in('id', ids).then(function(){
-                refreshMessages();
-                checkUnread();
+                refreshMessages().then(checkUnread);
             });
         }
     }
 }
 
-// Рендер беседы
 function renderConversation(){
     var c = document.getElementById('chat-messages');
     if(!currentTicketId){ c.innerHTML = '<div style="text-align:center;color:var(--text2);padding:20px">Выберите чат</div>'; return; }
@@ -1445,9 +1540,6 @@ function renderConversation(){
     var h = '';
     for(var i=0;i<msgs.length;i++){
         var m = msgs[i];
-        // Кто "я" в этом чате:
-        // Если это чат поддержки: поддержка видит свои как "me", игрок свои как "me"
-        // Если это чат продавца: продавец видит свои как "me", покупатель свои как "me"
         var isMine;
         if(parsed.type === 'support'){
             if(isSupport) isMine = m.from_support;
@@ -1462,7 +1554,6 @@ function renderConversation(){
         var authorHtml = (!isMine ? '<div class="chat-msg-author">'+esc(m.author)+'</div>' : '');
         h += '<div class="chat-msg '+(isMine?'me':'them')+'">'+authorHtml+esc(m.text)+'<div class="chat-msg-time">'+ts+'</div></div>';
     }
-    // Кнопка для поддержки, если есть запрос на пополнение
     if(parsed.type === 'support' && isSupport){
         var topupMsgs = msgs.filter(function(m){ return m.ticket_type==='topup' && !m.from_support; });
         var lastTopup = topupMsgs[topupMsgs.length-1];
@@ -1470,7 +1561,7 @@ function renderConversation(){
             var alreadyGiven = msgs.some(function(m){ return m.from_support && m.text.indexOf('✅')!==-1 && m.text.indexOf(String(lastTopup.amount))!==-1; });
             if(!alreadyGiven){
                 h += '<div style="padding:15px;background:var(--card);border-radius:10px;border:2px dashed var(--success);margin-top:10px">'+
-                    '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 '+parsed.target+' хочет '+lastTopup.amount+' изумрудов</div>'+
+                    '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 '+esc(parsed.target)+' хочет '+lastTopup.amount+' изумрудов</div>'+
                     '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Игрок передал изумруды? Нажми:</div>'+
                     '<button class="action-btn give" onclick="giveBalance(\''+esc(parsed.target)+'\','+lastTopup.amount+')">✅ Выдать '+lastTopup.amount+'</button>'+
                     '</div>';
@@ -1481,15 +1572,17 @@ function renderConversation(){
     c.scrollTop = c.scrollHeight;
 }
 
-// Поддержка начисляет баланс
 async function giveBalance(userName, amount){
     if(!isSupport) return;
-    var userProf = getProfile(userName);
-    if(!userProf){ notify('❌ Профиль '+userName+' не найден на этом устройстве'); return; }
     if(!confirm('Выдать '+amount+' изумрудов игроку '+userName+'?')) return;
 
-    userProf.balance = (parseFloat(userProf.balance||0)) + amount;
-    saveProfileToStorage(userProf);
+    var prof = await getProfileFromDB(userName);
+    if(!prof){ notify('❌ Профиль не найден'); return; }
+
+    var newBal = parseFloat(prof.balance || 0) + amount;
+    var r = await sb.from('profiles').update({balance: newBal}).eq('name', userName);
+    if(r.error){ notify('❌ '+r.error.message); return; }
+    invalidateProfileCache(userName);
 
     await sb.from('messages').insert([{
         ticket_user: supportTicketKey(userName),
@@ -1505,9 +1598,10 @@ async function giveBalance(userName, amount){
     await refreshMessages();
     renderConversation();
     checkUnread();
+
+    // Если поддержка обновляет свой профиль (не надо)
 }
 
-// Отправка сообщения в текущий чат
 async function sendChat(){
     if(!currentUser){ closeModal('chat-modal'); openModal('login-modal'); return; }
     if(!currentTicketId){ notify('⚠️ Открой чат'); return; }
@@ -1519,7 +1613,6 @@ async function sendChat(){
     var parsed = parseTicketKey(currentTicketId);
     var fromSupport = false;
     if(parsed.type === 'support' && isSupport) fromSupport = true;
-    // В чате продавца "from_support" = сообщение от продавца (не покупателя)
     if(parsed.type === 'seller' && currentUser === parsed.seller) fromSupport = true;
 
     var r = await sb.from('messages').insert([{
@@ -1538,7 +1631,6 @@ async function sendChat(){
     renderConversation();
 }
 
-// Счётчик непрочитанного на иконке
 function checkUnread(){
     if(!currentUser || !isSupport){ document.getElementById('chat-badge').classList.remove('show'); return; }
     var count = 0;
@@ -1594,16 +1686,47 @@ function startChatRefresh(){
 }
 
 // ============ СТАРТ ============
-loadLocal();
-if(currentTheme && currentTheme!=='light') document.body.className='theme-'+currentTheme;
-var to=document.querySelector('[data-t="'+currentTheme+'"]');
-if(to) to.classList.add('active');
-updateUserUI(); checkNamazTheme();
-loadProducts();
-updateCart();
-cleanupOldMessages();
-setInterval(cleanupOldMessages, 60*60*1000);
-startChatRefresh();
+async function boot(){
+    loadLocal();
+    if(currentTheme && currentTheme!=='light') document.body.className='theme-'+currentTheme;
+    var to=document.querySelector('[data-t="'+currentTheme+'"]');
+    if(to) to.classList.add('active');
+
+    // Подтягиваем профиль если был залогинен
+    if(currentUser && sb){
+        var p = await getProfileFromDB(currentUser);
+        if(p){
+            currentProfile = {
+                name: p.name,
+                avatar: p.avatar || '👤',
+                color: p.color || '#cb11ab',
+                bio: p.bio || '',
+                namaz: !!p.namaz,
+                namazUntil: p.namaz_until,
+                balance: parseFloat(p.balance || 0),
+                orders: p.orders || [],
+                isSupport: !!p.is_support
+            };
+            isSupport = !!p.is_support;
+            userOrders = currentProfile.orders || [];
+        } else {
+            currentUser = null;
+            localStorage.removeItem('mz_user');
+        }
+    }
+
+    updateUserUI();
+    checkNamazTheme();
+    await loadProducts();
+    updateCart();
+    cleanupOldMessages();
+    setInterval(cleanupOldMessages, 60*60*1000);
+    await refreshMessages();
+    checkUnread();
+    startChatRefresh();
+}
+
+boot();
 </script>
 
 </body>
