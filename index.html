@@ -54,15 +54,13 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .banner h1{font-size:32px;margin-bottom:10px;position:relative;z-index:2}
 .banner p{font-size:16px;margin-bottom:20px;position:relative;z-index:2}
 .banner-btn{background:#7cff5c;color:#1a3d0f;border:none;padding:12px 28px;border-radius:8px;font-size:15px;font-weight:800;cursor:pointer;position:relative;z-index:2}
-.banner-btn:hover{filter:brightness(1.1)}
 .namaz-banner{max-width:1400px;margin:15px auto;padding:0 15px}
 .namaz-inner{background:var(--namaz);background-size:300% 300%;animation:namazShift 6s ease infinite;border-radius:16px;padding:25px 30px;color:#fff;display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden;box-shadow:0 0 30px rgba(255,0,255,.4);gap:15px;flex-wrap:wrap}
 @keyframes namazShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 .namaz-inner h2{font-size:22px;margin-bottom:6px;text-shadow:2px 2px 0 rgba(0,0,0,.5)}
 .namaz-inner p{font-size:13px;opacity:.95;margin-bottom:10px}
 .namaz-price{font-size:26px;font-weight:900;text-shadow:2px 2px 0 rgba(0,0,0,.5)}
-.namaz-price small{font-size:13px}
-.namaz-buy-btn{background:#fff;color:#ff00ff;border:none;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:900;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.3);white-space:nowrap}
+.namaz-buy-btn{background:#fff;color:#ff00ff;border:none;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:900;cursor:pointer;white-space:nowrap}
 .filters{max-width:1400px;margin:20px auto 0;padding:0 15px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .filter-btn{background:var(--card);border:2px solid var(--border);color:var(--text);padding:7px 15px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;transition:.2s;white-space:nowrap}
 .filter-btn:hover{border-color:var(--accent);color:var(--accent)}
@@ -122,7 +120,6 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .btn-primary{width:100%;background:var(--accent);color:#fff;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer}
 .btn-primary:hover{background:var(--accent-h)}
 .btn-success{background:var(--success)}
-.btn-success:hover{background:var(--success-h)}
 .btn-danger{background:var(--danger)}
 .form-error{color:var(--danger);font-size:12px;margin-top:5px;display:none}
 .form-error.show{display:block}
@@ -130,14 +127,13 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .form-footer a{color:var(--accent);cursor:pointer;font-weight:600;text-decoration:none}
 .emoji-picker{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
 .emoji-option{width:38px;height:38px;border-radius:8px;border:2px solid var(--border);background:var(--input);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.emoji-option:hover{border-color:var(--accent)}
 .emoji-option.selected{border-color:var(--accent);background:var(--accent-l)}
 .product-modal-content{max-width:900px}
 .product-detail{display:grid;grid-template-columns:1fr 1fr;gap:25px}
 .product-detail-image{background:var(--accent-l);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:150px;min-height:280px;position:relative;overflow:hidden}
 .product-detail-image .rarity{top:12px;left:12px;bottom:auto}
 .product-detail-info h2{font-size:20px;margin-bottom:10px;word-break:break-word;color:var(--text)}
-.seller-card{background:var(--soft);border-radius:10px;padding:11px 13px;margin-bottom:13px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:.15s}
+.seller-card{background:var(--soft);border-radius:10px;padding:11px 13px;margin-bottom:13px;display:flex;align-items:center;gap:10px;cursor:pointer}
 .seller-card:hover{background:var(--accent-l)}
 .seller-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;color:#fff}
 .seller-info{flex:1;min-width:0}
@@ -165,7 +161,6 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .star-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#ddd;padding:0;line-height:1}
 .star-btn.active{color:#ffb300}
 .review-form textarea{width:100%;padding:9px;border:2px solid var(--border);background:var(--input);color:var(--text);border-radius:8px;font-size:13px;outline:none;font-family:inherit;margin-bottom:8px;min-height:55px}
-.review-form textarea:focus{border-color:var(--accent)}
 .review-form button{width:100%;background:var(--accent);color:#fff;border:none;padding:11px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
 .reviews-list{display:flex;flex-direction:column;gap:10px;max-height:280px;overflow-y:auto}
 .review-item{background:var(--soft);border-radius:10px;padding:11px 13px}
@@ -184,17 +179,13 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .chat-msg-time{font-size:9px;opacity:.6;margin-top:3px;text-align:right}
 .chat-input-row{display:flex;gap:8px;padding:12px 20px;background:var(--card);border-top:2px solid var(--border);flex-shrink:0}
 .chat-input-row input{flex:1;padding:10px 12px;border:2px solid var(--border);background:var(--input);color:var(--text);border-radius:10px;font-size:13px;outline:none;min-width:0}
-.chat-input-row input:focus{border-color:var(--accent)}
 .chat-input-row button{background:var(--accent);color:#fff;border:none;padding:0 16px;border-radius:10px;font-size:15px;cursor:pointer;font-weight:700}
 .action-btn{width:100%;padding:12px;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;border:none;margin-top:8px}
 .action-btn.give{background:var(--success);color:#fff}
-.action-btn.give:hover{background:var(--success-h)}
-.action-btn.deny{background:var(--danger);color:#fff;margin-top:6px}
 .tabs{display:flex;gap:5px;margin-bottom:15px;border-bottom:2px solid var(--border);overflow-x:auto}
 .tab{padding:10px 15px;background:none;border:none;border-bottom:3px solid transparent;color:var(--text2);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;margin-bottom:-2px}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .balance-card{background:linear-gradient(135deg,#3d7d2b,#1a3d0f);border-radius:16px;padding:20px 25px;color:#fff;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.balance-label{font-size:12px;opacity:.85;margin-bottom:5px}
 .balance-value{font-size:30px;font-weight:900}
 .balance-btn{background:#7cff5c;color:#1a3d0f;border:none;padding:11px 22px;border-radius:10px;font-size:14px;font-weight:900;cursor:pointer;white-space:nowrap}
 .order-card{background:var(--soft);border-radius:12px;padding:13px;margin-bottom:11px}
@@ -215,40 +206,11 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .notification.show{transform:translateY(0);opacity:1}
 footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;text-align:center;font-size:12px}
 @media (max-width:768px){
-  header{padding:10px 12px}
-  .header-inner{gap:10px}
-  .logo{font-size:20px;padding:3px 8px}
   .search-bar{order:3;flex-basis:100%;margin-top:8px}
-  .header-icons{gap:8px}
-  .header-icon{font-size:9px;padding:3px;min-width:40px}
-  .header-icon .icon{font-size:18px}
-  .banner-inner{padding:22px 20px}
-  .banner-inner::after{font-size:80px;right:15px}
-  .banner h1{font-size:22px}
-  .banner p{font-size:13px}
-  .banner-btn{padding:10px 20px;font-size:13px;width:100%}
-  .namaz-inner{padding:18px 20px;flex-direction:column;text-align:center}
-  .namaz-buy-btn{width:100%}
-  .filters{padding:0 12px;gap:6px}
-  .filter-btn{padding:6px 12px;font-size:12px}
-  .filter-btn.add-product-btn{margin-left:0;width:100%;text-align:center;margin-top:6px}
-  .products{grid-template-columns:repeat(2,1fr);gap:10px;padding:0 12px 40px}
+  .products{grid-template-columns:repeat(2,1fr);gap:10px}
   .product-image{height:140px;font-size:55px}
-  .favorite{width:28px;height:28px;font-size:14px;top:6px;right:6px}
-  .delete-product{width:28px;height:28px;font-size:12px;top:6px;right:38px}
-  .price-new{font-size:16px}
-  .product-name{font-size:12px;min-height:32px}
-  .modal{padding:8px}
-  .modal-content{max-height:95vh;border-radius:14px}
-  .modal-header{padding:14px 18px}
-  .modal-header h2{font-size:17px}
-  .modal-body{padding:16px}
   .product-detail{grid-template-columns:1fr;gap:16px}
-  .product-detail-image{min-height:200px;font-size:100px}
-  .product-detail-info h2{font-size:18px}
-  .product-detail-price .new{font-size:26px}
-  .chat-container{height:60vh}
-  .order-btn{min-width:0}
+  .modal{padding:8px}
   .form-row{grid-template-columns:1fr}
 }
 </style>
@@ -327,7 +289,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     <div class="loading">⏳ Загрузка...</div>
 </div>
 
-<!-- ПРОФИЛЬ -->
 <div class="modal" id="profile-modal">
     <div class="modal-content" style="max-width:600px">
         <div class="modal-header"><h2 id="profile-title">👤 Профиль</h2><button class="close-btn" onclick="closeModal('profile-modal')">×</button></div>
@@ -343,22 +304,21 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<!-- НАСТРОЙКИ -->
 <div class="modal" id="settings-modal">
     <div class="modal-content" style="max-width:600px">
         <div class="modal-header"><h2>⚙️ Настройки</h2><button class="close-btn" onclick="closeModal('settings-modal')">×</button></div>
         <div class="modal-body">
             <div class="settings-section">
-                <h3>🎨 Тема</h3>
-                <div class="theme-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:10px">
-                    <div class="theme-option" data-t="light" onclick="setTheme('light', this)" style="border:3px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;background:var(--input)"><div class="theme-preview light" style="width:100%;height:50px;border-radius:8px;margin-bottom:6px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(90deg,#cb11ab,#481173)">🌸</div><div style="font-size:11px;font-weight:700;color:var(--text)">Светлая</div></div>
-                    <div class="theme-option" data-t="dark" onclick="setTheme('dark', this)" style="border:3px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;background:var(--input)"><div class="theme-preview dark" style="width:100%;height:50px;border-radius:8px;margin-bottom:6px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(90deg,#6b0a5c,#1e0630)">🌙</div><div style="font-size:11px;font-weight:700;color:var(--text)">Тёмная</div></div>
-                    <div class="theme-option" data-t="minecraft" onclick="setTheme('minecraft', this)" style="border:3px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;background:var(--input)"><div class="theme-preview minecraft" style="width:100%;height:50px;border-radius:8px;margin-bottom:6px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(90deg,#4a7c2e,#2a4a17)">🟩</div><div style="font-size:11px;font-weight:700;color:var(--text)">Земля</div></div>
-                    <div class="theme-option namaz-locked" data-t="namaz" id="namaz-theme-option" style="border:3px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;background:var(--input);position:relative"><div class="theme-preview namaz" style="width:100%;height:50px;border-radius:8px;margin-bottom:6px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#ffd700,#ff00ff,#6600cc)">✨</div><div style="font-size:11px;font-weight:700;color:var(--text)">NAMAZ</div></div>
+                <h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">🎨 Тема</h3>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:10px">
+                    <div data-t="light" onclick="setTheme('light', this)" style="border:3px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;background:var(--input)"><div style="width:100%;height:50px;border-radius:8px;margin-bottom:6px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(90deg,#cb11ab,#481173)">🌸</div><div style="font-size:11px;font-weight:700;color:var(--text)">Светлая</div></div>
+                    <div data-t="dark" onclick="setTheme('dark', this)" style="border:3px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;background:var(--input)"><div style="width:100%;height:50px;border-radius:8px;margin-bottom:6px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(90deg,#6b0a5c,#1e0630)">🌙</div><div style="font-size:11px;font-weight:700;color:var(--text)">Тёмная</div></div>
+                    <div data-t="minecraft" onclick="setTheme('minecraft', this)" style="border:3px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;background:var(--input)"><div style="width:100%;height:50px;border-radius:8px;margin-bottom:6px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(90deg,#4a7c2e,#2a4a17)">🟩</div><div style="font-size:11px;font-weight:700;color:var(--text)">Земля</div></div>
+                    <div class="namaz-locked" data-t="namaz" id="namaz-theme-option" style="border:3px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;background:var(--input);position:relative"><div style="width:100%;height:50px;border-radius:8px;margin-bottom:6px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#ffd700,#ff00ff,#6600cc)">✨</div><div style="font-size:11px;font-weight:700;color:var(--text)">NAMAZ</div></div>
                 </div>
             </div>
             <div class="settings-section">
-                <h3>🔑 Активация</h3>
+                <h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">🔑 Активация</h3>
                 <div class="form-group"><input type="password" id="activation-code" placeholder="Введите код"></div>
                 <button class="btn-primary" onclick="applyCode()">Применить</button>
             </div>
@@ -366,7 +326,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<!-- ДОБАВИТЬ ТОВАР -->
 <div class="modal" id="add-product-modal">
     <div class="modal-content">
         <div class="modal-header"><h2>➕ Добавить товар</h2><button class="close-btn" onclick="closeModal('add-product-modal')">×</button></div>
@@ -408,7 +367,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<!-- ВХОД / РЕГИСТРАЦИЯ -->
 <div class="modal" id="login-modal">
     <div class="modal-content">
         <div class="modal-header"><h2 id="auth-title">👤 Вход</h2><button class="close-btn" onclick="closeModal('login-modal')">×</button></div>
@@ -432,7 +390,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<!-- КОШЕЛЁК -->
 <div class="modal" id="wallet-modal">
     <div class="modal-content">
         <div class="modal-header"><h2>💰 ZOV Кошелёк</h2><button class="close-btn" onclick="closeModal('wallet-modal')">×</button></div>
@@ -440,7 +397,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<!-- ТОВАР -->
 <div class="modal" id="product-modal">
     <div class="modal-content product-modal-content">
         <div class="modal-header"><h2 id="pm-title">Товар</h2><button class="close-btn" onclick="closeModal('product-modal')">×</button></div>
@@ -448,7 +404,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<!-- ПРОДАВЕЦ -->
 <div class="modal" id="seller-modal">
     <div class="modal-content">
         <div class="modal-header"><h2>👤 Продавец</h2><button class="close-btn" onclick="closeModal('seller-modal')">×</button></div>
@@ -456,7 +411,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<!-- КОРЗИНА -->
 <div class="modal" id="cart-modal">
     <div class="modal-content">
         <div class="modal-header"><h2>🛒 Корзина</h2><button class="close-btn" onclick="closeModal('cart-modal')">×</button></div>
@@ -471,7 +425,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<!-- ОФОРМЛЕНИЕ -->
 <div class="modal" id="checkout-modal">
     <div class="modal-content">
         <div class="modal-header"><h2>💳 Оформление</h2><button class="close-btn" onclick="closeModal('checkout-modal')">×</button></div>
@@ -487,7 +440,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<!-- СООБЩЕНИЯ (общий чат) -->
 <div class="modal" id="chat-modal">
     <div class="modal-content" style="max-width:750px">
         <div class="modal-header"><h2 id="chat-title">💬 Сообщения</h2><button class="close-btn" onclick="closeModal('chat-modal')">×</button></div>
@@ -506,7 +458,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<!-- NAMAZ -->
 <div class="modal" id="namaz-modal">
     <div class="modal-content" style="max-width:600px">
         <div class="modal-header" style="background:var(--namaz)"><h2>Подписка NAMAZ</h2><button class="close-btn" onclick="closeModal('namaz-modal')">×</button></div>
@@ -558,11 +509,11 @@ var currentCategory = 'all', currentRarity = 'all', sortAsc = null, currentSearc
 var currentUser = null, currentProfile = null, currentTheme = 'light';
 var currentProductId = null, reviewRating = 0;
 var isSupport = false, userOrders = [];
-var currentTicketId = null;
+var currentTicketId = null;      // ID открытого чата
+var currentTicketTitle = '';     // Название открытого чата
 var dbMessages = [];
 var chatRefreshTimer = null;
-var currentChatTab = 'support'; // 'support' или 'seller'
-var currentSellerName = null;
+var unreadCount = 0;
 
 // ============ ХРАНИЛИЩЕ ============
 function saveLocal(){
@@ -640,6 +591,23 @@ function findAccountByName(name){
     return null;
 }
 function getAccKey(name){ return 'mz_acc_' + name; }
+
+// ============ КЛЮЧИ ТИКЕТОВ ============
+// Формат ключей:
+//  support:Steve          — чат поддержки с Steve (для поддержки)
+//  seller:Steve:Alex      — чат продавца Steve с покупателем Alex
+function supportTicketKey(userName){ return 'support:' + userName; }
+function sellerTicketKey(sellerName, buyerName){ return 'seller:' + sellerName + ':' + buyerName; }
+function parseTicketKey(key){
+    if(key.indexOf('support:')===0) return {type:'support', target: key.substring(8)};
+    if(key.indexOf('seller:')===0){
+        var rest = key.substring(7);
+        var idx = rest.indexOf(':');
+        if(idx === -1) return {type:'seller', seller: rest, buyer: null};
+        return {type:'seller', seller: rest.substring(0, idx), buyer: rest.substring(idx+1)};
+    }
+    return {type:'unknown', target: key};
+}
 
 // ============ ТОВАРЫ ============
 function renderProducts(){
@@ -823,7 +791,7 @@ async function placeOrder(paymentType){
     saveProfileToStorage(currentProfile); saveLocal();
     closeModal('checkout-modal');
 
-    // Отправляем заказы продавцам через Supabase
+    // Отправляем заказ КАЖДОМУ продавцу в чат с покупателем
     var sellers = {};
     for(var i=0;i<items.length;i++){
         var s=items[i].seller;
@@ -833,43 +801,45 @@ async function placeOrder(paymentType){
     }
     if(sb){
         for(var sname in sellers){
-            var lines = '📬 Новый заказ #'+orderNum+'\nОт: '+currentProfile.name+'\n\n';
+            var lines = '🛒 Новый заказ #'+orderNum+'\n\n';
             for(var j=0;j<sellers[sname].length;j++){
                 var it=sellers[sname][j];
                 lines += it.emoji+' '+it.name+' × '+it.qty+' — '+price(it.price*it.qty)+'\n';
             }
-            lines += '\nОплата: '+(paymentType==='now'?'оплачено':'при получении');
+            lines += '\nСумма: '+price(total)+'\nОплата: '+(paymentType==='now'?'оплачено':'при получении');
             try{
                 await sb.from('messages').insert([{
-                    ticket_user: 'seller:' + sname,
+                    ticket_user: sellerTicketKey(sname, currentProfile.name),
                     author: currentProfile.name,
                     text: lines,
                     from_support: false,
                     ticket_type: 'order',
                     amount: null,
                     read_by_support: false,
-                    read_by_user: false
+                    read_by_user: true
                 }]);
             }catch(e){ console.error(e); }
         }
     }
 
-    var msg='🎉 Заказ #'+orderNum+' оформлен!\nСумма: '+price(total)+'\nОплата: '+(paymentType==='now'?'сейчас':'при получении');
-    if(paymentType==='now'){ msg+='\nОстаток: '+price(currentProfile.balance); notify('✅ Заказ #'+orderNum+' оплачен!'); }
-    else notify('📦 Заказ #'+orderNum+' оформлен');
-
+    // Также копию в чат поддержки от покупателя
     if(sb){
+        var confirmMsg = '🎉 Заказ #'+orderNum+' оформлен!\nСумма: '+price(total)+'\nОплата: '+(paymentType==='now'?'сейчас':'при получении');
         await sb.from('messages').insert([{
-            ticket_user: 'support:' + currentUser,
+            ticket_user: supportTicketKey(currentUser),
             author: currentProfile.name,
-            text: msg,
+            text: confirmMsg,
             from_support: false,
             ticket_type: 'chat',
             read_by_support: false,
             read_by_user: true
         }]);
     }
-    setTimeout(function(){ openMessages(); },400);
+
+    if(paymentType==='now') notify('✅ Заказ #'+orderNum+' оплачен!');
+    else notify('📦 Заказ #'+orderNum+' оформлен');
+
+    setTimeout(function(){ openMessages(); }, 400);
 }
 
 function buyNow(id){
@@ -952,25 +922,25 @@ function renderWallet(){
     var bal=parseFloat(currentProfile.balance||0);
     document.getElementById('wallet-body').innerHTML=
         '<div class="balance-card">'+
-            '<div><div class="balance-label">ZOV Кошелёк</div><div class="balance-value">'+price(bal)+'</div></div>'+
+            '<div><div style="font-size:12px;opacity:.85;margin-bottom:5px">ZOV Кошелёк</div><div class="balance-value">'+price(bal)+'</div></div>'+
             '<button class="balance-btn" onclick="showTopupForm()">➕ Пополнить</button>'+
         '</div>'+
         '<div id="topup-form"></div>';
 }
 function showTopupForm(){
     document.getElementById('topup-form').innerHTML=
-        '<div class="form-group"><label>Сколько изумрудов дашь?</label><input type="number" id="topup-amount" placeholder="10" min="1" step="1" inputmode="numeric"></div>'+
+        '<div class="form-group"><label>Сколько изумрудов дашь?</label><input type="number" id="topup-amount" placeholder="2" min="1" step="1" inputmode="numeric"></div>'+
         '<button class="btn-primary btn-success" onclick="requestTopup()">📨 Отправить запрос поддержке</button>';
 }
 async function requestTopup(){
     var amount=parseFloat(document.getElementById('topup-amount').value);
-    if(!amount || amount<=0){ notify('⚠️ Введите количество изумрудов'); return; }
+    if(!amount || amount<=0){ notify('⚠️ Введите количество'); return; }
     if(!sb){ notify('❌ Нет соединения'); return; }
 
     var r=await sb.from('messages').insert([{
-        ticket_user: 'support:' + currentUser,
+        ticket_user: supportTicketKey(currentUser),
         author: currentProfile.name,
-        text: '💰 Хочу пополнить баланс на '+amount+' изумрудов',
+        text: '💰 Хочу пополнить на '+amount+' изумрудов',
         from_support: false,
         ticket_type: 'topup',
         amount: amount,
@@ -1009,7 +979,7 @@ function openProduct(id){
     var cartBtn = mine
         ? '<button class="btn-primary own" disabled style="margin-top:10px;background:var(--text2);cursor:not-allowed">🚫 Ваш товар</button>'
         : '<button class="btn-primary" style="margin-top:10px" onclick="addCartModal('+p.id+')">🛒 В корзину</button>';
-    var chatSellerBtn = (mine || !currentUser) ? '' : '<button class="btn-secondary" style="width:100%;margin-top:10px" onclick="closeModal(\'product-modal\');openChatWith(\'seller:'+esc(sn)+'\',\''+esc(sn)+'\')">💬 Написать продавцу</button>';
+    var chatSellerBtn = (mine || !currentUser) ? '' : '<button class="btn-secondary" style="width:100%;margin-top:10px" onclick="closeModal(\'product-modal\');openChatWithSeller(\''+esc(sn)+'\')">💬 Написать продавцу</button>';
     document.getElementById('pm-body').innerHTML=
         '<div class="product-detail">'+
             '<div class="product-detail-image"><div class="rarity '+p.rarity+'">'+rl(p.rarity)+'</div>'+p.emoji+'</div>'+
@@ -1072,7 +1042,7 @@ function openSeller(name){
         '<div style="font-size:20px;font-weight:800;margin-bottom:5px;color:var(--text)">'+esc(name)+'</div>'+
         (prof.bio?'<div style="font-size:13px;color:var(--text3);margin-top:6px;font-style:italic">'+esc(prof.bio)+'</div>':'')+
         '</div>';
-    if(name !== currentUser) h+='<button class="btn-primary" style="margin-bottom:12px" onclick="closeModal(\'seller-modal\');openChatWith(\'seller:'+esc(name)+'\',\''+esc(name)+'\')">💬 Написать продавцу</button>';
+    if(name !== currentUser) h+='<button class="btn-primary" style="margin-bottom:12px" onclick="closeModal(\'seller-modal\');openChatWithSeller(\''+esc(name)+'\')">💬 Написать продавцу</button>';
     if(sp.length>0){
         h+='<h3 style="margin-bottom:10px;font-size:15px;color:var(--text)">📦 Товары ('+sp.length+')</h3>';
         for(var i=0;i<sp.length;i++){
@@ -1086,7 +1056,7 @@ function openSeller(name){
     openModal('seller-modal');
 }
 
-// ============ ДОБАВЛЕНИЕ ТОВАРА ============
+// ============ ДОБАВЛЕНИЕ ============
 function openAddProduct(){
     if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
     document.getElementById('ap-name').value='';
@@ -1145,6 +1115,7 @@ function doLogin(){
     updateUserUI(); saveLocal(); closeModal('login-modal');
     notify('✅ Добро пожаловать, '+currentProfile.name+'!');
     checkNamazTheme();
+    checkUnread();
 }
 
 function doRegister(){
@@ -1182,13 +1153,9 @@ function openProfileTab(tab, btn){
     var tabs=document.querySelectorAll('#profile-tabs .tab');
     for(var i=0;i<tabs.length;i++) tabs[i].classList.remove('active');
     if(btn) btn.classList.add('active');
-    else {
-        var idx={'main':0,'orders':1,'myProducts':2,'account':3}[tab]||0;
-        if(tabs[idx]) tabs[idx].classList.add('active');
-    }
+    else { var idx={'main':0,'orders':1,'myProducts':2,'account':3}[tab]||0; if(tabs[idx]) tabs[idx].classList.add('active'); }
     var c=document.getElementById('profile-content');
     var t=document.getElementById('profile-title');
-
     if(tab==='main'){ t.textContent='👤 Профиль'; c.innerHTML=renderProfileMain(); }
     else if(tab==='orders'){ t.textContent='📦 Мои заказы'; c.innerHTML=renderOrders(); }
     else if(tab==='myProducts'){ t.textContent='🏪 Мои товары'; c.innerHTML=renderMyProducts(); }
@@ -1218,12 +1185,12 @@ function renderProfileMain(){
             '<div class="profile-name" style="font-size:20px;font-weight:800;margin-bottom:5px;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--text);flex-wrap:wrap">'+esc(p.name)+(hasNamaz?' <span style="display:inline-flex;align-items:center;gap:3px;background:var(--namaz);color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:900">NAMAZ</span>':'')+'</div>'+
             '<div style="font-size:12px;color:var(--text2)">Баланс: <b style="color:var(--accent)">'+price(p.balance||0)+'</b></div>'+
         '</div>'+
-        '<div class="settings-section" style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">🎭 Аватар</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:7px;margin-top:6px">'+avHtml+'</div></div>'+
-        '<div class="settings-section" style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">🎨 Цвет</h3><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">'+colHtml+'</div></div>'+
-        '<div class="settings-section" style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">📝 О себе</h3>'+
+        '<div style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">🎭 Аватар</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:7px;margin-top:6px">'+avHtml+'</div></div>'+
+        '<div style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">🎨 Цвет</h3><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">'+colHtml+'</div></div>'+
+        '<div style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">📝 О себе</h3>'+
             '<div class="form-group"><textarea id="prof-bio" placeholder="Расскажите о себе..." maxlength="100" onchange="saveBio(this.value)">'+esc(p.bio||'')+'</textarea></div>'+
         '</div>'+
-        '<div class="settings-section" style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">Подписка</h3>'+
+        '<div style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">Подписка</h3>'+
             (hasNamaz
                 ? '<div style="padding:11px;background:var(--soft);border-radius:10px;font-size:13px;color:var(--text)">Активна до <b>'+esc(p.namazUntil||'—')+'</b></div><button class="btn-secondary" style="width:100%;margin-top:9px" onclick="closeModal(\'profile-modal\');openNamaz()">Управлять</button>'
                 : '<button class="btn-primary" style="background:var(--namaz);color:#fff" onclick="closeModal(\'profile-modal\');openNamaz()">Оформить NAMAZ — $4.99/день</button>'
@@ -1240,7 +1207,7 @@ function renderMyProducts(){
         h+='<div class="seller-card">'+
             '<div class="seller-avatar" style="background:var(--accent-l);color:var(--text)">'+p.emoji+'</div>'+
             '<div class="seller-info"><div class="seller-name">'+esc(p.name)+'</div><div class="seller-bio" style="color:var(--accent);font-weight:700">'+price(p.price)+' · '+rl(p.rarity)+'</div></div>'+
-            '<button class="delete-product" style="position:static;background:none;border:none;font-size:20px;cursor:pointer" onclick="delProduct('+p.id+',event);setTimeout(function(){openProfileTab(\'myProducts\');},500)">🗑️</button>'+
+            '<button style="background:none;border:none;font-size:20px;cursor:pointer" onclick="delProduct('+p.id+',event);setTimeout(function(){openProfileTab(\'myProducts\');},500)">🗑️</button>'+
         '</div>';
     }
     return h;
@@ -1303,7 +1270,7 @@ function applyCode(){
     var code=document.getElementById('activation-code').value.trim();
     if(code===ADMIN_KEY){
         isSupport=true; saveLocal();
-        notify('✅ Активировано!');
+        notify('✅ Активировано! Теперь вы поддержка.');
         document.getElementById('activation-code').value='';
         closeModal('settings-modal');
         openMessages();
@@ -1352,36 +1319,7 @@ function checkNamazTheme(){
     else { opt.onclick=function(){ setTheme('namaz', opt); }; }
 }
 
-// ============ СООБЩЕНИЯ (общий чат) ============
-function openMessages(){
-    if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
-    currentChatTab = 'support';
-    currentTicketId = 'support:' + currentUser;
-    currentSellerName = null;
-    document.getElementById('chat-title').textContent = '💬 Поддержка';
-    document.getElementById('chat-tickets-view').style.display='none';
-    document.getElementById('chat-conv-view').style.display='block';
-    refreshMessages().then(function(){ renderChatConversation(); });
-    openModal('chat-modal');
-}
-
-function openChatWith(ticketId, displayName){
-    if(!currentUser){ openModal('login-modal'); return; }
-    currentTicketId = ticketId;
-    currentSellerName = displayName;
-    currentChatTab = ticketId.indexOf('seller:')===0 ? 'seller' : 'support';
-    document.getElementById('chat-title').textContent = '💬 '+displayName;
-    document.getElementById('chat-tickets-view').style.display='none';
-    document.getElementById('chat-conv-view').style.display='block';
-    refreshMessages().then(function(){ renderChatConversation(); });
-    openModal('chat-modal');
-}
-
-function switchChatTab(tab){
-    if(tab==='support') openMessages();
-    else if(tab==='seller' && currentSellerName) openChatWith('seller:'+currentSellerName, currentSellerName);
-}
-
+// ============ СООБЩЕНИЯ ============
 async function refreshMessages(){
     if(!sb) return;
     var r = await sb.from('messages').select('*').order('created_at', {ascending: true});
@@ -1389,49 +1327,152 @@ async function refreshMessages(){
     dbMessages = r.data || [];
 }
 
-function renderChatConversation(){
+// Кнопка "Сообщения" в шапке
+function openMessages(){
+    if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
+
+    if(isSupport){
+        // Поддержка видит СПИСОК всех тикетов
+        document.getElementById('chat-title').textContent = '🛡️ Все тикеты';
+        document.getElementById('chat-tickets-view').style.display = 'block';
+        document.getElementById('chat-conv-view').style.display = 'none';
+        currentTicketId = null;
+        refreshMessages().then(function(){ renderAllTickets(); });
+    } else {
+        // Игрок видит свой чат с поддержкой
+        openChat(supportTicketKey(currentUser), '💬 Поддержка');
+    }
+    openModal('chat-modal');
+}
+
+// Открыть чат с продавцом (для покупателя)
+function openChatWithSeller(sellerName){
+    if(!currentUser){ openModal('login-modal'); return; }
+    if(sellerName === currentUser){ notify('Это ваш товар'); return; }
+    openChat(sellerTicketKey(sellerName, currentUser), '💬 '+sellerName);
+}
+
+// Открыть любой чат по ключу
+function openChat(ticketKey, title){
+    currentTicketId = ticketKey;
+    currentTicketTitle = title || '💬';
+    document.getElementById('chat-title').textContent = title || '💬';
+    document.getElementById('chat-tickets-view').style.display = 'none';
+    document.getElementById('chat-conv-view').style.display = 'block';
+    refreshMessages().then(function(){ renderConversation(); });
+    openModal('chat-modal');
+}
+
+// Список тикетов для поддержки — группировка
+function renderAllTickets(){
+    var b = document.getElementById('tickets-body');
+    // Группируем по ключу ticket_user
+    var groups = {};
+    for(var i=0;i<dbMessages.length;i++){
+        var m = dbMessages[i];
+        if(!groups[m.ticket_user]) groups[m.ticket_user] = {key: m.ticket_user, last: m, count: 0, type: m.ticket_type, amount: m.amount, ticket_user: m.ticket_user};
+        groups[m.ticket_user].last = m;
+        if(!m.from_support && !m.read_by_support) groups[m.ticket_user].count++;
+        if(m.amount) groups[m.ticket_user].amount = m.amount;
+        if(m.ticket_type === 'topup') groups[m.ticket_user].type = 'topup';
+    }
+    var list = [];
+    for(var k in groups) list.push(groups[k]);
+    if(list.length === 0){
+        b.innerHTML = '<div style="text-align:center;padding:35px;color:var(--text2)">📭 Нет обращений</div>';
+        return;
+    }
+    list.sort(function(a,b){ return new Date(b.last.created_at) - new Date(a.last.created_at); });
+    var h = '';
+    for(var j=0;j<list.length;j++){
+        var t = list[j];
+        var parsed = parseTicketKey(t.key);
+        var title = '';
+        var icon = '👤';
+        if(parsed.type === 'support'){
+            title = '🛡️ Поддержка: ' + parsed.target;
+            icon = '🛡️';
+        } else if(parsed.type === 'seller'){
+            title = '🏪 ' + parsed.seller + ' ← ' + (parsed.buyer || '?');
+            icon = '🏪';
+        } else {
+            title = t.key;
+        }
+        var isTopup = t.type === 'topup';
+        if(isTopup){ icon = '💰'; if(t.amount) title += ' — '+t.amount+' изумрудов'; }
+        var cntHtml = t.count>0 ? ' <span style="color:var(--danger);font-weight:900">('+t.count+')</span>' : '';
+        h += '<div class="seller-card" onclick="openTicket(\''+esc(t.key)+'\')">'+
+            '<div class="seller-avatar" style="background:'+(isTopup?'var(--success)':(parsed.type==='seller'?'var(--accent)':'#3b7bff'))+'">'+icon+'</div>'+
+            '<div class="seller-info"><div class="seller-name">'+esc(title)+cntHtml+'</div>'+
+            '<div class="seller-bio">'+esc(t.last.text.slice(0,50))+'</div></div></div>';
+    }
+    b.innerHTML = h;
+}
+
+// Открыть тикет из списка (для поддержки)
+function openTicket(ticketKey){
+    var parsed = parseTicketKey(ticketKey);
+    var title = '💬 ' + ticketKey;
+    if(parsed.type === 'support') title = '🛡️ '+parsed.target;
+    else if(parsed.type === 'seller') title = '🏪 '+parsed.seller+' ← '+parsed.buyer;
+    openChat(ticketKey, title);
+    // Помечаем прочитанным
+    if(sb && isSupport){
+        var ids=[];
+        for(var i=0;i<dbMessages.length;i++){
+            var m=dbMessages[i];
+            if(m.ticket_user===ticketKey && !m.from_support && !m.read_by_support) ids.push(m.id);
+        }
+        if(ids.length>0){
+            sb.from('messages').update({read_by_support:true}).in('id', ids).then(function(){
+                refreshMessages();
+                checkUnread();
+            });
+        }
+    }
+}
+
+// Рендер беседы
+function renderConversation(){
     var c = document.getElementById('chat-messages');
     if(!currentTicketId){ c.innerHTML = '<div style="text-align:center;color:var(--text2);padding:20px">Выберите чат</div>'; return; }
-    var my = dbMessages.filter(function(m){ return m.ticket_user === currentTicketId; });
-    if(my.length === 0){
+    var msgs = dbMessages.filter(function(m){ return m.ticket_user === currentTicketId; });
+    if(msgs.length === 0){
         c.innerHTML = '<div style="text-align:center;color:var(--text2);padding:20px">💬 Напишите первое сообщение</div>';
         return;
     }
+    var parsed = parseTicketKey(currentTicketId);
     var h = '';
-    var isSupportView = isSupport && currentChatTab !== 'seller' && currentTicketId.indexOf('seller:')!==0;
-    for(var i=0;i<my.length;i++){
-        var m = my[i];
+    for(var i=0;i<msgs.length;i++){
+        var m = msgs[i];
+        // Кто "я" в этом чате:
+        // Если это чат поддержки: поддержка видит свои как "me", игрок свои как "me"
+        // Если это чат продавца: продавец видит свои как "me", покупатель свои как "me"
         var isMine;
-        if(currentTicketId.indexOf('seller:')===0 && !isSupport){
-            // игрок смотрит чат с продавцом — его сообщения справа, продавца слева
-            isMine = !m.from_support && m.author === currentProfile.name;
-        } else if(isSupport && currentTicketId.indexOf('seller:')!==0 && currentTicketId.indexOf('support:')!==0){
-            isMine = m.from_support;
+        if(parsed.type === 'support'){
+            if(isSupport) isMine = m.from_support;
+            else isMine = !m.from_support && m.author === currentProfile.name;
+        } else if(parsed.type === 'seller'){
+            if(currentUser === parsed.seller) isMine = !m.from_support && m.author === parsed.seller;
+            else isMine = !m.from_support && m.author === currentProfile.name;
         } else {
-            // обычный игрок смотрит свой чат с поддержкой
-            isMine = !m.from_support;
+            isMine = m.author === currentProfile.name;
         }
         var ts = timeFromTs(m.created_at);
-        var authorHtml = '';
-        if(isSupport && !m.from_support){
-            authorHtml = '<div class="chat-msg-author">'+esc(m.author)+'</div>';
-        } else if(currentTicketId.indexOf('seller:')===0 && !isSupport && m.from_support){
-            authorHtml = '<div class="chat-msg-author">'+esc(m.author)+'</div>';
-        }
+        var authorHtml = (!isMine ? '<div class="chat-msg-author">'+esc(m.author)+'</div>' : '');
         h += '<div class="chat-msg '+(isMine?'me':'them')+'">'+authorHtml+esc(m.text)+'<div class="chat-msg-time">'+ts+'</div></div>';
     }
-    // Кнопки для поддержки
-    if(isSupport && currentTicketId.indexOf('support:')===0){
-        var topupMsgs = my.filter(function(m){ return m.ticket_type==='topup' && !m.from_support; });
+    // Кнопка для поддержки, если есть запрос на пополнение
+    if(parsed.type === 'support' && isSupport){
+        var topupMsgs = msgs.filter(function(m){ return m.ticket_type==='topup' && !m.from_support; });
         var lastTopup = topupMsgs[topupMsgs.length-1];
         if(lastTopup && lastTopup.amount){
-            // Проверяем, не начислено ли уже
-            var alreadyGiven = my.some(function(m){ return m.from_support && m.text.indexOf('✅')!==-1 && m.text.indexOf(String(lastTopup.amount))!==-1; });
+            var alreadyGiven = msgs.some(function(m){ return m.from_support && m.text.indexOf('✅')!==-1 && m.text.indexOf(String(lastTopup.amount))!==-1; });
             if(!alreadyGiven){
                 h += '<div style="padding:15px;background:var(--card);border-radius:10px;border:2px dashed var(--success);margin-top:10px">'+
-                    '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 Запрос на '+lastTopup.amount+' изумрудов</div>'+
-                    '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Игрок передал изумруды? Подтвердите:</div>'+
-                    '<button class="action-btn give" onclick="giveBalance(\''+esc(lastTopup.ticket_user)+'\','+lastTopup.amount+')">✅ Выдать '+lastTopup.amount+'</button>'+
+                    '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 '+parsed.target+' хочет '+lastTopup.amount+' изумрудов</div>'+
+                    '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Игрок передал изумруды? Нажми:</div>'+
+                    '<button class="action-btn give" onclick="giveBalance(\''+esc(parsed.target)+'\','+lastTopup.amount+')">✅ Выдать '+lastTopup.amount+'</button>'+
                     '</div>';
             }
         }
@@ -1440,20 +1481,18 @@ function renderChatConversation(){
     c.scrollTop = c.scrollHeight;
 }
 
-async function giveBalance(ticketUser, amount){
+// Поддержка начисляет баланс
+async function giveBalance(userName, amount){
     if(!isSupport) return;
-    // ticketUser = 'support:Steve' — извлекаем имя игрока
-    var userName = ticketUser.indexOf('support:')===0 ? ticketUser.substring(8) : ticketUser;
     var userProf = getProfile(userName);
-    if(!userProf){ notify('❌ Профиль игрока не найден локально'); return; }
+    if(!userProf){ notify('❌ Профиль '+userName+' не найден на этом устройстве'); return; }
     if(!confirm('Выдать '+amount+' изумрудов игроку '+userName+'?')) return;
 
     userProf.balance = (parseFloat(userProf.balance||0)) + amount;
     saveProfileToStorage(userProf);
 
-    // Отправляем подтверждение в чат
     await sb.from('messages').insert([{
-        ticket_user: ticketUser,
+        ticket_user: supportTicketKey(userName),
         author: 'Поддержка',
         text: '✅ Выдано '+amount+' изумрудов. Баланс пополнен!',
         from_support: true,
@@ -1464,39 +1503,52 @@ async function giveBalance(ticketUser, amount){
 
     notify('✅ Выдано '+amount+' изумрудов');
     await refreshMessages();
-    renderChatConversation();
+    renderConversation();
+    checkUnread();
 }
 
+// Отправка сообщения в текущий чат
 async function sendChat(){
     if(!currentUser){ closeModal('chat-modal'); openModal('login-modal'); return; }
+    if(!currentTicketId){ notify('⚠️ Открой чат'); return; }
     var inp = document.getElementById('chat-input');
     var text = inp.value.trim();
     if(!text) return;
-    if(!currentTicketId){ notify('⚠️ Открой чат'); return; }
     if(!sb){ notify('❌ Нет соединения'); return; }
 
-    var isFromSupport;
-    if(currentTicketId.indexOf('seller:')===0){
-        // Чат с продавцом — поддержка сюда не пишет
-        isFromSupport = false;
-    } else {
-        isFromSupport = isSupport;
-    }
+    var parsed = parseTicketKey(currentTicketId);
+    var fromSupport = false;
+    if(parsed.type === 'support' && isSupport) fromSupport = true;
+    // В чате продавца "from_support" = сообщение от продавца (не покупателя)
+    if(parsed.type === 'seller' && currentUser === parsed.seller) fromSupport = true;
 
     var r = await sb.from('messages').insert([{
         ticket_user: currentTicketId,
-        author: isFromSupport ? 'Поддержка' : currentProfile.name,
+        author: fromSupport ? (parsed.type==='seller' ? currentProfile.name : 'Поддержка') : currentProfile.name,
         text: text,
-        from_support: isFromSupport,
+        from_support: fromSupport,
         ticket_type: 'chat',
-        read_by_support: isFromSupport,
-        read_by_user: !isFromSupport
+        read_by_support: fromSupport,
+        read_by_user: !fromSupport
     }]);
     if(r.error){ notify('❌ '+r.error.message); return; }
 
     inp.value = '';
     await refreshMessages();
-    renderChatConversation();
+    renderConversation();
+}
+
+// Счётчик непрочитанного на иконке
+function checkUnread(){
+    if(!currentUser || !isSupport){ document.getElementById('chat-badge').classList.remove('show'); return; }
+    var count = 0;
+    for(var i=0;i<dbMessages.length;i++){
+        var m = dbMessages[i];
+        if(!m.from_support && !m.read_by_support) count++;
+    }
+    var b = document.getElementById('chat-badge');
+    b.textContent = count;
+    if(count > 0) b.classList.add('show'); else b.classList.remove('show');
 }
 
 // ============ ТЕМА ============
@@ -1506,10 +1558,10 @@ function setTheme(theme,el){
     }
     currentTheme=theme;
     document.body.className = theme==='light' ? '' : 'theme-'+theme;
-    var ops=document.querySelectorAll('.theme-option');
+    var ops=document.querySelectorAll('[data-t]');
     for(var i=0;i<ops.length;i++) ops[i].classList.remove('active');
     if(el) el.classList.add('active');
-    else { var f=document.querySelector('.theme-option[data-t="'+theme+'"]'); if(f) f.classList.add('active'); }
+    else { var f=document.querySelector('[data-t="'+theme+'"]'); if(f) f.classList.add('active'); }
     saveLocal();
     notify('🎨 Тема изменена');
 }
@@ -1529,17 +1581,22 @@ function startChatRefresh(){
     if(chatRefreshTimer) clearInterval(chatRefreshTimer);
     chatRefreshTimer = setInterval(async function(){
         if(!currentUser) return;
+        await refreshMessages();
+        checkUnread();
         var isOpen = document.getElementById('chat-modal').classList.contains('show');
         if(!isOpen) return;
-        await refreshMessages();
-        if(currentTicketId) renderChatConversation();
+        if(isSupport && !currentTicketId){
+            renderAllTickets();
+        } else if(currentTicketId){
+            renderConversation();
+        }
     }, 3000);
 }
 
 // ============ СТАРТ ============
 loadLocal();
 if(currentTheme && currentTheme!=='light') document.body.className='theme-'+currentTheme;
-var to=document.querySelector('.theme-option[data-t="'+currentTheme+'"]');
+var to=document.querySelector('[data-t="'+currentTheme+'"]');
 if(to) to.classList.add('active');
 updateUserUI(); checkNamazTheme();
 loadProducts();
