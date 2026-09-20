@@ -33,8 +33,8 @@ body{background:var(--bg);color:var(--text);min-height:100vh;transition:backgrou
 header{background:linear-gradient(90deg,var(--h1),var(--h2));padding:12px 15px;position:sticky;top:0;z-index:100}
 .header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:15px;flex-wrap:wrap}
 .logo{font-size:24px;font-weight:900;letter-spacing:2px;cursor:pointer;display:flex;padding:4px 10px;background:#fff;border-radius:8px;flex-shrink:0}
-.logo .ma{color:#fff;text-shadow:0 0 2px #000,1px 1px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000}
-.logo .zon{color:#000}
+.logo .ma{color:#e53935;text-shadow:0 0 2px #fff,1px 1px 0 #fff,-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff}
+.logo .zon{color:#e53935}
 .search-bar{flex:1;display:flex;background:#fff;border-radius:8px;overflow:hidden;min-width:180px}
 .search-bar input{flex:1;padding:10px 14px;border:none;outline:none;font-size:14px;background:#fff;color:#333;min-width:0}
 .search-bar button{background:var(--accent);color:#fff;border:none;padding:0 18px;cursor:pointer;font-size:16px}
@@ -128,33 +128,14 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .emoji-picker{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
 .emoji-option{width:38px;height:38px;border-radius:8px;border:2px solid var(--border);background:var(--input);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .emoji-option.selected{border-color:var(--accent);background:var(--accent-l)}
-.product-modal-content{max-width:900px}
+.product-modal-content{max-width:1000px}
 .product-detail{display:grid;grid-template-columns:1fr 1fr;gap:25px}
-.product-detail-image{background:var(--accent-l);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:150px;min-height:280px;position:relative;overflow:hidden;background-size:cover;background-position:center}
-.product-detail-image .rarity{top:12px;left:12px;bottom:auto}
-.product-detail-info h2{font-size:20px;margin-bottom:10px;word-break:break-word;color:var(--text)}
 .seller-card{background:var(--soft);border-radius:10px;padding:11px 13px;margin-bottom:13px;display:flex;align-items:center;gap:10px;cursor:pointer}
 .seller-card:hover{background:var(--accent-l)}
 .seller-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;color:#fff}
 .seller-info{flex:1;min-width:0}
 .seller-name{font-size:13px;font-weight:700;margin-bottom:2px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .seller-bio{font-size:11px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.seller-label{font-size:10px;color:var(--text2);text-transform:uppercase;margin-bottom:4px}
-.product-detail-rating{display:flex;align-items:center;gap:6px;margin-bottom:10px;font-size:13px;color:var(--text3)}
-.product-detail-rating .stars{color:#ffb300;font-size:16px}
-.product-detail-price{margin-bottom:15px}
-.product-detail-price .new{font-size:30px;font-weight:900;color:var(--accent)}
-.product-detail-desc{font-size:14px;color:var(--text3);line-height:1.5;margin-bottom:15px;word-break:break-word}
-.detail-actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn-buy-big{flex:1;min-width:140px;background:var(--success);color:#fff;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer}
-.btn-buy-big:hover{background:var(--success-h)}
-.btn-buy-big.own{background:var(--text2);cursor:not-allowed;opacity:.6}
-.btn-secondary{background:var(--card);color:var(--accent);border:2px solid var(--accent);padding:13px 18px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer}
-.btn-secondary:hover{background:var(--accent-l)}
-.reviews-section{margin-top:20px;padding-top:18px;border-top:2px solid var(--border)}
-.reviews-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.reviews-header h3{font-size:16px;color:var(--text)}
-.reviews-count{font-size:12px;color:var(--text2)}
 .review-form{background:var(--soft);border-radius:10px;padding:13px;margin-bottom:15px}
 .review-form h4{font-size:13px;margin-bottom:10px;color:var(--text)}
 .rating-input{display:flex;gap:4px;margin-bottom:10px}
@@ -163,7 +144,9 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .review-form textarea{width:100%;padding:9px;border:2px solid var(--border);background:var(--input);color:var(--text);border-radius:8px;font-size:13px;outline:none;font-family:inherit;margin-bottom:8px;min-height:55px}
 .review-form button{width:100%;background:var(--accent);color:#fff;border:none;padding:11px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
 .reviews-list{display:flex;flex-direction:column;gap:10px;max-height:280px;overflow-y:auto}
-.review-item{background:var(--soft);border-radius:10px;padding:11px 13px}
+.review-item{background:var(--soft);border-radius:10px;padding:11px 13px;border-left:4px solid var(--accent)}
+.review-item:nth-child(2n){border-left-color:var(--success)}
+.review-item:nth-child(3n){border-left-color:#3b7bff}
 .review-item-header{display:flex;justify-content:space-between;margin-bottom:5px}
 .review-author{font-size:13px;font-weight:700;color:var(--text)}
 .review-date{font-size:11px;color:var(--text2)}
@@ -205,7 +188,7 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .order-btn.receive{background:var(--success);color:#fff}
 .order-btn.refund{background:var(--card);color:var(--danger);border:2px solid var(--danger)}
 .nick-effect-glow{text-shadow:0 0 8px currentColor,0 0 16px currentColor}
-.nick-effect-gradient{background:var(--namaz);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nick-gradient-custom{-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .nick-effect-rainbow{background:linear-gradient(90deg,#ff0000,#ff8800,#ffee00,#00ff00,#00ffff,#0088ff,#8800ff,#ff00ff);background-size:400% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:rainbowMove 3s linear infinite}
 @keyframes rainbowMove{0%{background-position:0% 50%}100%{background-position:400% 50%}}
 .notification{position:fixed;bottom:20px;right:20px;left:20px;max-width:340px;margin-left:auto;background:var(--success);color:#fff;padding:13px 20px;border-radius:10px;font-weight:700;box-shadow:0 5px 20px rgba(0,0,0,.2);transform:translateY(120px);opacity:0;transition:.3s;z-index:1000;font-size:13px;text-align:center}
@@ -356,23 +339,23 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                 <label>Иконка *</label>
                 <input type="text" id="ap-emoji" value="💎" maxlength="4" style="font-size:20px;text-align:center">
                 <div class="emoji-picker">
-                <div class="emoji-option selected" onclick="pickEmoji('💎', this)">💎</div>
-                <div class="emoji-option" onclick="pickEmoji('🧱', this)">🧱</div>
-                <div class="emoji-option" onclick="pickEmoji('⛏️', this)">⛏️</div>
-                <div class="emoji-option" onclick="pickEmoji('⚔️', this)">⚔️</div>
-                <div class="emoji-option" onclick="pickEmoji('🛡️', this)">🛡️</div>
-                <div class="emoji-option" onclick="pickEmoji('🏹', this)">🏹</div>
-                <div class="emoji-option" onclick="pickEmoji('🧪', this)">🧪</div>
-                <div class="emoji-option" onclick="pickEmoji('🐷', this)">🐷</div>
-                <div class="emoji-option" onclick="pickEmoji('🍎', this)">🍎</div>
-                <div class="emoji-option" onclick="pickEmoji('🐉', this)">🐉</div>
-                <div class="emoji-option" onclick="pickEmoji('🔥', this)">🔥</div>
-                <div class="emoji-option" onclick="pickEmoji('🪨', this)">🪨</div>
-                <div class="emoji-option" onclick="pickEmoji('🟫', this)">🟫</div>
-                <div class="emoji-option" onclick="pickEmoji('🟩', this)">🟩</div>
-                <div class="emoji-option" onclick="pickEmoji('✨', this)">✨</div>
-                <div class="emoji-option" onclick="pickEmoji('🎁', this)">🎁</div>
-           </div>
+                    <div class="emoji-option selected" onclick="pickEmoji('💎', this)">💎</div>
+                    <div class="emoji-option" onclick="pickEmoji('🧱', this)">🧱</div>
+                    <div class="emoji-option" onclick="pickEmoji('⛏️', this)">⛏️</div>
+                    <div class="emoji-option" onclick="pickEmoji('⚔️', this)">⚔️</div>
+                    <div class="emoji-option" onclick="pickEmoji('🛡️', this)">🛡️</div>
+                    <div class="emoji-option" onclick="pickEmoji('🏹', this)">🏹</div>
+                    <div class="emoji-option" onclick="pickEmoji('🧪', this)">🧪</div>
+                    <div class="emoji-option" onclick="pickEmoji('🐷', this)">🐷</div>
+                    <div class="emoji-option" onclick="pickEmoji('🍎', this)">🍎</div>
+                    <div class="emoji-option" onclick="pickEmoji('🐉', this)">🐉</div>
+                    <div class="emoji-option" onclick="pickEmoji('🔥', this)">🔥</div>
+                    <div class="emoji-option" onclick="pickEmoji('🪨', this)">🪨</div>
+                    <div class="emoji-option" onclick="pickEmoji('🟫', this)">🟫</div>
+                    <div class="emoji-option" onclick="pickEmoji('🟩', this)">🟩</div>
+                    <div class="emoji-option" onclick="pickEmoji('✨', this)">✨</div>
+                    <div class="emoji-option" onclick="pickEmoji('🎁', this)">🎁</div>
+                </div>
             </div>
             <div class="form-group" id="ap-bg-group" style="display:none">
                 <label>🎨 Фон карточки (NAMАZ)</label>
@@ -494,7 +477,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                     <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Тема NAMAZ</b></li>
                     <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Кастомный фон профиля</b></li>
                     <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Кастомный фон карточек товара</b></li>
-                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Цвет ника</b></li>
+                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Цвет ника + градиент из 2 цветов</b></li>
                     <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Эффект ника</b></li>
                     <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>VIP-аватарки и бейдж</b></li>
                 </ul>
@@ -530,6 +513,7 @@ try {
 var ADMIN_KEY = '55915591';
 var TICKET_TTL_HOURS = 24;
 var NAMAZ_PRICE = 2.99;
+var WITHDRAW_FEE = 1;
 
 var products = [], reviews = {}, cart = {}, favorites = [];
 var currentCategory = 'all', currentRarity = 'all', sortAsc = null, currentSearch = '';
@@ -567,7 +551,7 @@ async function loadProducts(){
         var r=await sb.from('products').select('*').order('id',{ascending:false});
         if(r.error){ grid.innerHTML='<div class="loading">❌ '+r.error.message+'</div>'; return; }
         products=r.data||[];
-        var rv=await sb.from('reviews').select('*');
+        var rv=await sb.from('reviews').select('*').order('id',{ascending:false});
         reviews={};
         if(rv.data){ for(var i=0;i<rv.data.length;i++){ var x=rv.data[i]; if(!reviews[x.product_id]) reviews[x.product_id]=[]; reviews[x.product_id].push(x); } }
         renderProducts();
@@ -598,6 +582,7 @@ async function saveProfileToDB(profile){
         profile_bg: profile.profile_bg || '',
         card_bg: profile.card_bg || '',
         nick_color: profile.nick_color || '',
+        nick_color2: profile.nick_color2 || '',
         nick_effect: profile.nick_effect || ''
     };
     var r = await sb.from('profiles').upsert(data, {onConflict: 'name'});
@@ -623,6 +608,7 @@ async function getCachedProfile(name){
             profile_bg: p.profile_bg || '',
             card_bg: p.card_bg || '',
             nick_color: p.nick_color || '',
+            nick_color2: p.nick_color2 || '',
             nick_effect: p.nick_effect || ''
         };
         profileCache[name] = prof;
@@ -655,13 +641,20 @@ function timeFromTs(ts){ var d=new Date(ts); return (d.getHours()<10?'0':'')+d.g
 function nickStyle(prof){
     if(!prof) return '';
     var style = '';
-    if(prof.nick_color) style += 'color:' + prof.nick_color + ';';
+    if(prof.nick_effect === 'gradient'){
+        var c1 = prof.nick_color || '#cb11ab';
+        var c2 = prof.nick_color2 || '#3b7bff';
+        style += 'background-image:linear-gradient(90deg,' + c1 + ',' + c2 + ');';
+        style += '-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;';
+    } else if(prof.nick_color){
+        style += 'color:' + prof.nick_color + ';';
+    }
     return style;
 }
 function nickClass(prof){
     if(!prof || !prof.nick_effect) return '';
     if(prof.nick_effect === 'glow') return 'nick-effect-glow';
-    if(prof.nick_effect === 'gradient') return 'nick-effect-gradient';
+    if(prof.nick_effect === 'gradient') return 'nick-gradient-custom';
     if(prof.nick_effect === 'rainbow') return 'nick-effect-rainbow';
     return '';
 }
@@ -712,7 +705,8 @@ async function doLogin(){
         balance: parseFloat(p.balance || 0), orders: p.orders || [],
         isSupport: !!p.is_support,
         profile_bg: p.profile_bg || '', card_bg: p.card_bg || '',
-        nick_color: p.nick_color || '', nick_effect: p.nick_effect || ''
+        nick_color: p.nick_color || '', nick_color2: p.nick_color2 || '',
+        nick_effect: p.nick_effect || ''
     };
     isSupport = !!p.is_support;
     userOrders = currentProfile.orders || [];
@@ -740,7 +734,7 @@ async function doRegister(){
     var newProfile = {
         name: name, pass: pass, avatar: '👤', color: '#cb11ab', bio: '',
         namaz: false, namazUntil: null, balance: 0, orders: [], isSupport: false,
-        profile_bg: '', card_bg: '', nick_color: '', nick_effect: ''
+        profile_bg: '', card_bg: '', nick_color: '', nick_color2: '', nick_effect: ''
     };
     var ok = await saveProfileToDB(newProfile);
     if(!ok){ err.textContent='❌ Ошибка сохранения'; err.style.color='var(--danger)'; err.classList.add('show'); return; }
@@ -1193,7 +1187,6 @@ async function tryCompleteOrder(order, buyerName){
     }]);
 
     notify('🎉 Заказ завершён!');
-
     currentTicketId = null;
     closeModal('chat-modal');
 }
@@ -1282,7 +1275,10 @@ function renderWallet(){
         warn +
         '<div class="balance-card">'+
             '<div><div style="font-size:12px;opacity:.85;margin-bottom:5px">ZOV Кошелёк</div><div class="balance-value">'+price(bal)+'</div></div>'+
-            '<button class="balance-btn" onclick="showTopupForm()">➕ Пополнить</button>'+
+            '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+                '<button class="balance-btn" onclick="showTopupForm()">➕ Пополнить</button>'+
+                '<button class="balance-btn" style="background:#fff;color:#4ba32e;border:2px solid #4ba32e" onclick="showWithdrawForm()">💸 Вывод</button>'+
+            '</div>'+
         '</div>'+
         '<div id="topup-form"></div>';
 }
@@ -1290,6 +1286,15 @@ function showTopupForm(){
     document.getElementById('topup-form').innerHTML=
         '<div class="form-group"><label>Сколько изумрудов дашь?</label><input type="number" id="topup-amount" placeholder="2" min="1" step="1" inputmode="numeric"></div>'+
         '<button class="btn-primary btn-success" onclick="requestTopup()">📨 Отправить запрос поддержке</button>';
+}
+function showWithdrawForm(){
+    document.getElementById('topup-form').innerHTML=
+        '<div style="background:var(--soft);padding:12px;border-radius:10px;margin-bottom:12px;font-size:13px;color:var(--text2)">'+
+            '💡 Комиссия за вывод: <b>'+WITHDRAW_FEE+' изумруд</b><br>'+
+            'К получению: сумма − '+WITHDRAW_FEE+' изумруд'+
+        '</div>'+
+        '<div class="form-group"><label>Сколько изумрудов вывести?</label><input type="number" id="withdraw-amount" placeholder="5" min="1" step="1" inputmode="numeric"></div>'+
+        '<button class="btn-primary btn-success" onclick="requestWithdraw()">📨 Запросить вывод</button>';
 }
 async function requestTopup(){
     var amount=parseFloat(document.getElementById('topup-amount').value);
@@ -1310,6 +1315,27 @@ async function requestTopup(){
     closeModal('wallet-modal');
     setTimeout(function(){ openMessages(); }, 400);
 }
+async function requestWithdraw(){
+    var amount = parseFloat(document.getElementById('withdraw-amount').value);
+    if(!amount || amount<=WITHDRAW_FEE){ notify('⚠️ Минимум '+(WITHDRAW_FEE+1)+' изумруда'); return; }
+    if(!sb){ notify('❌ Нет соединения'); return; }
+    var bal = parseFloat(currentProfile.balance||0);
+    if(bal < amount){ notify('❌ Недостаточно средств на балансе'); return; }
+    var r = await sb.from('messages').insert([{
+        ticket_user: supportTicketKey(currentUser),
+        author: currentProfile.name,
+        text: '💸 Хочу вывести '+amount+' изумрудов (комиссия '+WITHDRAW_FEE+')',
+        from_support: false,
+        ticket_type: 'withdraw',
+        amount: amount,
+        read_by_support: false,
+        read_by_user: true
+    }]);
+    if(r.error){ notify('❌ '+r.error.message); return; }
+    notify('📨 Запрос на вывод отправлен');
+    closeModal('wallet-modal');
+    setTimeout(function(){ openMessages(); }, 400);
+}
 
 // ============ ТОВАР ============
 function openProduct(id){
@@ -1321,7 +1347,7 @@ function openProduct(id){
     var pRevs=reviews[p.id]||[];
     var avg=0;
     if(pRevs.length>0){ var s=0; for(var j=0;j<pRevs.length;j++) s+=pRevs[j].rating; avg=(s/pRevs.length).toFixed(1); }
-    var rating= pRevs.length>0 ? '<span class="stars">★</span> <b>'+avg+'</b> · '+pRevs.length+' отзывов' : '<span style="color:var(--text2)">Нет отзывов</span>';
+    var rating= pRevs.length>0 ? '<span class="stars" style="color:#ffb300">★</span> <b>'+avg+'</b> · '+pRevs.length+' отзывов' : '<span style="color:var(--text2)">Нет отзывов</span>';
     var form= currentUser
         ? '<div class="review-form"><h4>✍️ Оставить отзыв</h4><div class="rating-input">'+
             '<button class="star-btn" onclick="setStar(1)">★</button><button class="star-btn" onclick="setStar(2)">★</button><button class="star-btn" onclick="setStar(3)">★</button><button class="star-btn" onclick="setStar(4)">★</button><button class="star-btn" onclick="setStar(5)">★</button>'+
@@ -1330,39 +1356,68 @@ function openProduct(id){
     var sn=p.seller_name||'Продавец';
     document.getElementById('pm-title').innerHTML=p.emoji+' '+esc(p.name);
     var buyBtns = mine
-        ? '<button class="btn-buy-big own" disabled>Ваш товар</button>'
+        ? '<button class="btn-buy-big own" disabled style="flex:1;background:var(--text2);cursor:not-allowed;color:#fff;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:800">Ваш товар</button>'
         : '<button class="btn-buy-big" onclick="buyNow('+p.id+')">💳 Купить</button>';
     var cartBtn = mine
         ? '<button class="btn-primary own" disabled style="margin-top:10px;background:var(--text2);cursor:not-allowed">🚫 Ваш товар</button>'
         : '<button class="btn-primary" style="margin-top:10px" onclick="addCartModal('+p.id+')">🛒 В корзину</button>';
     var chatSellerBtn = (mine || !currentUser) ? '' : '<button class="btn-secondary" style="width:100%;margin-top:10px" onclick="closeModal(\'product-modal\');openChatWithSeller(\''+esc(sn)+'\')">💬 Написать продавцу</button>';
     var bgStyle = p.bg ? 'background:'+p.bg+';background-size:cover;background-position:center;' : '';
+
     document.getElementById('pm-body').innerHTML=
         '<div class="product-detail">'+
-            '<div class="product-detail-image" id="pm-image" style="'+bgStyle+'"><div class="rarity '+p.rarity+'">'+rl(p.rarity)+'</div>'+p.emoji+'</div>'+
-            '<div class="product-detail-info">'+
-                '<h2>'+esc(p.name)+'</h2>'+
-                (mine?'<div class="my-badge" style="margin-bottom:10px">ВАШ ТОВАР</div>':'')+
-                '<div class="seller-label">Продавец:</div>'+
-                '<div class="seller-card" onclick="openSeller(\''+esc(sn)+'\')">'+
-                    '<div class="seller-avatar" id="pm-seller-av" style="background:#cb11ab">👤</div>'+
-                    '<div class="seller-info"><div class="seller-name" id="pm-seller-nick">'+esc(sn)+'</div><div class="seller-bio">Нажмите для профиля</div></div>'+
+            '<div>'+
+                '<div style="background:'+(p.bg||'var(--accent-l)')+';background-size:cover;background-position:center;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:170px;min-height:320px;position:relative;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.15)">'+
+                    '<div style="position:absolute;top:16px;left:16px;padding:6px 14px;border-radius:8px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;z-index:3;color:#fff;background:'+(
+                        p.rarity==='common'?'#b0b0b0':p.rarity==='rare'?'#3b7bff':p.rarity==='epic'?'#a13bff':'linear-gradient(90deg,#ffb800,#ff6b00)'
+                    )+'">'+rl(p.rarity)+'</div>'+
+                    '<div style="filter:drop-shadow(0 10px 20px rgba(0,0,0,.3))">'+p.emoji+'</div>'+
                 '</div>'+
-                '<div class="product-detail-rating">'+rating+'</div>'+
-                '<div class="product-detail-price"><span class="new">'+price(p.price)+'</span></div>'+
-                '<div class="product-detail-desc">'+esc(p.description||'')+'</div>'+
-                '<div class="detail-actions">'+buyBtns+
+                '<div style="background:var(--card);border-radius:16px;padding:16px;margin-top:16px;border:1px solid var(--border)">'+
+                    '<div style="font-size:12px;color:var(--text2);margin-bottom:8px;text-transform:uppercase;font-weight:800;letter-spacing:.5px">Продавец</div>'+
+                    '<div class="seller-card" id="pm-seller-card" style="margin-bottom:0">'+
+                        '<div class="seller-avatar" id="pm-seller-av" style="background:#cb11ab">👤</div>'+
+                        '<div class="seller-info"><div class="seller-name" id="pm-seller-nick">'+esc(sn)+'</div><div class="seller-bio">Открыть профиль продавца</div></div>'+
+                    '</div>'+
+                '</div>'+
+            '</div>'+
+            '<div>'+
+                '<div style="font-size:22px;font-weight:900;margin-bottom:10px;color:var(--text);line-height:1.3">'+esc(p.name)+'</div>'+
+                (mine?'<div class="my-badge" style="margin-bottom:12px">ВАШ ТОВАР</div>':'')+
+                '<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:14px;color:var(--text3)">'+rating+'</div>'+
+                '<div style="font-size:38px;font-weight:900;color:var(--accent);margin-bottom:20px">'+price(p.price)+'</div>'+
+                '<div style="font-size:14px;color:var(--text3);line-height:1.6;margin-bottom:20px">'+esc(p.description||'Описание не указано.')+'</div>'+
+                '<div style="background:var(--soft);border-radius:12px;padding:14px;margin-bottom:16px">'+
+                    '<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:var(--text2)">Категория</span><b style="color:var(--text)">'+p.category+'</b></div>'+
+                    '<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:var(--text2)">Редкость</span><b style="color:var(--text)">'+rl(p.rarity)+'</b></div>'+
+                    '<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:var(--text2)">В наличии</span><b style="color:var(--success)">✓ Да</b></div>'+
+                '</div>'+
+                '<div style="display:flex;gap:8px;flex-wrap:wrap">'+buyBtns+
                     '<button class="btn-secondary" onclick="favFromModal('+p.id+',this)">'+(isFav?'❤️':'🤍')+'</button>'+
                 '</div>'+cartBtn+chatSellerBtn+
+                '<div style="margin-top:24px;padding-top:20px;border-top:2px solid var(--border)">'+
+                    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">'+
+                        '<h3 style="font-size:17px;color:var(--text);font-weight:800">💬 Отзывы <span style="font-size:13px;color:var(--text2);font-weight:500">('+pRevs.length+')</span></h3>'+
+                    '</div>'+
+                    form+
+                    '<div class="reviews-list" style="margin-top:14px">'+renderReviews(p.id)+'</div>'+
+                '</div>'+
             '</div>'+
-        '</div>'+
-        '<div class="reviews-section"><div class="reviews-header"><h3>💬 Отзывы</h3><span class="reviews-count">'+pRevs.length+' шт.</span></div>'+
-        form+'<div class="reviews-list">'+renderReviews(p.id)+'</div></div>';
+        '</div>';
+
     openModal('product-modal');
+
+    setTimeout(function(){
+        var el = document.getElementById('pm-seller-card');
+        if(el){
+            el.onclick = function(){ closeModal('product-modal'); openSeller(sn); };
+        }
+    }, 50);
+
     getCachedProfile(sn).then(function(pr){
         if(pr){
-            var el=document.getElementById('pm-seller-av');
-            if(el){ el.textContent=pr.avatar; el.style.background=pr.color; }
+            var el2=document.getElementById('pm-seller-av');
+            if(el2){ el2.textContent=pr.avatar; el2.style.background=pr.color; }
             var nk=document.getElementById('pm-seller-nick');
             if(nk) nk.innerHTML = nickHtml(sn, pr);
         }
@@ -1563,6 +1618,12 @@ function renderProfileMain(){
             var nsel = p.nick_color === ncolor;
             ncHtml+='<div onclick="setNickColor(\''+ncolor+'\')" style="cursor:pointer;width:36px;height:36px;border-radius:50%;border:3px solid '+(nsel?'var(--accent)':'var(--border)')+';background:'+(ncolor||'var(--soft)')+';color:'+(ncolor==='#000000'||ncolor===''?'#888':'#fff')+';display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900">'+(ncolor?'':'×')+'</div>';
         }
+        var nc2Html='';
+        for(var k33=0;k33<nickColors.length;k33++){
+            var nc2=nickColors[k33];
+            var nsel2c = p.nick_color2 === nc2;
+            nc2Html+='<div onclick="setNickColor2(\''+nc2+'\')" style="cursor:pointer;width:36px;height:36px;border-radius:50%;border:3px solid '+(nsel2c?'var(--accent)':'var(--border)')+';background:'+(nc2||'var(--soft)')+';color:'+(nc2==='#000000'||nc2===''?'#888':'#fff')+';display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900">'+(nc2?'':'×')+'</div>';
+        }
         var neHtml='';
         for(var k4=0;k4<nickEffects.length;k4++){
             var ne=nickEffects[k4];
@@ -1575,8 +1636,10 @@ function renderProfileMain(){
                 '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px">'+pbHtml+'</div>'+
             '</div>'+
             '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:12px;border:2px dashed var(--accent)">'+
-                '<h3 style="font-size:15px;margin-bottom:10px;color:var(--text)">👑 NAMAZ: Цвет ника</h3>'+
+                '<h3 style="font-size:15px;margin-bottom:10px;color:var(--text)">👑 NAMAZ: Цвет ника (основной)</h3>'+
                 '<div style="display:flex;gap:8px;flex-wrap:wrap">'+ncHtml+'</div>'+
+                '<h3 style="font-size:15px;margin:14px 0 10px;color:var(--text)">👑 NAMAZ: Цвет ника (2-й для градиента)</h3>'+
+                '<div style="display:flex;gap:8px;flex-wrap:wrap">'+nc2Html+'</div>'+
                 '<div style="margin-top:12px;font-size:13px;color:var(--text2)">Превью: '+nickHtml(p.name, p)+'</div>'+
             '</div>'+
             '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:12px;border:2px dashed var(--accent)">'+
@@ -1594,7 +1657,7 @@ function renderProfileMain(){
                 '<ul style="list-style:none;font-size:13px;color:var(--text2);line-height:1.8">'+
                     '<li>🎨 Кастомный фон профиля</li>'+
                     '<li>🖼️ Каждый товар можно оформить своим фоном</li>'+
-                    '<li>🌈 Цвет ника</li>'+
+                    '<li>🌈 Цвет ника + градиент из 2 цветов</li>'+
                     '<li>✨ Эффект ника (свечение, градиент, радуга)</li>'+
                 '</ul>'+
             '</div>';
@@ -1653,6 +1716,7 @@ async function setColor(c){ currentProfile.color=c; await persistProfile(); open
 async function saveBio(t){ currentProfile.bio=t.trim(); await persistProfile(); notify('✅ Сохранено'); }
 async function setProfileBg(v){ currentProfile.profile_bg=v; await persistProfile(); openProfileTab('main'); }
 async function setNickColor(v){ currentProfile.nick_color=v; await persistProfile(); updateUserUI(); openProfileTab('main'); }
+async function setNickColor2(v){ currentProfile.nick_color2=v; await persistProfile(); updateUserUI(); openProfileTab('main'); }
 async function setNickEffect(v){ currentProfile.nick_effect=v; await persistProfile(); updateUserUI(); openProfileTab('main'); }
 function namazLock(){ notify('👑 Только с NAMAZ'); openNamaz(); }
 
@@ -1739,7 +1803,7 @@ async function subscribeNamaz(){
 async function cancelNamaz(){
     if(!confirm('Отменить NAMAZ?')) return;
     currentProfile.namaz=false; currentProfile.namazUntil=null;
-    currentProfile.profile_bg=''; currentProfile.card_bg=''; currentProfile.nick_color=''; currentProfile.nick_effect='';
+    currentProfile.profile_bg=''; currentProfile.card_bg=''; currentProfile.nick_color=''; currentProfile.nick_color2=''; currentProfile.nick_effect='';
     await persistProfile();
     if(currentTheme==='namaz') setTheme('light');
     updateUserUI(); checkNamazTheme(); renderProducts();
@@ -1887,6 +1951,7 @@ function renderAllTickets(){
         if(!m.from_support && !m.read_by_support) groups[m.ticket_user].count++;
         if(m.amount) groups[m.ticket_user].amount = m.amount;
         if(m.ticket_type === 'topup') groups[m.ticket_user].type = 'topup';
+        if(m.ticket_type === 'withdraw') groups[m.ticket_user].type = 'withdraw';
     }
     var list = [];
     for(var k in groups) list.push(groups[k]);
@@ -1903,7 +1968,9 @@ function renderAllTickets(){
         if(parsed.type === 'support'){ title = '🛡️ Поддержка: ' + parsed.target; icon = '🛡️'; bg = '#3b7bff'; }
         else if(parsed.type === 'seller'){ title = '🏪 ' + parsed.seller + ' ← ' + (parsed.buyer || '?'); icon = '🏪'; bg = 'var(--accent)'; }
         var isTopup = t.type === 'topup';
+        var isWithdraw = t.type === 'withdraw';
         if(isTopup){ icon = '💰'; bg = 'var(--success)'; if(t.amount) title += ' — '+t.amount+' изум.'; }
+        if(isWithdraw){ icon = '💸'; bg = 'var(--danger)'; if(t.amount) title += ' — вывод '+t.amount; }
         var cntHtml = t.count>0 ? ' <span style="color:var(--danger);font-weight:900">('+t.count+')</span>' : '';
         h += '<div class="seller-card" onclick="openTicket(\''+esc(t.key)+'\')">'+
             '<div class="seller-avatar" style="background:'+bg+'">'+icon+'</div>'+
@@ -1960,7 +2027,6 @@ function renderConversation(){
         h += '<div class="chat-msg '+(isMine?'me':'them')+'">'+authorHtml+esc(m.text)+'<div class="chat-msg-time">'+ts+'</div></div>';
     }
 
-    // Кнопки для продавца
     if(parsed.type === 'seller' && currentUser === parsed.seller){
         var orderMsgs = msgs.filter(function(m){ return m.ticket_type==='order' && !m.from_support; });
         var lastOrder = orderMsgs[orderMsgs.length-1];
@@ -1987,7 +2053,6 @@ function renderConversation(){
         }
     }
 
-    // Кнопки для покупателя в чате с продавцом
     if(parsed.type === 'seller' && parsed.buyer === currentUser){
         (async function(){
             var orderMsgs = msgs.filter(function(m){ return m.ticket_type==='order' && !m.from_support; });
@@ -2017,25 +2082,36 @@ function renderConversation(){
         })();
     }
 
-    // Кнопки для поддержки
     if(parsed.type === 'support' && isSupport){
         var topupMsgs = msgs.filter(function(m){ return m.ticket_type==='topup' && !m.from_support; });
+        var withdrawMsgs = msgs.filter(function(m){ return m.ticket_type==='withdraw' && !m.from_support; });
         var lastTopup = topupMsgs[topupMsgs.length-1];
+        var lastWithdraw = withdrawMsgs[withdrawMsgs.length-1];
         var amount = lastTopup && lastTopup.amount ? lastTopup.amount : null;
+        var wAmount = lastWithdraw && lastWithdraw.amount ? lastWithdraw.amount : null;
 
-        h += '<div style="padding:15px;background:var(--card);border-radius:10px;border:2px dashed var(--success);margin-top:10px">';
-        if(amount){
-            h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 '+esc(parsed.target)+' хочет '+amount+' изумрудов</div>'+
-                 '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Игрок передал изумруды? Нажми:</div>'+
-                 '<button class="action-btn give" onclick="giveBalance(\''+esc(parsed.target)+'\','+amount+')">✅ Выдать '+amount+'</button>'+
-                 '<button class="action-btn take" onclick="takeBalance(\''+esc(parsed.target)+'\','+amount+')">💸 Забрать '+amount+'</button>';
+        if(wAmount){
+            h += '<div style="padding:15px;background:var(--card);border-radius:10px;border:2px dashed var(--danger);margin-top:10px">';
+            h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💸 '+esc(parsed.target)+' хочет вывести '+wAmount+' изумрудов</div>';
+            h += '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Комиссия: <b>'+WITHDRAW_FEE+' изумруд</b> • К выдаче: <b>'+(wAmount-WITHDRAW_FEE)+' изумрудов</b></div>';
+            h += '<button class="action-btn give" onclick="processWithdraw(\''+esc(parsed.target)+'\','+wAmount+')">✅ Выдать '+(wAmount-WITHDRAW_FEE)+' изум. (комиссия '+WITHDRAW_FEE+')</button>';
+            h += '<button class="action-btn take" onclick="cancelWithdraw(\''+esc(parsed.target)+'\')">❌ Отклонить</button>';
+            h += '</div>';
         } else {
-            h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 Работа с балансом '+esc(parsed.target)+'</div>'+
-                 '<div class="form-group" style="margin-bottom:8px"><input type="number" id="sup-amount" placeholder="Сумма" min="0.01" step="0.01" inputmode="decimal"></div>'+
-                 '<button class="action-btn give" onclick="supportGive(\''+esc(parsed.target)+'\')">✅ Выдать</button>'+
-                 '<button class="action-btn take" onclick="supportTake(\''+esc(parsed.target)+'\')">💸 Забрать</button>';
+            h += '<div style="padding:15px;background:var(--card);border-radius:10px;border:2px dashed var(--success);margin-top:10px">';
+            if(amount){
+                h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 '+esc(parsed.target)+' хочет '+amount+' изумрудов</div>'+
+                     '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Игрок передал изумруды? Нажми:</div>'+
+                     '<button class="action-btn give" onclick="giveBalance(\''+esc(parsed.target)+'\','+amount+')">✅ Выдать '+amount+'</button>'+
+                     '<button class="action-btn take" onclick="takeBalance(\''+esc(parsed.target)+'\','+amount+')">💸 Забрать '+amount+'</button>';
+            } else {
+                h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">💰 Работа с балансом '+esc(parsed.target)+'</div>'+
+                     '<div class="form-group" style="margin-bottom:8px"><input type="number" id="sup-amount" placeholder="Сумма" min="0.01" step="0.01" inputmode="decimal"></div>'+
+                     '<button class="action-btn give" onclick="supportGive(\''+esc(parsed.target)+'\')">✅ Выдать</button>'+
+                     '<button class="action-btn take" onclick="supportTake(\''+esc(parsed.target)+'\')">💸 Забрать</button>';
+            }
+            h += '</div>';
         }
-        h += '</div>';
     }
 
     c.innerHTML = h;
@@ -2081,6 +2157,36 @@ async function takeBalance(userName, amount){
     invalidateProfileCache(userName);
     await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
     notify('✅ Списано '+amount+' изумрудов');
+    await refreshMessages();
+    currentTicketId = null;
+    openMessages();
+    checkUnread();
+}
+
+async function processWithdraw(userName, amount){
+    if(!isSupport) return;
+    if(!confirm('Подтвердить вывод '+amount+' изумрудов игроку '+userName+'?\n\nКомиссия: '+WITHDRAW_FEE+' изумруд\nИгрок получит: '+(amount-WITHDRAW_FEE)+' изумрудов')) return;
+    var prof = await getProfileFromDB(userName);
+    if(!prof){ notify('❌ Профиль не найден'); return; }
+    var bal = parseFloat(prof.balance || 0);
+    if(bal < amount){ notify('❌ Недостаточно средств у игрока'); return; }
+    var newBal = bal - amount;
+    var r = await sb.from('profiles').update({balance: newBal}).eq('name', userName);
+    if(r.error){ notify('❌ '+r.error.message); return; }
+    invalidateProfileCache(userName);
+    await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
+    notify('✅ Вывод обработан. Комиссия '+WITHDRAW_FEE+' изумруд.');
+    await refreshMessages();
+    currentTicketId = null;
+    openMessages();
+    checkUnread();
+}
+
+async function cancelWithdraw(userName){
+    if(!isSupport) return;
+    if(!confirm('Отклонить запрос на вывод?')) return;
+    await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
+    notify('❌ Запрос отклонён');
     await refreshMessages();
     currentTicketId = null;
     openMessages();
@@ -2205,7 +2311,8 @@ async function boot(){
                 balance: parseFloat(p.balance || 0), orders: p.orders || [],
                 isSupport: !!p.is_support,
                 profile_bg: p.profile_bg || '', card_bg: p.card_bg || '',
-                nick_color: p.nick_color || '', nick_effect: p.nick_effect || ''
+                nick_color: p.nick_color || '', nick_color2: p.nick_color2 || '',
+                nick_effect: p.nick_effect || ''
             };
             isSupport = !!p.is_support;
             userOrders = currentProfile.orders || [];
