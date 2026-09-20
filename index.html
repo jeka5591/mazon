@@ -7,7 +7,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;-webkit-tap-highlight-color:transparent}
-
 button{font-family:inherit;cursor:pointer;outline:none;transition:all .2s;border:none}
 button:active{transform:scale(0.97)}
 
@@ -40,7 +39,6 @@ header{background:linear-gradient(90deg,var(--h1),var(--h2));padding:12px 15px;p
 .logo{font-size:24px;font-weight:900;letter-spacing:2px;cursor:pointer;display:flex;padding:4px 10px;background:#fff;border-radius:12px;flex-shrink:0}
 .logo .ma,.logo .zon{background:linear-gradient(135deg,#cb11ab,#481173,#e53935);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* ✅ НОВАЯ КРАСИВАЯ СТРОКА ПОИСКА */
 .search-bar{
     flex:1;display:flex;background:rgba(255,255,255,.97);
     border-radius:50px;overflow:hidden;min-width:180px;
@@ -82,6 +80,39 @@ header{background:linear-gradient(90deg,var(--h1),var(--h2));padding:12px 15px;p
 .cart-badge.show{display:block}
 .namaz-badge{position:absolute;top:-2px;right:-2px;background:var(--namaz);color:#fff;font-size:8px;font-weight:900;border-radius:8px;padding:2px 4px;letter-spacing:.5px}
 
+/* ✅ NAMAZ ТАЙМЕР В ШАПКЕ */
+.namaz-timer{
+    background:rgba(255,255,255,.15);
+    padding:6px 14px;border-radius:20px;
+    font-size:11px;font-weight:800;color:#fff;
+    display:none;align-items:center;gap:5px;
+    border:1px solid rgba(255,215,0,.5);
+    white-space:nowrap;
+}
+.namaz-timer.show{display:flex}
+.namaz-timer .clock{font-size:13px}
+
+/* ✅ ЗВЁЗДОЧКА БОГАТОМУ, ГАЛОЧКА ПОДДЕРЖКЕ */
+.crown-star{
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:13px;margin-left:4px;
+    filter:drop-shadow(0 0 4px #ffd700);
+    animation:crownPulse 2s ease-in-out infinite;
+}
+@keyframes crownPulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.15)}
+}
+.verified-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:16px;height:16px;border-radius:50%;
+    background:linear-gradient(135deg,#3b7bff,#1a5bcc);
+    color:#fff;font-size:10px;font-weight:900;
+    margin-left:4px;
+    box-shadow:0 0 6px rgba(59,123,255,.6);
+    vertical-align:middle;
+}
+
 nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;overflow-x:auto;transition:.3s;-webkit-overflow-scrolling:touch}
 .nav-inner{max-width:1400px;margin:0 auto;display:flex;gap:20px}
 .nav-inner a{padding:12px 0;color:var(--text);text-decoration:none;font-size:13px;white-space:nowrap;border-bottom:2px solid transparent;cursor:pointer;transition:.2s}
@@ -115,13 +146,26 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .section-title small{font-size:13px;color:var(--text2);font-weight:500}
 
 .products{max-width:1400px;margin:0 auto;padding:0 15px 50px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:15px}
-.product-card{background:var(--card);border-radius:16px;overflow:hidden;transition:.2s;display:flex;flex-direction:column;color:var(--text)}
+.product-card{background:var(--card);border-radius:16px;overflow:hidden;transition:.2s;display:flex;flex-direction:column;color:var(--text);position:relative}
 .product-card:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,.15)}
+.product-card.out-of-stock{opacity:.6}
+.product-card.out-of-stock .product-image::after{
+    content:'НЕТ В НАЛИЧИИ';
+    position:absolute;inset:0;
+    background:rgba(0,0,0,.6);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:900;letter-spacing:1px;
+    z-index:5;
+}
 .product-image{width:100%;height:180px;background:var(--accent-l);display:flex;align-items:center;justify-content:center;font-size:70px;position:relative;cursor:pointer;overflow:hidden;background-size:cover;background-position:center}
 .favorite{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.95);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;z-index:3;border:none;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:.2s}
 .favorite:hover{transform:scale(1.15)}
 .delete-product{position:absolute;top:8px;right:44px;background:rgba(255,255,255,.95);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;z-index:3;border:none;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:.2s}
 .delete-product:hover{background:var(--danger);color:#fff;transform:scale(1.15)}
+.edit-product{position:absolute;top:8px;right:80px;background:rgba(255,255,255,.95);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;z-index:3;border:none;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:.2s}
+.edit-product:hover{background:#3b7bff;color:#fff;transform:scale(1.15)}
+.stock-toggle{position:absolute;top:8px;right:116px;background:rgba(255,255,255,.95);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;z-index:3;border:none;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:.2s}
+.stock-toggle:hover{background:#ffb800;color:#fff;transform:scale(1.15)}
 .rarity{position:absolute;bottom:8px;right:8px;padding:3px 10px;border-radius:12px;font-size:9px;font-weight:800;text-transform:uppercase;z-index:3;max-width:calc(100% - 16px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rarity.common{background:#b0b0b0;color:#fff}
 .rarity.rare{background:#3b7bff;color:#fff}
@@ -308,6 +352,10 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
             <input type="text" id="searchInput" placeholder="Что будем искать?">
             <button onclick="performSearch()">Найти</button>
         </div>
+        <div class="namaz-timer" id="namaz-timer">
+            <span class="clock">⏰</span>
+            <span id="namaz-timer-text">00:00:00</span>
+        </div>
         <div class="header-icons">
             <div class="header-icon" onclick="openWallet()"><span class="icon">💰</span><span>Кошелёк</span></div>
             <div class="header-icon" onclick="openMessages()"><span class="icon">💬</span><span>Сообщения</span><span class="cart-badge" id="chat-badge">0</span></div>
@@ -413,7 +461,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
 
 <div class="modal" id="add-product-modal">
     <div class="modal-content">
-        <div class="modal-header"><h2>➕ Добавить товар</h2><button class="close-btn" onclick="closeModal('add-product-modal')">×</button></div>
+        <div class="modal-header"><h2 id="ap-title">➕ Добавить товар</h2><button class="close-btn" onclick="closeModal('add-product-modal')">×</button></div>
         <div class="modal-body">
             <div class="form-group"><label>Название *</label><input type="text" id="ap-name" placeholder="Алмазный меч" oninput="updateNamePreview()"></div>
             <div class="form-group"><label>Описание</label><textarea id="ap-desc"></textarea></div>
@@ -469,7 +517,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                 </div>
             </div>
             <div class="form-error" id="ap-error">❌ Заполните название и цену</div>
-            <button class="btn-primary" onclick="saveProduct()">💾 Сохранить</button>
+            <button class="btn-primary" onclick="saveProduct()" id="ap-save-btn">💾 Сохранить</button>
         </div>
     </div>
 </div>
@@ -597,7 +645,8 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
             <div id="namaz-active-view" style="display:none;text-align:center;padding:15px 0">
                 <div style="font-size:70px;margin-bottom:12px">👑</div>
                 <h2 style="margin-bottom:10px;background:var(--namaz);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">NAMAZ активен!</h2>
-                <p style="color:var(--text3);margin-bottom:18px;font-size:14px">Действует до <b id="namaz-until"></b></p>
+                <p style="color:var(--text3);margin-bottom:6px;font-size:14px">Действует до <b id="namaz-until"></b></p>
+                <p style="color:var(--accent);margin-bottom:18px;font-size:16px;font-weight:800" id="namaz-timer-big">⏰ 00:00:00</p>
                 <button class="btn-primary" onclick="closeModal('namaz-modal')">Отлично!</button>
                 <button class="btn-secondary" style="width:100%;margin-top:9px" onclick="cancelNamaz()">Отменить</button>
             </div>
@@ -630,10 +679,13 @@ var isSupport = false, userOrders = [];
 var currentTicketId = null;
 var dbMessages = [];
 var chatRefreshTimer = null;
+var namazTimerInterval = null;
 var selectedProductBg = '';
 var apNameColor1 = '';
 var apNameColor2 = '';
 var apNameEffect = '';
+var editingProductId = null;
+var richestPlayer = null;
 
 function saveLocal(){
     try{
@@ -662,8 +714,18 @@ async function loadProducts(){
         var rv=await sb.from('reviews').select('*').order('id',{ascending:false});
         reviews={};
         if(rv.data){ for(var i=0;i<rv.data.length;i++){ var x=rv.data[i]; if(!reviews[x.product_id]) reviews[x.product_id]=[]; reviews[x.product_id].push(x); } }
+        await loadRichestPlayer();
         renderProducts();
     }catch(e){ grid.innerHTML='<div class="loading">❌ '+e.message+'</div>'; }
+}
+
+async function loadRichestPlayer(){
+    try{
+        var r = await sb.from('profiles').select('name,balance,is_support').order('balance',{ascending:false}).limit(1);
+        if(!r.error && r.data && r.data.length > 0){
+            richestPlayer = r.data[0].name;
+        }
+    }catch(e){}
 }
 
 async function getProfileFromDB(name){
@@ -756,11 +818,15 @@ function nickClass(prof){
     if(prof.nick_effect === 'rainbow') return 'nick-effect-rainbow';
     return '';
 }
+// ✅ Обогащённый ник с иконками (звёздочка / галочка)
 function nickHtml(name, prof){
     var cls = nickClass(prof);
     var st = nickStyle(prof);
-    if(!cls && !st) return esc(name);
-    return '<span class="'+cls+'" style="'+st+'">'+esc(name)+'</span>';
+    var base = (!cls && !st) ? esc(name) : '<span class="'+cls+'" style="'+st+'">'+esc(name)+'</span>';
+    var badges = '';
+    if(name === richestPlayer) badges += '<span class="crown-star">⭐</span>';
+    if(prof && prof.isSupport) badges += '<span class="verified-badge">✓</span>';
+    return base + badges;
 }
 function productNameStyle(p){
     if(!p) return '';
@@ -828,8 +894,10 @@ async function doLogin(){
     updateUserUI(); saveLocal(); closeModal('login-modal');
     notify('✅ Добро пожаловать, '+currentProfile.name+'!');
     checkNamazTheme();
+    startNamazTimer();
     await refreshMessages();
     checkUnread();
+    await loadRichestPlayer();
     renderProducts();
 }
 async function doRegister(){
@@ -865,6 +933,57 @@ function updateUserUI(){
     else label.textContent = 'Войти';
     var b=document.getElementById('namaz-badge-header');
     if(currentProfile && currentProfile.namaz) b.style.display='block'; else b.style.display='none';
+}
+
+// ============ ТАЙМЕР NAMAZ ============
+function parseNamazUntil(str){
+    if(!str) return null;
+    var parts = str.split('.');
+    if(parts.length !== 3) return null;
+    var d = parseInt(parts[0]), m = parseInt(parts[1])-1, y = parseInt(parts[2]);
+    return new Date(y, m, d, 23, 59, 59);
+}
+function formatTimeLeft(ms){
+    if(ms < 0) ms = 0;
+    var s = Math.floor(ms/1000);
+    var h = Math.floor(s/3600); s -= h*3600;
+    var m = Math.floor(s/60); s -= m*60;
+    return (h<10?'0':'')+h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+}
+function startNamazTimer(){
+    if(namazTimerInterval) clearInterval(namazTimerInterval);
+    function tick(){
+        var has = currentProfile && currentProfile.namaz && currentProfile.namazUntil;
+        var timerEl = document.getElementById('namaz-timer');
+        var bigEl = document.getElementById('namaz-timer-big');
+        if(!has){
+            if(timerEl) timerEl.classList.remove('show');
+            if(bigEl) bigEl.textContent = '⏰ 00:00:00';
+            return;
+        }
+        var target = parseNamazUntil(currentProfile.namazUntil);
+        if(!target){ if(timerEl) timerEl.classList.remove('show'); return; }
+        var left = target - new Date();
+        if(left <= 0){
+            // Подписка истекла
+            currentProfile.namaz = false;
+            persistProfile();
+            updateUserUI();
+            if(timerEl) timerEl.classList.remove('show');
+            if(bigEl) bigEl.textContent = '⏰ Истекла';
+            notify('⏰ Подписка NAMAZ истекла');
+            return;
+        }
+        var str = formatTimeLeft(left);
+        if(timerEl){
+            timerEl.classList.add('show');
+            var txt = document.getElementById('namaz-timer-text');
+            if(txt) txt.textContent = str;
+        }
+        if(bigEl) bigEl.textContent = '⏰ ' + str;
+    }
+    tick();
+    namazTimerInterval = setInterval(tick, 1000);
 }
 
 function renderProducts(){
@@ -903,12 +1022,14 @@ function renderProducts(){
         var rating= pRevs.length>0 ? '<span class="rating-stars">★</span> '+avg+' · '+pRevs.length+' отзывов' : '<span class="no-rating">Нет отзывов</span>';
         var sn=p.seller_name||'Продавец';
 
-        // Кнопки удаления и скидки для поддержки
-        var delBtn = '';
+        // Кнопки управления товаром (для владельца)
+        var ownerBtns = '';
         if(mine){
-            delBtn = '<button class="delete-product" onclick="event.stopPropagation();delProduct('+p.id+',event)" title="Удалить">🗑️</button>';
+            ownerBtns += '<button class="stock-toggle" onclick="event.stopPropagation();toggleStock('+p.id+')" title="'+(p.in_stock===false?'Показать в наличии':'Скрыть (нет в наличии)')+'">'+(p.in_stock===false?'👁️':'🚫')+'</button>';
+            ownerBtns += '<button class="edit-product" onclick="event.stopPropagation();openEditProduct('+p.id+')" title="Изменить">✏️</button>';
+            ownerBtns += '<button class="delete-product" onclick="event.stopPropagation();delProduct('+p.id+',event)" title="Удалить">🗑️</button>';
         } else if(isSupport){
-            delBtn = '<button class="delete-product" style="right:114px" onclick="event.stopPropagation();delProduct('+p.id+',event)" title="Удалить">🗑️</button>';
+            ownerBtns += '<button class="delete-product" style="right:114px" onclick="event.stopPropagation();delProduct('+p.id+',event)" title="Удалить">🗑️</button>';
         }
 
         var myBadge = mine ? '<div class="my-badge">ВАШ ТОВАР</div>' : '';
@@ -919,20 +1040,23 @@ function renderProducts(){
             ? '<div style="margin-bottom:5px"><span style="font-size:13px;color:var(--text2);text-decoration:line-through;margin-right:6px">'+price(p.price)+'</span><span class="price-new" style="display:inline">'+price(finalPrice)+'</span></div>'
             : '<span class="price-new">'+price(p.price)+'</span>';
         var discountBadge = hasDiscount ? '<div style="position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#ff3b3b,#d62828);color:#fff;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:900;z-index:4;box-shadow:0 3px 10px rgba(255,59,59,.4)">-'+discount+'%</div>' : '';
-        var supDiscountBtn = isSupport ? '<button onclick="event.stopPropagation();setDiscount('+p.id+','+discount+')" style="position:absolute;top:8px;right:78px;background:rgba(255,255,255,.95);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;z-index:3;border:none;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:.15s" onmouseover="this.style.transform=\'scale(1.15)\'" onmouseout="this.style.transform=\'scale(1)\'" title="Скидка">🏷️</button>' : '';
+        var supDiscountBtn = isSupport ? '<button onclick="event.stopPropagation();setDiscount('+p.id+','+discount+')" style="position:absolute;top:8px;right:78px;background:rgba(255,255,255,.95);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;z-index:3;border:none;box-shadow:0 2px 8px rgba(0,0,0,.1)" title="Скидка">🏷️</button>' : '';
 
-        var buyBtn = mine
-            ? '<button class="btn-buy own" disabled>Ваш товар</button>'
+        var isOut = p.in_stock === false;
+        var cardClass = 'product-card' + (isOut ? ' out-of-stock' : '');
+
+        var buyBtn = mine || isOut
+            ? '<button class="btn-buy own" disabled>'+(isOut ? 'Нет в наличии' : 'Ваш товар')+'</button>'
             : '<button class="btn-buy" onclick="buyNow('+p.id+')">💳 Купить</button>';
-        var cartBtn = mine
+        var cartBtn = mine || isOut
             ? '<button class="btn-cart-icon own" disabled>🚫</button>'
             : '<button class="btn-cart-icon '+(inCart?'added':'')+'" onclick="addToCart('+p.id+')">'+(inCart?'✓':'🛒')+'</button>';
         var bgStyle = p.bg ? 'background:'+p.bg+';background-size:cover;background-position:center;' : '';
-        html+='<div class="product-card">'+
+        html+='<div class="'+cardClass+'">'+
             '<div class="product-image" onclick="openProduct('+p.id+')" style="'+bgStyle+'">'+
                 discountBadge+
                 '<button class="favorite" onclick="event.stopPropagation();toggleFav('+p.id+')">'+(isFav?'❤️':'🤍')+'</button>'+
-                delBtn+
+                ownerBtns+
                 supDiscountBtn+
                 '<div class="rarity '+p.rarity+'">'+rl(p.rarity)+'</div>'+
                 p.emoji+
@@ -973,6 +1097,215 @@ function renderProducts(){
             nicks[n].outerHTML = '<span data-seller-nick="'+sname+'">'+nickHtml(sname, prof)+'</span>';
         }
     });
+}
+
+// ✅ Переключение наличия
+async function toggleStock(id){
+    var p = products.find(function(x){ return x.id === id; });
+    if(!p) return;
+    if(!isMyProduct(p)){ notify('⚠️ Только владелец'); return; }
+    var newVal = !(p.in_stock === false); // if was true → false, if false → true
+    var newStock = p.in_stock === false ? true : false;
+    var r = await sb.from('products').update({in_stock: newStock}).eq('id', id);
+    if(r.error){ notify('❌ '+r.error.message); return; }
+    notify(newStock ? '✅ Товар в наличии' : '🚫 Товар скрыт (нет в наличии)');
+    await loadProducts();
+}
+
+// ✅ Редактирование товара
+async function openEditProduct(id){
+    var p = products.find(function(x){ return x.id === id; });
+    if(!p) return;
+    if(!isMyProduct(p)){ notify('⚠️ Только владелец'); return; }
+
+    editingProductId = id;
+    document.getElementById('ap-title').textContent = '✏️ Изменить товар';
+    document.getElementById('ap-name').value = p.name || '';
+    document.getElementById('ap-desc').value = p.description || '';
+    document.getElementById('ap-price').value = p.price || '';
+    document.getElementById('ap-category').value = p.category || 'blocks';
+    document.getElementById('ap-rarity').value = p.rarity || 'common';
+    document.getElementById('ap-emoji').value = p.emoji || '💎';
+    document.getElementById('ap-error').classList.remove('show');
+
+    // подстветить выбранную эмодзи
+    var opts = document.querySelectorAll('.emoji-option');
+    for(var i=0;i<opts.length;i++){
+        opts[i].classList.toggle('selected', opts[i].textContent.trim() === (p.emoji||'💎'));
+    }
+
+    // Стиль (NAMАZ)
+    selectedProductBg = p.bg || '';
+    apNameColor1 = p.name_color || '';
+    apNameColor2 = p.name_color2 || '';
+    apNameEffect = p.name_effect || '';
+
+    var bgGroup = document.getElementById('ap-bg-group');
+    var bgPicker = document.getElementById('ap-bg-picker');
+    var nameStyleGroup = document.getElementById('ap-name-style-group');
+
+    if(currentProfile && currentProfile.namaz){
+        bgGroup.style.display='block';
+        nameStyleGroup.style.display='block';
+        renderBgPicker();
+        refreshNamePicker();
+    } else {
+        bgGroup.style.display='none';
+        nameStyleGroup.style.display='none';
+    }
+
+    document.getElementById('ap-save-btn').textContent = '💾 Сохранить изменения';
+    openModal('add-product-modal');
+    setTimeout(function(){document.getElementById('ap-name').focus();},100);
+}
+
+function renderBgPicker(){
+    var bgPicker = document.getElementById('ap-bg-picker');
+    var opts = [
+        {v:'', n:'Без фона'},
+        {v:'linear-gradient(135deg,#ffd700,#ff6b00)', n:'Золото'},
+        {v:'linear-gradient(135deg,#ff00ff,#6600cc)', n:'Магия'},
+        {v:'linear-gradient(135deg,#00ff88,#006633)', n:'Изумруд'},
+        {v:'linear-gradient(135deg,#3b7bff,#001a66)', n:'Океан'},
+        {v:'linear-gradient(135deg,#ff3366,#660022)', n:'Кровь'},
+        {v:'linear-gradient(135deg,#ffd700,#ff00ff,#6600cc)', n:'NAMAZ'},
+        {v:'radial-gradient(circle at 30% 30%, #ff00ff, #000033)', n:'Космос'}
+    ];
+    var html = '';
+    for(var i=0;i<opts.length;i++){
+        var o = opts[i];
+        html += '<div onclick="pickProductBg(\''+o.v+'\',this)" style="cursor:pointer;padding:5px;border-radius:12px;border:3px solid '+(selectedProductBg===o.v?'var(--accent)':'var(--border)')+';text-align:center;transition:.15s">'+
+            '<div style="width:100%;height:40px;border-radius:8px;background:'+(o.v||'var(--soft)')+'"></div>'+
+            '<div style="font-size:10px;margin-top:4px;color:var(--text)">'+o.n+'</div></div>';
+    }
+    bgPicker.innerHTML = html;
+}
+
+function openAddProduct(){
+    if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
+    editingProductId = null;
+    document.getElementById('ap-title').textContent = '➕ Добавить товар';
+    document.getElementById('ap-name').value='';
+    document.getElementById('ap-desc').value='';
+    document.getElementById('ap-price').value='';
+    document.getElementById('ap-emoji').value='💎';
+    document.getElementById('ap-error').classList.remove('show');
+    selectedProductBg = '';
+    apNameColor1 = '';
+    apNameColor2 = '';
+    apNameEffect = '';
+
+    var opts = document.querySelectorAll('.emoji-option');
+    for(var i=0;i<opts.length;i++) opts[i].classList.toggle('selected', i===0);
+
+    var bgGroup = document.getElementById('ap-bg-group');
+    var nameStyleGroup = document.getElementById('ap-name-style-group');
+
+    if(currentProfile && currentProfile.namaz){
+        bgGroup.style.display='block';
+        nameStyleGroup.style.display='block';
+        renderBgPicker();
+        refreshNamePicker();
+        updateNamePreview();
+    } else {
+        bgGroup.style.display='none';
+        nameStyleGroup.style.display='none';
+    }
+    document.getElementById('ap-save-btn').textContent = '💾 Сохранить';
+    openModal('add-product-modal');
+    setTimeout(function(){document.getElementById('ap-name').focus();},100);
+}
+
+function pickNameColor1(c){ apNameColor1 = c; refreshNamePicker(); }
+function pickNameColor2(c){ apNameColor2 = c; refreshNamePicker(); }
+function pickNameEffect(e){ apNameEffect = e; refreshNamePicker(); }
+
+function refreshNamePicker(){
+    var colorOpts = ['','#ffffff','#000000','#ff3b3b','#4ba32e','#3b7bff','#a13bff','#ffb800','#ff6b00','#ff00ff','#00ff88'];
+    var c1Html = '';
+    for(var k=0;k<colorOpts.length;k++){
+        var c = colorOpts[k];
+        var sel = apNameColor1 === c;
+        c1Html += '<div onclick="pickNameColor1(\''+c+'\')" style="cursor:pointer;width:32px;height:32px;border-radius:50%;border:3px solid '+(sel?'var(--accent)':'var(--border)')+';background:'+(c||'var(--soft)')+';color:'+(c==='#000000'||c===''?'#888':'#fff')+';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900">'+(c?'':'×')+'</div>';
+    }
+    document.getElementById('ap-name-color1').innerHTML = c1Html;
+    var c2Html = '';
+    for(var k2=0;k2<colorOpts.length;k2++){
+        var c2 = colorOpts[k2];
+        var sel2 = apNameColor2 === c2;
+        c2Html += '<div onclick="pickNameColor2(\''+c2+'\')" style="cursor:pointer;width:32px;height:32px;border-radius:50%;border:3px solid '+(sel2?'var(--accent)':'var(--border)')+';background:'+(c2||'var(--soft)')+';color:'+(c2==='#000000'||c2===''?'#888':'#fff')+';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900">'+(c2?'':'×')+'</div>';
+    }
+    document.getElementById('ap-name-color2').innerHTML = c2Html;
+    var effects = [{v:'',n:'Нет'},{v:'glow',n:'Свечение'},{v:'gradient',n:'Градиент'},{v:'rainbow',n:'Радуга'}];
+    var eHtml = '';
+    for(var k4=0;k4<effects.length;k4++){
+        var e = effects[k4];
+        var esel = apNameEffect === e.v;
+        eHtml += '<button onclick="pickNameEffect(\''+e.v+'\')" style="padding:6px 14px;border-radius:20px;border:2px solid '+(esel?'var(--accent)':'var(--border)')+';background:'+(esel?'var(--accent-l)':'var(--input)')+';color:var(--text);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">'+e.n+'</button>';
+    }
+    document.getElementById('ap-name-effects').innerHTML = eHtml;
+    updateNamePreview();
+}
+
+function updateNamePreview(){
+    var el = document.getElementById('ap-name-preview');
+    if(!el) return;
+    var nm = document.getElementById('ap-name').value.trim() || 'Название товара';
+    el.textContent = nm;
+    el.className = '';
+    el.style.cssText = 'font-weight:800';
+    if(apNameEffect === 'glow'){ el.classList.add('nick-effect-glow'); el.style.color = apNameColor1||'#cb11ab'; }
+    else if(apNameEffect === 'gradient'){
+        el.classList.add('nick-gradient-custom');
+        el.style.backgroundImage = 'linear-gradient(90deg,'+(apNameColor1||'#cb11ab')+','+(apNameColor2||'#3b7bff')+')';
+    }
+    else if(apNameEffect === 'rainbow'){ el.classList.add('nick-effect-rainbow'); }
+    else if(apNameColor1){ el.style.color = apNameColor1; }
+}
+
+function pickProductBg(v, el){
+    selectedProductBg = v;
+    var items = document.querySelectorAll('#ap-bg-picker > div');
+    for(var i=0;i<items.length;i++) items[i].style.borderColor = 'var(--border)';
+    el.style.borderColor = 'var(--accent)';
+}
+function pickEmoji(e,el){ document.getElementById('ap-emoji').value=e; var o=document.querySelectorAll('.emoji-option'); for(var i=0;i<o.length;i++) o[i].classList.remove('selected'); el.classList.add('selected'); }
+
+async function saveProduct(){
+    var name=document.getElementById('ap-name').value.trim();
+    var desc=document.getElementById('ap-desc').value.trim();
+    var pv=parseFloat(document.getElementById('ap-price').value);
+    var cat=document.getElementById('ap-category').value;
+    var rar=document.getElementById('ap-rarity').value;
+    var em=document.getElementById('ap-emoji').value.trim()||'💎';
+    if(!name||isNaN(pv)||pv<0){ document.getElementById('ap-error').classList.add('show'); return; }
+    if(!sb){ notify('❌ Нет соединения'); return; }
+
+    var data = {
+        name:name, description:desc||'Описание не указано.',
+        price:pv, category:cat, rarity:rar, emoji:em,
+        bg: selectedProductBg || '',
+        name_color: (currentProfile.namaz ? apNameColor1 : '') || '',
+        name_color2: (currentProfile.namaz ? apNameColor2 : '') || '',
+        name_effect: (currentProfile.namaz ? apNameEffect : '') || ''
+    };
+
+    if(editingProductId){
+        var r=await sb.from('products').update(data).eq('id', editingProductId);
+        if(r.error){ notify('❌ '+r.error.message); return; }
+        notify('✅ Товар изменён!');
+        editingProductId = null;
+    } else {
+        data.seller_email = currentProfile.name;
+        data.seller_name = currentProfile.name;
+        data.discount = 0;
+        data.in_stock = true;
+        var r2=await sb.from('products').insert([data]);
+        if(r2.error){ notify('❌ '+r2.error.message); return; }
+        notify('✅ Товар добавлен!');
+    }
+    closeModal('add-product-modal');
+    await loadProducts();
 }
 
 async function setDiscount(productId, currentDiscount){
@@ -1032,6 +1365,7 @@ function toggleFav(id){
 function addToCart(id){
     var p=products.find(function(x){return x.id===id;});
     if(isMyProduct(p)){ notify('🚫 Нельзя купить свой товар'); return; }
+    if(p.in_stock === false){ notify('🚫 Товара нет в наличии'); return; }
     cart[id]=(cart[id]||0)+1;
     notify('✓ '+p.name);
     updateCart(); renderProducts();
@@ -1149,6 +1483,7 @@ function buyNow(id){
     var p=products.find(function(x){return x.id===id;});
     if(!p) return;
     if(isMyProduct(p)){ notify('🚫 Нельзя купить свой товар'); return; }
+    if(p.in_stock === false){ notify('🚫 Товара нет в наличии'); return; }
     if(parseFloat(currentProfile.balance || 0) < 0){ notify('🚫 Вы в минусе! Пополните баланс.'); return; }
     cart[id]=(cart[id]||0)+1;
     closeModal('product-modal');
@@ -1292,6 +1627,7 @@ async function tryCompleteOrder(order, buyerName){
     notify('🎉 Заказ завершён!');
     currentTicketId = null;
     closeModal('chat-modal');
+    await loadRichestPlayer();
 }
 async function refundOrder(id){
     var o=userOrders.find(function(x){return x.id===id;});
@@ -1446,12 +1782,15 @@ function openProduct(id){
         : '<div class="review-form" style="text-align:center"><p style="margin-bottom:10px;color:var(--text3);font-size:13px">🔒 Войдите, чтобы оставить отзыв</p><button class="btn-primary" onclick="closeModal(\'product-modal\');openModal(\'login-modal\')">Войти</button></div>';
     var sn=p.seller_name||'Продавец';
     document.getElementById('pm-title').innerHTML=p.emoji+' '+esc(p.name);
+    var isOut = p.in_stock === false;
     var buyBtns = mine
         ? '<button class="btn-buy-big own" disabled>Ваш товар</button>'
-        : '<button class="btn-buy-big" onclick="buyNow('+p.id+')">💳 Купить</button>';
+        : isOut
+            ? '<button class="btn-buy-big own" disabled>Нет в наличии</button>'
+            : '<button class="btn-buy-big" onclick="buyNow('+p.id+')">💳 Купить</button>';
     var favBtn = '<button class="btn-secondary" style="min-width:60px;font-size:18px;padding:13px 18px" onclick="favFromModal('+p.id+',this)">'+(isFav?'❤️':'🤍')+'</button>';
-    var cartBtn = mine
-        ? '<button class="btn-primary own" disabled style="margin-top:10px">🚫 Ваш товар</button>'
+    var cartBtn = mine || isOut
+        ? '<button class="btn-primary own" disabled style="margin-top:10px">'+(isOut?'🚫 Нет в наличии':'🚫 Ваш товар')+'</button>'
         : '<button class="btn-primary" style="margin-top:10px" onclick="addCartModal('+p.id+')">🛒 В корзину</button>';
     var chatSellerBtn = (mine || !currentUser) ? '' : '<button class="btn-primary" style="margin-top:10px;background:linear-gradient(135deg,#3b7bff,#1a5bcc);box-shadow:0 4px 12px rgba(59,123,255,.3)" onclick="closeModal(\'product-modal\');openChatWithSeller(\''+esc(sn)+'\')">💬 Написать продавцу</button>';
     var d = parseInt(p.discount)||0;
@@ -1462,7 +1801,10 @@ function openProduct(id){
           '<span style="display:inline-block;margin-left:12px;background:linear-gradient(135deg,#ff3b3b,#d62828);color:#fff;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:900">-'+d+'%</span>'
         : '<span style="font-size:38px;font-weight:900;color:var(--accent)">'+price(p.price)+'</span>';
 
+    var outBadge = isOut ? '<div style="background:var(--danger);color:#fff;padding:8px 16px;border-radius:14px;font-size:13px;font-weight:800;text-align:center;margin-bottom:16px">🚫 Товар отсутствует в наличии</div>' : '';
+
     document.getElementById('pm-body').innerHTML=
+        outBadge +
         '<div style="display:grid;grid-template-columns:1fr 1fr;gap:25px" class="product-detail">'+
             '<div>'+
                 '<div style="background:'+(p.bg||'var(--accent-l)')+';background-size:cover;background-position:center;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:170px;min-height:320px;position:relative;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.15)">'+
@@ -1489,9 +1831,13 @@ function openProduct(id){
                 '<div style="background:var(--soft);border-radius:14px;padding:14px;margin-bottom:16px">'+
                     '<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:var(--text2)">Категория</span><b style="color:var(--text)">'+p.category+'</b></div>'+
                     '<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:var(--text2)">Редкость</span><b style="color:var(--text)">'+rl(p.rarity)+'</b></div>'+
-                    '<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:var(--text2)">В наличии</span><b style="color:var(--success)">✓ Да</b></div>'+
+                    '<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:var(--text2)">В наличии</span><b style="color:'+(isOut?'var(--danger)':'var(--success)')+'">'+(isOut?'✗ Нет':'✓ Да')+'</b></div>'+
                 '</div>'+
                 '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:stretch">'+buyBtns+favBtn+'</div>'+cartBtn+chatSellerBtn+
+                (mine ? '<div style="display:flex;gap:8px;margin-top:10px">'+
+                    '<button class="btn-secondary" style="flex:1" onclick="closeModal(\'product-modal\');openEditProduct('+p.id+')">✏️ Изменить</button>'+
+                    '<button class="btn-secondary" style="flex:1" onclick="closeModal(\'product-modal\');toggleStock('+p.id+')">'+(isOut?'👁️ Показать':'🚫 Скрыть')+'</button>'+
+                '</div>' : '')+
                 '<div style="margin-top:24px;padding-top:20px;border-top:2px solid var(--border)">'+
                     '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">'+
                         '<h3 style="font-size:17px;color:var(--text);font-weight:800">💬 Отзывы <span style="font-size:13px;color:var(--text2);font-weight:500">('+pRevs.length+')</span></h3>'+
@@ -1560,165 +1906,16 @@ async function openSeller(name){
         h+='<h3 style="margin-bottom:10px;font-size:15px;color:var(--text)">📦 Товары ('+sp.length+')</h3>';
         for(var i=0;i<sp.length;i++){
             var x=sp[i];
+            var outNow = x.in_stock === false;
             h+='<div class="seller-card" onclick="closeModal(\'seller-modal\');openProduct('+x.id+')">'+
                 '<div class="seller-avatar" style="background:var(--accent-l);color:var(--text)">'+x.emoji+'</div>'+
-                '<div class="seller-info"><div class="seller-name">'+esc(x.name)+'</div><div class="seller-bio" style="color:var(--accent);font-weight:700">'+price(getFinalPrice(x))+'</div></div></div>';
+                '<div class="seller-info"><div class="seller-name">'+esc(x.name)+(outNow?' <span style="color:#ff3b3b;font-size:10px">• НЕТ</span>':'')+'</div><div class="seller-bio" style="color:var(--accent);font-weight:700">'+price(getFinalPrice(x))+'</div></div></div>';
         }
     } else h+='<div style="text-align:center;padding:20px;color:var(--text2)">Нет товаров</div>';
     document.getElementById('seller-body').innerHTML=h;
     openModal('seller-modal');
 }
 
-function openAddProduct(){
-    if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
-    document.getElementById('ap-name').value='';
-    document.getElementById('ap-desc').value='';
-    document.getElementById('ap-price').value='';
-    document.getElementById('ap-emoji').value='💎';
-    document.getElementById('ap-error').classList.remove('show');
-    selectedProductBg = '';
-    apNameColor1 = '';
-    apNameColor2 = '';
-    apNameEffect = '';
-
-    var bgGroup = document.getElementById('ap-bg-group');
-    var bgPicker = document.getElementById('ap-bg-picker');
-    var nameStyleGroup = document.getElementById('ap-name-style-group');
-
-    if(currentProfile && currentProfile.namaz){
-        bgGroup.style.display='block';
-        nameStyleGroup.style.display='block';
-
-        var opts = [
-            {v:'', n:'Без фона'},
-            {v:'linear-gradient(135deg,#ffd700,#ff6b00)', n:'Золото'},
-            {v:'linear-gradient(135deg,#ff00ff,#6600cc)', n:'Магия'},
-            {v:'linear-gradient(135deg,#00ff88,#006633)', n:'Изумруд'},
-            {v:'linear-gradient(135deg,#3b7bff,#001a66)', n:'Океан'},
-            {v:'linear-gradient(135deg,#ff3366,#660022)', n:'Кровь'},
-            {v:'linear-gradient(135deg,#ffd700,#ff00ff,#6600cc)', n:'NAMAZ'},
-            {v:'radial-gradient(circle at 30% 30%, #ff00ff, #000033)', n:'Космос'}
-        ];
-        var html = '';
-        for(var i=0;i<opts.length;i++){
-            var o = opts[i];
-            html += '<div onclick="pickProductBg(\''+o.v+'\',this)" style="cursor:pointer;padding:5px;border-radius:12px;border:3px solid '+(selectedProductBg===o.v?'var(--accent)':'var(--border)')+';text-align:center;transition:.15s">'+
-                '<div style="width:100%;height:40px;border-radius:8px;background:'+(o.v||'var(--soft)')+'"></div>'+
-                '<div style="font-size:10px;margin-top:4px;color:var(--text)">'+o.n+'</div></div>';
-        }
-        bgPicker.innerHTML = html;
-
-        var colorOpts = ['','#ffffff','#000000','#ff3b3b','#4ba32e','#3b7bff','#a13bff','#ffb800','#ff6b00','#ff00ff','#00ff88'];
-        var c1Html = '';
-        for(var k=0;k<colorOpts.length;k++){
-            var c = colorOpts[k];
-            var sel = apNameColor1 === c;
-            c1Html += '<div onclick="pickNameColor1(\''+c+'\')" style="cursor:pointer;width:32px;height:32px;border-radius:50%;border:3px solid '+(sel?'var(--accent)':'var(--border)')+';background:'+(c||'var(--soft)')+';color:'+(c==='#000000'||c===''?'#888':'#fff')+';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900">'+(c?'':'×')+'</div>';
-        }
-        document.getElementById('ap-name-color1').innerHTML = c1Html;
-
-        var c2Html = '';
-        for(var k2=0;k2<colorOpts.length;k2++){
-            var c2 = colorOpts[k2];
-            var sel2 = apNameColor2 === c2;
-            c2Html += '<div onclick="pickNameColor2(\''+c2+'\')" style="cursor:pointer;width:32px;height:32px;border-radius:50%;border:3px solid '+(sel2?'var(--accent)':'var(--border)')+';background:'+(c2||'var(--soft)')+';color:'+(c2==='#000000'||c2===''?'#888':'#fff')+';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900">'+(c2?'':'×')+'</div>';
-        }
-        document.getElementById('ap-name-color2').innerHTML = c2Html;
-
-        var effects = [{v:'',n:'Нет'},{v:'glow',n:'Свечение'},{v:'gradient',n:'Градиент'},{v:'rainbow',n:'Радуга'}];
-        var eHtml = '';
-        for(var k4=0;k4<effects.length;k4++){
-            var e = effects[k4];
-            var esel = apNameEffect === e.v;
-            eHtml += '<button onclick="pickNameEffect(\''+e.v+'\')" style="padding:6px 14px;border-radius:20px;border:2px solid '+(esel?'var(--accent)':'var(--border)')+';background:'+(esel?'var(--accent-l)':'var(--input)')+';color:var(--text);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">'+e.n+'</button>';
-        }
-        document.getElementById('ap-name-effects').innerHTML = eHtml;
-        updateNamePreview();
-    } else {
-        bgGroup.style.display='none';
-        nameStyleGroup.style.display='none';
-    }
-    openModal('add-product-modal');
-    setTimeout(function(){document.getElementById('ap-name').focus();},100);
-}
-
-function pickNameColor1(c){ apNameColor1 = c; refreshNamePicker(); }
-function pickNameColor2(c){ apNameColor2 = c; refreshNamePicker(); }
-function pickNameEffect(e){ apNameEffect = e; refreshNamePicker(); }
-
-function refreshNamePicker(){
-    var colorOpts = ['','#ffffff','#000000','#ff3b3b','#4ba32e','#3b7bff','#a13bff','#ffb800','#ff6b00','#ff00ff','#00ff88'];
-    var c1Html = '';
-    for(var k=0;k<colorOpts.length;k++){
-        var c = colorOpts[k];
-        var sel = apNameColor1 === c;
-        c1Html += '<div onclick="pickNameColor1(\''+c+'\')" style="cursor:pointer;width:32px;height:32px;border-radius:50%;border:3px solid '+(sel?'var(--accent)':'var(--border)')+';background:'+(c||'var(--soft)')+';color:'+(c==='#000000'||c===''?'#888':'#fff')+';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900">'+(c?'':'×')+'</div>';
-    }
-    document.getElementById('ap-name-color1').innerHTML = c1Html;
-    var c2Html = '';
-    for(var k2=0;k2<colorOpts.length;k2++){
-        var c2 = colorOpts[k2];
-        var sel2 = apNameColor2 === c2;
-        c2Html += '<div onclick="pickNameColor2(\''+c2+'\')" style="cursor:pointer;width:32px;height:32px;border-radius:50%;border:3px solid '+(sel2?'var(--accent)':'var(--border)')+';background:'+(c2||'var(--soft)')+';color:'+(c2==='#000000'||c2===''?'#888':'#fff')+';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900">'+(c2?'':'×')+'</div>';
-    }
-    document.getElementById('ap-name-color2').innerHTML = c2Html;
-    var effects = [{v:'',n:'Нет'},{v:'glow',n:'Свечение'},{v:'gradient',n:'Градиент'},{v:'rainbow',n:'Радуга'}];
-    var eHtml = '';
-    for(var k4=0;k4<effects.length;k4++){
-        var e = effects[k4];
-        var esel = apNameEffect === e.v;
-        eHtml += '<button onclick="pickNameEffect(\''+e.v+'\')" style="padding:6px 14px;border-radius:20px;border:2px solid '+(esel?'var(--accent)':'var(--border)')+';background:'+(esel?'var(--accent-l)':'var(--input)')+';color:var(--text);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">'+e.n+'</button>';
-    }
-    document.getElementById('ap-name-effects').innerHTML = eHtml;
-    updateNamePreview();
-}
-
-function updateNamePreview(){
-    var el = document.getElementById('ap-name-preview');
-    if(!el) return;
-    var nm = document.getElementById('ap-name').value.trim() || 'Название товара';
-    el.textContent = nm;
-    el.className = '';
-    el.style.cssText = 'font-weight:800';
-    if(apNameEffect === 'glow'){ el.classList.add('nick-effect-glow'); el.style.color = apNameColor1||'#cb11ab'; }
-    else if(apNameEffect === 'gradient'){
-        el.classList.add('nick-gradient-custom');
-        el.style.backgroundImage = 'linear-gradient(90deg,'+(apNameColor1||'#cb11ab')+','+(apNameColor2||'#3b7bff')+')';
-    }
-    else if(apNameEffect === 'rainbow'){ el.classList.add('nick-effect-rainbow'); }
-    else if(apNameColor1){ el.style.color = apNameColor1; }
-}
-
-function pickProductBg(v, el){
-    selectedProductBg = v;
-    var items = document.querySelectorAll('#ap-bg-picker > div');
-    for(var i=0;i<items.length;i++) items[i].style.borderColor = 'var(--border)';
-    el.style.borderColor = 'var(--accent)';
-}
-function pickEmoji(e,el){ document.getElementById('ap-emoji').value=e; var o=document.querySelectorAll('.emoji-option'); for(var i=0;i<o.length;i++) o[i].classList.remove('selected'); el.classList.add('selected'); }
-
-async function saveProduct(){
-    var name=document.getElementById('ap-name').value.trim();
-    var desc=document.getElementById('ap-desc').value.trim();
-    var pv=parseFloat(document.getElementById('ap-price').value);
-    var cat=document.getElementById('ap-category').value;
-    var rar=document.getElementById('ap-rarity').value;
-    var em=document.getElementById('ap-emoji').value.trim()||'💎';
-    if(!name||isNaN(pv)||pv<0){ document.getElementById('ap-error').classList.add('show'); return; }
-    if(!sb){ notify('❌ Нет соединения'); return; }
-    var r=await sb.from('products').insert([{
-        name:name, description:desc||'Описание не указано.',
-        price:pv, category:cat, rarity:rar, emoji:em,
-        seller_email:currentProfile.name, seller_name:currentProfile.name,
-        bg: selectedProductBg || '', discount: 0,
-        name_color: (currentProfile.namaz ? apNameColor1 : '') || '',
-        name_color2: (currentProfile.namaz ? apNameColor2 : '') || '',
-        name_effect: (currentProfile.namaz ? apNameEffect : '') || ''
-    }]);
-    if(r.error){ notify('❌ '+r.error.message); return; }
-    closeModal('add-product-modal'); notify('✅ Товар добавлен!');
-    await loadProducts();
-}
 async function delProduct(id,ev){
     if(ev) ev.stopPropagation();
     var p=products.find(function(x){return x.id===id;});
@@ -1854,7 +2051,7 @@ function renderProfileMain(){
         '</div>'+
         '<div style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)">Подписка</h3>'+
             (hasNamaz
-                ? '<div style="padding:11px;background:var(--soft);border-radius:14px;font-size:13px;color:var(--text);text-align:center">Активна до <b>'+esc(p.namazUntil||'—')+'</b></div><button class="btn-secondary" style="width:100%;margin-top:9px" onclick="closeModal(\'profile-modal\');openNamaz()">Управлять</button>'
+                ? '<div style="padding:11px;background:var(--soft);border-radius:14px;font-size:13px;color:var(--text);text-align:center">Активна до <b>'+esc(p.namazUntil||'—')+'</b></div><div style="text-align:center;margin-top:8px;color:var(--accent);font-weight:800" id="namaz-timer-big">⏰ 00:00:00</div><button class="btn-secondary" style="width:100%;margin-top:9px" onclick="closeModal(\'profile-modal\');openNamaz()">Управлять</button>'
                 : '<button class="btn-primary" style="background:var(--namaz);color:#fff;box-shadow:0 5px 20px rgba(255,0,255,.4)" onclick="closeModal(\'profile-modal\');openNamaz()">Оформить NAMAZ — ¥2.99/день</button>'
             )+
         '</div>';
@@ -1867,10 +2064,15 @@ function renderMyProducts(){
     for(var i=0;i<mine.length;i++){
         var p=mine[i];
         var d = parseInt(p.discount)||0;
-        h+='<div class="seller-card">'+
+        var outNow = p.in_stock === false;
+        h+='<div class="seller-card" style="flex-wrap:wrap">'+
             '<div class="seller-avatar" style="background:var(--accent-l);color:var(--text)">'+p.emoji+'</div>'+
-            '<div class="seller-info"><div class="seller-name">'+esc(p.name)+'</div><div class="seller-bio" style="color:var(--accent);font-weight:700">'+price(getFinalPrice(p))+' · '+rl(p.rarity)+(d>0?' <span style="color:#ff3b3b">-'+d+'%</span>':'')+'</div></div>'+
-            '<button style="background:none;border:none;font-size:20px;cursor:pointer;padding:5px" onclick="delProduct('+p.id+',event);setTimeout(function(){openProfileTab(\'myProducts\');},500)">🗑️</button>'+
+            '<div class="seller-info"><div class="seller-name">'+esc(p.name)+(outNow?' <span style="color:#ff3b3b;font-size:10px">• НЕТ В НАЛИЧИИ</span>':'')+'</div><div class="seller-bio" style="color:var(--accent);font-weight:700">'+price(getFinalPrice(p))+' · '+rl(p.rarity)+(d>0?' <span style="color:#ff3b3b">-'+d+'%</span>':'')+'</div></div>'+
+            '<div style="display:flex;gap:4px">'+
+                '<button style="background:none;border:none;font-size:18px;cursor:pointer;padding:5px" onclick="toggleStock('+p.id+');setTimeout(function(){openProfileTab(\'myProducts\');},600)" title="'+(outNow?'Показать':'Скрыть')+'">'+(outNow?'👁️':'🚫')+'</button>'+
+                '<button style="background:none;border:none;font-size:18px;cursor:pointer;padding:5px" onclick="closeModal(\'profile-modal\');openEditProduct('+p.id+')" title="Изменить">✏️</button>'+
+                '<button style="background:none;border:none;font-size:18px;cursor:pointer;padding:5px" onclick="delProduct('+p.id+',event);setTimeout(function(){openProfileTab(\'myProducts\');},500)">🗑️</button>'+
+            '</div>'+
         '</div>';
     }
     return h;
@@ -1934,6 +2136,8 @@ function logout(){
     document.getElementById('user-label').textContent='Войти';
     document.getElementById('namaz-badge-header').style.display='none';
     document.getElementById('chat-badge').classList.remove('show');
+    document.getElementById('namaz-timer').classList.remove('show');
+    if(namazTimerInterval) clearInterval(namazTimerInterval);
     saveLocal(); closeModal('profile-modal');
     notify('👋 Вы вышли');
 }
@@ -1948,6 +2152,7 @@ async function applyCode(){
         notify('✅ Активировано! Теперь вы поддержка.');
         document.getElementById('activation-code').value='';
         closeModal('settings-modal');
+        updateUserUI();
         openMessages();
     } else notify('❌ Неверный код');
 }
@@ -1959,6 +2164,7 @@ function openNamaz(){
     if(currentProfile && currentProfile.namaz){
         bv.style.display='none'; av.style.display='block';
         document.getElementById('namaz-until').textContent=currentProfile.namazUntil||'—';
+        startNamazTimer();
     } else { bv.style.display='block'; av.style.display='none'; }
     openModal('namaz-modal');
 }
@@ -1971,7 +2177,7 @@ async function subscribeNamaz(){
     currentProfile.namaz=true;
     currentProfile.namazUntil=u.getDate()+'.'+(u.getMonth()+1)+'.'+u.getFullYear();
     await persistProfile();
-    updateUserUI(); checkNamazTheme();
+    updateUserUI(); checkNamazTheme(); startNamazTimer();
     notify('Подписка NAMAZ на 1 день');
     openNamaz();
 }
@@ -1981,7 +2187,7 @@ async function cancelNamaz(){
     currentProfile.profile_bg=''; currentProfile.card_bg=''; currentProfile.nick_color=''; currentProfile.nick_color2=''; currentProfile.nick_effect='';
     await persistProfile();
     if(currentTheme==='namaz') setTheme('light');
-    updateUserUI(); checkNamazTheme(); renderProducts();
+    updateUserUI(); checkNamazTheme(); renderProducts(); startNamazTimer();
     notify('Отменено');
     closeModal('namaz-modal');
 }
@@ -2298,6 +2504,7 @@ async function giveBalance(userName, amount){
     invalidateProfileCache(userName);
     await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
     notify('✅ Выдано '+amount+' изумрудов');
+    await loadRichestPlayer();
     await refreshMessages();
     currentTicketId = null;
     openMessages();
@@ -2314,6 +2521,7 @@ async function takeBalance(userName, amount){
     invalidateProfileCache(userName);
     await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
     notify('✅ Списано '+amount+' изумрудов');
+    await loadRichestPlayer();
     await refreshMessages();
     currentTicketId = null;
     openMessages();
@@ -2468,6 +2676,7 @@ async function boot(){
     }
     updateUserUI();
     checkNamazTheme();
+    startNamazTimer();
     await loadProducts();
     updateCart();
     cleanupOldMessages();
