@@ -22,15 +22,21 @@ body.theme-minecraft{--bg:#c6b28a;--card:#e8dcc0;--text:#3b2a17;--text2:#7a6544;
 body.theme-namaz{--bg:#0a0015;--card:#1a0a2e;--text:#fff;--text2:#b088ff;--text3:#d0b0ff;--border:#4a1a7a;--input:#2a1040;--soft:#150525;--h1:#ffd700;--h2:#ff00ff;--accent:#ff00ff;--accent-h:#ff44ff;--accent-l:#3a0a5c;--scroll-thumb:rgba(255,0,255,.4)}
 body{background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;overflow-x:hidden}
 
-/* ✅ Красивые скроллбары */
+/* Красивые скроллбары глобально */
 *{scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) transparent}
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:8px;border:2px solid transparent;background-clip:padding-box}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent);background-clip:padding-box;border:2px solid transparent}
 ::-webkit-scrollbar-corner{background:transparent}
-nav::-webkit-scrollbar{height:5px}
-nav::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:5px}
+
+/* ✅ Скрываем скроллбары в табах профиля */
+#profile-tabs{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+#profile-tabs::-webkit-scrollbar{display:none;height:0;width:0}
+.tabs{display:flex;gap:5px;margin-bottom:15px;border-bottom:2px solid var(--border);overflow-x:auto}
+.tab{padding:10px 16px;background:none;border:none;border-bottom:3px solid transparent;color:var(--text2);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;margin-bottom:-2px;font-family:inherit;flex-shrink:0;display:flex;align-items:center;justify-content:center;height:40px}
+.tab:hover{color:var(--accent)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 
 header{background:linear-gradient(90deg,var(--h1),var(--h2));padding:12px 15px;position:sticky;top:0;z-index:100}
 .header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:15px;flex-wrap:wrap}
@@ -49,21 +55,21 @@ header{background:linear-gradient(90deg,var(--h1),var(--h2));padding:12px 15px;p
 .header-icon .icon{font-size:20px}
 .cart-badge{position:absolute;top:-2px;right:-2px;background:#ffd700;color:#481173;font-size:10px;font-weight:800;border-radius:10px;padding:2px 5px;display:none;min-width:16px;text-align:center}
 .cart-badge.show{display:block}
-.namaz-badge{position:absolute;top:-2px;right:-2px;background:linear-gradient(135deg,#ffd700,#ff00ff,#6600cc);color:#fff;font-size:7px;font-weight:900;border-radius:8px;padding:2px 5px;letter-spacing:.3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:52px}
+/* ✅ namaz-badge в шапке убран — не нужен двойной */
 
 .crown-star{display:inline-flex;align-items:center;justify-content:center;font-size:13px;margin-left:4px;filter:drop-shadow(0 0 4px #ffd700);animation:crownPulse 2s ease-in-out infinite;vertical-align:middle}
 @keyframes crownPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 
-/* ✅ Плашка NAMAZ возле ника — свечение внутри рамки, без выхода */
-.namaz-logo{display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;letter-spacing:.5px;margin-left:4px;padding:2px 6px;border-radius:8px;color:#fff;background:linear-gradient(135deg,#ffd700,#ff00ff,#6600cc);background-size:200% 200%;box-shadow:inset 0 0 6px rgba(255,215,0,.5),inset 0 0 10px rgba(255,0,255,.4);animation:namazGrad 3s ease infinite;vertical-align:middle;line-height:1;text-overflow:ellipsis;white-space:nowrap;max-width:60px;overflow:hidden;box-sizing:border-box}
+/* ✅ Логотип NAMAZ — маленький квадрат с плюсом, градиентный фон */
+.namaz-logo{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;font-size:12px;font-weight:900;margin-left:4px;border-radius:5px;color:#fff;background:linear-gradient(135deg,#ffd700,#ff00ff,#6600cc);background-size:200% 200%;box-shadow:inset 0 0 4px rgba(255,215,0,.5);animation:namazGrad 3s ease infinite;vertical-align:middle;line-height:1;flex-shrink:0}
 @keyframes namazGrad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
-/* ✅ Галочка поддержки возле ника */
 .verified-check{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#3b7bff,#1a5bcc);color:#fff;font-size:9px;font-weight:900;margin-left:4px;box-shadow:0 0 6px rgba(59,123,255,.6);vertical-align:middle;flex-shrink:0}
 
 .muted-badge{display:inline-flex;align-items:center;justify-content:center;background:#ff3b3b;color:#fff;font-size:9px;font-weight:800;border-radius:8px;padding:2px 6px;margin-left:4px;vertical-align:middle}
 
 nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;overflow-x:auto;transition:.3s}
+nav::-webkit-scrollbar{height:0;display:none}
 .nav-inner{max-width:1400px;margin:0 auto;display:flex;gap:20px}
 .nav-inner a{padding:12px 0;color:var(--text);text-decoration:none;font-size:13px;white-space:nowrap;border-bottom:2px solid transparent;cursor:pointer}
 .nav-inner a:hover,.nav-inner a.active{color:var(--accent);border-bottom-color:var(--accent)}
@@ -127,22 +133,24 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 
 .product-info{padding:12px;display:flex;flex-direction:column;flex:1}
 .price-new{font-size:19px;font-weight:800;color:var(--accent);margin-bottom:5px;display:block}
-.product-name{font-size:13px;line-height:1.35;margin-bottom:5px;min-height:35px;cursor:pointer;color:var(--text);font-weight:700;display:block;width:100%}
+/* ✅ Имя товара — display:inline-block для градиента */
+.product-name{font-size:13px;line-height:1.35;margin-bottom:5px;min-height:35px;cursor:pointer;color:var(--text);font-weight:700;display:inline-block;width:100%;background-clip:padding-box}
 .product-name:hover{opacity:.8}
-.product-name.nick-effect-glow,.product-detail-info h2.nick-effect-glow{text-shadow:0 0 8px currentColor,0 0 16px currentColor}
-.product-name.nick-gradient-custom,.product-detail-info h2.nick-gradient-custom{background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;color:transparent;display:inline-block}
-.product-name.nick-effect-rainbow,.product-detail-info h2.nick-effect-rainbow{background:linear-gradient(90deg,#ff0000,#ff8800,#ffee00,#00ff00,#00ffff,#0088ff,#8800ff,#ff00ff) !important;background-size:400% 100% !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important;background-clip:text !important;animation:rainbowMove 3s linear infinite;display:inline-block}
+
+/* ✅ Эффекты имени товара — работают и в карточке, и в модалке */
+.nick-effect-glow{text-shadow:0 0 8px currentColor,0 0 16px currentColor}
+.nick-gradient-custom{background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;color:transparent;display:inline-block !important;width:auto !important}
+.nick-effect-rainbow{background-image:linear-gradient(90deg,#ff0000,#ff8800,#ffee00,#00ff00,#00ffff,#0088ff,#8800ff,#ff00ff) !important;background-size:400% 100% !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;color:transparent !important;animation:rainbowMove 3s linear infinite;display:inline-block !important;width:auto !important}
 
 .seller-line{font-size:11px;color:var(--text2);margin-bottom:6px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px;min-width:0}
-.seller-line>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-flex;align-items:center;min-width:0}
+.seller-line>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-flex;align-items:center;min-width:0;gap:2px}
 .seller-line:hover{color:var(--accent)}
 .seller-avatar-mini{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;overflow:hidden;position:relative}
+.seller-avatar-mini.support-av{background:linear-gradient(135deg,#3b7bff,#1a5bcc) !important}
 .my-badge{display:inline-block;background:var(--accent-l);color:var(--accent);font-size:9px;font-weight:800;padding:2px 8px;border-radius:10px;margin-bottom:5px}
 .product-rating{font-size:12px;color:var(--text3);margin-bottom:8px}
 .rating-stars{color:#ffb300}
 .no-rating{color:var(--text2);font-size:12px}
-
-/* ✅ Кнопки карточек ровные */
 .product-actions{display:flex;gap:6px;margin-top:auto;align-items:stretch;height:40px}
 .btn-buy{flex:1;background:linear-gradient(135deg,#4ba32e,#3d8a24);color:#fff;border:none;padding:0 16px;border-radius:24px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;height:40px;line-height:1}
 .btn-buy:hover{transform:translateY(-1px)}
@@ -165,7 +173,7 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .modal-content{background:var(--card);color:var(--text);border-radius:20px;max-width:500px;width:100%;max-height:92vh;overflow:hidden;display:flex;flex-direction:column;margin:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
 .modal-header{padding:16px 20px;background:linear-gradient(90deg,var(--h1),var(--h2));color:#fff;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
 .modal-header h2{font-size:19px}
-.close-btn{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:22px;cursor:pointer;padding:4px 10px;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.close-btn{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:22px;cursor:pointer;padding:4px 10px;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0}
 .close-btn:hover{background:rgba(255,255,255,.3);transform:rotate(90deg)}
 .modal-body{padding:20px;overflow-y:auto;background:var(--card)}
 
@@ -203,8 +211,9 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .seller-card{background:var(--soft);border-radius:14px;padding:11px 14px;margin-bottom:13px;display:flex;align-items:center;gap:10px;cursor:pointer}
 .seller-card:hover{background:var(--accent-l)}
 .seller-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;color:#fff;position:relative}
+.seller-avatar.support-av{background:linear-gradient(135deg,#3b7bff,#1a5bcc) !important}
 .seller-info{flex:1;min-width:0}
-.seller-name{font-size:13px;font-weight:700;margin-bottom:2px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:2px}
+.seller-name{font-size:13px;font-weight:700;margin-bottom:2px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:2px;flex-wrap:wrap}
 .seller-bio{font-size:11px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 .review-form{background:var(--soft);border-radius:14px;padding:14px;margin-bottom:15px}
@@ -228,7 +237,7 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .chat-msg{max-width:80%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.45;word-wrap:break-word;white-space:pre-wrap}
 .chat-msg.me{align-self:flex-end;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border-bottom-right-radius:4px}
 .chat-msg.them{align-self:flex-start;background:var(--card);color:var(--text);border:1px solid var(--border);border-bottom-left-radius:4px}
-.chat-msg-author{font-size:10px;font-weight:800;opacity:.75;margin-bottom:3px;display:flex;align-items:center;gap:2px}
+.chat-msg-author{font-size:10px;font-weight:800;opacity:.75;margin-bottom:3px;display:flex;align-items:center;gap:2px;flex-wrap:wrap}
 .chat-msg-time{font-size:9px;opacity:.6;margin-top:3px;text-align:right}
 .chat-input-row{display:flex;gap:8px;padding:12px 20px;background:var(--card);border-top:2px solid var(--border);flex-shrink:0}
 .chat-input-row input{flex:1;padding:10px 16px;border:2px solid var(--border);background:var(--input);color:var(--text);border-radius:24px;font-size:13px;outline:none;min-width:0}
@@ -241,11 +250,6 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .action-btn.take:hover{transform:translateY(-2px)}
 .action-btn.ready{background:linear-gradient(135deg,#3b7bff,#1a5bcc);color:#fff}
 .action-btn.ready:hover{transform:translateY(-2px)}
-
-.tabs{display:flex;gap:5px;margin-bottom:15px;border-bottom:2px solid var(--border);overflow-x:auto}
-.tab{padding:10px 16px;background:none;border:none;border-bottom:3px solid transparent;color:var(--text2);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;margin-bottom:-2px;font-family:inherit}
-.tab:hover{color:var(--accent)}
-.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 
 .balance-card{background:linear-gradient(135deg,#3d7d2b,#1a3d0f);border-radius:20px;padding:20px 25px;color:#fff;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
 .balance-value{font-size:30px;font-weight:900}
@@ -267,9 +271,6 @@ nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;
 .order-btn.receive{background:linear-gradient(135deg,#4ba32e,#3d8a24);color:#fff}
 .order-btn.refund{background:var(--card);color:var(--danger);border:2px solid var(--danger)}
 
-.nick-effect-glow{text-shadow:0 0 8px currentColor,0 0 16px currentColor}
-.nick-gradient-custom{-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nick-effect-rainbow{background:linear-gradient(90deg,#ff0000,#ff8800,#ffee00,#00ff00,#00ffff,#0088ff,#8800ff,#ff00ff);background-size:400% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:rainbowMove 3s linear infinite}
 @keyframes rainbowMove{0%{background-position:0% 50%}100%{background-position:400% 50%}}
 
 .notification{position:fixed;bottom:20px;right:20px;left:20px;max-width:340px;margin-left:auto;background:linear-gradient(135deg,#4ba32e,#3d8a24);color:#fff;padding:14px 24px;border-radius:30px;font-weight:700;transform:translateY(120px);opacity:0;transition:.3s;z-index:1000;font-size:13px;text-align:center}
@@ -280,7 +281,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
 .qty-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 
 @keyframes cardAppear{0%{opacity:0;transform:translateY(20px) scale(.95)}100%{opacity:1;transform:translateY(0) scale(1)}}
-
 @keyframes coinFly{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-120px) scale(1.6);opacity:0}}
 @keyframes coinDrop{0%{transform:translateY(-120px) scale(.6);opacity:0}60%{transform:translateY(0) scale(1.1);opacity:1}100%{transform:translateY(0) scale(1);opacity:1}}
 @keyframes successPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}50%{transform:translate(-50%,-50%) scale(1.2);opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:1}}
@@ -316,7 +316,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
             <div class="header-icon" onclick="openWallet()"><span class="icon">💰</span><span>Кошелёк</span></div>
             <div class="header-icon" onclick="openMessages()"><span class="icon">💬</span><span>Сообщения</span><span class="cart-badge" id="chat-badge">0</span></div>
             <div class="header-icon" onclick="toggleCart()"><span class="icon">🛒</span><span>Корзина</span><span class="cart-badge" id="cart-badge">0</span></div>
-            <div class="header-icon" onclick="openProfileTab('main')"><span class="icon">👤</span><span id="user-label">Войти</span><span class="namaz-badge" id="namaz-badge-header" style="display:none;">NAMAZ</span></div>
+            <div class="header-icon" onclick="openProfileTab('main')"><span class="icon">👤</span><span id="user-label">Войти</span></div>
             <div class="header-icon" onclick="openModal('settings-modal')"><span class="icon">⚙️</span><span>Настройки</span></div>
         </div>
     </div>
@@ -333,7 +333,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
         <a onclick="filterCategory('mobs', this)">🐷 Мобы</a>
         <a onclick="filterCategory('food', this)">🍎 Еда</a>
         <a onclick="filterCategory('potions', this)">🧪 Зелья</a>
-        <a onclick="filterCategory('transport', this)">🚕 Транспорт</a>
         <a onclick="filterCategory('services', this)">🛠️ Услуги</a>
         <a onclick="filterCategory('misc', this)">💎 Прочее</a>
     </div>
@@ -433,7 +432,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                     <option value="mobs">🐷 Мобы</option>
                     <option value="food">🍎 Еда</option>
                     <option value="potions">🧪 Зелья</option>
-                    <option value="transport">🚕 Транспорт</option>
                     <option value="services">🛠️ Услуги</option>
                     <option value="misc">💎 Прочее</option>
                 </select></div>
@@ -873,9 +871,9 @@ function isSellerMutedFromProf(prof){
     return until > new Date();
 }
 
-/* ============ НИКИ (учитываем только если namaz=true) ============ */
+/* НИКИ */
 function nickStyle(prof){
-    if(!prof || !prof.namaz) return '';  // ✅ без подписки стиль не применяется
+    if(!prof || !prof.namaz) return '';
     var style = '';
     if(prof.nick_effect === 'gradient'){
         var c1 = prof.nick_color || '#cb11ab';
@@ -888,20 +886,22 @@ function nickStyle(prof){
     return style;
 }
 function nickClass(prof){
-    if(!prof || !prof.namaz || !prof.nick_effect) return '';  // ✅ без подписки эффект не применяется
+    if(!prof || !prof.namaz || !prof.nick_effect) return '';
     if(prof.nick_effect === 'glow') return 'nick-effect-glow';
     if(prof.nick_effect === 'gradient') return 'nick-gradient-custom';
     if(prof.nick_effect === 'rainbow') return 'nick-effect-rainbow';
     return '';
 }
-function nickHtml(name, prof){
+/* ✅ Значки для ника. plusOnly=true — только плюс NAMAZ (для карточек) */
+function nickHtml(name, prof, opts){
+    opts = opts || {};
     var cls = nickClass(prof);
     var st = nickStyle(prof);
     var base = (!cls && !st) ? esc(name) : '<span class="'+cls+'" style="'+st+'">'+esc(name)+'</span>';
     var badges = '';
     if(name === richestPlayer) badges += '<span class="crown-star">⭐</span>';
     if(prof && prof.isSupport) badges += '<span class="verified-check">✓</span>';
-    if(prof && prof.namaz) badges += '<span class="namaz-logo" title="Подписка NAMAZ">NAMAZ</span>';
+    if(prof && prof.namaz) badges += '<span class="namaz-logo" title="Подписка NAMAZ">+</span>';
     if(prof && isSellerMutedFromProf(prof)) badges += '<span class="muted-badge">MUTE</span>';
     return base + badges;
 }
@@ -911,11 +911,11 @@ function productNameStyle(p){
     if(p.name_effect === 'gradient'){
         var c1 = p.name_color || '#cb11ab';
         var c2 = p.name_color2 || '#3b7bff';
-        style = 'background-image:linear-gradient(90deg,'+c1+','+c2+') !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;color:transparent !important;display:inline-block;';
+        style = 'background-image:linear-gradient(90deg,'+c1+','+c2+');-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;';
     } else if(p.name_effect === 'rainbow'){
-        style = 'background-image:linear-gradient(90deg,#ff0000,#ff8800,#ffee00,#00ff00,#00ffff,#0088ff,#8800ff,#ff00ff) !important;background-size:400% 100% !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;color:transparent !important;display:inline-block;';
+        style = 'background-image:linear-gradient(90deg,#ff0000,#ff8800,#ffee00,#00ff00,#00ffff,#0088ff,#8800ff,#ff00ff);background-size:400% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;';
     } else if(p.name_color){
-        style = 'color:'+p.name_color+' !important;';
+        style = 'color:'+p.name_color+';';
     }
     return style;
 }
@@ -930,6 +930,9 @@ function avatarHtml(prof, size){
     size = size || 20;
     if(!prof){
         return '<div class="seller-avatar-mini" style="width:'+size+'px;height:'+size+'px;background:#cb11ab">👤</div>';
+    }
+    if(prof.isSupport){
+        return '<div class="seller-avatar-mini support-av" style="width:'+size+'px;height:'+size+'px">👨‍💻</div>';
     }
     return '<div class="seller-avatar-mini" style="width:'+size+'px;height:'+size+'px;background:'+prof.color+'">'+prof.avatar+'</div>';
 }
@@ -1008,12 +1011,21 @@ async function doRegister(){
     updateUserUI(); saveLocal(); closeModal('login-modal');
     notify('✅ Аккаунт создан!');
 }
+/* ✅ В иконке профиля — БЕЗ плюса NAMAZ */
 function updateUserUI(){
     var label = document.getElementById('user-label');
-    if(currentProfile) label.innerHTML = nickHtml(currentProfile.name, currentProfile);
-    else label.textContent = 'Войти';
-    var b=document.getElementById('namaz-badge-header');
-    if(currentProfile && currentProfile.namaz) b.style.display='block'; else b.style.display='none';
+    if(currentProfile){
+        // только имя + звезда/галочка/MUTE, без NAMAZ-плюса
+        var cls = nickClass(currentProfile);
+        var st = nickStyle(currentProfile);
+        var base = (!cls && !st) ? esc(currentProfile.name) : '<span class="'+cls+'" style="'+st+'">'+esc(currentProfile.name)+'</span>';
+        var badges = '';
+        if(currentProfile.name === richestPlayer) badges += '<span class="crown-star">⭐</span>';
+        if(currentProfile.isSupport) badges += '<span class="verified-check">✓</span>';
+        label.innerHTML = base + badges;
+    } else {
+        label.textContent = 'Войти';
+    }
 }
 
 function parseNamazUntil(str){
@@ -1427,7 +1439,7 @@ function filterCategory(c,el){
     var links=document.querySelectorAll('.nav-inner a');
     for(var i=0;i<links.length;i++) links[i].classList.remove('active');
     el.classList.add('active');
-    var n={all:'Все товары',blocks:'Блоки',ores:'Руды',tools:'Инструменты',weapons:'Оружие',armor:'Броня',mobs:'Мобы',food:'Еда',potions:'Зелья',transport:'Транспорт',services:'Услуги',misc:'Прочее'};
+    var n={all:'Все товары',blocks:'Блоки',ores:'Руды',tools:'Инструменты',weapons:'Оружие',armor:'Броня',mobs:'Мобы',food:'Еда',potions:'Зелья',services:'Услуги',misc:'Прочее'};
     document.getElementById('section-name').textContent=n[c]||'Товары';
     renderProducts();
 }
@@ -1920,7 +1932,7 @@ function openProduct(id){
                 '</div>'+
             '</div>'+
             '<div>'+
-                '<div class="'+productNameClass(p)+'" style="font-size:22px;font-weight:900;margin-bottom:10px;line-height:1.3;'+(productNameStyle(p)||'color:var(--text);')+'">'+esc(p.name)+'</div>'+
+                '<div class="'+productNameClass(p)+'" style="font-size:22px;font-weight:900;margin-bottom:10px;line-height:1.3;display:inline-block;'+(productNameStyle(p)||'color:var(--text);')+'">'+esc(p.name)+'</div>'+
                 (mine?'<div class="my-badge" style="margin-bottom:12px">ВАШ ТОВАР</div>':'')+
                 '<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:14px;color:var(--text3)">'+rating+'</div>'+
                 '<div style="margin-bottom:20px">'+priceBlock+'</div>'+
@@ -1950,7 +1962,16 @@ function openProduct(id){
     getCachedProfile(sn).then(function(pr){
         if(pr){
             var el2=document.getElementById('pm-seller-av');
-            if(el2){ el2.textContent=pr.avatar; el2.style.background=pr.color; }
+            if(el2){
+                if(pr.isSupport){
+                    el2.textContent='👨‍💻';
+                    el2.style.background='linear-gradient(135deg,#3b7bff,#1a5bcc)';
+                    el2.classList.add('support-av');
+                } else {
+                    el2.textContent=pr.avatar;
+                    el2.style.background=pr.color;
+                }
+            }
             var nk=document.getElementById('pm-seller-nick');
             if(nk) nk.innerHTML = nickHtml(sn, pr);
         }
@@ -1990,8 +2011,10 @@ async function openSeller(name){
     var prof = await getCachedProfile(name) || { avatar:'👤', color:'#cb11ab', bio:'', name:name };
     var sp=products.filter(function(x){return x.seller_name===name;});
     var profBgStyle = (prof.profile_bg && prof.namaz) ? 'background:'+prof.profile_bg+';background-size:cover;background-position:center;' : '';
+    var avBg = prof.isSupport ? 'linear-gradient(135deg,#3b7bff,#1a5bcc)' : prof.color;
+    var avContent = prof.isSupport ? '👨‍💻' : prof.avatar;
     var h='<div style="text-align:center;padding:25px 15px;border-radius:20px;border-bottom:2px solid var(--border);margin-bottom:15px;'+profBgStyle+'">'+
-        '<div style="width:80px;height:80px;border-radius:50%;background:'+prof.color+';display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 10px;color:#fff">'+prof.avatar+'</div>'+
+        '<div style="width:80px;height:80px;border-radius:50%;background:'+avBg+';display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 10px;color:#fff">'+avContent+'</div>'+
         '<div style="font-size:20px;font-weight:800;margin-bottom:5px;display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap">'+nickHtml(name, prof)+'</div>'+
         (prof.bio?'<div style="font-size:13px;color:var(--text3);margin-top:6px;font-style:italic">'+esc(prof.bio)+'</div>':'')+
         '</div>';
@@ -2087,7 +2110,7 @@ function renderProfileMain(){
             '<div style="margin-top:12px;font-size:13px;color:var(--text2);display:flex;align-items:center;gap:4px;flex-wrap:wrap">Превью: '+nickHtml(p.name, p)+'</div></div>'+
             '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:14px;border:2px dashed var(--accent)"><h3 style="font-size:15px;margin-bottom:10px">NAMAZ: Эффект ника</h3><div style="display:flex;gap:8px;flex-wrap:wrap">'+neHtml+'</div></div>';
     } else {
-        namazSection = '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:14px;border:2px dashed var(--border)"><h3 style="font-size:15px;margin-bottom:10px;color:var(--text2)">NAMAZ разблокирует:</h3><ul style="list-style:none;font-size:13px;color:var(--text2);line-height:1.8"><li>🎨 Кастомный фон</li><li>✨ Стиль имени товара</li><li>🌈 Цвет ника + градиент</li><li>✨ Эффекты ника</li><li>🚀 Товары в первых рядах</li><li>✨ Логотип NAMAZ</li></ul></div>';
+        namazSection = '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:14px;border:2px dashed var(--border)"><h3 style="font-size:15px;margin-bottom:10px;color:var(--text2)">NAMAZ разблокирует:</h3><ul style="list-style:none;font-size:13px;color:var(--text2);line-height:1.8"><li>🎨 Кастомный фон</li><li>✨ Стиль имени товара</li><li>🌈 Цвет ника + градиент</li><li>✨ Эффекты ника</li><li>🚀 Товары в первых рядах</li><li>➕ Логотип NAMAZ</li></ul></div>';
     }
     var profileBgStyle = (hasNamaz && p.profile_bg) ? 'background:'+p.profile_bg+';background-size:cover;background-position:center;' : '';
     var muteWarning = muted ? '<div style="background:var(--danger);color:#fff;padding:12px;border-radius:14px;margin-bottom:15px;font-size:13px;font-weight:700;text-align:center">🚫 Вы замучены до '+new Date(p.muted_until).toLocaleString()+'<br>Вы не можете выставлять товары</div>' : '';
@@ -2187,7 +2210,6 @@ async function saveAccount(){
 function logout(){
     currentUser=null; currentProfile=null; isSupport=false;
     document.getElementById('user-label').textContent='Войти';
-    document.getElementById('namaz-badge-header').style.display='none';
     document.getElementById('chat-badge').classList.remove('show');
     document.getElementById('namaz-timer').classList.remove('show');
     if(namazTimerInterval) clearInterval(namazTimerInterval);
@@ -2283,7 +2305,7 @@ async function openModerationPanel(){
             muted_until: u.muted_until, namaz: u.namaz
         };
         h += '<div class="seller-card" style="flex-wrap:wrap">'+
-            '<div class="seller-avatar" style="background:'+(u.color||'#cb11ab')+'">'+(u.avatar||'👤')+'</div>'+
+            '<div class="seller-avatar '+(u.is_support?'support-av':'')+'" style="background:'+(u.is_support?'linear-gradient(135deg,#3b7bff,#1a5bcc)':(u.color||'#cb11ab'))+'">'+(u.is_support?'👨‍💻':(u.avatar||'👤'))+'</div>'+
             '<div class="seller-info"><div class="seller-name" style="display:flex;align-items:center;gap:2px;flex-wrap:wrap">'+nickHtml(u.name, prof)+'</div>'+
             '<div class="seller-bio">Баланс: ¥'+(parseFloat(u.balance)||0).toFixed(2)+(muted?' • 🔇 Замучен до '+new Date(u.muted_until).toLocaleString():'')+'</div></div>'+
             '<div style="display:flex;gap:4px">'+
