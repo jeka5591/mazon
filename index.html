@@ -103,10 +103,11 @@ nav::-webkit-scrollbar{height:0;display:none}
 .namaz-toast button.ghost{background:rgba(255,255,255,.2);color:#fff}
 
 .filters{max-width:1400px;margin:20px auto 0;padding:0 15px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.filter-btn{background:var(--card);border:2px solid var(--border);color:var(--text);padding:8px 18px;border-radius:30px;cursor:pointer;font-size:13px;font-weight:600;white-space:nowrap}
+.filter-btn{background:var(--card);border:2px solid var(--border);color:var(--text);padding:8px 18px;border-radius:30px;cursor:pointer;font-size:13px;font-weight:600;white-space:nowrap;height:38px;display:inline-flex;align-items:center;justify-content:center;line-height:1}
 .filter-btn:hover{border-color:var(--accent);color:var(--accent)}
 .filter-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border-color:transparent}
-.filter-btn.add-product-btn{background:linear-gradient(135deg,#7cff5c,#3d8a24);color:#fff;border-color:transparent;margin-left:auto}
+/* ✅ Кнопка «Добавить товар» в фильтрах — ровная, той же высоты */
+.filter-btn.add-product-btn{background:linear-gradient(135deg,#7cff5c,#3d8a24);color:#fff;border:none;margin-left:auto;padding:0 24px;font-weight:800;height:38px;display:inline-flex;align-items:center;justify-content:center;line-height:1;border-radius:30px}
 
 .section-title{max-width:1400px;margin:30px auto 15px;padding:0 15px;font-size:22px;font-weight:800;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
 .section-title small{font-size:13px;color:var(--text2);font-weight:500}
@@ -172,14 +173,14 @@ nav::-webkit-scrollbar{height:0;display:none}
 .btn-buy:hover{transform:translateY(-1px)}
 .btn-buy.own,.btn-buy:disabled{background:var(--text2) !important;cursor:not-allowed;opacity:.6;transform:none}
 
-/* 🟣 Круглая кнопка корзины — фиолетово-розовый градиент */
-.btn-cart-icon{width:40px;height:40px;background:linear-gradient(135deg,#c26bff,#6a1b9a);color:#fff;border:none;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1}
+/* ✅ Розовый градиент для корзины */
+.btn-cart-icon{width:40px;height:40px;background:linear-gradient(135deg,#ff8ab5,#d63384);color:#fff;border:none;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1}
 .btn-cart-icon:hover{transform:scale(1.1)}
 .btn-cart-icon.added{background:linear-gradient(135deg,#7cff5c,#3d8a24)}
 .btn-cart-icon.own,.btn-cart-icon:disabled{background:var(--text2);cursor:not-allowed;opacity:.6;transform:none}
 
-/* 🟣 Полная кнопка «В корзину» — фиолетово-розовый градиент */
-.btn-cart-full{width:100%;background:linear-gradient(135deg,#c26bff,#6a1b9a);color:#fff;border:none;padding:13px 20px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:10px}
+/* ✅ Полная кнопка «В корзину» — розовый градиент */
+.btn-cart-full{width:100%;background:linear-gradient(135deg,#ff8ab5,#d63384);color:#fff;border:none;padding:13px 20px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:10px}
 .btn-cart-full:hover{transform:translateY(-2px)}
 
 .empty-state{grid-column:1/-1;text-align:center;padding:60px 20px}
@@ -205,23 +206,16 @@ nav::-webkit-scrollbar{height:0;display:none}
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-/* 🟣 Основные (MAZON) — фиолетово-розовый градиент */
 .btn-primary{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border:none;padding:13px 20px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
 .btn-primary:hover{transform:translateY(-2px)}
 .btn-primary.own,.btn-primary:disabled{background:var(--text2) !important;cursor:not-allowed;opacity:.6;transform:none}
-
-/* 🟢 Успех — зелёный градиент */
 .btn-success{background:linear-gradient(135deg,#7cff5c,#3d8a24) !important;color:#fff !important}
-/* 🔴 Опасность — красный градиент */
 .btn-danger{background:linear-gradient(135deg,#ff6b6b,#c62828) !important;color:#fff !important}
-/* 🔵 Синий — синий градиент */
 .btn-blue{background:linear-gradient(135deg,#6bb7ff,#1565c0) !important;color:#fff !important}
 
-/* 🟢 Большая кнопка «Купить» — зелёный градиент */
 .btn-buy-big{flex:1;min-width:140px;background:linear-gradient(135deg,#4be32c,#3d8a24);color:#fff;border:none;padding:14px 20px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
 .btn-buy-big:hover{transform:translateY(-2px)}
 .btn-buy-big.own,.btn-buy-big:disabled{background:var(--text2);cursor:not-allowed;opacity:.6;transform:none}
-
 .btn-secondary{background:var(--card);color:var(--accent);border:2px solid var(--accent);padding:13px 20px;border-radius:30px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center}
 .btn-secondary:hover{background:var(--accent-l);transform:translateY(-2px)}
 
@@ -282,7 +276,6 @@ nav::-webkit-scrollbar{height:0;display:none}
 
 .balance-card{background:linear-gradient(135deg,#3d7d2b,#1a3d0f);border-radius:20px;padding:20px 25px;color:#fff;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
 .balance-value{font-size:30px;font-weight:900}
-/* 🟢 Кнопки кошелька — зелёный градиент */
 .balance-btn{background:linear-gradient(135deg,#7cff5c,#3d8a24);color:#fff;border:none;padding:11px 24px;border-radius:30px;font-size:14px;font-weight:900;cursor:pointer;white-space:nowrap;font-family:inherit}
 .balance-btn:hover{transform:translateY(-2px)}
 
@@ -497,7 +490,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
         <div class="modal-body">
             <div class="form-group"><label>Название *</label><input type="text" id="ap-name" placeholder="Алмазный меч" oninput="updateNamePreview()"></div>
             <div class="form-group"><label>Описание</label><textarea id="ap-desc"></textarea></div>
-            <div class="form-group"><label>Цена в юанях (¥) *</label><input type="number" id="ap-price" placeholder="9.99" min="0" step="0.01" inputmode="decimal"><div style="font-size:11px;color:var(--text2);margin-top:4px">Все цены хранятся в юанях, покупатель увидит в своей валюте</div></div>
+            <div class="form-group"><label>Цена в юанях (¥) * (минимум 1 ¥)</label><input type="number" id="ap-price" placeholder="9.99" min="1" step="0.01" inputmode="decimal"><div style="font-size:11px;color:var(--text2);margin-top:4px">Минимум 1 ¥ · покупатель увидит в своей валюте</div></div>
             <div class="form-row">
                 <div class="form-group"><label>Категория</label><select id="ap-category">
                     <option value="blocks">🧱 Блоки</option>
@@ -572,7 +565,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                     <div style="margin-top:12px;font-size:13px;color:var(--text2)">Превью: <span id="ap-name-preview">Название товара</span></div>
                 </div>
             </div>
-            <div class="form-error" id="ap-error">❌ Заполните название и цену</div>
+            <div class="form-error" id="ap-error">❌ Заполните название и цену (минимум 1 ¥)</div>
             <button class="btn-primary" onclick="saveProduct()" id="ap-save-btn">💾 Сохранить</button>
         </div>
     </div>
@@ -751,6 +744,7 @@ var TICKET_TTL_HOURS = 24;
 var WITHDRAW_MAX = 10;
 var WITHDRAW_FEE_PERCENT = 5;
 var EUR_RATE = 2;
+var MIN_PRICE_CNY = 1;
 
 var products = [], reviews = {}, cart = {}, favorites = [];
 var currentCategory = 'all', currentRarity = 'all', sortAsc = null, currentSearch = '';
@@ -771,12 +765,19 @@ var balanceTarget = null;
 function getCurrency(){ return (currentProfile && currentProfile.currency) || 'cny'; }
 function getCurrencySymbol(){ return getCurrency() === 'eur' ? '€' : '¥'; }
 function getCurrencyCode(){ return getCurrency() === 'eur' ? 'EUR' : 'CNY'; }
+/* ✅ Всегда переводим цену в юани (базовая валюта) */
 function convertPrice(cnyAmount){
     var v = parseFloat(cnyAmount) || 0;
     if(getCurrency() === 'eur') return Math.round(v / EUR_RATE * 100) / 100;
     return v;
 }
 function price(cnyAmount){ return getCurrencySymbol() + convertPrice(cnyAmount).toFixed(2); }
+/* ✅ Сколько юаней в 1 единице текущей валюты */
+function toCny(displayAmount){
+    var v = parseFloat(displayAmount) || 0;
+    if(getCurrency() === 'eur') return v * EUR_RATE;
+    return v;
+}
 
 function saveLocal(){
     try{
@@ -1521,7 +1522,7 @@ async function saveProduct(){
     var cat=document.getElementById('ap-category').value;
     var rar=document.getElementById('ap-rarity').value;
     var em=document.getElementById('ap-emoji').value.trim()||'💎';
-    if(!name||isNaN(pv)||pv<0){ document.getElementById('ap-error').classList.add('show'); return; }
+    if(!name||isNaN(pv)||pv<MIN_PRICE_CNY){ document.getElementById('ap-error').classList.add('show'); return; }
     if(!sb){ notify('❌ Нет соединения'); return; }
     if(currentProfile.muted_until){
         var until = new Date(currentProfile.muted_until);
@@ -1682,32 +1683,39 @@ function openCheckout(){
     openModal('checkout-modal');
 }
 
+/* ✅ Всё в юанях, списание корректное */
 async function placeOrder(paymentType){
     if(!currentUser) return;
-    var total=0, items=[];
+    var totalCny=0, items=[];
     for(var k in cart){
         var p=products.find(function(x){return x.id===+k;});
         if(p){
-            var fp = getFinalPrice(p);
+            var fp = getFinalPrice(p); /* в юанях */
             var d = parseInt(p.discount)||0;
-            total += fp * cart[k];
+            totalCny += fp * cart[k];
             items.push({
                 product_id: p.id,
-                name: p.name, qty: cart[k], price: fp, sellerPrice: fp,
+                name: p.name, qty: cart[k],
+                price: fp, /* цена в юанях */
+                sellerPrice: fp,
                 emoji: p.emoji, seller: p.seller_name, discount: d
             });
         }
     }
-    var myBal = parseFloat(currentProfile.balance || 0);
-    if(myBal < 0){ notify('🚫 Вы в минусе'); return; }
-    if(paymentType === 'now' && myBal < total){ notify('❌ Недостаточно средств.'); fxShake(document.getElementById('checkout-total')); return; }
+    var myBalCny = parseFloat(currentProfile.balance || 0); /* баланс в юанях */
+    if(myBalCny < 0){ notify('🚫 Вы в минусе'); return; }
+    if(paymentType === 'now' && myBalCny < totalCny){
+        notify('❌ Недостаточно средств. Нужно '+price(totalCny));
+        fxShake(document.getElementById('checkout-total'));
+        return;
+    }
     var orderNum=Math.floor(Math.random()*900000)+100000;
     if(paymentType==='now'){
-        currentProfile.balance = myBal - total;
+        currentProfile.balance = Math.round((myBalCny - totalCny) * 100) / 100;
         fxSuccess('💸');
-        notify('💸 Списано '+price(total));
+        notify('💸 Списано '+price(totalCny));
     }
-    var order={ id:orderNum, items:items, total:total, payment:paymentType,
+    var order={ id:orderNum, items:items, total:totalCny, payment:paymentType,
         status: paymentType==='now' ? 'paid' : 'pending',
         date:todayStr(), time:time(),
         seller_done: false, buyer_done: false, money_sent: false };
@@ -1731,7 +1739,7 @@ async function placeOrder(paymentType){
                 var it=sellers[sname][j];
                 lines += it.emoji+' '+it.name+' × '+it.qty+' — '+price(it.price*it.qty)+(it.discount>0?' (-'+it.discount+'%)':'')+'\n';
             }
-            lines += '\nСумма: '+price(total)+'\nОплата: '+(paymentType==='now'?'оплачена сразу':'при получении')+'\n\n[ORDER:'+orderNum+']';
+            lines += '\nСумма: '+price(totalCny)+'\nОплата: '+(paymentType==='now'?'оплачена сразу':'при получении')+'\n\n[ORDER:'+orderNum+']';
             try{
                 await sb.from('messages').insert([{
                     ticket_user: sellerTicketKey(sname, currentProfile.name),
@@ -1814,10 +1822,10 @@ async function buyerReady(orderId){
 async function buyerPay(orderId){
     var o = userOrders.find(function(x){return x.id===orderId;});
     if(!o || o.buyer_done) return;
-    var myBal = parseFloat(currentProfile.balance || 0);
+    var myBal = parseFloat(currentProfile.balance || 0); /* в юанях */
     if(myBal < o.total){ notify('❌ Недостаточно'); return; }
     if(myBal < 0){ notify('🚫 Минус'); return; }
-    currentProfile.balance = myBal - o.total;
+    currentProfile.balance = Math.round((myBal - o.total) * 100) / 100;
     o.buyer_done = true; o.status = 'paid';
     currentProfile.orders = userOrders;
     await persistProfile();
@@ -1869,13 +1877,13 @@ async function tryCompleteOrder(order, buyerName){
     for(var i=0;i<o.items.length;i++){
         var sname = o.items[i].seller;
         if(!sellers[sname]) sellers[sname] = 0;
-        var payPrice = parseFloat(o.items[i].sellerPrice || o.items[i].price);
+        var payPrice = parseFloat(o.items[i].sellerPrice || o.items[i].price); /* в юанях */
         sellers[sname] += payPrice * o.items[i].qty;
     }
     for(var sname in sellers){
         var sp = await getProfileFromDB(sname);
         if(sp){
-            var newBal = parseFloat(sp.balance || 0) + sellers[sname];
+            var newBal = Math.round((parseFloat(sp.balance || 0) + sellers[sname]) * 100) / 100;
             await sb.from('profiles').update({balance: newBal}).eq('name', sname);
             invalidateProfileCache(sname);
         }
@@ -1904,7 +1912,7 @@ async function refundOrder(id){
     if(o.status==='completed'){ notify('Заказ завершён'); return; }
     if(!confirm('Оформить возврат?')) return;
     if(o.buyer_done || o.payment === 'now'){
-        currentProfile.balance=(parseFloat(currentProfile.balance||0))+parseFloat(o.total);
+        currentProfile.balance = Math.round((parseFloat(currentProfile.balance||0) + parseFloat(o.total)) * 100) / 100;
     }
     o.status='refunded';
     currentProfile.orders = userOrders;
@@ -1969,43 +1977,61 @@ function openWallet(){
     renderWallet(); openModal('wallet-modal');
 }
 function renderWallet(){
-    var bal=parseFloat(currentProfile.balance||0);
+    var bal=parseFloat(currentProfile.balance||0); /* в юанях */
     var warn = bal < 0 ? '<div style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:12px;border-radius:14px;margin-bottom:12px;font-size:13px;text-align:center;font-weight:700">⚠️ Вы в минусе!</div>' : '';
     var info = '<div style="background:var(--soft);padding:14px;border-radius:14px;margin-bottom:12px;font-size:13px;color:var(--text2);line-height:1.6">'+
         '💱 Курс: <b>1 € = 2 ¥</b><br>'+
         '💸 Комиссия вывода: <b>'+WITHDRAW_FEE_PERCENT+'%</b><br>'+
         '📊 Максимум вывода: <b>'+WITHDRAW_MAX+' ¥</b> ('+ (WITHDRAW_MAX/EUR_RATE).toFixed(2) +' €)'+
         '</div>';
+    var balDisplay;
+    if(getCurrency() === 'eur'){
+        balDisplay = '<div style="font-size:11px;opacity:.8;margin-top:3px">= '+bal.toFixed(2)+' ¥</div>';
+    } else {
+        balDisplay = '<div style="font-size:11px;opacity:.8;margin-top:3px">= '+(bal/EUR_RATE).toFixed(2)+' €</div>';
+    }
     document.getElementById('wallet-body').innerHTML=
         warn + info +
-        '<div class="balance-card"><div><div style="font-size:12px;opacity:.85;margin-bottom:5px">ZOV Кошелёк</div><div class="balance-value">'+price(bal)+'</div>'+
-        (getCurrency() === 'eur' ? '<div style="font-size:11px;opacity:.8;margin-top:3px">= '+bal.toFixed(2)+' ¥</div>' : '<div style="font-size:11px;opacity:.8;margin-top:3px">= '+(bal/EUR_RATE).toFixed(2)+' €</div>')+
-        '</div>'+
+        '<div class="balance-card"><div><div style="font-size:12px;opacity:.85;margin-bottom:5px">ZOV Кошелёк</div><div class="balance-value">'+price(bal)+'</div>'+ balDisplay +'</div>'+
         '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="balance-btn" onclick="showTopupForm()">➕ Пополнить</button>'+
         '<button class="balance-btn" style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;box-shadow:none" onclick="showWithdrawForm()">💸 Вывод</button></div></div>'+
         '<div id="topup-form"></div>';
 }
+/* ✅ Пополнение в валюте игрока */
 function showTopupForm(){
+    var sym = getCurrencySymbol();
+    var label = sym === '€' ? 'Сколько изумрудов? (в €)' : 'Сколько изумрудов? (в ¥)';
     document.getElementById('topup-form').innerHTML=
-        '<div class="form-group"><label>Сколько изумрудов? (в юанях)</label><input type="number" id="topup-amount" placeholder="2" min="1" step="1" inputmode="numeric"></div>'+
+        '<div class="form-group"><label>'+label+'</label><input type="number" id="topup-amount" placeholder="2" min="0.01" step="0.01" inputmode="decimal"></div>'+
+        '<div style="font-size:12px;color:var(--text2);margin-bottom:10px">💡 Поддержка пересчитает в юани по курсу 1 € = 2 ¥</div>'+
         '<button class="btn-primary btn-success" onclick="requestTopup()">📨 Запрос поддержке</button>';
 }
 function showWithdrawForm(){
     document.getElementById('topup-form').innerHTML=
         '<div style="background:var(--soft);padding:14px;border-radius:14px;margin-bottom:12px;font-size:13px;color:var(--text2);text-align:center;line-height:1.6">'+
         '💡 Комиссия: <b>'+WITHDRAW_FEE_PERCENT+'%</b><br>'+
-        '📊 Макс: <b>'+WITHDRAW_MAX+' ¥</b>'+
+        '📊 Макс: <b>'+WITHDRAW_MAX+' ¥</b> ('+(WITHDRAW_MAX/EUR_RATE).toFixed(2)+' €)'+
         '</div>'+
         '<div class="form-group"><label>Сколько вывести? (¥)</label><input type="number" id="withdraw-amount" placeholder="5" min="1" max="'+WITHDRAW_MAX+'" step="1" inputmode="numeric"></div>'+
         '<button class="btn-primary btn-success" onclick="requestWithdraw()">📨 Запрос вывода</button>';
 }
+/* ✅ Пополнение: игрок пишет в своей валюте, поддержке указываем эквивалент в ¥ */
 async function requestTopup(){
-    var amount=parseFloat(document.getElementById('topup-amount').value);
+    var amount = parseFloat(document.getElementById('topup-amount').value);
     if(!amount || amount<=0){ notify('⚠️ Введите число'); return; }
+    var sym = getCurrencySymbol();
+    var code = getCurrencyCode();
+    var cnyAmount = toCny(amount); /* переводим в юани */
+    var msgText;
+    if(sym === '€'){
+        msgText = '💰 Пополнить на '+amount.toFixed(2)+' € (это '+cnyAmount.toFixed(2)+' ¥)';
+    } else {
+        msgText = '💰 Пополнить на '+amount.toFixed(2)+' ¥';
+    }
     var r=await sb.from('messages').insert([{
         ticket_user: supportTicketKey(currentUser),
-        author: currentProfile.name, text: '💰 Пополнить на '+amount+' ¥',
-        from_support: false, ticket_type: 'topup', amount: amount,
+        author: currentProfile.name, text: msgText,
+        from_support: false, ticket_type: 'topup', amount: cnyAmount, /* в юанях */
         read_by_support: false, read_by_user: true
     }]);
     if(r.error){ notify('❌ '+r.error.message); return; }
@@ -2017,7 +2043,7 @@ async function requestWithdraw(){
     var amount = parseFloat(document.getElementById('withdraw-amount').value);
     if(!amount || amount<=0){ notify('⚠️ Введите число'); return; }
     if(amount > WITHDRAW_MAX){ notify('❌ Максимум '+WITHDRAW_MAX+' ¥'); return; }
-    var bal = parseFloat(currentProfile.balance||0);
+    var bal = parseFloat(currentProfile.balance||0); /* в юанях */
     if(bal < amount){ notify('❌ Недостаточно'); return; }
     var fee = Math.round(amount * WITHDRAW_FEE_PERCENT / 100 * 100) / 100;
     var r = await sb.from('messages').insert([{
@@ -2423,9 +2449,9 @@ function openNamaz(){
 }
 async function subscribeNamaz(){
     if(!currentUser){ closeModal('namaz-modal'); openModal('login-modal'); return; }
-    var bal=parseFloat(currentProfile.balance||0);
+    var bal=parseFloat(currentProfile.balance||0); /* в юанях */
     if(bal<namazPrice){ notify('❌ Нужно '+price(namazPrice)); fxShake(document.querySelector('#namaz-modal .btn-primary')); return; }
-    currentProfile.balance=bal-namazPrice;
+    currentProfile.balance = Math.round((bal - namazPrice) * 100) / 100;
     var now = new Date();
     var target;
     if(currentProfile.namaz && currentProfile.namazUntil){
@@ -2692,8 +2718,8 @@ function renderAllTickets(){
         var title = t.key, icon = '👤', bg = '#3b7bff';
         if(parsed.type === 'support'){ title = '🛡️ Поддержка: ' + parsed.target; icon = '🛡️'; }
         else if(parsed.type === 'seller'){ title = '🏪 ' + parsed.seller + ' ← ' + (parsed.buyer || '?'); icon = '🏪'; bg = 'var(--accent)'; }
-        if(t.type === 'topup'){ icon = '💰'; bg = 'var(--success)'; if(t.amount) title += ' — '+t.amount; }
-        if(t.type === 'withdraw'){ icon = '💸'; bg = 'var(--danger)'; if(t.amount) title += ' — '+t.amount; }
+        if(t.type === 'topup'){ icon = '💰'; bg = 'var(--success)'; }
+        if(t.type === 'withdraw'){ icon = '💸'; bg = 'var(--danger)'; if(t.amount) title += ' — '+t.amount+' ¥'; }
         var cntHtml = t.count>0 ? ' <span style="color:var(--danger);font-weight:900">('+t.count+')</span>' : '';
         h += '<div class="seller-card" onclick="openTicket(\''+esc(t.key)+'\')">'+
             '<div class="seller-avatar" style="background:'+bg+'">'+icon+'</div>'+
@@ -2793,6 +2819,7 @@ function renderConversation(){
         var withdrawMsgs = msgs.filter(function(m){ return m.ticket_type==='withdraw' && !m.from_support; });
         var lastTopup = topupMsgs[topupMsgs.length-1];
         var lastWithdraw = withdrawMsgs[withdrawMsgs.length-1];
+        /* ✅ amount теперь всегда в юанях */
         var amount = lastTopup && lastTopup.amount ? lastTopup.amount : null;
         var wAmount = lastWithdraw && lastWithdraw.amount ? lastWithdraw.amount : null;
         if(wAmount){
@@ -2800,13 +2827,13 @@ function renderConversation(){
             h += '<div style="padding:15px;background:var(--card);border-radius:14px;border:2px dashed var(--danger);margin-top:10px">';
             h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px">💸 '+esc(parsed.target)+' → вывод '+wAmount+' ¥</div>';
             h += '<div style="font-size:12px;color:var(--text2);margin-bottom:8px">Комиссия '+WITHDRAW_FEE_PERCENT+'% = '+fee+' ¥ → к выдаче '+(wAmount-fee)+' ¥</div>';
-            h += '<button class="action-btn give" onclick="processWithdraw(\''+esc(parsed.target)+'\','+wAmount+')">✅ Выдать '+(wAmount-fee)+'</button>';
+            h += '<button class="action-btn give" onclick="processWithdraw(\''+esc(parsed.target)+'\','+wAmount+')">✅ Выдать '+(wAmount-fee)+' ¥</button>';
             h += '<button class="action-btn take" onclick="cancelWithdraw(\''+esc(parsed.target)+'\')">❌ Отклонить</button></div>';
         } else {
             h += '<div style="padding:15px;background:var(--card);border-radius:14px;border:2px dashed var(--success);margin-top:10px">';
             if(amount){
                 h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px">💰 '+esc(parsed.target)+' → '+amount+' ¥</div>'+
-                     '<button class="action-btn give" onclick="giveBalance(\''+esc(parsed.target)+'\','+amount+')">✅ Выдать '+amount+'</button>'+
+                     '<button class="action-btn give" onclick="giveBalance(\''+esc(parsed.target)+'\','+amount+')">✅ Выдать '+amount+' ¥</button>'+
                      '<button class="action-btn take" onclick="takeBalance(\''+esc(parsed.target)+'\','+amount+')">💸 Забрать</button>';
             } else {
                 h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px">💰 Баланс '+esc(parsed.target)+'</div>'+
@@ -2835,7 +2862,7 @@ async function giveBalance(userName, amount){
     if(!isSupport) return;
     var prof = await getProfileFromDB(userName);
     if(!prof){ notify('❌'); return; }
-    var newBal = parseFloat(prof.balance || 0) + amount;
+    var newBal = Math.round((parseFloat(prof.balance || 0) + amount) * 100) / 100;
     var r = await sb.from('profiles').update({balance: newBal}).eq('name', userName);
     if(r.error){ notify('❌ '+r.error.message); return; }
     invalidateProfileCache(userName);
@@ -2849,7 +2876,7 @@ async function takeBalance(userName, amount){
     if(!isSupport) return;
     var prof = await getProfileFromDB(userName);
     if(!prof){ notify('❌'); return; }
-    var newBal = parseFloat(prof.balance || 0) - amount;
+    var newBal = Math.round((parseFloat(prof.balance || 0) - amount) * 100) / 100;
     var r = await sb.from('profiles').update({balance: newBal}).eq('name', userName);
     if(r.error){ notify('❌ '+r.error.message); return; }
     invalidateProfileCache(userName);
@@ -2865,7 +2892,7 @@ async function processWithdraw(userName, amount){
     if(!prof){ notify('❌'); return; }
     var bal = parseFloat(prof.balance || 0);
     if(bal < amount){ notify('❌ Недостаточно'); return; }
-    var r = await sb.from('profiles').update({balance: bal - amount}).eq('name', userName);
+    var r = await sb.from('profiles').update({balance: Math.round((bal - amount) * 100) / 100}).eq('name', userName);
     if(r.error){ notify('❌ '+r.error.message); return; }
     invalidateProfileCache(userName);
     await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
