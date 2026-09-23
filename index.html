@@ -13,10 +13,9 @@ button:active{transform:scale(0.97)}
   --bg:#f5f5f5;--card:#fff;--text:#333;--text2:#888;--text3:#666;
   --border:#e0e0e0;--input:#fff;--soft:#f5f5f5;
   --h1:#cb11ab;--h2:#481173;--accent:#cb11ab;--accent-h:#a30d8a;--accent-l:#ffe5f5;
-  --success:#4ba32e;--danger:#ff3b3b;--gold:#7cff5c;
+  --success:#4ba32e;--danger:#ff3b3b;
   --namaz:linear-gradient(135deg,#ffd700,#ff6b00,#ff00ff);
   --scroll-thumb:rgba(120,120,120,.4);
-  --btn1:#4be32c;--btn2:#3d8a24;
 }
 body.theme-dark{--bg:#0f0f0f;--card:#1c1c1c;--text:#e8e8e8;--text2:#9a9a9a;--text3:#b0b0b0;--border:#2e2e2e;--input:#252525;--soft:#161616;--h1:#6b0a5c;--h2:#1e0630;--accent:#e91e9c;--accent-h:#ff3cae;--accent-l:#3a0a2c;--scroll-thumb:rgba(200,200,200,.25)}
 body.theme-minecraft{--bg:#c6b28a;--card:#e8dcc0;--text:#3b2a17;--text2:#7a6544;--text3:#5c4a2f;--border:#8b7355;--input:#f5eed8;--soft:#d8c9a3;--h1:#4a7c2e;--h2:#2a4a17;--accent:#6b4226;--accent-h:#8b5a2b;--accent-l:#d4c5a0}
@@ -62,9 +61,9 @@ header{background:linear-gradient(90deg,var(--h1),var(--h2));padding:12px 15px;p
 .namaz-logo{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;font-size:12px;font-weight:900;margin-left:4px;border-radius:5px;color:#fff;background:linear-gradient(135deg,#ffd700,#ff00ff,#6600cc);background-size:200% 200%;box-shadow:inset 0 0 4px rgba(255,215,0,.5);animation:namazGrad 3s ease infinite;vertical-align:middle;line-height:1;flex-shrink:0}
 @keyframes namazGrad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
-.verified-check{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#3b7bff,#1a5bcc);color:#fff;font-size:9px;font-weight:900;margin-left:4px;box-shadow:0 0 6px rgba(59,123,255,.6);vertical-align:middle;flex-shrink:0}
+.verified-check{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#6bb7ff,#1a5bcc);color:#fff;font-size:9px;font-weight:900;margin-left:4px;box-shadow:0 0 6px rgba(59,123,255,.6);vertical-align:middle;flex-shrink:0}
 
-.muted-badge{display:inline-flex;align-items:center;justify-content:center;background:#ff3b3b;color:#fff;font-size:9px;font-weight:800;border-radius:8px;padding:2px 6px;margin-left:4px;vertical-align:middle}
+.muted-badge{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;font-size:9px;font-weight:800;border-radius:8px;padding:2px 6px;margin-left:4px;vertical-align:middle}
 
 nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;overflow-x:auto;transition:.3s}
 nav::-webkit-scrollbar{height:0;display:none}
@@ -77,7 +76,7 @@ nav::-webkit-scrollbar{height:0;display:none}
 .banner-inner::after{content:'⛏️';position:absolute;right:40px;top:50%;transform:translateY(-50%);font-size:120px;opacity:.2;pointer-events:none}
 .banner h1{font-size:32px;margin-bottom:10px;position:relative;z-index:2}
 .banner p{font-size:16px;margin-bottom:20px;position:relative;z-index:2}
-.banner-btn{background:linear-gradient(135deg,#7cff5c,#4be32c);color:#1a3d0f;border:none;padding:13px 32px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;position:relative;z-index:2}
+.banner-btn{background:linear-gradient(135deg,#7cff5c,#3d8a24);color:#fff;border:none;padding:13px 32px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;position:relative;z-index:2}
 .banner-btn:hover{transform:translateY(-2px)}
 
 .namaz-banner{max-width:1400px;margin:15px auto;padding:0 15px}
@@ -86,12 +85,28 @@ nav::-webkit-scrollbar{height:0;display:none}
 .namaz-inner h2{font-size:22px;margin-bottom:6px;text-shadow:2px 2px 0 rgba(0,0,0,.5)}
 .namaz-price{font-size:26px;font-weight:900;text-shadow:2px 2px 0 rgba(0,0,0,.5)}
 .namaz-buy-btn{background:#fff;color:#ff00ff;border:none;padding:12px 26px;border-radius:30px;font-size:14px;font-weight:900;cursor:pointer;white-space:nowrap}
+.namaz-banner.promo .namaz-inner{animation:namazShift 6s ease infinite,namazPulse 1.5s ease-in-out infinite}
+@keyframes namazPulse{0%,100%{box-shadow:0 0 30px rgba(255,0,255,.4)}50%{box-shadow:0 0 60px rgba(255,215,0,.9),0 0 90px rgba(255,0,255,.7)}}
+
+.namaz-promo-card{background:var(--namaz);background-size:300% 300%;animation:namazShift 5s ease infinite;border-radius:14px;padding:10px 14px;margin-bottom:12px;color:#fff;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12px;font-weight:700;line-height:1.35;box-shadow:0 4px 16px rgba(255,0,255,.35)}
+.namaz-promo-card:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,0,255,.55)}
+.namaz-promo-card .ico{font-size:22px;flex-shrink:0;filter:drop-shadow(0 0 6px #ffd700)}
+
+.settings-section.namaz-promo{border:2px dashed #ff00ff;border-radius:14px;padding:14px;background:rgba(255,0,255,.06);animation:namazPulse 2s ease-in-out infinite}
+.settings-section.namaz-promo h3{color:var(--accent);border-bottom-color:var(--accent)}
+
+.namaz-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:var(--namaz);background-size:300% 300%;animation:namazShift 4s ease infinite;color:#fff;padding:24px 28px;border-radius:20px;box-shadow:0 20px 60px rgba(255,0,255,.6);z-index:9999;max-width:340px;width:90%;text-align:center;transition:transform .3s}
+.namaz-toast.show{transform:translate(-50%,-50%) scale(1)}
+.namaz-toast h3{font-size:20px;font-weight:900;margin-bottom:8px;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
+.namaz-toast p{font-size:13px;margin-bottom:16px;line-height:1.5}
+.namaz-toast button{background:#fff;color:#ff00ff;border:none;padding:11px 22px;border-radius:24px;font-size:14px;font-weight:900;cursor:pointer;font-family:inherit;margin:0 4px 6px 0}
+.namaz-toast button.ghost{background:rgba(255,255,255,.2);color:#fff}
 
 .filters{max-width:1400px;margin:20px auto 0;padding:0 15px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .filter-btn{background:var(--card);border:2px solid var(--border);color:var(--text);padding:8px 18px;border-radius:30px;cursor:pointer;font-size:13px;font-weight:600;white-space:nowrap}
 .filter-btn:hover{border-color:var(--accent);color:var(--accent)}
 .filter-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border-color:transparent}
-.filter-btn.add-product-btn{background:linear-gradient(135deg,#4ba32e,#3d8a24);color:#fff;border-color:transparent;margin-left:auto}
+.filter-btn.add-product-btn{background:linear-gradient(135deg,#7cff5c,#3d8a24);color:#fff;border-color:transparent;margin-left:auto}
 
 .section-title{max-width:1400px;margin:30px auto 15px;padding:0 15px;font-size:22px;font-weight:800;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
 .section-title small{font-size:13px;color:var(--text2);font-weight:500}
@@ -104,7 +119,6 @@ nav::-webkit-scrollbar{height:0;display:none}
 .products.cols-6{grid-template-columns:repeat(6,1fr)}
 .product-card{background:var(--card);border-radius:16px;overflow:hidden;transition:.2s;display:flex;flex-direction:column;color:var(--text);position:relative;animation:cardAppear .4s ease backwards}
 .product-card:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,.15)}
-/* ✅ УБРАНА ОБВОДКА ТОВАРОВ */
 .product-card.out-of-stock{opacity:.6}
 .product-card.out-of-stock .product-image::after{content:'НЕТ В НАЛИЧИИ';position:absolute;inset:0;background:rgba(0,0,0,.6);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;z-index:5}
 .product-card.muted-seller .product-image::after{content:'ПРОДАВЕЦ ЗАМУЧЕН';position:absolute;inset:0;background:rgba(255,59,59,.7);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;z-index:5;padding:5px;text-align:center}
@@ -152,14 +166,21 @@ nav::-webkit-scrollbar{height:0;display:none}
 .rating-stars{color:#ffb300}
 .no-rating{color:var(--text2);font-size:12px}
 .product-actions{display:flex;gap:6px;margin-top:auto;align-items:stretch;height:40px}
-.btn-buy{flex:1;background:linear-gradient(135deg,var(--btn1),var(--btn2));color:#fff;border:none;padding:0 16px;border-radius:24px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;height:40px;line-height:1}
-.btn-buy:hover{transform:translateY(-1px)}
-.btn-buy.own,.btn-buy:disabled{background:var(--text2);cursor:not-allowed;opacity:.6;transform:none}
 
-.btn-cart-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border:none;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1}
+/* 🟢 Кнопка «Купить» — зелёный градиент */
+.btn-buy{flex:1;background:linear-gradient(135deg,#4be32c,#3d8a24);color:#fff;border:none;padding:0 16px;border-radius:24px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;height:40px;line-height:1}
+.btn-buy:hover{transform:translateY(-1px)}
+.btn-buy.own,.btn-buy:disabled{background:var(--text2) !important;cursor:not-allowed;opacity:.6;transform:none}
+
+/* 🟣 Круглая кнопка корзины — фиолетово-розовый градиент */
+.btn-cart-icon{width:40px;height:40px;background:linear-gradient(135deg,#c26bff,#6a1b9a);color:#fff;border:none;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1}
 .btn-cart-icon:hover{transform:scale(1.1)}
-.btn-cart-icon.added{background:linear-gradient(135deg,#4ba32e,#3d8a24)}
+.btn-cart-icon.added{background:linear-gradient(135deg,#7cff5c,#3d8a24)}
 .btn-cart-icon.own,.btn-cart-icon:disabled{background:var(--text2);cursor:not-allowed;opacity:.6;transform:none}
+
+/* 🟣 Полная кнопка «В корзину» — фиолетово-розовый градиент */
+.btn-cart-full{width:100%;background:linear-gradient(135deg,#c26bff,#6a1b9a);color:#fff;border:none;padding:13px 20px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:10px}
+.btn-cart-full:hover{transform:translateY(-2px)}
 
 .empty-state{grid-column:1/-1;text-align:center;padding:60px 20px}
 .empty-state .emoji{font-size:80px;margin-bottom:15px;opacity:.7}
@@ -184,16 +205,23 @@ nav::-webkit-scrollbar{height:0;display:none}
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
+/* 🟣 Основные (MAZON) — фиолетово-розовый градиент */
 .btn-primary{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border:none;padding:13px 20px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
 .btn-primary:hover{transform:translateY(-2px)}
 .btn-primary.own,.btn-primary:disabled{background:var(--text2) !important;cursor:not-allowed;opacity:.6;transform:none}
-.btn-success{background:linear-gradient(135deg,#4ba32e,#3d8a24) !important}
-.btn-danger{background:linear-gradient(135deg,#ff3b3b,#d62828) !important}
-.btn-blue{background:linear-gradient(135deg,#3b7bff,#1a5bcc) !important}
 
-.btn-buy-big{flex:1;min-width:140px;background:linear-gradient(135deg,var(--btn1),var(--btn2));color:#fff;border:none;padding:14px 20px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
+/* 🟢 Успех — зелёный градиент */
+.btn-success{background:linear-gradient(135deg,#7cff5c,#3d8a24) !important;color:#fff !important}
+/* 🔴 Опасность — красный градиент */
+.btn-danger{background:linear-gradient(135deg,#ff6b6b,#c62828) !important;color:#fff !important}
+/* 🔵 Синий — синий градиент */
+.btn-blue{background:linear-gradient(135deg,#6bb7ff,#1565c0) !important;color:#fff !important}
+
+/* 🟢 Большая кнопка «Купить» — зелёный градиент */
+.btn-buy-big{flex:1;min-width:140px;background:linear-gradient(135deg,#4be32c,#3d8a24);color:#fff;border:none;padding:14px 20px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
 .btn-buy-big:hover{transform:translateY(-2px)}
 .btn-buy-big.own,.btn-buy-big:disabled{background:var(--text2);cursor:not-allowed;opacity:.6;transform:none}
+
 .btn-secondary{background:var(--card);color:var(--accent);border:2px solid var(--accent);padding:13px 20px;border-radius:30px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center}
 .btn-secondary:hover{background:var(--accent-l);transform:translateY(-2px)}
 
@@ -245,16 +273,17 @@ nav::-webkit-scrollbar{height:0;display:none}
 .chat-input-row button{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border:none;padding:0 20px;border-radius:24px;font-size:15px;cursor:pointer;font-weight:700;font-family:inherit}
 
 .action-btn{width:100%;padding:12px 20px;border-radius:30px;font-size:14px;font-weight:800;cursor:pointer;border:none;margin-top:8px;font-family:inherit}
-.action-btn.give{background:linear-gradient(135deg,#4ba32e,#3d8a24);color:#fff}
+.action-btn.give{background:linear-gradient(135deg,#7cff5c,#3d8a24);color:#fff}
 .action-btn.give:hover{transform:translateY(-2px)}
-.action-btn.take{background:linear-gradient(135deg,#ff3b3b,#d62828);color:#fff}
+.action-btn.take{background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff}
 .action-btn.take:hover{transform:translateY(-2px)}
-.action-btn.ready{background:linear-gradient(135deg,#3b7bff,#1a5bcc);color:#fff}
+.action-btn.ready{background:linear-gradient(135deg,#6bb7ff,#1565c0);color:#fff}
 .action-btn.ready:hover{transform:translateY(-2px)}
 
 .balance-card{background:linear-gradient(135deg,#3d7d2b,#1a3d0f);border-radius:20px;padding:20px 25px;color:#fff;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
 .balance-value{font-size:30px;font-weight:900}
-.balance-btn{background:linear-gradient(135deg,#7cff5c,#4be32c);color:#1a3d0f;border:none;padding:11px 24px;border-radius:30px;font-size:14px;font-weight:900;cursor:pointer;white-space:nowrap;font-family:inherit}
+/* 🟢 Кнопки кошелька — зелёный градиент */
+.balance-btn{background:linear-gradient(135deg,#7cff5c,#3d8a24);color:#fff;border:none;padding:11px 24px;border-radius:30px;font-size:14px;font-weight:900;cursor:pointer;white-space:nowrap;font-family:inherit}
 .balance-btn:hover{transform:translateY(-2px)}
 
 .order-card{background:var(--soft);border-radius:14px;padding:14px;margin-bottom:11px}
@@ -269,31 +298,24 @@ nav::-webkit-scrollbar{height:0;display:none}
 .order-total{font-size:14px;font-weight:800;color:var(--accent);margin-bottom:10px}
 .order-actions{display:flex;gap:6px;flex-wrap:wrap}
 .order-btn{flex:1;min-width:120px;padding:10px 16px;border-radius:24px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:inherit}
-.order-btn.receive{background:linear-gradient(135deg,#4ba32e,#3d8a24);color:#fff}
+.order-btn.receive{background:linear-gradient(135deg,#7cff5c,#3d8a24);color:#fff}
 .order-btn.refund{background:var(--card);color:var(--danger);border:2px solid var(--danger)}
 
 @keyframes rainbowMove{0%{background-position:0% 50%}100%{background-position:400% 50%}}
 
-.notification{position:fixed;bottom:20px;right:20px;left:20px;max-width:340px;margin-left:auto;background:linear-gradient(135deg,#4ba32e,#3d8a24);color:#fff;padding:14px 24px;border-radius:30px;font-weight:700;transform:translateY(120px);opacity:0;transition:.3s;z-index:1000;font-size:13px;text-align:center}
+.notification{position:fixed;bottom:20px;right:20px;left:20px;max-width:340px;margin-left:auto;background:linear-gradient(135deg,#7cff5c,#3d8a24);color:#fff;padding:14px 24px;border-radius:30px;font-weight:700;transform:translateY(120px);opacity:0;transition:.3s;z-index:1000;font-size:13px;text-align:center}
 .notification.show{transform:translateY(0);opacity:1}
 footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;text-align:center;font-size:12px}
 
 .qty-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;font-family:inherit;padding:0}
 .qty-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-/* Настройки — сетка */
 .settings-section{margin-bottom:20px}
 .settings-section h3{font-size:15px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--border);color:var(--text)}
 .grid-preview{display:grid;gap:5px;background:var(--soft);padding:12px;border-radius:14px;margin-top:10px;justify-items:stretch}
 .grid-preview .cube{aspect-ratio:1;background:var(--border);border-radius:6px;min-height:20px}
 .col-btn{padding:8px 14px;border-radius:12px;border:2px solid var(--border);background:var(--input);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
 .col-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border-color:transparent}
-
-.btn-style-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:10px}
-.btn-style-option{padding:10px;border-radius:12px;border:3px solid var(--border);cursor:pointer;text-align:center;background:var(--input)}
-.btn-style-option.selected{border-color:var(--accent)}
-.btn-style-option .demo{width:100%;height:36px;border-radius:20px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px;margin-bottom:6px;box-shadow:0 3px 10px rgba(0,0,0,.15)}
-.btn-style-option .label{font-size:11px;font-weight:700;color:var(--text)}
 
 .currency-option{padding:14px;border-radius:14px;border:3px solid var(--border);cursor:pointer;background:var(--input);margin-bottom:10px;display:flex;align-items:center;gap:12px;transition:.2s}
 .currency-option:hover{border-color:var(--accent)}
@@ -355,6 +377,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
         <a onclick="filterCategory('tools', this)">🔨 Инструменты</a>
         <a onclick="filterCategory('weapons', this)">⚔️ Оружие</a>
         <a onclick="filterCategory('armor', this)">🛡️ Броня</a>
+        <a onclick="filterCategory('clothes', this)">👕 Одежда</a>
         <a onclick="filterCategory('mobs', this)">🐷 Мобы</a>
         <a onclick="filterCategory('food', this)">🍎 Еда</a>
         <a onclick="filterCategory('potions', this)">🧪 Зелья</a>
@@ -371,7 +394,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<div class="namaz-banner">
+<div class="namaz-banner" id="namaz-banner">
     <div class="namaz-inner">
         <div>
             <h2>Подписка NAMAZ</h2>
@@ -448,9 +471,10 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                 </div>
             </div>
 
-            <div class="settings-section" id="btn-style-section">
-                <h3>🎨 Стиль кнопок <span style="font-size:11px;font-weight:500;color:var(--accent)" id="btn-style-namaz-mark"></span></h3>
-                <div class="btn-style-grid" id="btn-style-grid"></div>
+            <div class="settings-section namaz-promo" id="namaz-promo-settings" style="display:none">
+                <h3>👑 Получи NAMAZ!</h3>
+                <p style="font-size:13px;color:var(--text2);margin-bottom:12px;line-height:1.5">Разблокируй кастомные фоны, цвета ника и эффекты!</p>
+                <button class="btn-primary" style="background:var(--namaz);color:#fff" onclick="closeModal('settings-modal');openNamaz()">✨ Купить NAMAZ</button>
             </div>
 
             <div class="settings-section">
@@ -473,7 +497,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
         <div class="modal-body">
             <div class="form-group"><label>Название *</label><input type="text" id="ap-name" placeholder="Алмазный меч" oninput="updateNamePreview()"></div>
             <div class="form-group"><label>Описание</label><textarea id="ap-desc"></textarea></div>
-            <div class="form-group"><label>Цена в юанях (¥) *</label><input type="number" id="ap-price" placeholder="9.99" min="0" step="0.01" inputmode="decimal"><div style="font-size:11px;color:var(--text2);margin-top:4px">Все цены хранятся в юанях, но покупатель увидит в своей валюте</div></div>
+            <div class="form-group"><label>Цена в юанях (¥) *</label><input type="number" id="ap-price" placeholder="9.99" min="0" step="0.01" inputmode="decimal"><div style="font-size:11px;color:var(--text2);margin-top:4px">Все цены хранятся в юанях, покупатель увидит в своей валюте</div></div>
             <div class="form-row">
                 <div class="form-group"><label>Категория</label><select id="ap-category">
                     <option value="blocks">🧱 Блоки</option>
@@ -481,6 +505,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                     <option value="tools">🔨 Инструменты</option>
                     <option value="weapons">⚔️ Оружие</option>
                     <option value="armor">🛡️ Броня</option>
+                    <option value="clothes">👕 Одежда</option>
                     <option value="mobs">🐷 Мобы</option>
                     <option value="food">🍎 Еда</option>
                     <option value="potions">🧪 Зелья</option>
@@ -516,6 +541,15 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                     <div class="emoji-option" onclick="pickEmoji('🚗', this)">🚗</div>
                     <div class="emoji-option" onclick="pickEmoji('🏎️', this)">🏎️</div>
                     <div class="emoji-option" onclick="pickEmoji('🚁', this)">🚁</div>
+                    <div class="emoji-option" onclick="pickEmoji('👕', this)">👕</div>
+                    <div class="emoji-option" onclick="pickEmoji('👖', this)">👖</div>
+                    <div class="emoji-option" onclick="pickEmoji('🧥', this)">🧥</div>
+                    <div class="emoji-option" onclick="pickEmoji('👗', this)">👗</div>
+                    <div class="emoji-option" onclick="pickEmoji('👟', this)">👟</div>
+                    <div class="emoji-option" onclick="pickEmoji('🎩', this)">🎩</div>
+                    <div class="emoji-option" onclick="pickEmoji('🧢', this)">🧢</div>
+                    <div class="emoji-option" onclick="pickEmoji('🥾', this)">🥾</div>
+                    <div class="emoji-option" onclick="pickEmoji('🧦', this)">🧦</div>
                     <div class="emoji-option" onclick="pickEmoji('🐉', this)">🐉</div>
                     <div class="emoji-option" onclick="pickEmoji('🔥', this)">🔥</div>
                     <div class="emoji-option" onclick="pickEmoji('🛠️', this)">🛠️</div>
@@ -618,7 +652,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
             </div>
             <h3 style="font-size:14px;margin-bottom:11px;color:var(--text)">Способ оплаты:</h3>
             <button class="btn-primary btn-success" style="margin-bottom:9px" onclick="placeOrder('now')">💳 Оплатить сейчас</button>
-            <button class="btn-primary" style="background:linear-gradient(135deg,#ffb800,#e69e00);color:#333" onclick="placeOrder('later')">📦 Оплатить при получении</button>
+            <button class="btn-primary" style="background:linear-gradient(135deg,#ffd54f,#e69e00);color:#333" onclick="placeOrder('later')">📦 Оплатить при получении</button>
         </div>
     </div>
 </div>
@@ -636,7 +670,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
         <div id="chat-tickets-view" style="display:none">
             <div class="modal-body" id="tickets-body"></div>
             <div style="padding:12px 20px;border-top:2px solid var(--border);background:var(--card);display:flex;justify-content:flex-end">
-                <button onclick="clearAllChats()" style="background:linear-gradient(135deg,#ff3b3b,#d62828);color:#fff;border:none;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">🗑️ Очистить все чаты</button>
+                <button onclick="clearAllChats()" style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;border:none;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">🗑️ Очистить все чаты</button>
             </div>
         </div>
         <div id="chat-conv-view">
@@ -663,7 +697,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                     <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Кастомный фон профиля и товаров</b></li>
                     <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Цвет и эффект имени товара</b></li>
                     <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;border-bottom:1px solid var(--border);color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Цвет ника + градиент</b></li>
-                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>Стиль кнопок + VIP-аватарки</b></li>
+                    <li style="padding:9px 0;font-size:13px;display:flex;gap:9px;color:var(--text)"><span style="color:var(--success);font-size:16px">✓</span> <b>VIP-аватарки</b></li>
                 </ul>
                 <div style="text-align:center;padding:18px;background:var(--soft);border-radius:14px;margin:15px 0">
                     <div style="font-size:36px;font-weight:900;background:var(--namaz);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" id="namaz-modal-price">¥2.99</div>
@@ -734,52 +768,15 @@ var richestPlayer = null;
 var namazPrice = 2.99;
 var balanceTarget = null;
 
-/* ✅ Стили кнопок — только для NAMAZ */
-var BUTTON_STYLES = [
-    {id:'mazon',  name:'MAZON',   c1:'#4be32c', c2:'#3d8a24'},
-    {id:'fire',   name:'Огонь',   c1:'#ffb800', c2:'#d62828'},
-    {id:'ocean',  name:'Океан',   c1:'#4fc3f7', c2:'#1565c0'},
-    {id:'purple', name:'Фиолет',  c1:'#c26bff', c2:'#6a1b9a'},
-    {id:'rose',   name:'Роза',    c1:'#ff6b9d', c2:'#c2185b'},
-    {id:'sun',    name:'Солнце',  c1:'#ffeb3b', c2:'#ff6f00'},
-    {id:'mint',   name:'Мята',    c1:'#7cffc4', c2:'#009966'},
-    {id:'night',  name:'Ночь',    c1:'#6a7bff', c2:'#1a237e'},
-    {id:'namaz',  name:'NAMAZ',   c1:'#ffd700', c2:'#ff00ff'},
-    {id:'candy',  name:'Карамель',c1:'#ff8a65', c2:'#ff0040'},
-    {id:'ice',    name:'Лёд',     c1:'#b3e5fc', c2:'#0288d1'},
-    {id:'lava',   name:'Лава',    c1:'#ff5722', c2:'#b71c1c'}
-];
-
-function getButtonStyle(id){
-    for(var i=0;i<BUTTON_STYLES.length;i++) if(BUTTON_STYLES[i].id === id) return BUTTON_STYLES[i];
-    return BUTTON_STYLES[0];
-}
-function applyButtonStyle(){
-    var style = currentProfile && currentProfile.namaz ? (currentProfile.button_style || 'mazon') : 'mazon';
-    var s = getButtonStyle(style);
-    document.documentElement.style.setProperty('--btn1', s.c1);
-    document.documentElement.style.setProperty('--btn2', s.c2);
-}
-
-/* Валюты */
-function getCurrency(){
-    return (currentProfile && currentProfile.currency) || 'cny';
-}
-function getCurrencySymbol(){
-    return getCurrency() === 'eur' ? '€' : '¥';
-}
-function getCurrencyCode(){
-    return getCurrency() === 'eur' ? 'EUR' : 'CNY';
-}
-/* ✅ Конвертация: цены хранятся в юанях, показываем в выбранной валюте */
+function getCurrency(){ return (currentProfile && currentProfile.currency) || 'cny'; }
+function getCurrencySymbol(){ return getCurrency() === 'eur' ? '€' : '¥'; }
+function getCurrencyCode(){ return getCurrency() === 'eur' ? 'EUR' : 'CNY'; }
 function convertPrice(cnyAmount){
     var v = parseFloat(cnyAmount) || 0;
     if(getCurrency() === 'eur') return Math.round(v / EUR_RATE * 100) / 100;
     return v;
 }
-function price(cnyAmount){
-    return getCurrencySymbol() + convertPrice(cnyAmount).toFixed(2);
-}
+function price(cnyAmount){ return getCurrencySymbol() + convertPrice(cnyAmount).toFixed(2); }
 
 function saveLocal(){
     try{
@@ -797,40 +794,31 @@ function loadLocal(){
     }catch(e){}
 }
 
-function fxCoinFly(x,y){
-    var el=document.createElement('div');
-    el.className='fx-coin fly';
-    el.textContent='💰';
-    el.style.left=(x-17)+'px';
-    el.style.top=y+'px';
-    document.body.appendChild(el);
-    setTimeout(function(){el.remove();},1100);
+function fxCoinFly(x,y){var el=document.createElement('div');el.className='fx-coin fly';el.textContent='💰';el.style.left=(x-17)+'px';el.style.top=y+'px';document.body.appendChild(el);setTimeout(function(){el.remove();},1100);}
+function fxCoinDrop(x,y){var el=document.createElement('div');el.className='fx-coin drop';el.textContent='💰';el.style.left=(x-17)+'px';el.style.top=y+'px';document.body.appendChild(el);setTimeout(function(){el.remove();},1100);}
+function fxSuccess(emoji){var el=document.createElement('div');el.className='fx-success';el.textContent=emoji||'✅';document.body.appendChild(el);setTimeout(function(){el.remove();},1600);}
+function fxShake(el){if(!el) return;el.classList.add('shake');setTimeout(function(){el.classList.remove('shake');},450);}
+function centerOf(el){if(!el) return {x:window.innerWidth/2,y:window.innerHeight/2};var r=el.getBoundingClientRect();return {x:r.left+r.width/2, y:r.top+r.height/2};}
+
+function showNamazToast(){
+    if(!currentUser) return;
+    if(currentProfile && currentProfile.namaz) return;
+    var t = document.createElement('div');
+    t.className = 'namaz-toast';
+    t.innerHTML = '<h3>✨ Хочешь NAMAZ?</h3>'+
+        '<p>Кастомные фоны, цвета ника и эффекты — всё это ждёт тебя!</p>'+
+        '<button onclick="this.parentElement.remove();closeModal(\'product-modal\');openNamaz()">👑 Купить за '+price(namazPrice)+'</button>'+
+        '<button class="ghost" onclick="this.parentElement.remove()">Позже</button>';
+    document.body.appendChild(t);
+    setTimeout(function(){ t.classList.add('show'); }, 50);
+    setTimeout(function(){ if(t.parentElement){ t.classList.remove('show'); setTimeout(function(){t.remove();},400);} }, 8000);
 }
-function fxCoinDrop(x,y){
-    var el=document.createElement('div');
-    el.className='fx-coin drop';
-    el.textContent='💰';
-    el.style.left=(x-17)+'px';
-    el.style.top=y+'px';
-    document.body.appendChild(el);
-    setTimeout(function(){el.remove();},1100);
-}
-function fxSuccess(emoji){
-    var el=document.createElement('div');
-    el.className='fx-success';
-    el.textContent=emoji||'✅';
-    document.body.appendChild(el);
-    setTimeout(function(){el.remove();},1600);
-}
-function fxShake(el){
-    if(!el) return;
-    el.classList.add('shake');
-    setTimeout(function(){el.classList.remove('shake');},450);
-}
-function centerOf(el){
-    if(!el) return {x:window.innerWidth/2,y:window.innerHeight/2};
-    var r=el.getBoundingClientRect();
-    return {x:r.left+r.width/2, y:r.top+r.height/2};
+function refreshNamazPromo(){
+    var banner = document.getElementById('namaz-banner');
+    var settingsPromo = document.getElementById('namaz-promo-settings');
+    var hasNamaz = currentProfile && currentProfile.namaz;
+    if(banner) banner.classList.toggle('promo', !hasNamaz);
+    if(settingsPromo) settingsPromo.style.display = hasNamaz ? 'none' : 'block';
 }
 
 async function loadProducts(){
@@ -861,8 +849,7 @@ async function preloadSellerProfiles(){
         var r = await sb.from('profiles').select('*').in('name', missing);
         if(!r.error && r.data){
             for(var j=0;j<r.data.length;j++){
-                var p = r.data[j];
-                profileCache[p.name] = profileFromRow(p);
+                profileCache[r.data[j].name] = profileFromRow(r.data[j]);
             }
         }
     }catch(e){ console.warn(e); }
@@ -878,7 +865,6 @@ function profileFromRow(p){
         nick_effect: p.nick_effect || '',
         muted_until: p.muted_until || '',
         currency: p.currency || 'cny',
-        button_style: p.button_style || 'mazon',
         grid_cols: p.grid_cols || 4
     };
 }
@@ -913,7 +899,6 @@ async function saveProfileToDB(profile){
         nick_effect: profile.nick_effect || '',
         muted_until: profile.muted_until || '',
         currency: profile.currency || 'cny',
-        button_style: profile.button_style || 'mazon',
         grid_cols: profile.grid_cols || 4
     };
     var r = await sb.from('profiles').upsert(data, {onConflict: 'name'});
@@ -924,10 +909,7 @@ var profileCache = {};
 async function getCachedProfile(name){
     if(profileCache[name]) return profileCache[name];
     var p = await getProfileFromDB(name);
-    if(p){
-        profileCache[name] = profileFromRow(p);
-        return profileCache[name];
-    }
+    if(p){ profileCache[name] = profileFromRow(p); return profileCache[name]; }
     return null;
 }
 function invalidateProfileCache(name){
@@ -964,8 +946,6 @@ function isSellerMutedFromProf(prof){
     if(!prof || !prof.muted_until) return false;
     return new Date(prof.muted_until) > new Date();
 }
-
-/* ✅ Проверка: покупал ли текущий игрок этот товар (завершённый заказ) */
 function hasCompletedOrderForProduct(productId){
     if(!currentUser) return false;
     var p = products.find(function(x){return x.id === productId;});
@@ -986,7 +966,6 @@ function hasReviewedProduct(productId){
     return false;
 }
 
-/* НИКИ */
 function nickStyle(prof){
     if(!prof || !prof.namaz) return '';
     var style = '';
@@ -1041,17 +1020,13 @@ function productNameClass(p){
 }
 function avatarHtml(prof, size){
     size = size || 20;
-    if(!prof){
-        return '<div class="seller-avatar-mini" style="width:'+size+'px;height:'+size+'px;background:#cb11ab">👤</div>';
-    }
-    if(prof.isSupport){
-        return '<div class="seller-avatar-mini support-av" style="width:'+size+'px;height:'+size+'px">👨‍💻</div>';
-    }
+    if(!prof) return '<div class="seller-avatar-mini" style="width:'+size+'px;height:'+size+'px;background:#cb11ab">👤</div>';
+    if(prof.isSupport) return '<div class="seller-avatar-mini support-av" style="width:'+size+'px;height:'+size+'px">👨‍💻</div>';
     return '<div class="seller-avatar-mini" style="width:'+size+'px;height:'+size+'px;background:'+prof.color+'">'+prof.avatar+'</div>';
 }
 
-function supportTicketKey(userName){ return 'support:' + userName; }
-function sellerTicketKey(sellerName, buyerName){ return 'seller:' + sellerName + ':' + buyerName; }
+function supportTicketKey(u){ return 'support:' + u; }
+function sellerTicketKey(s,b){ return 'seller:' + s + ':' + b; }
 function parseTicketKey(key){
     if(key.indexOf('support:')===0) return {type:'support', target: key.substring(8)};
     if(key.indexOf('seller:')===0){
@@ -1081,10 +1056,10 @@ async function doLogin(){
     isSupport = !!p.is_support;
     userOrders = currentProfile.orders || [];
     err.classList.remove('show');
-    updateUserUI(); updateCurrencyBadge(); applyButtonStyle(); applyGridCols();
+    updateUserUI(); updateCurrencyBadge(); applyGridCols();
     saveLocal(); closeModal('login-modal');
     notify('✅ Добро пожаловать, '+currentProfile.name+'!');
-    checkNamazTheme(); startNamazTimer();
+    checkNamazTheme(); startNamazTimer(); refreshNamazPromo();
     await refreshMessages(); checkUnread();
     await loadRichestPlayer(); await preloadSellerProfiles(); renderProducts();
 }
@@ -1105,7 +1080,7 @@ async function doRegister(){
         name: name, pass: pass, avatar: '👤', color: '#cb11ab', bio: '',
         namaz: false, namazUntil: null, balance: 0, orders: [], isSupport: false,
         profile_bg: '', card_bg: '', nick_color: '', nick_color2: '', nick_effect: '',
-        muted_until: '', currency: 'cny', button_style: 'mazon', grid_cols: 4
+        muted_until: '', currency: 'cny', grid_cols: 4
     };
     var ok = await saveProfileToDB(newProfile);
     if(!ok){ err.textContent='❌ Ошибка сохранения'; err.style.color='var(--danger)'; err.classList.add('show'); return; }
@@ -1113,9 +1088,10 @@ async function doRegister(){
     currentProfile = newProfile;
     isSupport = false; userOrders = [];
     err.classList.remove('show');
-    updateUserUI(); updateCurrencyBadge(); applyButtonStyle(); applyGridCols();
+    updateUserUI(); updateCurrencyBadge(); applyGridCols();
     saveLocal(); closeModal('login-modal');
     notify('✅ Аккаунт создан!');
+    refreshNamazPromo();
 }
 function updateUserUI(){
     var label = document.getElementById('user-label');
@@ -1138,14 +1114,11 @@ function updateCurrencyBadge(){
     if(code) code.textContent = getCurrencyCode();
 }
 
-/* ✅ Грид колонок */
 function applyGridCols(){
     var cols = (currentProfile && currentProfile.grid_cols) || 4;
     if(cols < 2 || cols > 6) cols = 4;
     var grid = document.getElementById('products');
-    if(grid){
-        grid.className = 'products cols-' + cols;
-    }
+    if(grid) grid.className = 'products cols-' + cols;
 }
 function setGridCols(cols){
     if(!currentProfile){ openModal('login-modal'); return; }
@@ -1154,11 +1127,6 @@ function setGridCols(cols){
     applyGridCols();
     renderSettingsColPreview(cols);
     updateGridButtons(cols);
-    // Перерисовать демо-превью в настройках
-    var prev = document.getElementById('grid-preview');
-    if(prev){
-        prev.style.gridTemplateColumns = 'repeat(' + cols + ', 1fr)';
-    }
 }
 function updateGridButtons(active){
     var btns = document.querySelectorAll('.col-btn');
@@ -1177,7 +1145,6 @@ function renderSettingsColPreview(cols){
     prev.style.gridTemplateColumns = 'repeat(' + cols + ', 1fr)';
 }
 
-/* ✅ Настройки — валюта */
 function renderCurrencyOptions(){
     var container = document.getElementById('currency-options');
     if(!container) return;
@@ -1201,42 +1168,21 @@ function setCurrency(c){
     renderCurrencyOptions();
     renderProducts();
     renderCart();
+    renderNamazBannerPrice();
+    openNamazRefreshPrice();
     notify('💱 Валюта: ' + (c === 'eur' ? 'Евро €' : 'Юань ¥'));
 }
 function toggleCurrencyQuick(){
     if(!currentProfile){ openModal('login-modal'); return; }
     setCurrency(getCurrency() === 'cny' ? 'eur' : 'cny');
 }
-
-/* ✅ Настройки — стили кнопок */
-function renderButtonStyles(){
-    var grid = document.getElementById('btn-style-grid');
-    var mark = document.getElementById('btn-style-namaz-mark');
-    if(!grid) return;
-    var hasNamaz = currentProfile && currentProfile.namaz;
-    var active = hasNamaz ? (currentProfile.button_style || 'mazon') : 'mazon';
-    if(mark) mark.textContent = hasNamaz ? '' : '(только NAMAZ)';
-    var h = '';
-    for(var i=0;i<BUTTON_STYLES.length;i++){
-        var s = BUTTON_STYLES[i];
-        var locked = !hasNamaz && s.id !== 'mazon';
-        var sel = active === s.id;
-        var bg = 'linear-gradient(135deg,' + s.c1 + ',' + s.c2 + ')';
-        h += '<div class="btn-style-option '+(sel?'selected':'')+'" onclick="'+(locked?'namazLock()':'setButtonStyle(\''+s.id+'\')')+'">'+
-            '<div class="demo" style="background:'+bg+'">'+(locked?'🔒':'Купить')+'</div>'+
-            '<div class="label">'+s.name+'</div>'+
-            '</div>';
-    }
-    grid.innerHTML = h;
+function renderNamazBannerPrice(){
+    var el = document.getElementById('namaz-banner-price');
+    if(el) el.innerHTML = price(namazPrice) + ' <small>/ день</small>';
 }
-function setButtonStyle(id){
-    if(!currentProfile) return;
-    if(!currentProfile.namaz && id !== 'mazon'){ namazLock(); return; }
-    currentProfile.button_style = id;
-    persistProfile();
-    applyButtonStyle();
-    renderButtonStyles();
-    notify('🎨 Стиль кнопок: ' + getButtonStyle(id).name);
+function openNamazRefreshPrice(){
+    var el = document.getElementById('namaz-modal-price');
+    if(el) el.textContent = price(namazPrice);
 }
 
 function parseNamazUntil(str){
@@ -1269,14 +1215,12 @@ async function expireNamaz(){
     currentProfile.nick_color = '';
     currentProfile.nick_color2 = '';
     currentProfile.nick_effect = '';
-    currentProfile.button_style = 'mazon';
     var namazAvatars=['👑','🐉','🦄','🌟','🔥','💠'];
     if(namazAvatars.indexOf(currentProfile.avatar) !== -1) currentProfile.avatar = '👤';
     await persistProfile();
     if(currentTheme === 'namaz') setTheme('light');
-    applyButtonStyle();
     updateUserUI(); checkNamazTheme(); startNamazTimer();
-    renderProducts();
+    renderProducts(); refreshNamazPromo();
     notify('⏰ Подписка NAMAZ истекла');
 }
 function startNamazTimer(){
@@ -1289,12 +1233,7 @@ function startNamazTimer(){
         var target = parseNamazUntil(currentProfile.namazUntil);
         if(!target){ if(timerEl) timerEl.classList.remove('show'); return; }
         var left = target - new Date();
-        if(left <= 0){
-            expireNamaz();
-            if(timerEl) timerEl.classList.remove('show');
-            if(bigEl) bigEl.textContent = '⏰ Истекла';
-            return;
-        }
+        if(left <= 0){ expireNamaz(); if(timerEl) timerEl.classList.remove('show'); if(bigEl) bigEl.textContent = '⏰ Истекла'; return; }
         var str = formatTimeLeft(left);
         if(timerEl){ timerEl.classList.add('show'); var txt = document.getElementById('namaz-timer-text'); if(txt) txt.textContent = str; }
         if(bigEl) bigEl.textContent = '⏰ ' + str;
@@ -1365,7 +1304,7 @@ function renderProducts(){
         var priceHtml = hasDiscount
             ? '<div style="margin-bottom:5px"><span style="font-size:13px;color:var(--text2);text-decoration:line-through;margin-right:6px">'+price(p.price)+'</span><span class="price-new" style="display:inline">'+price(finalPrice)+'</span></div>'
             : '<span class="price-new">'+price(p.price)+'</span>';
-        var discountBadge = hasDiscount ? '<div style="position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#ff3b3b,#d62828);color:#fff;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:900;z-index:4">-'+discount+'%</div>' : '';
+        var discountBadge = hasDiscount ? '<div style="position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:900;z-index:4">-'+discount+'%</div>' : '';
 
         var buyBtn = mine || isOut || sellerMuted
             ? '<button class="btn-buy own" disabled>'+(sellerMuted?'Замучен':isOut?'Нет в наличии':'Ваш товар')+'</button>'
@@ -1401,9 +1340,7 @@ function renderProducts(){
         var prof = profileCache[sname];
         if(!prof) return;
         var nicks = document.querySelectorAll('[data-seller-nick="'+sname+'"]');
-        for(var n=0;n<nicks.length;n++){
-            nicks[n].innerHTML = nickHtml(sname, prof);
-        }
+        for(var n=0;n<nicks.length;n++) nicks[n].innerHTML = nickHtml(sname, prof);
     });
 }
 
@@ -1586,12 +1523,10 @@ async function saveProduct(){
     var em=document.getElementById('ap-emoji').value.trim()||'💎';
     if(!name||isNaN(pv)||pv<0){ document.getElementById('ap-error').classList.add('show'); return; }
     if(!sb){ notify('❌ Нет соединения'); return; }
-
     if(currentProfile.muted_until){
         var until = new Date(currentProfile.muted_until);
         if(until > new Date()){ notify('🚫 Вы замучены'); return; }
     }
-
     var data = {
         name:name, description:desc||'Описание не указано.',
         price:pv, category:cat, rarity:rar, emoji:em,
@@ -1600,7 +1535,6 @@ async function saveProduct(){
         name_color2: (currentProfile.namaz ? apNameColor2 : '') || '',
         name_effect: (currentProfile.namaz ? apNameEffect : '') || ''
     };
-
     if(editingProductId){
         var r=await sb.from('products').update(data).eq('id', editingProductId);
         if(r.error){ notify('❌ '+r.error.message); return; }
@@ -1651,7 +1585,7 @@ function filterCategory(c,el){
     var links=document.querySelectorAll('.nav-inner a');
     for(var i=0;i<links.length;i++) links[i].classList.remove('active');
     el.classList.add('active');
-    var n={all:'Все товары',blocks:'Блоки',ores:'Руды',tools:'Инструменты',weapons:'Оружие',armor:'Броня',mobs:'Мобы',food:'Еда',potions:'Зелья',services:'Услуги',misc:'Прочее'};
+    var n={all:'Все товары',blocks:'Блоки',ores:'Руды',tools:'Инструменты',weapons:'Оружие',armor:'Броня',clothes:'Одежда',mobs:'Мобы',food:'Еда',potions:'Зелья',services:'Услуги',misc:'Прочее'};
     document.getElementById('section-name').textContent=n[c]||'Товары';
     renderProducts();
 }
@@ -1759,13 +1693,8 @@ async function placeOrder(paymentType){
             total += fp * cart[k];
             items.push({
                 product_id: p.id,
-                name: p.name,
-                qty: cart[k],
-                price: fp,
-                sellerPrice: fp,
-                emoji: p.emoji,
-                seller: p.seller_name,
-                discount: d
+                name: p.name, qty: cart[k], price: fp, sellerPrice: fp,
+                emoji: p.emoji, seller: p.seller_name, discount: d
             });
         }
     }
@@ -1806,8 +1735,8 @@ async function placeOrder(paymentType){
             try{
                 await sb.from('messages').insert([{
                     ticket_user: sellerTicketKey(sname, currentProfile.name),
-                    author: currentProfile.name,
-                    text: lines, from_support: false, ticket_type: 'order',
+                    author: currentProfile.name, text: lines,
+                    from_support: false, ticket_type: 'order',
                     amount: null, read_by_support: false, read_by_user: true
                 }]);
             }catch(e){ console.error(e); }
@@ -1815,6 +1744,9 @@ async function placeOrder(paymentType){
     }
     if(paymentType==='now') notify('✅ Заказ #'+orderNum+' оплачен!');
     else notify('📦 Заказ #'+orderNum+' оформлен');
+    if(currentProfile && !currentProfile.namaz){
+        setTimeout(showNamazToast, 1200);
+    }
     if(sellerNames.length === 1){ setTimeout(function(){ openChatWithSeller(sellerNames[0]); }, 400); }
     else { setTimeout(function(){ openMessages(); }, 400); }
 }
@@ -2038,12 +1970,11 @@ function openWallet(){
 }
 function renderWallet(){
     var bal=parseFloat(currentProfile.balance||0);
-    var warn = bal < 0 ? '<div style="background:var(--danger);color:#fff;padding:12px;border-radius:14px;margin-bottom:12px;font-size:13px;text-align:center;font-weight:700">⚠️ Вы в минусе!</div>' : '';
-    var maxW = WITHDRAW_MAX;
+    var warn = bal < 0 ? '<div style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:12px;border-radius:14px;margin-bottom:12px;font-size:13px;text-align:center;font-weight:700">⚠️ Вы в минусе!</div>' : '';
     var info = '<div style="background:var(--soft);padding:14px;border-radius:14px;margin-bottom:12px;font-size:13px;color:var(--text2);line-height:1.6">'+
         '💱 Курс: <b>1 € = 2 ¥</b><br>'+
         '💸 Комиссия вывода: <b>'+WITHDRAW_FEE_PERCENT+'%</b><br>'+
-        '📊 Максимум вывода: <b>'+maxW+' ¥</b> ('+ (maxW/EUR_RATE).toFixed(2) +' €)'+
+        '📊 Максимум вывода: <b>'+WITHDRAW_MAX+' ¥</b> ('+ (WITHDRAW_MAX/EUR_RATE).toFixed(2) +' €)'+
         '</div>';
     document.getElementById('wallet-body').innerHTML=
         warn + info +
@@ -2051,7 +1982,7 @@ function renderWallet(){
         (getCurrency() === 'eur' ? '<div style="font-size:11px;opacity:.8;margin-top:3px">= '+bal.toFixed(2)+' ¥</div>' : '<div style="font-size:11px;opacity:.8;margin-top:3px">= '+(bal/EUR_RATE).toFixed(2)+' €</div>')+
         '</div>'+
         '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="balance-btn" onclick="showTopupForm()">➕ Пополнить</button>'+
-        '<button class="balance-btn" style="background:#fff;color:#4ba32e;box-shadow:none" onclick="showWithdrawForm()">💸 Вывод</button></div></div>'+
+        '<button class="balance-btn" style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;box-shadow:none" onclick="showWithdrawForm()">💸 Вывод</button></div></div>'+
         '<div id="topup-form"></div>';
 }
 function showTopupForm(){
@@ -2112,7 +2043,6 @@ function openProduct(id){
     if(pRevs.length>0){ var s=0; for(var j=0;j<pRevs.length;j++) s+=pRevs[j].rating; avg=(s/pRevs.length).toFixed(1); }
     var rating= pRevs.length>0 ? '<span style="color:#ffb300">★</span> <b>'+avg+'</b> · '+pRevs.length+' отзывов' : '<span style="color:var(--text2)">Нет отзывов</span>';
 
-    // ✅ Отзывы — только после завершённого заказа и один раз
     var canReview = currentUser && !mine && hasCompletedOrderForProduct(p.id) && !hasReviewedProduct(p.id);
     var form;
     if(canReview){
@@ -2143,25 +2073,26 @@ function openProduct(id){
     var favBtn = '<button class="btn-secondary" style="min-width:60px;font-size:18px;padding:13px 18px" onclick="favFromModal('+p.id+',this)">'+(isFav?'❤️':'🤍')+'</button>';
     var cartBtn = mine || isOut || sellerMuted
         ? '<button class="btn-primary own" disabled style="margin-top:10px">'+(sellerMuted?'🚫 Продавец замучен':isOut?'🚫 Нет в наличии':'🚫 Ваш товар')+'</button>'
-        : '<button class="btn-primary" style="margin-top:10px" onclick="addCartModal('+p.id+')">🛒 В корзину</button>';
-    var chatSellerBtn = (mine || !currentUser) ? '' : '<button class="btn-primary" style="margin-top:10px;background:linear-gradient(135deg,#3b7bff,#1a5bcc)" onclick="closeModal(\'product-modal\');openChatWithSeller(\''+esc(sn)+'\')">💬 Написать продавцу</button>';
+        : '<button class="btn-cart-full" onclick="addCartModal('+p.id+')">🛒 В корзину</button>';
+    var chatSellerBtn = (mine || !currentUser) ? '' : '<button class="btn-primary" style="margin-top:10px;background:linear-gradient(135deg,#6bb7ff,#1565c0)" onclick="closeModal(\'product-modal\');openChatWithSeller(\''+esc(sn)+'\')">💬 Написать продавцу</button>';
     var d = parseInt(p.discount)||0;
     var finalPrice = d>0 ? Math.round(parseFloat(p.price)*(1-d/100)*100)/100 : parseFloat(p.price);
     var priceBlock = d>0
         ? '<span style="font-size:20px;color:var(--text2);text-decoration:line-through;margin-right:12px">'+price(p.price)+'</span>'+
           '<span style="font-size:38px;font-weight:900;color:var(--accent)">'+price(finalPrice)+'</span>'+
-          '<span style="display:inline-block;margin-left:12px;background:linear-gradient(135deg,#ff3b3b,#d62828);color:#fff;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:900">-'+d+'%</span>'
+          '<span style="display:inline-block;margin-left:12px;background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:900">-'+d+'%</span>'
         : '<span style="font-size:38px;font-weight:900;color:var(--accent)">'+price(p.price)+'</span>'+
           (getCurrency()==='eur'?'<div style="font-size:12px;color:var(--text2);margin-top:4px">= '+p.price.toFixed(2)+' ¥</div>':'');
-    var outBadge = isOut ? '<div style="background:var(--danger);color:#fff;padding:8px 16px;border-radius:14px;font-size:13px;font-weight:800;text-align:center;margin-bottom:16px">🚫 Нет в наличии</div>' : '';
-    var muteBadge = sellerMuted ? '<div style="background:var(--danger);color:#fff;padding:8px 16px;border-radius:14px;font-size:13px;font-weight:800;text-align:center;margin-bottom:16px">🚫 Продавец замучен</div>' : '';
+    var outBadge = isOut ? '<div style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:8px 16px;border-radius:14px;font-size:13px;font-weight:800;text-align:center;margin-bottom:16px">🚫 Нет в наличии</div>' : '';
+    var muteBadge = sellerMuted ? '<div style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:8px 16px;border-radius:14px;font-size:13px;font-weight:800;text-align:center;margin-bottom:16px">🚫 Продавец замучен</div>' : '';
+    var namazPromo = (!currentProfile || !currentProfile.namaz) ? '<div class="namaz-promo-card" onclick="closeModal(\'product-modal\');openNamaz()"><span class="ico">👑</span><div><b>Оформи NAMAZ</b> — кастомные фоны, цвета и эффекты!</div></div>' : '';
 
     document.getElementById('pm-body').innerHTML=
-        outBadge + muteBadge +
+        namazPromo + outBadge + muteBadge +
         '<div style="display:grid;grid-template-columns:1fr 1fr;gap:25px" class="product-detail">'+
             '<div><div style="background:'+(p.bg||'var(--accent-l)')+';background-size:cover;background-position:center;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:170px;min-height:320px;position:relative;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.15)">'+
                 '<div style="position:absolute;top:16px;left:16px;padding:6px 14px;border-radius:12px;font-size:11px;font-weight:900;color:#fff;background:'+(p.rarity==='common'?'#b0b0b0':p.rarity==='rare'?'#3b7bff':p.rarity==='epic'?'#a13bff':'linear-gradient(90deg,#ffb800,#ff6b00)')+'">'+rl(p.rarity)+'</div>'+
-                (d>0?'<div style="position:absolute;top:16px;right:16px;padding:6px 14px;border-radius:12px;font-size:13px;font-weight:900;background:linear-gradient(135deg,#ff3b3b,#d62828);color:#fff">-'+d+'%</div>':'')+
+                (d>0?'<div style="position:absolute;top:16px;right:16px;padding:6px 14px;border-radius:12px;font-size:13px;font-weight:900;background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff">-'+d+'%</div>':'')+
                 '<div style="filter:drop-shadow(0 10px 20px rgba(0,0,0,.3))">'+p.emoji+'</div></div>'+
                 '<div style="background:var(--card);border-radius:16px;padding:16px;margin-top:16px;border:1px solid var(--border)">'+
                     '<div style="font-size:12px;color:var(--text2);margin-bottom:8px;text-transform:uppercase;font-weight:800">Продавец</div>'+
@@ -2260,7 +2191,7 @@ async function openSeller(name){
         '<div style="font-size:20px;font-weight:800;margin-bottom:5px;display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap">'+nickHtml(name, prof)+'</div>'+
         (prof.bio?'<div style="font-size:13px;color:var(--text3);margin-top:6px;font-style:italic">'+esc(prof.bio)+'</div>':'')+
         '</div>';
-    if(name !== currentUser) h+='<button class="btn-primary" style="margin-bottom:12px" onclick="closeModal(\'seller-modal\');openChatWithSeller(\''+esc(name)+'\')">💬 Написать</button>';
+    if(name !== currentUser) h+='<button class="btn-primary" style="margin-bottom:12px;background:linear-gradient(135deg,#6bb7ff,#1565c0)" onclick="closeModal(\'seller-modal\');openChatWithSeller(\''+esc(name)+'\')">💬 Написать</button>';
     if(sp.length>0){
         h+='<h3 style="margin-bottom:10px;font-size:15px">📦 Товары ('+sp.length+')</h3>';
         for(var i=0;i<sp.length;i++){
@@ -2352,10 +2283,10 @@ function renderProfileMain(){
             '<div style="margin-top:12px;font-size:13px;color:var(--text2);display:flex;align-items:center;gap:4px;flex-wrap:wrap">Превью: '+nickHtml(p.name, p)+'</div></div>'+
             '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:14px;border:2px dashed var(--accent)"><h3 style="font-size:15px;margin-bottom:10px">NAMAZ: Эффект ника</h3><div style="display:flex;gap:8px;flex-wrap:wrap">'+neHtml+'</div></div>';
     } else {
-        namazSection = '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:14px;border:2px dashed var(--border)"><h3 style="font-size:15px;margin-bottom:10px;color:var(--text2)">NAMAZ разблокирует:</h3><ul style="list-style:none;font-size:13px;color:var(--text2);line-height:1.8"><li>🎨 Кастомный фон</li><li>✨ Стиль имени товара</li><li>🌈 Цвет ника + градиент</li><li>✨ Эффекты ника</li><li>🚀 Товары в первых рядах</li><li>🎨 Стиль кнопок</li><li>➕ Логотип NAMAZ</li></ul></div>';
+        namazSection = '<div class="namaz-promo-card" onclick="closeModal(\'profile-modal\');openNamaz()" style="margin-bottom:20px"><span class="ico">👑</span><div><b>Оформи NAMAZ</b> — фоны, цвета ника и эффекты!</div></div>';
     }
     var profileBgStyle = (hasNamaz && p.profile_bg) ? 'background:'+p.profile_bg+';background-size:cover;background-position:center;' : '';
-    var muteWarning = muted ? '<div style="background:var(--danger);color:#fff;padding:12px;border-radius:14px;margin-bottom:15px;font-size:13px;font-weight:700;text-align:center">🚫 Вы замучены до '+new Date(p.muted_until).toLocaleString()+'<br>Вы не можете выставлять товары</div>' : '';
+    var muteWarning = muted ? '<div style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:12px;border-radius:14px;margin-bottom:15px;font-size:13px;font-weight:700;text-align:center">🚫 Вы замучены до '+new Date(p.muted_until).toLocaleString()+'<br>Вы не можете выставлять товары</div>' : '';
     return muteWarning +
         '<div class="profile-header" style="text-align:center;padding:20px 10px;border-bottom:2px solid var(--border);margin-bottom:18px;border-radius:20px;'+profileBgStyle+'">'+
             '<div style="width:90px;height:90px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:44px;margin:0 auto 12px;background:'+p.color+';color:#fff;border:4px solid '+(hasNamaz?'#ffd700':'var(--accent)')+'">'+p.avatar+'</div>'+
@@ -2371,14 +2302,14 @@ function renderProfileMain(){
         '<div style="margin-bottom:20px"><h3 style="font-size:15px;margin-bottom:10px">Подписка</h3>'+
             (hasNamaz
                 ? '<div style="padding:11px;background:var(--soft);border-radius:14px;font-size:13px;text-align:center">До <b>'+esc(p.namazUntil||'—')+'</b></div><div style="text-align:center;margin-top:8px;color:var(--accent);font-weight:800" id="namaz-timer-big">⏰ 00:00:00</div><button class="btn-secondary" style="width:100%;margin-top:9px" onclick="closeModal(\'profile-modal\');openNamaz()">Управлять</button>'
-                : '<button class="btn-primary" style="background:var(--namaz);color:#fff" onclick="closeModal(\'profile-modal\');openNamaz()">Оформить NAMAZ — ¥'+namazPrice.toFixed(2)+'/день</button>'
+                : '<button class="btn-primary" style="background:var(--namaz);color:#fff" onclick="closeModal(\'profile-modal\');openNamaz()">Оформить NAMAZ — '+price(namazPrice)+'/день</button>'
             )+
         '</div>';
 }
 
 function renderMyProducts(){
     var mine=products.filter(function(p){return p.seller_name===currentUser;});
-    if(mine.length===0) return '<div style="text-align:center;padding:35px;color:var(--text2)"><div style="font-size:55px;margin-bottom:12px">🏪</div>Нет товаров<button class="btn-primary" style="margin-top:15px;max-width:200px" onclick="closeModal(\'profile-modal\');openAddProduct()">➕ Добавить</button></div>';
+    if(mine.length===0) return '<div style="text-align:center;padding:35px;color:var(--text2)"><div style="font-size:55px;margin-bottom:12px">🏪</div>Нет товаров<button class="btn-primary" style="margin-top:15px;max-width:200px;background:linear-gradient(135deg,#7cff5c,#3d8a24)" onclick="closeModal(\'profile-modal\');openAddProduct()">➕ Добавить</button></div>';
     var h='<button class="btn-primary btn-success" style="margin-bottom:12px" onclick="closeModal(\'profile-modal\');openAddProduct()">➕ Добавить</button>';
     for(var i=0;i<mine.length;i++){
         var p=mine[i];
@@ -2455,10 +2386,9 @@ function logout(){
     document.getElementById('chat-badge').classList.remove('show');
     document.getElementById('namaz-timer').classList.remove('show');
     if(namazTimerInterval) clearInterval(namazTimerInterval);
-    document.documentElement.style.setProperty('--btn1', '#4be32c');
-    document.documentElement.style.setProperty('--btn2', '#3d8a24');
     document.getElementById('products').className = 'products cols-4';
     updateCurrencyBadge();
+    refreshNamazPromo();
     saveLocal(); closeModal('profile-modal');
     notify('👋 Вышли');
 }
@@ -2483,7 +2413,7 @@ function openNamaz(){
     var bv=document.getElementById('namaz-buy-view');
     var av=document.getElementById('namaz-active-view');
     if(!currentUser){ closeModal('namaz-modal'); openModal('login-modal'); return; }
-    document.getElementById('namaz-modal-price').textContent = '¥'+namazPrice.toFixed(2);
+    openNamazRefreshPrice();
     if(currentProfile && currentProfile.namaz){
         bv.style.display='none'; av.style.display='block';
         document.getElementById('namaz-until').textContent=currentProfile.namazUntil||'—';
@@ -2494,7 +2424,7 @@ function openNamaz(){
 async function subscribeNamaz(){
     if(!currentUser){ closeModal('namaz-modal'); openModal('login-modal'); return; }
     var bal=parseFloat(currentProfile.balance||0);
-    if(bal<namazPrice){ notify('❌ Нужно ¥'+namazPrice.toFixed(2)); fxShake(document.querySelector('#namaz-modal .btn-primary')); return; }
+    if(bal<namazPrice){ notify('❌ Нужно '+price(namazPrice)); fxShake(document.querySelector('#namaz-modal .btn-primary')); return; }
     currentProfile.balance=bal-namazPrice;
     var now = new Date();
     var target;
@@ -2509,7 +2439,7 @@ async function subscribeNamaz(){
     currentProfile.namazUntil=target.getDate()+'.'+(target.getMonth()+1)+'.'+target.getFullYear()+' '+(target.getHours()<10?'0':'')+target.getHours()+':'+(target.getMinutes()<10?'0':'')+target.getMinutes();
     await persistProfile();
     updateUserUI(); checkNamazTheme(); startNamazTimer();
-    renderButtonStyles();
+    refreshNamazPromo();
     fxSuccess('✨');
     notify('✨ NAMAZ продлён на 24 часа!');
     openNamaz();
@@ -2518,14 +2448,12 @@ async function cancelNamaz(){
     if(!confirm('Отменить NAMAZ?')) return;
     currentProfile.namaz=false; currentProfile.namazUntil=null;
     currentProfile.profile_bg=''; currentProfile.card_bg=''; currentProfile.nick_color=''; currentProfile.nick_color2=''; currentProfile.nick_effect='';
-    currentProfile.button_style='mazon';
     var namazAvatars=['👑','🐉','🦄','🌟','🔥','💠'];
     if(namazAvatars.indexOf(currentProfile.avatar) !== -1) currentProfile.avatar = '👤';
     await persistProfile();
     if(currentTheme==='namaz') setTheme('light');
-    applyButtonStyle();
     updateUserUI(); checkNamazTheme(); renderProducts(); startNamazTimer();
-    renderButtonStyles();
+    refreshNamazPromo();
     notify('Отменено');
     closeModal('namaz-modal');
 }
@@ -2554,7 +2482,7 @@ async function openModerationPanel(){
             '<div class="seller-info"><div class="seller-name" style="display:flex;align-items:center;gap:2px;flex-wrap:wrap">'+nickHtml(u.name, prof)+'</div>'+
             '<div class="seller-bio">Баланс: ¥'+(parseFloat(u.balance)||0).toFixed(2)+(muted?' • 🔇 Замучен до '+new Date(u.muted_until).toLocaleString():'')+'</div></div>'+
             '<div style="display:flex;gap:4px">'+
-                '<button class="card-action" onclick="openBalanceEditor(\''+esc(u.name)+'\')" title="Баланс" style="background:rgba(75,163,46,.95);color:#fff">💰</button>'+
+                '<button class="card-action" onclick="openBalanceEditor(\''+esc(u.name)+'\')" title="Баланс" style="background:linear-gradient(135deg,#7cff5c,#3d8a24);color:#fff">💰</button>'+
                 (u.name !== currentUser ? '<button class="card-action danger" onclick="muteUser(\''+esc(u.name)+'\')" title="'+(muted?'Размутить':'Замутить')+'">'+(muted?'🔊':'🔇')+'</button>' : '')+
             '</div>'+
         '</div>';
@@ -3052,8 +2980,6 @@ async function boot(){
     var to=document.querySelector('[data-t="'+currentTheme+'"]');
     if(to) to.classList.add('active');
 
-    document.getElementById('namaz-banner-price').innerHTML = '¥'+namazPrice.toFixed(2)+' <small>/ день</small>';
-
     if(currentUser && sb){
         var p = await getProfileFromDB(currentUser);
         if(p){
@@ -3068,13 +2994,13 @@ async function boot(){
     }
     updateUserUI();
     updateCurrencyBadge();
-    applyButtonStyle();
     applyGridCols();
+    renderNamazBannerPrice();
     if(isSupport) document.getElementById('support-panel').style.display='block';
     checkNamazTheme();
     startNamazTimer();
+    refreshNamazPromo();
     renderCurrencyOptions();
-    renderButtonStyles();
     renderSettingsColPreview((currentProfile && currentProfile.grid_cols) || 4);
     updateGridButtons((currentProfile && currentProfile.grid_cols) || 4);
     await loadProducts();
