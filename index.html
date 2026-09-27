@@ -65,8 +65,8 @@ header{background:linear-gradient(90deg,var(--h1),var(--h2));padding:12px 15px;p
 
 .muted-badge{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;font-size:9px;font-weight:800;border-radius:8px;padding:2px 6px;margin-left:4px;vertical-align:middle}
 
-/* ✅ Иконка изумруда */
-.emerald-icon{display:inline-block;width:14px;height:14px;vertical-align:middle;margin:0 2px;background:url('https://raw.githubusercontent.com/jeka5591/mazon/main/%D0%98%D0%B7%D1%83%D0%BC%D1%80%D1%83%D0%B4-Photoroom.png') center/contain no-repeat;flex-shrink:0}
+/* ✅ SVG-изумруд встроенный */
+.emerald-icon{display:inline-block;width:14px;height:14px;vertical-align:middle;margin:0 2px;background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%237cffb2"/><stop offset="50%" stop-color="%231fd85f"/><stop offset="100%" stop-color="%230a8c37"/></linearGradient></defs><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="url(%23g)" stroke="%230a5c24" stroke-width="0.8"/><polygon points="12,2 21,7 12,9 3,7" fill="%235cffa0" opacity="0.85"/><polygon points="12,3 18,6.5 12,8 6,6.5" fill="%23ffffff" opacity="0.5"/><polygon points="3,7 12,9 12,22" fill="%230a8c37" opacity="0.5"/><polygon points="21,7 12,9 12,22" fill="%230d6b2c" opacity="0.6"/><circle cx="8" cy="11" r="0.6" fill="%23ffffff" opacity="0.7"/><circle cx="16" cy="13" r="0.4" fill="%23ffffff" opacity="0.5"/></svg>') center/contain no-repeat}
 .emerald-icon.big{width:20px;height:20px}
 
 nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 15px;overflow-x:auto;transition:.3s}
@@ -74,6 +74,21 @@ nav::-webkit-scrollbar{height:0;display:none}
 .nav-inner{max-width:1400px;margin:0 auto;display:flex;gap:20px}
 .nav-inner a{padding:12px 0;color:var(--text);text-decoration:none;font-size:13px;white-space:nowrap;border-bottom:2px solid transparent;cursor:pointer}
 .nav-inner a:hover,.nav-inner a.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ✅ Главная страница с двумя плитками */
+.home-page{max-width:800px;margin:40px auto;padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.home-tile{border-radius:24px;padding:40px 30px;color:#fff;cursor:pointer;position:relative;overflow:hidden;text-align:center;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.15)}
+.home-tile:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,0,0,.25)}
+.home-tile.shop{background:linear-gradient(135deg,#3d7d2b,#1a3d0f)}
+.home-tile.news{background:linear-gradient(135deg,#481173,#cb11ab)}
+.home-tile .tile-icon{font-size:70px;line-height:1;filter:drop-shadow(0 6px 12px rgba(0,0,0,.3))}
+.home-tile .tile-title{font-size:26px;font-weight:900;text-shadow:2px 2px 0 rgba(0,0,0,.3);letter-spacing:1px}
+.home-tile .tile-desc{font-size:13px;opacity:.85;line-height:1.4}
+.home-tile::after{content:'';position:absolute;right:-30px;bottom:-30px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
+.page-back{max-width:1400px;margin:15px auto 0;padding:0 15px}
+.page-back button{background:var(--card);color:var(--text);border:2px solid var(--border);padding:10px 20px;border-radius:24px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px}
+.page-back button:hover{border-color:var(--accent);color:var(--accent)}
+@media (max-width:600px){.home-page{grid-template-columns:1fr;margin-top:20px}}
 
 .banner{max-width:1400px;margin:15px auto;padding:0 15px}
 .banner-inner{background:linear-gradient(135deg,#3d7d2b,#1a3d0f);border-radius:20px;padding:35px 40px;color:#fff;position:relative;overflow:hidden}
@@ -176,7 +191,6 @@ nav::-webkit-scrollbar{height:0;display:none}
 .btn-buy:hover{transform:translateY(-1px)}
 .btn-buy.own,.btn-buy:disabled{background:var(--text2) !important;cursor:not-allowed;opacity:.6;transform:none}
 
-/* Розовый градиент для корзины */
 .btn-cart-icon{width:40px;height:40px;background:linear-gradient(135deg,#ff8ab5,#d63384);color:#fff;border:none;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1}
 .btn-cart-icon:hover{transform:scale(1.1)}
 .btn-cart-icon.added{background:linear-gradient(135deg,#7cff5c,#3d8a24)}
@@ -208,6 +222,14 @@ nav::-webkit-scrollbar{height:0;display:none}
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
+/* ✅ Красивая кнопка загрузки файла */
+.file-upload-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#c26bff,#6a1b9a);color:#fff;border:none;padding:14px 20px;border-radius:16px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;width:100%;transition:.2s;box-shadow:0 4px 12px rgba(106,27,154,.3)}
+.file-upload-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(106,27,154,.5)}
+.file-upload-btn .ico{font-size:20px}
+.file-upload-btn input{display:none}
+.file-upload-btn.disabled{background:var(--text2);cursor:not-allowed;opacity:.6}
+.file-upload-hint{font-size:11px;color:var(--text2);text-align:center;margin-top:6px}
+
 .btn-primary{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border:none;padding:13px 20px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
 .btn-primary:hover{transform:translateY(-2px)}
 .btn-primary.own,.btn-primary:disabled{background:var(--text2) !important;cursor:not-allowed;opacity:.6;transform:none}
@@ -226,8 +248,8 @@ nav::-webkit-scrollbar{height:0;display:none}
 .form-footer{text-align:center;margin-top:12px;font-size:13px;color:var(--text3)}
 .form-footer a{color:var(--accent);cursor:pointer;font-weight:600;text-decoration:none}
 
-.emoji-picker{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
-.emoji-option{width:38px;height:38px;border-radius:14px;border:2px solid var(--border);background:var(--input);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.emoji-picker{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;max-height:200px;overflow-y:auto;padding-right:6px}
+.emoji-option{width:38px;height:38px;border-radius:14px;border:2px solid var(--border);background:var(--input);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .emoji-option:hover{transform:scale(1.1)}
 .emoji-option.selected{border-color:var(--accent);background:var(--accent-l)}
 
@@ -347,12 +369,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
 .n-comment-form button{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border:none;padding:0 16px;border-radius:20px;font-size:13px;cursor:pointer;font-weight:700;font-family:inherit}
 .news-empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text2)}
 
-/* ✅ Кнопка "Что нового" */
-.whatsnew-modal-body{max-height:70vh;overflow-y:auto}
-.whatsnew-item{padding:12px;border-radius:12px;background:var(--soft);margin-bottom:8px}
-.whatsnew-item .v{font-size:11px;font-weight:900;color:var(--accent);margin-bottom:4px}
-.whatsnew-item .t{font-size:13px;line-height:1.5;white-space:pre-wrap}
-
 /* Превью аватара */
 .avatar-preview{width:80px;height:80px;border-radius:50%;background-size:cover;background-position:center;background-color:var(--soft);display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;margin:0 auto 10px;border:3px solid var(--border)}
 
@@ -384,15 +400,14 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
 
 <header>
     <div class="header-inner">
-        <div class="logo" onclick="resetFilters()"><span class="ma">MA</span><span class="zon">ZON</span></div>
-        <div class="search-bar">
+        <div class="logo" onclick="goHome()"><span class="ma">MA</span><span class="zon">ZON</span></div>
+        <div class="search-bar" id="searchWrap" style="display:none">
             <input type="text" id="searchInput" placeholder="Что будем искать?">
             <button onclick="performSearch()">Найти</button>
         </div>
         <div class="namaz-timer" id="namaz-timer"><span class="clock">⏰</span><span id="namaz-timer-text">00:00:00</span></div>
         <div class="currency-badge" id="currency-badge" onclick="toggleCurrencyQuick()"><span id="currency-symbol">¥</span> <span id="currency-code">CNY</span></div>
         <div class="header-icons">
-            <div class="header-icon" onclick="openWhatsNew()"><span class="icon">🆕</span><span>Что нового</span></div>
             <div class="header-icon" onclick="openWallet()"><span class="icon">💰</span><span>Кошелёк</span></div>
             <div class="header-icon" onclick="openMessages()"><span class="icon">💬</span><span>Сообщения</span><span class="cart-badge" id="chat-badge">0</span></div>
             <div class="header-icon" onclick="toggleCart()"><span class="icon">🛒</span><span>Корзина</span><span class="cart-badge" id="cart-badge">0</span></div>
@@ -402,37 +417,21 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </header>
 
-<nav>
-    <div class="nav-inner">
-        <a onclick="switchPage('shop', this)" class="active">🎮 Магазин</a>
-        <a onclick="switchPage('news', this)">📰 Z News</a>
-        <a onclick="filterCategory('all', this)">🎮 Все</a>
-        <a onclick="filterCategory('blocks', this)">🧱 Блоки</a>
-        <a onclick="filterCategory('ores', this)">⛏️ Руды</a>
-        <a onclick="filterCategory('tools', this)">🔨 Инструменты</a>
-        <a onclick="filterCategory('weapons', this)">⚔️ Оружие</a>
-        <a onclick="filterCategory('armor', this)">🛡️ Броня</a>
-        <a onclick="filterCategory('clothes', this)">👕 Одежда</a>
-        <a onclick="filterCategory('mobs', this)">🐷 Мобы</a>
-        <a onclick="filterCategory('food', this)">🍎 Еда</a>
-        <a onclick="filterCategory('books', this)">📖 Книги</a>
-        <a onclick="filterCategory('potions', this)">🧪 Зелья</a>
-        <a onclick="filterCategory('services', this)">🛠️ Услуги</a>
-        <a onclick="filterCategory('misc', this)">💎 Прочее</a>
-    </div>
-</nav>
-
-<!-- МАГАЗИН -->
-<div id="page-shop">
-    <div class="banner">
-        <div class="banner-inner">
-            <h1>⛏️ MAZON</h1>
-            <p>2026 — Общий магазин, все игроки видят ваши товары!</p>
-            <button class="banner-btn" onclick="openAddProduct()">➕ Добавить товар</button>
+<!-- ГЛАВНАЯ -->
+<div id="page-home">
+    <div class="home-page">
+        <div class="home-tile shop" onclick="goShop()">
+            <div class="tile-icon">🛒</div>
+            <div class="tile-title">МАГАЗИН</div>
+            <div class="tile-desc">Покупай и продавай товары</div>
+        </div>
+        <div class="home-tile news" onclick="goNews()">
+            <div class="tile-icon">📰</div>
+            <div class="tile-title">Z NEWS</div>
+            <div class="tile-desc">Новости от игроков</div>
         </div>
     </div>
-
-    <div class="namaz-banner" id="namaz-banner">
+    <div class="namaz-banner" id="namaz-banner" style="margin-top:30px">
         <div class="namaz-inner">
             <div>
                 <h2>Подписка NAMAZ</h2>
@@ -442,7 +441,30 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
             <button class="namaz-buy-btn" onclick="openNamaz()">Подключить</button>
         </div>
     </div>
+</div>
 
+<!-- МАГАЗИН -->
+<div id="page-shop" style="display:none">
+    <div class="page-back">
+        <button onclick="goHome()">← На главную</button>
+    </div>
+    <nav>
+        <div class="nav-inner">
+            <a onclick="filterCategory('all', this)" class="active">🎮 Все</a>
+            <a onclick="filterCategory('blocks', this)">🧱 Блоки</a>
+            <a onclick="filterCategory('ores', this)">⛏️ Руды</a>
+            <a onclick="filterCategory('tools', this)">🔨 Инструменты</a>
+            <a onclick="filterCategory('weapons', this)">⚔️ Оружие</a>
+            <a onclick="filterCategory('armor', this)">🛡️ Броня</a>
+            <a onclick="filterCategory('clothes', this)">👕 Одежда</a>
+            <a onclick="filterCategory('mobs', this)">🐷 Мобы</a>
+            <a onclick="filterCategory('food', this)">🍎 Еда</a>
+            <a onclick="filterCategory('books', this)">📖 Книги</a>
+            <a onclick="filterCategory('potions', this)">🧪 Зелья</a>
+            <a onclick="filterCategory('services', this)">🛠️ Услуги</a>
+            <a onclick="filterCategory('misc', this)">💎 Прочее</a>
+        </div>
+    </nav>
     <div class="filters">
         <button class="filter-btn active" onclick="filterRarity('all', this)">Все</button>
         <button class="filter-btn" onclick="filterRarity('common', this)">⚪ Обычные</button>
@@ -452,13 +474,15 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
         <button class="filter-btn" onclick="sortByPrice(this)">💰 По цене</button>
         <button class="filter-btn add-product-btn" onclick="openAddProduct()">➕ Добавить товар</button>
     </div>
-
     <h2 class="section-title"><span id="section-name">Все товары</span><small id="products-count"></small></h2>
     <div class="products cols-4" id="products"><div class="loading">⏳ Загрузка...</div></div>
 </div>
 
 <!-- НОВОСТИ -->
 <div id="page-news" style="display:none">
+    <div class="page-back">
+        <button onclick="goHome()">← На главную</button>
+    </div>
     <div class="banner">
         <div class="banner-inner" style="background:linear-gradient(135deg,#481173,#cb11ab)">
             <h1>📰 Z News</h1>
@@ -549,7 +573,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
         <div class="modal-body">
             <div class="form-group"><label>Название *</label><input type="text" id="ap-name" placeholder="Алмазный меч" oninput="updateNamePreview()"></div>
             <div class="form-group"><label>Описание</label><textarea id="ap-desc"></textarea></div>
-            <div class="form-group"><label>Цена в юанях (¥) * (минимум 1 ¥)</label><input type="number" id="ap-price" placeholder="9.99" min="1" step="0.01" inputmode="decimal"><div style="font-size:11px;color:var(--text2);margin-top:4px">Минимум 1 ¥ · покупатель увидит в своей валюте</div></div>
+            <div class="form-group"><label>Цена в изумрудах 💎 * (минимум 1 <span class="emerald-icon"></span>)</label><input type="number" id="ap-price" placeholder="9.99" min="1" step="0.01" inputmode="decimal"><div style="font-size:11px;color:var(--text2);margin-top:4px">1 <span class="emerald-icon"></span> = 1 ¥ · 2 <span class="emerald-icon"></span> = 1 €</div></div>
             <div class="form-row">
                 <div class="form-group"><label>Категория</label><select id="ap-category">
                     <option value="blocks">🧱 Блоки</option>
@@ -573,49 +597,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
             <div class="form-group">
                 <label>Иконка *</label>
                 <input type="text" id="ap-emoji" value="💎" maxlength="4" style="font-size:20px;text-align:center">
-                <div class="emoji-picker">
-                    <div class="emoji-option selected" onclick="pickEmoji('💎', this)">💎</div>
-                    <div class="emoji-option" onclick="pickEmoji('⛏️', this)">⛏️</div>
-                    <div class="emoji-option" onclick="pickEmoji('💠', this)">💠</div>
-                    <div class="emoji-option" onclick="pickEmoji('🟨', this)">🟨</div>
-                    <div class="emoji-option" onclick="pickEmoji('🟥', this)">🟥</div>
-                    <div class="emoji-option" onclick="pickEmoji('🧱', this)">🧱</div>
-                    <div class="emoji-option" onclick="pickEmoji('⚔️', this)">⚔️</div>
-                    <div class="emoji-option" onclick="pickEmoji('🛡️', this)">🛡️</div>
-                    <div class="emoji-option" onclick="pickEmoji('🏹', this)">🏹</div>
-                    <div class="emoji-option" onclick="pickEmoji('🧪', this)">🧪</div>
-                    <div class="emoji-option" onclick="pickEmoji('🐷', this)">🐷</div>
-                    <div class="emoji-option" onclick="pickEmoji('🍎', this)">🍎</div>
-                    <div class="emoji-option" onclick="pickEmoji('🍔', this)">🍔</div>
-                    <div class="emoji-option" onclick="pickEmoji('🍕', this)">🍕</div>
-                    <div class="emoji-option" onclick="pickEmoji('🍟', this)">🍟</div>
-                    <div class="emoji-option" onclick="pickEmoji('🥕', this)">🥕</div>
-                    <div class="emoji-option" onclick="pickEmoji('🚕', this)">🚕</div>
-                    <div class="emoji-option" onclick="pickEmoji('🚗', this)">🚗</div>
-                    <div class="emoji-option" onclick="pickEmoji('🏎️', this)">🏎️</div>
-                    <div class="emoji-option" onclick="pickEmoji('🚁', this)">🚁</div>
-                    <div class="emoji-option" onclick="pickEmoji('👕', this)">👕</div>
-                    <div class="emoji-option" onclick="pickEmoji('👖', this)">👖</div>
-                    <div class="emoji-option" onclick="pickEmoji('🧥', this)">🧥</div>
-                    <div class="emoji-option" onclick="pickEmoji('👗', this)">👗</div>
-                    <div class="emoji-option" onclick="pickEmoji('👟', this)">👟</div>
-                    <div class="emoji-option" onclick="pickEmoji('🎩', this)">🎩</div>
-                    <div class="emoji-option" onclick="pickEmoji('🧢', this)">🧢</div>
-                    <div class="emoji-option" onclick="pickEmoji('🥾', this)">🥾</div>
-                    <div class="emoji-option" onclick="pickEmoji('🧦', this)">🧦</div>
-                    <div class="emoji-option" onclick="pickEmoji('📖', this)">📖</div>
-                    <div class="emoji-option" onclick="pickEmoji('📚', this)">📚</div>
-                    <div class="emoji-option" onclick="pickEmoji('📕', this)">📕</div>
-                    <div class="emoji-option" onclick="pickEmoji('📗', this)">📗</div>
-                    <div class="emoji-option" onclick="pickEmoji('📘', this)">📘</div>
-                    <div class="emoji-option" onclick="pickEmoji('📙', this)">📙</div>
-                    <div class="emoji-option" onclick="pickEmoji('📓', this)">📓</div>
-                    <div class="emoji-option" onclick="pickEmoji('📔', this)">📔</div>
-                    <div class="emoji-option" onclick="pickEmoji('🐉', this)">🐉</div>
-                    <div class="emoji-option" onclick="pickEmoji('🔥', this)">🔥</div>
-                    <div class="emoji-option" onclick="pickEmoji('🛠️', this)">🛠️</div>
-                    <div class="emoji-option" onclick="pickEmoji('✨', this)">✨</div>
-                </div>
+                <div class="emoji-picker" id="ap-emoji-picker"></div>
             </div>
             <div class="form-group" id="ap-bg-group" style="display:none">
                 <label>🎨 Фон карточки (NAMАZ)</label>
@@ -633,7 +615,7 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
                     <div style="margin-top:12px;font-size:13px;color:var(--text2)">Превью: <span id="ap-name-preview">Название товара</span></div>
                 </div>
             </div>
-            <div class="form-error" id="ap-error">❌ Заполните название и цену (минимум 1 ¥)</div>
+            <div class="form-error" id="ap-error">❌ Заполните название и цену (минимум 1 изумруд)</div>
             <button class="btn-primary" onclick="saveProduct()" id="ap-save-btn">💾 Сохранить</button>
         </div>
     </div>
@@ -664,7 +646,12 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
             </div>
             <div class="form-group">
                 <label>Картинки <span style="color:var(--text2);font-size:11px" id="an-img-limit">(максимум 3)</span></label>
-                <input type="file" id="an-images" accept="image/*" multiple style="font-size:12px" onchange="handleNewsImages(event)">
+                <label class="file-upload-btn" id="an-upload-btn">
+                    <span class="ico">📷</span>
+                    <span id="an-upload-text">Выбрать картинки</span>
+                    <input type="file" id="an-images" accept="image/*" multiple onchange="handleNewsImages(event)">
+                </label>
+                <div class="file-upload-hint">Можно выбрать несколько файлов. PNG, JPG до 3 МБ</div>
                 <div id="an-images-preview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px;margin-top:8px"></div>
             </div>
             <div class="form-group" id="an-duration-group" style="display:none">
@@ -857,38 +844,6 @@ footer{background:var(--h2);color:#ccc;padding:30px 15px 15px;margin-top:30px;te
     </div>
 </div>
 
-<!-- ЧТО НОВОГО -->
-<div class="modal" id="whatsnew-modal">
-    <div class="modal-content" style="max-width:550px">
-        <div class="modal-header" style="background:linear-gradient(90deg,#481173,#cb11ab)"><h2>🆕 Что нового в MAZON</h2><button class="close-btn" onclick="closeModal('whatsnew-modal')">×</button></div>
-        <div class="modal-body whatsnew-modal-body">
-            <div class="whatsnew-item">
-                <div class="v">v2.0 — Апрель 2026</div>
-                <div class="t">💱 Валюта: юань ¥ и евро € (1€ = 2¥)
-📰 Раздел Z News — делись новостями!
-💬 Комментарии к новостям
-🖼️ NAMAZ: свои картинки на аватар
-⏰ Новости 24ч (NAMAZ: до 48ч)
-📖 Добавлены эмодзи книг</div>
-            </div>
-            <div class="whatsnew-item">
-                <div class="v">v1.5</div>
-                <div class="t">👑 Подписка NAMAZ
-🎨 Кастомные фоны, цвета, эффекты
-🚀 NAMAZ-товары вверху
-💸 Комиссия вывода 5% (макс 10¥)</div>
-            </div>
-            <div class="whatsnew-item">
-                <div class="v">v1.0</div>
-                <div class="t">🎉 Запуск MAZON
-🛒 Магазин игроков
-💬 Чаты и поддержка
-⭐ Отзывы и заказы</div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <footer>© 2026 MAZON</footer>
 <div class="notification" id="notification"></div>
 
@@ -903,11 +858,10 @@ try {
 
 var ADMIN_KEY = '55915591';
 var TICKET_TTL_HOURS = 24;
-var WITHDRAW_MAX = 10;
+var WITHDRAW_MAX_EMERALDS = 10;
 var WITHDRAW_FEE_PERCENT = 5;
 var EUR_RATE = 2;
-var MIN_PRICE_CNY = 1;
-var EMERALD_ICON_URL = 'https://raw.githubusercontent.com/jeka5591/mazon/main/%D0%98%D0%B7%D1%83%D0%BC%D1%80%D1%83%D0%B4-Photoroom.png';
+var MIN_PRICE_EMERALDS = 1;
 
 var products = [], reviews = {}, cart = {}, favorites = [], news = [], newsComments = {};
 var currentCategory = 'all', currentRarity = 'all', sortAsc = null, currentSearch = '';
@@ -919,7 +873,7 @@ var dbMessages = [];
 var chatRefreshTimer = null;
 var namazTimerInterval = null;
 var newsRefreshTimer = null;
-var currentPage = 'shop';
+var currentPage = 'home';
 var selectedProductBg = '';
 var apNameColor1 = '', apNameColor2 = '', apNameEffect = '';
 var editingProductId = null;
@@ -930,25 +884,29 @@ var newsDurationPick = 24;
 var newsImages = [];
 var anBg = '', anNameColor1 = '', anNameColor2 = '', anNameEffect = '', anTextColor = '';
 
+/* ===== ВАЛЮТА — ИЗУМРУД БАЗА ===== */
 function getCurrency(){ return (currentProfile && currentProfile.currency) || 'cny'; }
 function getCurrencySymbol(){ return getCurrency() === 'eur' ? '€' : '¥'; }
 function getCurrencyCode(){ return getCurrency() === 'eur' ? 'EUR' : 'CNY'; }
-/* Всегда считаем в изумрудах = юанях */
-function convertPrice(cnyAmount){
-    var v = parseFloat(cnyAmount) || 0;
+
+/* Изумруд = 1 юань. Цены в БД = изумруды (= юани). */
+function emeraldsOf(amount){ return parseFloat(amount) || 0; }
+/* Сколько показывать в текущей валюте */
+function displayPrice(emeraldAmount){
+    var v = parseFloat(emeraldAmount) || 0;
     if(getCurrency() === 'eur') return Math.round(v / EUR_RATE * 100) / 100;
     return v;
 }
-function price(cnyAmount){ return getCurrencySymbol() + convertPrice(cnyAmount).toFixed(2); }
-/* Сколько изумрудов в сумме (равно юаням) */
-function emeraldsOf(cnyAmount){ return parseFloat(cnyAmount) || 0; }
-function emeraldHtml(cnyAmount){
-    return '<span class="emerald-icon"></span>' + emeraldsOf(cnyAmount).toFixed(2);
-}
-function toCny(displayAmount){
+function price(emeraldAmount){ return getCurrencySymbol() + displayPrice(emeraldAmount).toFixed(2); }
+/* Из валюты в изумруды */
+function toEmeralds(displayAmount){
     var v = parseFloat(displayAmount) || 0;
     if(getCurrency() === 'eur') return Math.round(v * EUR_RATE * 100) / 100;
     return v;
+}
+/* HTML с иконкой изумруда */
+function emeraldHtml(amount){
+    return '<span class="emerald-icon"></span> ' + emeraldsOf(amount).toFixed(2);
 }
 
 function saveLocal(){
@@ -994,19 +952,32 @@ function refreshNamazPromo(){
     if(settingsPromo) settingsPromo.style.display = hasNamaz ? 'none' : 'block';
 }
 
-/* ✅ Переключение страниц */
-function switchPage(page, el){
-    currentPage = page;
-    document.getElementById('page-shop').style.display = (page === 'shop') ? 'block' : 'none';
-    document.getElementById('page-news').style.display = (page === 'news') ? 'block' : 'none';
-    if(el){
-        var links = document.querySelectorAll('.nav-inner a');
-        for(var i=0;i<links.length;i++) links[i].classList.remove('active');
-        el.classList.add('active');
-    }
-    if(page === 'news') loadNews();
+/* ===== НАВИГАЦИЯ ===== */
+function goHome(){
+    currentPage = 'home';
+    document.getElementById('page-home').style.display = 'block';
+    document.getElementById('page-shop').style.display = 'none';
+    document.getElementById('page-news').style.display = 'none';
+    document.getElementById('searchWrap').style.display = 'none';
+}
+function goShop(){
+    currentPage = 'shop';
+    document.getElementById('page-home').style.display = 'none';
+    document.getElementById('page-shop').style.display = 'block';
+    document.getElementById('page-news').style.display = 'none';
+    document.getElementById('searchWrap').style.display = 'flex';
+    renderProducts();
+}
+function goNews(){
+    currentPage = 'news';
+    document.getElementById('page-home').style.display = 'none';
+    document.getElementById('page-shop').style.display = 'none';
+    document.getElementById('page-news').style.display = 'block';
+    document.getElementById('searchWrap').style.display = 'none';
+    loadNews();
 }
 
+/* ===== ЗАГРУЗКА ===== */
 async function loadProducts(){
     var grid=document.getElementById('products');
     if(!sb){ grid.innerHTML='<div class="loading">❌ Нет подключения</div>'; return; }
@@ -1020,7 +991,7 @@ async function loadProducts(){
         if(rv.data){ for(var i=0;i<rv.data.length;i++){ var x=rv.data[i]; if(!reviews[x.product_id]) reviews[x.product_id]=[]; reviews[x.product_id].push(x); } }
         await loadRichestPlayer();
         await preloadSellerProfiles();
-        renderProducts();
+        if(currentPage === 'shop') renderProducts();
     }catch(e){ grid.innerHTML='<div class="loading">❌ '+e.message+'</div>'; }
 }
 
@@ -1034,9 +1005,7 @@ async function preloadSellerProfiles(){
     try{
         var r = await sb.from('profiles').select('*').in('name', missing);
         if(!r.error && r.data){
-            for(var j=0;j<r.data.length;j++){
-                profileCache[r.data[j].name] = profileFromRow(r.data[j]);
-            }
+            for(var j=0;j<r.data.length;j++) profileCache[r.data[j].name] = profileFromRow(r.data[j]);
         }
     }catch(e){ console.warn(e); }
 }
@@ -1259,7 +1228,8 @@ async function doLogin(){
     notify('✅ Добро пожаловать, '+currentProfile.name+'!');
     checkNamazTheme(); startNamazTimer(); refreshNamazPromo();
     await refreshMessages(); checkUnread();
-    await loadRichestPlayer(); await preloadSellerProfiles(); renderProducts();
+    await loadRichestPlayer(); await preloadSellerProfiles();
+    if(currentPage === 'shop') renderProducts();
     if(currentPage === 'news') loadNews();
 }
 async function doRegister(){
@@ -1420,7 +1390,8 @@ async function expireNamaz(){
     await persistProfile();
     if(currentTheme === 'namaz') setTheme('light');
     updateUserUI(); checkNamazTheme(); startNamazTimer();
-    renderProducts(); refreshNamazPromo();
+    if(currentPage === 'shop') renderProducts();
+    refreshNamazPromo();
     notify('⏰ Подписка NAMAZ истекла');
 }
 function startNamazTimer(){
@@ -1570,7 +1541,7 @@ async function openEditProduct(id){
     document.getElementById('ap-emoji').value = p.emoji || '💎';
     document.getElementById('ap-error').classList.remove('show');
 
-    var opts = document.querySelectorAll('#add-product-modal .emoji-option');
+    var opts = document.querySelectorAll('#ap-emoji-picker .emoji-option');
     for(var i=0;i<opts.length;i++) opts[i].classList.toggle('selected', opts[i].textContent.trim() === (p.emoji||'💎'));
 
     selectedProductBg = p.bg || '';
@@ -1618,6 +1589,26 @@ function renderBgPicker(){
     bgPicker.innerHTML = html;
 }
 
+/* Список эмодзи — всё из Minecraft */
+var EMOJI_LIST = [
+    '💎','⛏️','💠','🟨','🟥','🟫','⬜','⬛','🧱','⚔️','🛡️','🏹','🧪','🐷','🐮','🐔','🐑','🐺','🐉','🦊','🦄','🐟','🦑','🐙',
+    '🍎','🍔','🍕','🍟','🥕','🥔','🍉','🎃','🍞','🥩','🍗','🍄','🌾','🥚','🍯','🍫','🍇','🍒','🍓','🥝','🍋','🍊','🍑','🥥','🍆','🥦','🥬','🥒','🌶️','🧄','🧅','🥜','🌰',
+    '🧊','❄️','🪨','⛰️','🌳','🌲','🌵','🌿','🍀','🍁','🍂','🪵','🕯️','🧨','🎆','🔥','💧','🌊',
+    '👕','👖','🧥','👗','👟','🎩','🧢','🥾','🧦','👑','💀','🪙','🧭','🕰️','🗺️','📜','🎣','🪓','🔱','🪄','🧹',
+    '📖','📚','📕','📗','📘','📙','📓','📔','📒','📰','✉️','📦','🎁','🎮','🎲','🎯',
+    '🚕','🚗','🏎️','🚁','⛵','🛶','🐎','🦅','🦇','🐍','🕷️','🦂'
+];
+
+function renderEmojiPicker(){
+    var p = document.getElementById('ap-emoji-picker');
+    if(!p) return;
+    var h = '';
+    for(var i=0;i<EMOJI_LIST.length;i++){
+        h += '<div class="emoji-option'+(i===0?' selected':'')+'" onclick="pickEmoji(\''+EMOJI_LIST[i]+'\',this)">'+EMOJI_LIST[i]+'</div>';
+    }
+    p.innerHTML = h;
+}
+
 function openAddProduct(){
     if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
     if(currentProfile.muted_until){
@@ -1634,7 +1625,7 @@ function openAddProduct(){
     selectedProductBg = '';
     apNameColor1 = ''; apNameColor2 = ''; apNameEffect = '';
 
-    var opts = document.querySelectorAll('#add-product-modal .emoji-option');
+    var opts = document.querySelectorAll('#ap-emoji-picker .emoji-option');
     for(var i=0;i<opts.length;i++) opts[i].classList.toggle('selected', i===0);
 
     var bgGroup = document.getElementById('ap-bg-group');
@@ -1697,10 +1688,8 @@ function updateNamePreview(){
     else if(apNameEffect === 'gradient'){
         el.classList.add('nick-gradient-custom');
         el.style.backgroundImage = 'linear-gradient(90deg,'+(apNameColor1||'#cb11ab')+','+(apNameColor2||'#3b7bff')+')';
-        el.style.webkitBackgroundClip = 'text';
-        el.style.backgroundClip = 'text';
-        el.style.webkitTextFillColor = 'transparent';
-        el.style.color = 'transparent';
+        el.style.webkitBackgroundClip = 'text'; el.style.backgroundClip = 'text';
+        el.style.webkitTextFillColor = 'transparent'; el.style.color = 'transparent';
     }
     else if(apNameEffect === 'rainbow'){ el.classList.add('nick-effect-rainbow'); }
     else if(apNameColor1){ el.style.color = apNameColor1; }
@@ -1712,7 +1701,7 @@ function pickProductBg(v, el){
     for(var i=0;i<items.length;i++) items[i].style.borderColor = 'var(--border)';
     el.style.borderColor = 'var(--accent)';
 }
-function pickEmoji(e,el){ document.getElementById('ap-emoji').value=e; var o=document.querySelectorAll('#add-product-modal .emoji-option'); for(var i=0;i<o.length;i++) o[i].classList.remove('selected'); el.classList.add('selected'); }
+function pickEmoji(e,el){ document.getElementById('ap-emoji').value=e; var o=document.querySelectorAll('#ap-emoji-picker .emoji-option'); for(var i=0;i<o.length;i++) o[i].classList.remove('selected'); el.classList.add('selected'); }
 
 async function saveProduct(){
     var name=document.getElementById('ap-name').value.trim();
@@ -1721,7 +1710,7 @@ async function saveProduct(){
     var cat=document.getElementById('ap-category').value;
     var rar=document.getElementById('ap-rarity').value;
     var em=document.getElementById('ap-emoji').value.trim()||'💎';
-    if(!name||isNaN(pv)||pv<MIN_PRICE_CNY){ document.getElementById('ap-error').classList.add('show'); return; }
+    if(!name||isNaN(pv)||pv<MIN_PRICE_EMERALDS){ document.getElementById('ap-error').classList.add('show'); return; }
     if(!sb){ notify('❌ Нет соединения'); return; }
     if(currentProfile.muted_until){
         var until = new Date(currentProfile.muted_until);
@@ -1787,7 +1776,6 @@ function filterCategory(c,el){
     if(el) el.classList.add('active');
     var n={all:'Все товары',blocks:'Блоки',ores:'Руды',tools:'Инструменты',weapons:'Оружие',armor:'Броня',clothes:'Одежда',mobs:'Мобы',food:'Еда',books:'Книги',potions:'Зелья',services:'Услуги',misc:'Прочее'};
     document.getElementById('section-name').textContent=n[c]||'Товары';
-    if(currentPage !== 'shop') switchPage('shop', document.querySelector('.nav-inner a:nth-child(1)'));
     renderProducts();
 }
 function filterRarity(r,el){
@@ -1803,19 +1791,10 @@ function sortByPrice(el){
     else{ el.textContent=sortAsc?'💰 По цене ↑':'💰 По цене ↓'; el.classList.add('active'); }
     renderProducts();
 }
-function resetFilters(){
-    currentCategory='all'; currentRarity='all'; sortAsc=null; currentSearch='';
-    var links=document.querySelectorAll('.nav-inner a');
-    for(var i=0;i<links.length;i++) links[i].classList.toggle('active',i===0);
-    document.getElementById('section-name').textContent='Все товары';
-    switchPage('shop');
-    renderProducts();
-}
 function performSearch(){
     var q=document.getElementById('searchInput').value.trim().toLowerCase();
     currentSearch=q; currentCategory='all'; currentRarity='all';
     document.getElementById('section-name').textContent=q?'Поиск: "'+q+'"':'Все товары';
-    if(currentPage !== 'shop') switchPage('shop', document.querySelector('.nav-inner a:nth-child(1)'));
     renderProducts();
 }
 document.getElementById('searchInput').addEventListener('keypress',function(e){ if(e.key==='Enter') performSearch(); });
@@ -1887,13 +1866,13 @@ function openCheckout(){
 
 async function placeOrder(paymentType){
     if(!currentUser) return;
-    var totalCny=0, items=[];
+    var totalEm=0, items=[];
     for(var k in cart){
         var p=products.find(function(x){return x.id===+k;});
         if(p){
             var fp = getFinalPrice(p);
             var d = parseInt(p.discount)||0;
-            totalCny += fp * cart[k];
+            totalEm += fp * cart[k];
             items.push({
                 product_id: p.id,
                 name: p.name, qty: cart[k],
@@ -1902,20 +1881,20 @@ async function placeOrder(paymentType){
             });
         }
     }
-    var myBalCny = parseFloat(currentProfile.balance || 0);
-    if(myBalCny < 0){ notify('🚫 Вы в минусе'); return; }
-    if(paymentType === 'now' && myBalCny < totalCny){
-        notify('❌ Недостаточно средств. Нужно '+price(totalCny));
+    var myBalEm = parseFloat(currentProfile.balance || 0);
+    if(myBalEm < 0){ notify('🚫 Вы в минусе'); return; }
+    if(paymentType === 'now' && myBalEm < totalEm){
+        notify('❌ Недостаточно средств. Нужно '+price(totalEm));
         fxShake(document.getElementById('checkout-total'));
         return;
     }
     var orderNum=Math.floor(Math.random()*900000)+100000;
     if(paymentType==='now'){
-        currentProfile.balance = Math.round((myBalCny - totalCny) * 100) / 100;
+        currentProfile.balance = Math.round((myBalEm - totalEm) * 100) / 100;
         fxSuccess('💸');
-        notify('💸 Списано '+price(totalCny));
+        notify('💸 Списано '+price(totalEm));
     }
-    var order={ id:orderNum, items:items, total:totalCny, payment:paymentType,
+    var order={ id:orderNum, items:items, total:totalEm, payment:paymentType,
         status: paymentType==='now' ? 'paid' : 'pending',
         date:todayStr(), time:time(),
         seller_done: false, buyer_done: false, money_sent: false };
@@ -1939,7 +1918,7 @@ async function placeOrder(paymentType){
                 var it=sellers[sname][j];
                 lines += it.emoji+' '+it.name+' × '+it.qty+' — '+price(it.price*it.qty)+(it.discount>0?' (-'+it.discount+'%)':'')+'\n';
             }
-            lines += '\nСумма: '+price(totalCny)+'\nОплата: '+(paymentType==='now'?'оплачена сразу':'при получении')+'\n\n[ORDER:'+orderNum+']';
+            lines += '\nСумма: '+price(totalEm)+' ('+totalEm.toFixed(2)+' изумрудов)\nОплата: '+(paymentType==='now'?'оплачена сразу':'при получении')+'\n\n[ORDER:'+orderNum+']';
             try{
                 await sb.from('messages').insert([{
                     ticket_user: sellerTicketKey(sname, currentProfile.name),
@@ -2172,6 +2151,7 @@ async function renderSales(){
     return h;
 }
 
+/* ✅ КОШЕЛЁК — максимум вывода в изумрудах, отображение в валюте */
 function openWallet(){
     if(!currentUser){ openModal('login-modal'); return; }
     renderWallet(); openModal('wallet-modal');
@@ -2179,17 +2159,13 @@ function openWallet(){
 function renderWallet(){
     var bal=parseFloat(currentProfile.balance||0);
     var warn = bal < 0 ? '<div style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:12px;border-radius:14px;margin-bottom:12px;font-size:13px;text-align:center;font-weight:700">⚠️ Вы в минусе!</div>' : '';
+    var maxInDisplay = displayPrice(WITHDRAW_MAX_EMERALDS);
     var info = '<div style="background:var(--soft);padding:14px;border-radius:14px;margin-bottom:12px;font-size:13px;color:var(--text2);line-height:1.7">'+
         '💱 Курс: <b>1 <span class="emerald-icon"></span> = 1 ¥</b> · <b>2 <span class="emerald-icon"></span> = 1 €</b><br>'+
         '💸 Комиссия вывода: <b>'+WITHDRAW_FEE_PERCENT+'%</b><br>'+
-        '📊 Максимум вывода: <b>'+WITHDRAW_MAX+' ¥</b>'+
+        '📊 Максимум вывода: <b>'+WITHDRAW_MAX_EMERALDS+' '+emeraldHtml(WITHDRAW_MAX_EMERALDS).replace(/<[^>]*>/g,'')+'</b> ('+getCurrencySymbol()+maxInDisplay.toFixed(2)+')'+
         '</div>';
-    var balDisplay;
-    if(getCurrency() === 'eur'){
-        balDisplay = '<div style="font-size:11px;opacity:.85;margin-top:3px">= '+bal.toFixed(2)+' ¥ = '+emeraldHtml(bal)+'</div>';
-    } else {
-        balDisplay = '<div style="font-size:11px;opacity:.85;margin-top:3px">= '+(bal/EUR_RATE).toFixed(2)+' € = '+emeraldHtml(bal)+'</div>';
-    }
+    var balDisplay = '<div style="font-size:11px;opacity:.85;margin-top:3px">= '+bal.toFixed(2)+' изумрудов</div>';
     document.getElementById('wallet-body').innerHTML=
         warn + info +
         '<div class="balance-card"><div><div style="font-size:12px;opacity:.85;margin-bottom:5px">ZOV Кошелёк</div><div class="balance-value">'+price(bal)+'</div>'+ balDisplay +'</div>'+
@@ -2202,33 +2178,34 @@ function showTopupForm(){
     var label = sym === '€' ? 'Сколько изумрудов? (в €)' : 'Сколько изумрудов? (в ¥)';
     document.getElementById('topup-form').innerHTML=
         '<div class="form-group"><label>'+label+'</label><input type="number" id="topup-amount" placeholder="2" min="0.01" step="0.01" inputmode="decimal"></div>'+
-        '<div style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.5">💡 Поддержка пересчитает в юани по курсу:<br>1 <span class="emerald-icon"></span> = 1 ¥ · 2 <span class="emerald-icon"></span> = 1 €</div>'+
+        '<div style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.5">💡 Поддержка пересчитает в изумруды:<br>1 <span class="emerald-icon"></span> = 1 ¥ · 2 <span class="emerald-icon"></span> = 1 €</div>'+
         '<button class="btn-primary btn-success" onclick="requestTopup()">📨 Запрос поддержке</button>';
 }
 function showWithdrawForm(){
+    var maxInDisplay = displayPrice(WITHDRAW_MAX_EMERALDS);
     document.getElementById('topup-form').innerHTML=
         '<div style="background:var(--soft);padding:14px;border-radius:14px;margin-bottom:12px;font-size:13px;color:var(--text2);text-align:center;line-height:1.6">'+
         '💡 Комиссия: <b>'+WITHDRAW_FEE_PERCENT+'%</b><br>'+
-        '📊 Макс: <b>'+WITHDRAW_MAX+' ¥</b> ('+(WITHDRAW_MAX/EUR_RATE).toFixed(2)+' €)'+
+        '📊 Макс: <b>'+getCurrencySymbol()+maxInDisplay.toFixed(2)+'</b> (10 <span class="emerald-icon"></span>)'+
         '</div>'+
-        '<div class="form-group"><label>Сколько вывести? (¥)</label><input type="number" id="withdraw-amount" placeholder="5" min="1" max="'+WITHDRAW_MAX+'" step="1" inputmode="numeric"></div>'+
+        '<div class="form-group"><label>Сколько вывести? ('+getCurrencySymbol()+')</label><input type="number" id="withdraw-amount" placeholder="'+(maxInDisplay/2).toFixed(2)+'" min="0.01" max="'+maxInDisplay+'" step="0.01" inputmode="decimal"></div>'+
         '<button class="btn-primary btn-success" onclick="requestWithdraw()">📨 Запрос вывода</button>';
 }
 async function requestTopup(){
     var amount = parseFloat(document.getElementById('topup-amount').value);
     if(!amount || amount<=0){ notify('⚠️ Введите число'); return; }
+    var em = toEmeralds(amount);
     var sym = getCurrencySymbol();
-    var cnyAmount = toCny(amount);
     var msgText;
     if(sym === '€'){
-        msgText = '💰 Пополнить на '+amount.toFixed(2)+' € (это '+cnyAmount.toFixed(2)+' ¥ = '+cnyAmount.toFixed(2)+' изумрудов)';
+        msgText = '💰 Пополнить на '+amount.toFixed(2)+' € (это '+em.toFixed(2)+' изумрудов)';
     } else {
-        msgText = '💰 Пополнить на '+amount.toFixed(2)+' ¥ (= '+cnyAmount.toFixed(2)+' изумрудов)';
+        msgText = '💰 Пополнить на '+amount.toFixed(2)+' ¥ (это '+em.toFixed(2)+' изумрудов)';
     }
     var r=await sb.from('messages').insert([{
         ticket_user: supportTicketKey(currentUser),
         author: currentProfile.name, text: msgText,
-        from_support: false, ticket_type: 'topup', amount: cnyAmount,
+        from_support: false, ticket_type: 'topup', amount: em,
         read_by_support: false, read_by_user: true
     }]);
     if(r.error){ notify('❌ '+r.error.message); return; }
@@ -2237,16 +2214,17 @@ async function requestTopup(){
     setTimeout(function(){ openMessages(); }, 400);
 }
 async function requestWithdraw(){
-    var amount = parseFloat(document.getElementById('withdraw-amount').value);
-    if(!amount || amount<=0){ notify('⚠️ Введите число'); return; }
-    if(amount > WITHDRAW_MAX){ notify('❌ Максимум '+WITHDRAW_MAX+' ¥'); return; }
+    var amountDisplay = parseFloat(document.getElementById('withdraw-amount').value);
+    if(!amountDisplay || amountDisplay<=0){ notify('⚠️ Введите число'); return; }
+    var em = toEmeralds(amountDisplay);
+    if(em > WITHDRAW_MAX_EMERALDS){ notify('❌ Максимум '+WITHDRAW_MAX_EMERALDS+' изумрудов'); return; }
     var bal = parseFloat(currentProfile.balance||0);
-    if(bal < amount){ notify('❌ Недостаточно'); return; }
-    var fee = Math.round(amount * WITHDRAW_FEE_PERCENT / 100 * 100) / 100;
+    if(bal < em){ notify('❌ Недостаточно'); return; }
+    var fee = Math.round(em * WITHDRAW_FEE_PERCENT / 100 * 100) / 100;
     var r = await sb.from('messages').insert([{
         ticket_user: supportTicketKey(currentUser),
-        author: currentProfile.name, text: '💸 Вывод '+amount+' ¥ (комиссия '+WITHDRAW_FEE_PERCENT+'% = '+fee+' ¥, к выдаче '+(amount-fee)+' ¥)',
-        from_support: false, ticket_type: 'withdraw', amount: amount,
+        author: currentProfile.name, text: '💸 Вывод '+em.toFixed(2)+' изумрудов (комиссия '+WITHDRAW_FEE_PERCENT+'% = '+fee.toFixed(2)+', к выдаче '+(em-fee).toFixed(2)+')',
+        from_support: false, ticket_type: 'withdraw', amount: em,
         read_by_support: false, read_by_user: true
     }]);
     if(r.error){ notify('❌ '+r.error.message); return; }
@@ -2305,7 +2283,7 @@ function openProduct(id){
           '<span style="font-size:38px;font-weight:900;color:var(--accent)">'+price(finalPrice)+'</span>'+
           '<span style="display:inline-block;margin-left:12px;background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:900">-'+d+'%</span>'
         : '<span style="font-size:38px;font-weight:900;color:var(--accent)">'+price(p.price)+'</span>'+
-          '<div style="font-size:12px;color:var(--text2);margin-top:4px">= '+emeraldHtml(p.price)+' · '+ (getCurrency()==='eur'?p.price.toFixed(2)+' ¥':(p.price/EUR_RATE).toFixed(2)+' €') +'</div>';
+          '<div style="font-size:12px;color:var(--text2);margin-top:4px">= '+emeraldHtml(p.price)+'</div>';
     var outBadge = isOut ? '<div style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:8px 16px;border-radius:14px;font-size:13px;font-weight:800;text-align:center;margin-bottom:16px">🚫 Нет в наличии</div>' : '';
     var muteBadge = sellerMuted ? '<div style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:8px 16px;border-radius:14px;font-size:13px;font-weight:800;text-align:center;margin-bottom:16px">🚫 Продавец замучен</div>' : '';
     var namazPromo = (!currentProfile || !currentProfile.namaz) ? '<div class="namaz-promo-card" onclick="closeModal(\'product-modal\');openNamaz()"><span class="ico">👑</span><div><b>Оформи NAMAZ</b> — фоны, цвета, свои картинки на аватар!</div></div>' : '';
@@ -2506,8 +2484,9 @@ function renderProfileMain(){
         namazSection =
             '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:14px;border:2px dashed var(--accent)"><h3 style="font-size:15px;margin-bottom:10px">👑 NAMAZ: Своя аватарка</h3>'+
                 '<div class="avatar-preview" id="avatar-preview" style="'+(p.avatar_url?'background-image:url('+p.avatar_url+')':'')+'">'+(p.avatar_url?'':p.avatar)+'</div>'+
-                '<input type="file" id="avatar-file" accept="image/*" style="font-size:12px;margin-bottom:8px" onchange="uploadAvatar(event)">'+
-                (p.avatar_url?'<button class="btn-secondary" style="width:100%;font-size:12px;padding:8px" onclick="clearAvatarUrl()">🗑️ Убрать картинку</button>':'')+
+                '<label class="file-upload-btn"><span class="ico">📷</span><span>Загрузить аватар</span><input type="file" id="avatar-file" accept="image/*" onchange="uploadAvatar(event)"></label>'+
+                '<div class="file-upload-hint">PNG, JPG до 2 МБ</div>'+
+                (p.avatar_url?'<button class="btn-secondary" style="width:100%;font-size:12px;padding:8px;margin-top:8px" onclick="clearAvatarUrl()">🗑️ Убрать картинку</button>':'')+
             '</div>'+
             '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:14px;border:2px dashed var(--accent)"><h3 style="font-size:15px;margin-bottom:10px">NAMAZ: Фон профиля</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px">'+pbHtml+'</div></div>'+
             '<div style="margin-bottom:20px;padding:14px;background:var(--soft);border-radius:14px;border:2px dashed var(--accent)"><h3 style="font-size:15px;margin-bottom:10px">NAMAZ: Цвет ника</h3><div style="display:flex;gap:8px;flex-wrap:wrap">'+ncHtml+'</div>'+
@@ -2519,7 +2498,6 @@ function renderProfileMain(){
     }
     var profileBgStyle = (hasNamaz && p.profile_bg) ? 'background:'+p.profile_bg+';background-size:cover;background-position:center;' : '';
     var muteWarning = muted ? '<div style="background:linear-gradient(135deg,#ff6b6b,#c62828);color:#fff;padding:12px;border-radius:14px;margin-bottom:15px;font-size:13px;font-weight:700;text-align:center">🚫 Вы замучены до '+new Date(p.muted_until).toLocaleString()+'<br>Вы не можете выставлять товары и новости</div>' : '';
-    var avDisplay = p.avatar_url && hasNamaz ? '<div class="has-img" style="background:url('+esc(p.avatar_url)+') center/cover"></div>' : p.avatar;
     var avStyleExtra = p.avatar_url && hasNamaz ? 'background-image:url('+esc(p.avatar_url)+');background-size:cover;background-position:center;color:transparent' : '';
     return muteWarning +
         '<div class="profile-header" style="text-align:center;padding:20px 10px;border-bottom:2px solid var(--border);margin-bottom:18px;border-radius:20px;'+profileBgStyle+'">'+
@@ -2558,7 +2536,7 @@ async function uploadAvatar(ev){
         await persistProfile();
         notify('✅ Аватарка обновлена!');
         openProfileTab('main');
-        renderProducts();
+        if(currentPage === 'shop') renderProducts();
     }catch(e){ notify('❌ '+e.message); }
 }
 async function clearAvatarUrl(){
@@ -2567,7 +2545,7 @@ async function clearAvatarUrl(){
     await persistProfile();
     notify('🗑️ Убрано');
     openProfileTab('main');
-    renderProducts();
+    if(currentPage === 'shop') renderProducts();
 }
 
 function renderMyProducts(){
@@ -2653,6 +2631,7 @@ function logout(){
     document.getElementById('products').className = 'products cols-4';
     updateCurrencyBadge();
     refreshNamazPromo();
+    goHome();
     saveLocal(); closeModal('profile-modal');
     notify('👋 Вышли');
 }
@@ -2742,10 +2721,12 @@ async function openModerationPanel(){
         var u = list[i];
         var muted = u.muted_until && new Date(u.muted_until) > new Date();
         var prof = profileFromRow(u);
+        var avBg = u.is_support ? 'linear-gradient(135deg,#3b7bff,#1a5bcc)' : (u.avatar_url && u.namaz ? 'url('+u.avatar_url+') center/cover' : (u.color||'#cb11ab'));
+        var avText = u.is_support ? '👨‍💻' : (u.avatar_url && u.namaz ? '' : (u.avatar||'👤'));
         h += '<div class="seller-card" style="flex-wrap:wrap">'+
-            '<div class="seller-avatar '+(u.is_support?'support-av':'')+'" style="background:'+(u.is_support?'linear-gradient(135deg,#3b7bff,#1a5bcc)':(u.avatar_url && u.namaz ? 'url('+u.avatar_url+') center/cover' : (u.color||'#cb11ab')))+'">'+(u.is_support?'👨‍💻':(u.avatar_url && u.namaz ? '' : (u.avatar||'👤')))+'</div>'+
+            '<div class="seller-avatar '+(u.is_support?'support-av':'')+'" style="background:'+avBg+'">'+avText+'</div>'+
             '<div class="seller-info"><div class="seller-name" style="display:flex;align-items:center;gap:2px;flex-wrap:wrap">'+nickHtml(u.name, prof)+'</div>'+
-            '<div class="seller-bio">Баланс: ¥'+(parseFloat(u.balance)||0).toFixed(2)+(muted?' • 🔇 Замучен до '+new Date(u.muted_until).toLocaleString():'')+'</div></div>'+
+            '<div class="seller-bio">Баланс: '+price(u.balance)+(muted?' • 🔇 Замучен до '+new Date(u.muted_until).toLocaleString():'')+'</div></div>'+
             '<div style="display:flex;gap:4px">'+
                 '<button class="card-action" onclick="openBalanceEditor(\''+esc(u.name)+'\')" title="Баланс" style="background:linear-gradient(135deg,#7cff5c,#3d8a24);color:#fff">💰</button>'+
                 (u.name !== currentUser ? '<button class="card-action danger" onclick="muteUser(\''+esc(u.name)+'\')" title="'+(muted?'Размутить':'Замутить')+'">'+(muted?'🔊':'🔇')+'</button>' : '')+
@@ -2781,7 +2762,7 @@ function openBalanceEditor(name){
     balanceTarget = name;
     document.getElementById('balance-body').innerHTML =
         '<div style="font-size:14px;margin-bottom:12px;color:var(--text)">Игрок: <b>'+esc(name)+'</b></div>'+
-        '<div class="form-group"><label>Новый баланс (¥)</label><input type="number" id="bal-value" step="0.01"></div>'+
+        '<div class="form-group"><label>Новый баланс ('+getCurrencySymbol()+')</label><input type="number" id="bal-value" step="0.01"></div>'+
         '<div class="form-row" style="margin-bottom:15px">'+
             '<button class="btn-primary btn-success" onclick="quickBal(10)">+10</button>'+
             '<button class="btn-primary btn-success" onclick="quickBal(50)">+50</button>'+
@@ -2958,7 +2939,7 @@ function renderAllTickets(){
         if(parsed.type === 'support'){ title = '🛡️ Поддержка: ' + parsed.target; icon = '🛡️'; }
         else if(parsed.type === 'seller'){ title = '🏪 ' + parsed.seller + ' ← ' + (parsed.buyer || '?'); icon = '🏪'; bg = 'var(--accent)'; }
         if(t.type === 'topup'){ icon = '💰'; bg = 'var(--success)'; }
-        if(t.type === 'withdraw'){ icon = '💸'; bg = 'var(--danger)'; if(t.amount) title += ' — '+t.amount+' ¥'; }
+        if(t.type === 'withdraw'){ icon = '💸'; bg = 'var(--danger)'; if(t.amount) title += ' — '+t.amount+' 💎'; }
         var cntHtml = t.count>0 ? ' <span style="color:var(--danger);font-weight:900">('+t.count+')</span>' : '';
         h += '<div class="seller-card" onclick="openTicket(\''+esc(t.key)+'\')">'+
             '<div class="seller-avatar" style="background:'+bg+'">'+icon+'</div>'+
@@ -3063,19 +3044,19 @@ function renderConversation(){
         if(wAmount){
             var fee = Math.round(wAmount * WITHDRAW_FEE_PERCENT / 100 * 100) / 100;
             h += '<div style="padding:15px;background:var(--card);border-radius:14px;border:2px dashed var(--danger);margin-top:10px">';
-            h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px">💸 '+esc(parsed.target)+' → вывод '+wAmount+' ¥</div>';
-            h += '<div style="font-size:12px;color:var(--text2);margin-bottom:8px">Комиссия '+WITHDRAW_FEE_PERCENT+'% = '+fee+' ¥ → к выдаче '+(wAmount-fee)+' ¥</div>';
-            h += '<button class="action-btn give" onclick="processWithdraw(\''+esc(parsed.target)+'\','+wAmount+')">✅ Выдать '+(wAmount-fee)+' ¥</button>';
+            h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px">💸 '+esc(parsed.target)+' → вывод '+wAmount+' '+emeraldHtml(wAmount)+'</div>';
+            h += '<div style="font-size:12px;color:var(--text2);margin-bottom:8px">Комиссия '+WITHDRAW_FEE_PERCENT+'% = '+fee+' → к выдаче '+(wAmount-fee).toFixed(2)+'</div>';
+            h += '<button class="action-btn give" onclick="processWithdraw(\''+esc(parsed.target)+'\','+wAmount+')">✅ Выдать '+(wAmount-fee).toFixed(2)+'</button>';
             h += '<button class="action-btn take" onclick="cancelWithdraw(\''+esc(parsed.target)+'\')">❌ Отклонить</button></div>';
         } else {
             h += '<div style="padding:15px;background:var(--card);border-radius:14px;border:2px dashed var(--success);margin-top:10px">';
             if(amount){
-                h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px">💰 '+esc(parsed.target)+' → '+amount+' ¥</div>'+
-                     '<button class="action-btn give" onclick="giveBalance(\''+esc(parsed.target)+'\','+amount+')">✅ Выдать '+amount+' ¥</button>'+
+                h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px">💰 '+esc(parsed.target)+' → '+amount+' '+emeraldHtml(amount)+'</div>'+
+                     '<button class="action-btn give" onclick="giveBalance(\''+esc(parsed.target)+'\','+amount+')">✅ Выдать '+amount+'</button>'+
                      '<button class="action-btn take" onclick="takeBalance(\''+esc(parsed.target)+'\','+amount+')">💸 Забрать</button>';
             } else {
                 h += '<div style="font-size:14px;font-weight:800;margin-bottom:8px">💰 Баланс '+esc(parsed.target)+'</div>'+
-                     '<div class="form-group" style="margin-bottom:8px"><input type="number" id="sup-amount" placeholder="Сумма (¥)" min="0.01" step="0.01" inputmode="decimal"></div>'+
+                     '<div class="form-group" style="margin-bottom:8px"><input type="number" id="sup-amount" placeholder="Сумма (в изумрудах)" min="0.01" step="0.01" inputmode="decimal"></div>'+
                      '<button class="action-btn give" onclick="supportGive(\''+esc(parsed.target)+'\')">✅ Выдать</button>'+
                      '<button class="action-btn take" onclick="supportTake(\''+esc(parsed.target)+'\')">💸 Забрать</button>'+
                      '<button class="action-btn ready" style="margin-top:8px" onclick="openBalanceEditor(\''+esc(parsed.target)+'\')">⚙️ Установить баланс</button>';
@@ -3105,7 +3086,7 @@ async function giveBalance(userName, amount){
     if(r.error){ notify('❌ '+r.error.message); return; }
     invalidateProfileCache(userName);
     await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
-    notify('✅ Выдано '+amount+' ¥');
+    notify('✅ Выдано '+amount+' изумрудов');
     fxCoinDrop(window.innerWidth/2, window.innerHeight/2);
     await loadRichestPlayer(); await refreshMessages();
     currentTicketId = null; openMessages(); checkUnread();
@@ -3119,7 +3100,7 @@ async function takeBalance(userName, amount){
     if(r.error){ notify('❌ '+r.error.message); return; }
     invalidateProfileCache(userName);
     await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
-    notify('✅ Списано '+amount+' ¥');
+    notify('✅ Списано '+amount+' изумрудов');
     fxCoinFly(window.innerWidth/2, window.innerHeight/2);
     await loadRichestPlayer(); await refreshMessages();
     currentTicketId = null; openMessages(); checkUnread();
@@ -3135,7 +3116,7 @@ async function processWithdraw(userName, amount){
     invalidateProfileCache(userName);
     await sb.from('messages').delete().eq('ticket_user', supportTicketKey(userName));
     var fee = Math.round(amount * WITHDRAW_FEE_PERCENT / 100 * 100) / 100;
-    notify('✅ Вывод обработан. Комиссия '+fee+' ¥');
+    notify('✅ Вывод обработан. Комиссия '+fee);
     fxSuccess('💸');
     await refreshMessages();
     currentTicketId = null; openMessages(); checkUnread();
@@ -3217,7 +3198,6 @@ async function loadNews(){
         renderNews();
     }catch(e){ list.innerHTML = '<div class="news-empty">❌ '+e.message+'</div>'; }
 }
-
 async function preloadNewsAuthors(){
     if(!news.length) return;
     var names = {};
@@ -3233,7 +3213,6 @@ async function preloadNewsAuthors(){
         }
     }catch(e){ console.warn(e); }
 }
-
 function renderNews(){
     var list = document.getElementById('news-list');
     var now = new Date();
@@ -3299,12 +3278,10 @@ function renderNews(){
     }
     list.innerHTML = h;
 }
-
 function viewImage(url){
     var w = window.open('');
     w.document.write('<body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh"><img src="'+url+'" style="max-width:100%;max-height:100vh"></body>');
 }
-
 async function sendNewsComment(newsId){
     if(!currentUser){ notify('⚠️ Войдите'); return; }
     if(isSellerMutedFromProf(currentProfile)){ notify('🚫 Вы замучены'); return; }
@@ -3317,7 +3294,6 @@ async function sendNewsComment(newsId){
     inp.value = '';
     await loadNews();
 }
-
 async function deleteNews(newsId){
     if(!confirm('🗑️ Удалить эту новость?')) return;
     var r = await sb.from('news').delete().eq('id', newsId);
@@ -3326,27 +3302,24 @@ async function deleteNews(newsId){
     notify('🗑️ Удалено');
     await loadNews();
 }
-
 function pickNewsEmoji(e, el){
     document.getElementById('an-emoji').value = e;
     var o = document.querySelectorAll('#add-news-modal .emoji-option');
     for(var i=0;i<o.length;i++) o[i].classList.remove('selected');
     el.classList.add('selected');
 }
-
 function pickNewsDuration(h, el){
     newsDurationPick = h;
     var btns = document.querySelectorAll('#an-duration-group .col-btn');
     for(var i=0;i<btns.length;i++) btns[i].classList.remove('active');
     el.classList.add('active');
 }
-
 async function handleNewsImages(ev){
     var files = ev.target.files;
     if(!files || !files.length) return;
     var limit = (currentProfile && currentProfile.namaz) ? 6 : 3;
     if(newsImages.length + files.length > limit){ notify('⚠️ Максимум '+limit+' картинок'); return; }
-    notify('⏳ Загрузка картинок...');
+    notify('⏳ Загрузка...');
     for(var i=0;i<files.length;i++){
         var file = files[i];
         if(file.size > 3*1024*1024){ notify('❌ Файл слишком большой: '+file.name); continue; }
@@ -3371,17 +3344,18 @@ function renderNewsImagePreviews(){
         h += '<div style="position:relative"><img src="'+newsImages[i]+'" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px"><button onclick="removeNewsImage('+i+')" style="position:absolute;top:2px;right:2px;background:rgba(255,59,59,.9);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer">×</button></div>';
     }
     prev.innerHTML = h;
+    var el = document.getElementById('an-upload-text');
+    var limit = (currentProfile && currentProfile.namaz) ? 6 : 3;
+    if(el) el.textContent = newsImages.length ? 'Добавить ещё ('+newsImages.length+'/'+limit+')' : 'Выбрать картинки';
 }
 function removeNewsImage(i){
     newsImages.splice(i,1);
     renderNewsImagePreviews();
 }
-
 function openAddNews(){
     if(!currentUser){ openModal('login-modal'); notify('⚠️ Войдите'); return; }
     if(isSellerMutedFromProf(currentProfile)){ notify('🚫 Вы замучены и не можете публиковать новости'); return; }
     var hasNamaz = currentProfile.namaz;
-    // Лимит: 3 обычных, 6 NAMAZ за 24ч
     var limit = hasNamaz ? 6 : 3;
     (async function(){
         var since = new Date(Date.now() - 24*3600*1000).toISOString();
@@ -3401,6 +3375,7 @@ function openAddNews(){
         document.getElementById('an-images').value = '';
         document.getElementById('an-images-preview').innerHTML = '';
         document.getElementById('an-img-limit').textContent = '(максимум '+(hasNamaz?6:3)+')';
+        document.getElementById('an-upload-text').textContent = 'Выбрать картинки';
         var durGroup = document.getElementById('an-duration-group');
         var namazSection = document.getElementById('an-namaz-section');
         if(hasNamaz){
@@ -3418,7 +3393,6 @@ function openAddNews(){
         openModal('add-news-modal');
     })();
 }
-
 function renderNewsBgPicker(){
     var bgPicker = document.getElementById('an-bg-picker');
     if(!bgPicker) return;
@@ -3447,7 +3421,6 @@ function pickNewsBg(v, el){
     for(var i=0;i<items.length;i++) items[i].style.borderColor = 'var(--border)';
     el.style.borderColor = 'var(--accent)';
 }
-
 function refreshNewsNamePicker(){
     var colorOpts = ['','#ffffff','#000000','#ff3b3b','#4ba32e','#3b7bff','#a13bff','#ffb800','#ff6b00','#ff00ff','#00ff88'];
     var c1 = '';
@@ -3466,7 +3439,7 @@ function refreshNewsNamePicker(){
     var eh = '';
     for(var k4=0;k4<effects.length;k4++){
         var e = effects[k4];
-        eh += '<button onclick="anNameEffect=\''+e.v+'\';refreshNewsNamePicker();" type="button" style="padding:6px 14px;border-radius:20px;border:2px solid '+(anNameEffect===e.v?'var(--accent)':'var(--border)')+';background:'+(anNameEffect===e.v?'var(--accent-l)':'var(--input)')+';color:var(--text);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">'+e.n+'</button>';
+        eh += '<button type="button" onclick="anNameEffect=\''+e.v+'\';refreshNewsNamePicker();" style="padding:6px 14px;border-radius:20px;border:2px solid '+(anNameEffect===e.v?'var(--accent)':'var(--border)')+';background:'+(anNameEffect===e.v?'var(--accent-l)':'var(--input)')+';color:var(--text);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">'+e.n+'</button>';
     }
     document.getElementById('an-name-effects').innerHTML = eh;
     updateNewsNamePreview();
@@ -3498,7 +3471,6 @@ function renderNewsTextColor(){
     var el = document.getElementById('an-text-color');
     if(el) el.innerHTML = h;
 }
-
 async function saveNews(){
     var title = document.getElementById('an-title-input').value.trim();
     var text = document.getElementById('an-text').value.trim();
@@ -3525,11 +3497,6 @@ async function saveNews(){
     notify('✅ Новость опубликована!');
     closeModal('add-news-modal');
     await loadNews();
-}
-
-/* ==================== ЧТО НОВОГО ==================== */
-function openWhatsNew(){
-    openModal('whatsnew-modal');
 }
 
 /* ==================== ТЕМА ==================== */
@@ -3598,6 +3565,8 @@ async function boot(){
     if(currentTheme && currentTheme!=='light') document.body.className='theme-'+currentTheme;
     var to=document.querySelector('[data-t="'+currentTheme+'"]');
     if(to) to.classList.add('active');
+
+    renderEmojiPicker();
 
     if(currentUser && sb){
         var p = await getProfileFromDB(currentUser);
